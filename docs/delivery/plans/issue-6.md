@@ -1,5 +1,7 @@
 # Issue 6: Repository attention
 
+Status: archived in place for integration on 2026-10-19. All planned work is complete; Juan approved PR #7 and explicitly requested merge and retrospective. The accepted product baseline is already applied and CHG-INITIAL is archived; no separate specification fold is required. This path is retained to preserve existing links.
+
 ## Scope and authority
 
 Implement CHG-INITIAL and ADR-0001, approved by Juan on 2026-10-19. Juan additionally approved newest-release-target per mapped workflow with latest retry; unknown targets remain incomplete. Preserve owner merge approval. [Issue #6](https://github.com/juangcarmona/sofa/issues/6).
@@ -35,7 +37,7 @@ Mappings came from live label/workflow APIs and workflow source. No labels insta
 - [x] Add deterministic domain, adapter, concurrency and web request tests.
 - [x] Extend CI/verify, run full checks and exercise runtime through Aspire.
 - [x] Obtain independent Done audit; corrections approved at `3ca7c95`.
-- [ ] Confirm final-head CI and obtain Juan’s protected judgement and merge approval (tracked on PR #7).
+- [x] Confirm final-head CI and obtain Juan’s protected judgement and merge approval (PR #7; approval in conversation on 2026-10-19).
 
 ## Verification and Definition of Done
 
