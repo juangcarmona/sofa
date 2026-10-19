@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SoFa.AppHost/SoFa.AppHost.csproj" />
+    <Project Path="src/SoFa.Attention/SoFa.Attention.csproj" />
+    <Project Path="src/SoFa.GitHub/SoFa.GitHub.csproj" />
+    <Project Path="src/SoFa.Web/SoFa.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SoFa.Tests/SoFa.Tests.csproj" />
+  </Folder>
+</Solution>
