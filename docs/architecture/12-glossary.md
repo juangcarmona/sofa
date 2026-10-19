@@ -16,5 +16,4 @@ description: Domain and architecture terminology used in this documentation.
 | AppHost | Aspire composition program that launches local resources |
 | Coverage outcome | Collection result distinguishing inspected, incomplete, unavailable, and unconfigured evidence |
 
-
 <!-- pdac:cite id="TERM-ATTENTION-ITEM" digest="sha256:6eac978cb900356079ea11dad97b876d8f92024c6213f82379da218ebd6b68b4" -->

@@ -24,5 +24,4 @@ Bind the application and dashboard to loopback, retain Aspire dashboard authenti
 
 This realizes the accepted [Bastion constraint](../product/model/requirements/constraints/con-bastion.md). Aspire’s [AppHost configuration](https://learn.microsoft.com/en-us/dotnet/aspire/app-host/configuration) and [dashboard](https://learn.microsoft.com/dotnet/aspire/dashboard) document orchestration and telemetry capabilities; they do not prove this repository has configured them.
 
-
 <!-- pdac:cite id="CON-BASTION" digest="sha256:9272e2603ef2cd419ca1389de021c86b4a2f4311fa5312eb4c12c8d7d6d25f58" -->

@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-Implement CHG-INITIAL and ADR-0001, approved by Juan on 2026-10-19. Juan additionally approved newest-release-target per mapped workflow with latest retry; unknown targets remain incomplete. Preserve owner merge approval. Issue: https://github.com/juangcarmona/sofa/issues/6.
+Implement CHG-INITIAL and ADR-0001, approved by Juan on 2026-10-19. Juan additionally approved newest-release-target per mapped workflow with latest retry; unknown targets remain incomplete. Preserve owner merge approval. [Issue #6](https://github.com/juangcarmona/sofa/issues/6).
 
 ## Design
 
@@ -17,7 +17,7 @@ GitHub reads use bounded pagination and concurrency, per-request timeouts, bound
 | Repo | Blocker | Owner review | Release workflow | Target |
 | --- | --- | --- | --- | --- |
 | arcshape | Unconfigured | Unconfigured | publish.yml | published release tag; identify from release event/run metadata, otherwise incomplete |
-| productshape | Unconfigured | Unconfigured | release.yml | release train branch and commit; newest run target |
+| productshape | Unconfigured | Unconfigured | release.yml | actual publication revision is not reliably exposed (workflow may checkout newer main); incomplete until proven |
 | domusmind | blocked | owner-review | release.yml | dispatch version not exposed by normal run metadata; incomplete until reliably identified |
 | raccord | status:blocked | Unconfigured | release.yml | tag from workflow run metadata, otherwise incomplete |
 | sofa | Unconfigured | Unconfigured | Unconfigured | none |
@@ -40,7 +40,7 @@ Mappings came from live label/workflow APIs and workflow source. No labels insta
 
 Exercise authored PRs with no requests and duplicate signals; draft/closed exclusion; old revisions and latest retries; pending/skipped/cancelled checks; explicit blockers; newest release target; missing mapping and ambiguous target. Adapter fixtures cover HTTP failures, rate limits, pagination caps, exact source links, changed heads and partial responses. Service checks cover single-flight, isolated repository failure, atomic replacement and restart empty state. Web tests cover antiforgery, escaped content, invalid external links and all coverage states.
 
-Run the existing npm verification plus dotnet restore/build/test and format verification; CI installs the pinned SDK. Runtime: launch AppHost, load page, refresh actual five repos using existing authorized access, inspect Aspire logs/traces and capture sanitized local evidence. No credentials in evidence. Tests will use fixtures; live reads are supplemental.
+Run the existing npm verification plus dotnet restore/build/test and format verification; CI installs the pinned SDK. Runtime: launch AppHost, load page, refresh actual five repos using existing authorized access, inspect Aspire logs/traces and capture sanitized local evidence. No credentials in evidence. Tests will use fixtures; live reads are supplemental. Add a fixture where the dispatched ProductShape revision differs from the revision checked out for publication: run head_sha alone must not classify a target. Inject a distinctive synthetic credential and assert its absence from rendered responses, captured logs, and exported telemetry, including failure paths.
 
 DoD dimensions: acceptance coverage, completeness, tests, deterministic checks, security, architecture conformance, documentation, product consistency, evidence, human review, and known limitations. Independent review prepares all judgement findings; none substitutes for Juan’s protected final judgement/merge gate. No deployment beyond local verification.
 

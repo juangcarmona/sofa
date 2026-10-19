@@ -10,10 +10,27 @@
   "maxCorrectionRounds": 3,
   "status": "running",
   "stages": [],
-  "reviews": [],
-  "corrections": [],
+  "reviews": [
+    {
+      "reviewerModel": "gpt-6.1-sol",
+      "kind": "plan",
+      "commit": "267ba8c",
+      "decision": "request-changes",
+      "findings": [
+        "ProductShape run revision may not equal actual publication target; require provenance or incomplete coverage.",
+        "Add explicit synthetic credential test across output and telemetry."
+      ]
+    }
+  ],
+  "corrections": [
+    {
+      "gate": "plan",
+      "round": 1,
+      "changes": "Ambiguous ProductShape targets incomplete; add dispatch/checkout mismatch fixture and credential negative test."
+    }
+  ],
   "stopReason": null,
-  "pullRequest": null,
+  "pullRequest": "https://github.com/juangcarmona/sofa/pull/7",
   "links": [
     "https://github.com/juangcarmona/sofa/issues/6"
   ]

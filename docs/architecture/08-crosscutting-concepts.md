@@ -30,5 +30,4 @@ Use standard .NET OpenTelemetry configuration and Aspire’s [service defaults](
 
 This realizes the accepted [collection visibility requirement](../product/model/requirements/quality/qr-collection-visibility.md). No telemetry backend or long-term retention service is added.
 
-
 <!-- pdac:cite id="QR-COLLECTION-VISIBILITY" digest="sha256:7fab4b62a3d1df9ae9aedf6f30fbedae3e12e5bda23ad56add997cde4aa2b29f" -->
