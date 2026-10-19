@@ -18,6 +18,14 @@ Read [README.md](README.md), [docs/README.md](docs/README.md), and [docs/enginee
 - Keep generated ProductShape, ArcShape, and shared skill files under their installers' ownership. Update them through the relevant CLI or installer.
 - Do not choose an application framework, runtime, domain model, or deployment shape until product intent and architecture have been established.
 
+## Architecture skill ownership
+
+- Use `adr` to create and maintain decision records. It owns decision authority, ADR status and history, numbering and indexing, and the maintainer review boundary.
+- Use `architecture-docs` to maintain the common arc42 views. It owns evidence classification, product-intent boundaries, architecture citations, migration, and review of architecture claims.
+- Use `arcshape-adr` only for ArcShape-specific ADR extensions. It must follow `adr` when both skills are installed; its standalone instructions apply when the shared skill is unavailable.
+- Use `arcshape-architecture` for ArcShape evidence sessions, selective arc42 reference guidance, CLI validation, and reader builds. Follow `architecture-docs` for common documentation policy when both are installed.
+- Keep these skills complementary: architecture documentation describes the realized system, while ADRs preserve the rationale for durable choices. A proposed ADR is not current architecture until accepted.
+
 ## Validation
 
 Use `npm run verify` for the scaffold's deterministic checks. Update it and the CI workflow when new build, test, lint, or security tools are adopted. Report checks actually run and any known limitations.
