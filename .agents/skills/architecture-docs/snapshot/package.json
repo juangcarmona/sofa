@@ -1,0 +1,25 @@
+{
+  "name": "arc42-snapshot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Generate a self-contained, navigable HTML wiki page from an arc42 documentation folder. Bundled with the architecture-docs skill.",
+  "license": "MIT",
+  "bin": {
+    "arc42-snapshot": "./generate.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@mermaid-js/mermaid-cli": "12.0.0",
+    "dompurify": "3.4.16",
+    "github-slugger": "2.0.0",
+    "js-yaml": "5.4.3",
+    "jsdom": "27.4.0",
+    "marked": "15.0.12"
+  },
+  "scripts": {
+    "test": "node --test ./test/*.test.mjs"
+  }
+}
