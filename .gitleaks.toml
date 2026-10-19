@@ -1,0 +1,19 @@
+title = "SoFa secret scanning"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Dependency caches, generated ProductShape outputs, and Git internals"
+paths = [
+  '''(^|[/\\])node_modules([/\\]|$)''',
+  '''(^|[/\\])\.product[/\\](generated|cache)([/\\]|$)''',
+  '''(^|[/\\])\.git([/\\]|$)''',
+]
+
+[[allowlists]]
+description = "ArcShape checks the literal arc42-section metadata name in its validator"
+targetRules = ["generic-api-key"]
+regexTarget = "line"
+regexes = [ '''key === 'arc42-section''' ]
+paths = [ '''(^|[/\\])\.agents[/\\]skills[/\\]architecture-docs[/\\]snapshot[/\\]loadDocs\.mjs$''' ]

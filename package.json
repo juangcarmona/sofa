@@ -1,0 +1,40 @@
+{
+  "name": "sofa",
+  "version": "0.0.0",
+  "description": "SoFa — my software factory.",
+  "scripts": {
+    "prepare": "husky",
+    "test": "node --test",
+    "check:branch": "node scripts/check-branch-name.mjs",
+    "lint:docs": "markdownlint-cli2 \"**/*.md\"",
+    "security:check": "node src/tooling/security/check-secrets.mjs",
+    "product:validate": "prodshape validate",
+    "product:doctor": "prodshape doctor",
+    "product:integrity": "prodshape integration update --check",
+    "architecture:check": "arcshape validate --links",
+    "verify": "npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juangcarmona/sofa.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/juangcarmona/sofa/issues"
+  },
+  "homepage": "https://github.com/juangcarmona/sofa#readme",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "devDependencies": {
+    "@arcshape/cli": "0.1.1",
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
+    "@prodshape/cli": "0.22.0",
+    "fflate": "0.8.3",
+    "husky": "9.1.7",
+    "markdownlint-cli2": "0.23.3"
+  }
+}
