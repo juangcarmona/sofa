@@ -26,4 +26,13 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - name: Check branch and commit conventions
+        if: github.event_name == 'pull_request'
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          npm run check:branch -- "$BRANCH_NAME"
+          npx --no -- commitlint --from "$BASE_SHA" --to "$HEAD_SHA" --verbose
       - run: npm run verify

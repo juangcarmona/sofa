@@ -139,6 +139,14 @@ Invoke `/agentic-sdlc:ff <work-item-id>` in Claude Code or `ff <work-item-id>` i
 
 `/ff` may prepare and update a PR, push its branch, and merge only when every configured gate passes and the forge permits it. The routine PR review can be performed by the configured independent reviewer; owner-only decisions and deployment still stop automation.
 
+## Branch and commit conventions
+
+Create issue-linked branches as `<type>/<issue-number>-<kebab-case-slug>`, for example `feat/47-export-report` or `fix/183-session-resume`. Allowed types are `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `build`, `ci`, `perf`, and `revert`. Do not use a tool or agent name as a branch prefix.
+
+Use Conventional Commit messages in the form `<type>(<optional-scope>): <description>`. Husky runs commitlint for each commit and validates the branch before push. CI repeats both checks for pull requests because local hooks can be bypassed. Pull requests must link their issue with `Closes #<number>` in the body.
+
+The `verify` CI check reports violations. It is not a merge gate until GitHub requires that check in the repository's ruleset; this repository currently cannot expose branch protection settings through its GitHub plan.
+
 ## Work in progress
 
 **WIP cap**: 3 · **Query used at pickup**: `gh issue list --label "status:in-progress" --state open` + `gh issue list --label "status:in-review" --state open` · **Sprint commitment**: Not used · **Board**: GitHub Issues with `status:` labels; no separate board is part of this scaffold. Column limits are not set by any tool; the WIP cap is enforced by the `wip-query` role at pickup.
