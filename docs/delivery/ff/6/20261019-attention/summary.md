@@ -49,3 +49,9 @@ Independent reviewer gpt-6.1-sol approved the implementation at `3ca7c95` after 
 | Human review and known limitations | Juan’s final judgement and merge approval pending; target limitations are explicit |
 
 FF stops awaiting integration. No merge, deployment, issue closure, or retrospective has been performed. The application session used for verification remains local; it is not a boot service. No new workflow conventions were installed in the five monitored repositories.
+
+## Integration and retrospective completion — 2026-10-19
+
+This completion annotation supersedes the historical awaiting-integration status above. Juan explicitly approved PR #7, merge, issue closure and retrospective. A fresh Done audit passed all eleven dimensions at `434bfed` and rechecked the archive-only final head `0780580`; final PR CI passed. PR #7 merged as `dcb0d6459ba34a59e6eff7cf9d1945786c0cafbe`. Issue #6 is closed with `status:done`.
+
+The independent gpt-6.1-sol reviewer approved the LAN follow-up; the integration audit confirmed the final documentation head. The [retrospective](../../../../reviews/issue-6.md) records post-merge CI, lessons and unavailable effort figures. The existing Bastion Aspire session is retained; the page responds through the configured LAN interface. No worktree containing the running process was removed and no boot-service claim is made.

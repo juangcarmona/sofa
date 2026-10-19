@@ -8,7 +8,7 @@
   "executorModel": "gpt-6-astra",
   "reviewerModel": "gpt-6.1-sol",
   "maxCorrectionRounds": 3,
-  "status": "awaiting-integration",
+  "status": "complete",
   "stages": [
     {
       "name": "refine",
@@ -24,6 +24,16 @@
       "name": "implement",
       "result": "awaiting-owner-review",
       "outputCommit": "3ca7c95"
+    },
+    {
+      "name": "integrate",
+      "result": "merged",
+      "outputCommit": "dcb0d6459ba34a59e6eff7cf9d1945786c0cafbe"
+    },
+    {
+      "name": "review",
+      "result": "recorded",
+      "evidence": "docs/reviews/issue-6.md"
     }
   ],
   "reviews": [
@@ -76,9 +86,18 @@
       "changes": "Retain partial observations; bounded failure enums propagate to snapshots and traces; add regression fixtures and telemetry assertion."
     }
   ],
-  "stopReason": "Implementation review passed; Juan must decide protected DoD judgement items and approve merge. Final-head CI must also pass.",
+  "stopReason": null,
   "pullRequest": "https://github.com/juangcarmona/sofa/pull/7",
   "links": [
     "https://github.com/juangcarmona/sofa/issues/6"
-  ]
+  ],
+  "completion": {
+    "mergeCommit": "dcb0d6459ba34a59e6eff7cf9d1945786c0cafbe",
+    "approval": "Juan explicitly approved PR #7, merge, issue closure and retrospective in conversation on 2026-10-19",
+    "finalReviewedHead": "078058094a5fa0f49fdc07dd8111c5ebb6ab47bd",
+    "finalPrCi": "https://github.com/juangcarmona/sofa/actions/runs/39262037959",
+    "mainCi": "https://github.com/juangcarmona/sofa/actions/runs/39262357315",
+    "retrospective": "docs/reviews/issue-6.md",
+    "issueState": "closed; status:done"
+  }
 }
