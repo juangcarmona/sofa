@@ -81,6 +81,7 @@ public class WebTests
     provider.ForceFlush();
     Assert.Contains("Unavailable", html);
     Assert.NotEmpty(exporter.Exported);
+    Assert.Contains(exporter.Exported, x => x.Contains("AccessDeniedOrRateLimited"));
     Assert.Contains(logs.Messages, x => x.Contains("refresh completed"));
     Assert.DoesNotContain(marker, html);
     Assert.DoesNotContain(marker, string.Join("\n", logs.Messages));

@@ -73,12 +73,14 @@ public sealed class AttentionService(IEvidenceSource source, IReadOnlyList<Repos
     {
       activity?.SetStatus(ActivityStatusCode.Error, "collection_unavailable");
       evidence = new(mapping.Name, Array.AsReadOnly(Enum.GetValues<Category>()
-          .Select(c => new CategoryEvidence(c, Coverage.Unavailable, "Collection unavailable or timed out.", [])).ToArray()));
+          .Select(c => new CategoryEvidence(c, Coverage.Unavailable, "Collection unavailable or timed out.", [], FailureReason.SourceUnavailable)).ToArray()));
     }
     var results = evidence.Categories.Select(c => AttentionRules.Classify(c, owner)).ToArray();
     foreach (var result in results)
     {
       activity?.SetTag("coverage." + result.Category.ToString().ToLowerInvariant(), result.Coverage.ToString());
+      if (result.FailureReason != FailureReason.None)
+        activity?.SetTag("failure." + result.Category.ToString().ToLowerInvariant(), result.FailureReason.ToString());
       Outcomes.Add(1, new("repository", mapping.Name), new("category", result.Category.ToString()),
           new("outcome", result.Coverage.ToString()));
     }

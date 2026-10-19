@@ -18,9 +18,9 @@ public class GitHubTests
   }
   internal static HttpResponseMessage Json(object value, HttpStatusCode status = HttpStatusCode.OK) =>
       new(status) { Content = new StringContent(JsonSerializer.Serialize(value)) };
-  private static object Pr(string sha = "head") => new
+  private static object Pr(string sha = "head", int number = 1) => new
   {
-    number = 1,
+    number,
     title = "A PR",
     html_url = "https://github.com/a/b/pull/1",
     updated_at = "2026-10-19T10:00:00Z",
@@ -104,6 +104,42 @@ public class GitHubTests
     var evidence = await source.CollectAsync(new("a/b"), default);
     Assert.Equal(Coverage.Unavailable, evidence.Categories.Single(c => c.Category == Category.Approval).Coverage);
     Assert.DoesNotContain("credential-marker", JsonSerializer.Serialize(evidence));
+  }
+
+  [Fact]
+  public async Task LaterPrTimeoutRetainsAlreadyValidatedFailure()
+  {
+    var source = Source(r =>
+    {
+      var path = r.RequestUri!.AbsolutePath;
+      if (path.EndsWith("/pulls")) return Json(new[] { Pr(), Pr(number: 2) });
+      if (path.EndsWith("/pulls/2")) throw new OperationCanceledException("synthetic timeout");
+      if (path.EndsWith("/pulls/1")) return Json(Pr());
+      if (path.EndsWith("/check-runs")) return Json(new { check_runs = new[] { new { id = 10, name = "build", status = "completed", conclusion = "failure", head_sha = "head", app = new { id = 1 }, html_url = "https://github.com/a/b/actions/runs/10", completed_at = "2026-10-19T10:00:00Z" } } });
+      return Json(Array.Empty<object>());
+    });
+    var evidence = await source.CollectAsync(new("a/b"), default);
+    var checks = evidence.Categories.Single(c => c.Category == Category.Checks);
+    Assert.Equal(Coverage.Incomplete, checks.Coverage);
+    Assert.Equal(FailureReason.Timeout, checks.FailureReason);
+    Assert.Single(AttentionRules.Classify(checks, "juangcarmona").Findings);
+  }
+
+  [Fact]
+  public async Task PageTwoFailureRetainsObservedApprovalFindings()
+  {
+    var source = Source(r =>
+    {
+      if (r.RequestUri!.AbsolutePath.EndsWith("/pulls"))
+        return r.RequestUri.Query.Contains("page=2") ? Json(new { }, HttpStatusCode.Forbidden)
+          : Json(Enumerable.Range(1, 100).Select(_ => Pr()).ToArray());
+      return Json(new { }, HttpStatusCode.Forbidden);
+    });
+    var evidence = await source.CollectAsync(new("a/b"), default);
+    var approval = evidence.Categories.Single(c => c.Category == Category.Approval);
+    Assert.Equal(Coverage.Incomplete, approval.Coverage);
+    Assert.Equal(FailureReason.AccessDeniedOrRateLimited, approval.FailureReason);
+    Assert.Single(AttentionRules.Classify(approval, "juangcarmona").Findings);
   }
 
   [Fact]

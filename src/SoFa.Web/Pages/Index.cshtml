@@ -32,6 +32,7 @@
                     <article>
                         <h3>@category.Category <span class="badge @category.Coverage.ToString().ToLowerInvariant()">@category.Coverage</span></h3>
                         <p class="muted">@category.Detail</p>
+                        @if (category.FailureReason != FailureReason.None) { <p class="muted">Collection reason: @category.FailureReason</p> }
                         @if (category.Findings.Count == 0)
                         {
                             <p>@(category.Coverage == Coverage.Complete ? "No matching attention items in the inspected evidence." : "No matching findings available. Coverage above limits what can be concluded.")</p>

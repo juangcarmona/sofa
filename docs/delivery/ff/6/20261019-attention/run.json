@@ -42,6 +42,17 @@
       "commit": "cda9894",
       "decision": "approve",
       "findings": []
+    },
+    {
+      "reviewerModel": "gpt-6.1-sol",
+      "kind": "done",
+      "commit": "37ed98f",
+      "decision": "request-changes",
+      "findings": [
+        "Retain earlier validated checks on later PR transport timeout.",
+        "Retain observed approval/blocker pages when pagination becomes incomplete.",
+        "Include sanitized failure-reason codes in telemetry."
+      ]
     }
   ],
   "corrections": [
@@ -49,6 +60,11 @@
       "gate": "plan",
       "round": 1,
       "changes": "Ambiguous ProductShape targets incomplete; add dispatch/checkout mismatch fixture and credential negative test."
+    },
+    {
+      "gate": "done",
+      "round": 1,
+      "changes": "Retain partial observations; bounded failure enums propagate to snapshots and traces; add regression fixtures and telemetry assertion."
     }
   ],
   "stopReason": null,

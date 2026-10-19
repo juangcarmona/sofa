@@ -1,6 +1,7 @@
 namespace SoFa.Attention;
 
 public enum Category { Checks, Approval, Blockers, Releases }
+public enum FailureReason { None, AccessDeniedOrRateLimited, Timeout, Transport, MalformedEvidence, PaginationLimit, RevisionChanged, TargetUnknown, SourceUnavailable }
 public enum Coverage { Complete, Pending, Incomplete, Unavailable, Unconfigured }
 
 public sealed record RepositoryMapping(string Name, string? BlockerLabel = null,
@@ -12,11 +13,11 @@ public sealed record Observation(string Id, string Title, string Url, DateTimeOf
     bool IsDraft = false, bool IsOpen = true, bool ExplicitBlock = false, string Target = "");
 
 public sealed record CategoryEvidence(Category Category, Coverage Coverage, string Detail,
-    IReadOnlyList<Observation> Observations);
+    IReadOnlyList<Observation> Observations, FailureReason FailureReason = FailureReason.None);
 public sealed record RepositoryEvidence(string Repository, IReadOnlyList<CategoryEvidence> Categories);
 public sealed record Finding(Category Category, string Reason, Observation Evidence);
 public sealed record CategoryResult(Category Category, Coverage Coverage, string Detail,
-    IReadOnlyList<Finding> Findings, IReadOnlyList<Observation> Observations);
+    IReadOnlyList<Finding> Findings, IReadOnlyList<Observation> Observations, FailureReason FailureReason = FailureReason.None);
 public sealed record RepositoryResult(string Repository, IReadOnlyList<CategoryResult> Categories);
 public sealed record AttentionSnapshot(DateTimeOffset StartedAt, DateTimeOffset CompletedAt,
     IReadOnlyList<RepositoryResult> Repositories);
@@ -52,7 +53,7 @@ public static class AttentionRules
     if (coverage == Coverage.Complete && evidence.Category is Category.Checks or Category.Releases &&
         latest.Any(x => x.State != "success" && !Failed(x.State))) coverage = Coverage.Pending;
     // Findings are not an all-clear: exact source conclusions remain visible alongside coverage.
-    return new(evidence.Category, coverage, evidence.Detail, findings.AsReadOnly(), Array.AsReadOnly(latest));
+    return new(evidence.Category, coverage, evidence.Detail, findings.AsReadOnly(), Array.AsReadOnly(latest), evidence.FailureReason);
   }
 
   private static bool Failed(string state) => state is "failure" or "error" or "timed_out" or "action_required" or "startup_failure";

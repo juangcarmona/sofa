@@ -21,3 +21,11 @@ A browser refresh collected all five repositories in approximately 19 seconds. I
 Aspire MCP returned trace `e7aaabf754c905a23582e2f34770b78a`, with one `attention.refresh` span (19082 ms) and five `repository.collect` spans. A correlated structured log reported five repositories. Repository durations: ArcShape 3859 ms, ProductShape 3363 ms, DomusMind 15698 ms, Raccord 1212 ms, SoFa 2477 ms. Incomplete product coverage is represented in the page and collection outcome metrics; successful collection does not mean every category is complete.
 
 The fixture-backed web tests additionally exercise unavailable evidence, empty state, antiforgery rejection, escaped source text and unsafe links. Exported-activity and captured-log assertions prove the synthetic credential is absent. Runtime evidence and tests are complementary.
+
+## Independent Done correction round 1
+
+The independent reviewer requested preserving earlier check evidence on a later PR timeout, preserving completed pagination pages, and emitting sanitized failure reasons. Corrected collection outcomes now carry bounded reason enums; regression fixtures require prior findings to survive a later timeout/403. The credential test requires exported telemetry to include the safe access-denial reason while excluding the credential.
+
+Aspire dashboard Metrics listed both `sofa.collection.duration` and `sofa.collection.outcomes` under `SoFa.Attention` during the live run. Final telemetry evidence is refreshed after the correction build.
+
+Full `npm run verify` passed after Done correction round 1: documentation lint, Node security tests, secret scans, ProductShape validation/integrity/doctor, ArcShape links, .NET build (zero warnings), 28 application tests, and format verification. Canonical architecture citations also validate (11 citations). Branch convention and commitlint pass; branch is zero commits behind fetched main.
