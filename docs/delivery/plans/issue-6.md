@@ -33,8 +33,9 @@ Mappings came from live label/workflow APIs and workflow source. No labels insta
 - [x] Implement Razor attention page, refresh, safe links, visible coverage and error/empty states.
 - [x] Wire Aspire hosting and OTLP telemetry; document local credentials and startup.
 - [x] Add deterministic domain, adapter, concurrency and web request tests.
-- [ ] Extend CI/verify, run full checks and exercise runtime through Aspire.
-- [ ] Obtain independent Done audit, push final head, collect CI; stop for Juan’s judgement and merge approval.
+- [x] Extend CI/verify, run full checks and exercise runtime through Aspire.
+- [x] Obtain independent Done audit; corrections approved at `3ca7c95`.
+- [ ] Confirm final-head CI and obtain Juan’s protected judgement and merge approval (tracked on PR #7).
 
 ## Verification and Definition of Done
 

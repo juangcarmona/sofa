@@ -29,3 +29,23 @@ The independent reviewer requested preserving earlier check evidence on a later 
 Aspire dashboard Metrics listed both `sofa.collection.duration` and `sofa.collection.outcomes` under `SoFa.Attention` during the live run. Final telemetry evidence is refreshed after the correction build.
 
 Full `npm run verify` passed after Done correction round 1: documentation lint, Node security tests, secret scans, ProductShape validation/integrity/doctor, ArcShape links, .NET build (zero warnings), 28 application tests, and format verification. Canonical architecture citations also validate (11 citations). Branch convention and commitlint pass; branch is zero commits behind fetched main.
+
+## Final runtime and review
+
+Implementation commit `3ca7c95` was restarted through Aspire and refreshed from an empty session. All five repositories were collected in 18.841 seconds. Inspected the final screenshot: current failed check, authored-PR approval, verified release failure, missing mappings and ambiguous release targets are visible. The final Aspire trace `d3aa1e32de3168c54fd27fa53143ee9d` includes five repository spans, per-category coverage and `TargetUnknown` reasons for the two ambiguous release mappings. Sanitized evidence is in `runtime/final-aspire-evidence.json`.
+
+Independent reviewer gpt-6.1-sol approved the implementation at `3ca7c95` after correction round 1. Final-head CI and metadata-only final review are linked on [PR #7](https://github.com/juangcarmona/sofa/pull/7).
+
+## Done gate ownership
+
+| Dimension | Evidence / status |
+| --- | --- |
+| Acceptance, completeness, tests | Independent implementation review approved; 28 tests and live five-repository run; Juan’s judgement pending |
+| Deterministic quality | Full local verification passed; final-head CI remains required on the PR |
+| Security | Secret scans, antiforgery/link/rendering checks and synthetic credential telemetry test passed; Juan’s judgement pending |
+| Architecture and product consistency | Accepted baseline, ADR, citations and independent review; Juan’s judgement pending |
+| Documentation | Startup, coverage limits, architecture and plan updated; Juan’s judgement pending |
+| Evidence | Verification log, runtime summary, empty-state screenshot and Aspire trace/log export retained |
+| Human review and known limitations | Juan’s final judgement and merge approval pending; target limitations are explicit |
+
+FF stops awaiting integration. No merge, deployment, issue closure, or retrospective has been performed. The application session used for verification remains local; it is not a boot service. No new workflow conventions were installed in the five monitored repositories.

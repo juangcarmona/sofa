@@ -8,7 +8,7 @@
   "executorModel": "gpt-6-astra",
   "reviewerModel": "gpt-6.1-sol",
   "maxCorrectionRounds": 3,
-  "status": "running",
+  "status": "awaiting-integration",
   "stages": [
     {
       "name": "refine",
@@ -22,7 +22,8 @@
     },
     {
       "name": "implement",
-      "result": "running"
+      "result": "awaiting-owner-review",
+      "outputCommit": "3ca7c95"
     }
   ],
   "reviews": [
@@ -53,6 +54,14 @@
         "Retain observed approval/blocker pages when pagination becomes incomplete.",
         "Include sanitized failure-reason codes in telemetry."
       ]
+    },
+    {
+      "reviewerModel": "gpt-6.1-sol",
+      "kind": "done",
+      "commit": "3ca7c95",
+      "decision": "approve",
+      "findings": [],
+      "limitations": "Owner DoD judgements and merge approval remain required; final-head CI and metadata review recorded in PR."
     }
   ],
   "corrections": [
@@ -67,7 +76,7 @@
       "changes": "Retain partial observations; bounded failure enums propagate to snapshots and traces; add regression fixtures and telemetry assertion."
     }
   ],
-  "stopReason": null,
+  "stopReason": "Implementation review passed; Juan must decide protected DoD judgement items and approve merge. Final-head CI must also pass.",
   "pullRequest": "https://github.com/juangcarmona/sofa/pull/7",
   "links": [
     "https://github.com/juangcarmona/sofa/issues/6"

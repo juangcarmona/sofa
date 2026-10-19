@@ -1,4 +1,5 @@
 {
+  "commit": "3ca7c95",
   "title": "SoFa · Attention",
   "repositories": [
     {
@@ -7,7 +8,7 @@
         {
           "category": "Checks Pending",
           "coverage": "Pending",
-          "findings": 0,
+          "findings": 1,
           "detail": "Current PR head and merge revision checks inspected."
         },
         {
@@ -121,8 +122,8 @@
       "name": "juangcarmona/sofa",
       "categories": [
         {
-          "category": "Checks Complete",
-          "coverage": "Complete",
+          "category": "Checks Pending",
+          "coverage": "Pending",
           "findings": 0,
           "detail": "Current PR head and merge revision checks inspected."
         },
@@ -147,5 +148,5 @@
       ]
     }
   ],
-  "interval": "Collected 2026-10-19 12:42:51Z – 2026-10-19 12:43:10Z. This is a snapshot, not a live feed."
+  "interval": "Collected 2026-10-19 12:50:58Z – 2026-10-19 12:51:17Z. This is a snapshot, not a live feed."
 }
