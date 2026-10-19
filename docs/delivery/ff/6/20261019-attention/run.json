@@ -9,7 +9,22 @@
   "reviewerModel": "gpt-6.1-sol",
   "maxCorrectionRounds": 3,
   "status": "running",
-  "stages": [],
+  "stages": [
+    {
+      "name": "refine",
+      "result": "ready",
+      "evidence": "https://github.com/juangcarmona/sofa/issues/6"
+    },
+    {
+      "name": "propose",
+      "result": "approved",
+      "outputCommit": "cda9894"
+    },
+    {
+      "name": "implement",
+      "result": "running"
+    }
+  ],
   "reviews": [
     {
       "reviewerModel": "gpt-6.1-sol",
@@ -20,6 +35,13 @@
         "ProductShape run revision may not equal actual publication target; require provenance or incomplete coverage.",
         "Add explicit synthetic credential test across output and telemetry."
       ]
+    },
+    {
+      "reviewerModel": "gpt-6.1-sol",
+      "kind": "plan",
+      "commit": "cda9894",
+      "decision": "approve",
+      "findings": []
     }
   ],
   "corrections": [

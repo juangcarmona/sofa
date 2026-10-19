@@ -2,7 +2,7 @@
 
 SoFa — my software factory.
 
-This repository is being scaffolded around the shared engineering practices used across the related repositories. Product intent and application architecture will be defined after the product is introduced; this repository currently contains no product baseline or application behavior.
+SoFa is Juan’s local repository attention application. The first slice reads five repositories and shows current failed checks, PRs awaiting Juan, explicit blockers, and mapped release failures. See [running SoFa](docs/running.md) for Aspire startup and known coverage limits.
 
 ## Repository map
 
@@ -14,7 +14,7 @@ This repository is being scaffolded around the shared engineering practices used
 
 ## Tooling
 
-Requires Node.js 22 or newer. Install dependencies and run the scaffold checks with:
+Requires Node.js 22 or newer and the .NET SDK pinned in `global.json`. Install dependencies and run the scaffold checks with:
 
 ```sh
 npm ci

@@ -1,0 +1,151 @@
+{
+  "title": "SoFa · Attention",
+  "repositories": [
+    {
+      "name": "juangcarmona/arcshape",
+      "categories": [
+        {
+          "category": "Checks Pending",
+          "coverage": "Pending",
+          "findings": 0,
+          "detail": "Current PR head and merge revision checks inspected."
+        },
+        {
+          "category": "Approval Complete",
+          "coverage": "Complete",
+          "findings": 1,
+          "detail": "Authored PRs and direct review requests inspected; owner-review label convention unconfigured."
+        },
+        {
+          "category": "Blockers Unconfigured",
+          "coverage": "Unconfigured",
+          "findings": 0,
+          "detail": "No explicit blocker convention mapped."
+        },
+        {
+          "category": "Releases Complete",
+          "coverage": "Complete",
+          "findings": 1,
+          "detail": "Newest verified target: v0.1.1"
+        }
+      ]
+    },
+    {
+      "name": "juangcarmona/productshape",
+      "categories": [
+        {
+          "category": "Checks Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Current PR head and merge revision checks inspected."
+        },
+        {
+          "category": "Approval Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Authored PRs and direct review requests inspected; owner-review label convention unconfigured."
+        },
+        {
+          "category": "Blockers Unconfigured",
+          "coverage": "Unconfigured",
+          "findings": 0,
+          "detail": "No explicit blocker convention mapped."
+        },
+        {
+          "category": "Releases Incomplete",
+          "coverage": "Incomplete",
+          "findings": 0,
+          "detail": "Workflow mapped, but actual publication target is not reliably exposed in run metadata."
+        }
+      ]
+    },
+    {
+      "name": "juangcarmona/domusmind",
+      "categories": [
+        {
+          "category": "Checks Pending",
+          "coverage": "Pending",
+          "findings": 0,
+          "detail": "Current PR head and merge revision checks inspected."
+        },
+        {
+          "category": "Approval Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Authored PRs, direct review requests and owner-review label inspected."
+        },
+        {
+          "category": "Blockers Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Explicit label: blocked"
+        },
+        {
+          "category": "Releases Incomplete",
+          "coverage": "Incomplete",
+          "findings": 0,
+          "detail": "Workflow mapped, but actual publication target is not reliably exposed in run metadata."
+        }
+      ]
+    },
+    {
+      "name": "juangcarmona/raccord",
+      "categories": [
+        {
+          "category": "Checks Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Current PR head and merge revision checks inspected."
+        },
+        {
+          "category": "Approval Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Authored PRs and direct review requests inspected; owner-review label convention unconfigured."
+        },
+        {
+          "category": "Blockers Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Explicit label: status:blocked"
+        },
+        {
+          "category": "Releases Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Mapped workflow has no runs."
+        }
+      ]
+    },
+    {
+      "name": "juangcarmona/sofa",
+      "categories": [
+        {
+          "category": "Checks Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Current PR head and merge revision checks inspected."
+        },
+        {
+          "category": "Approval Complete",
+          "coverage": "Complete",
+          "findings": 0,
+          "detail": "Authored PRs and direct review requests inspected; owner-review label convention unconfigured."
+        },
+        {
+          "category": "Blockers Unconfigured",
+          "coverage": "Unconfigured",
+          "findings": 0,
+          "detail": "No explicit blocker convention mapped."
+        },
+        {
+          "category": "Releases Unconfigured",
+          "coverage": "Unconfigured",
+          "findings": 0,
+          "detail": "No publishing workflow mapped."
+        }
+      ]
+    }
+  ],
+  "interval": "Collected 2026-10-19 12:42:51Z – 2026-10-19 12:43:10Z. This is a snapshot, not a live feed."
+}

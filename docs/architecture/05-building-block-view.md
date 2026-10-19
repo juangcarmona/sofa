@@ -6,13 +6,13 @@ description: The static decomposition of the system into building blocks.
 
 # 5. Building block view
 
-**Approved design; implementation pending.** Juan accepted this architecture on 2026-10-19. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
+**Approved architecture.** Juan accepted this architecture on 2026-10-19; issue 6 implements the initial slice. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
 
 ## Level 1: system
 
-One SoFa application process contains the following blocks. Aspire AppHost is composition infrastructure, not a business module. The paths below are proposed locations, not existing projects.
+One SoFa application process contains the following blocks. Aspire AppHost is composition infrastructure, not a business module. The paths below identify implementation projects.
 
-| Building block | Responsibility | Interface | Proposed source |
+| Building block | Responsibility | Interface | Source |
 | --- | --- | --- | --- |
 | Web host | Render the attention page, accept local refresh requests, compose dependencies | Browser; Attention use cases | `src/SoFa.Web/` |
 | Attention module | Classify normalized evidence; coordinate refreshes; own snapshot and coverage semantics | Refresh and read-current operations; evidence-source port | `src/SoFa.Attention/` |

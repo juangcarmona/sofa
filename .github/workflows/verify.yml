@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+      - uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: global.json
       - run: npm ci
       - name: Check branch and commit conventions
         if: github.event_name == 'pull_request'

@@ -26,13 +26,13 @@ Mappings came from live label/workflow APIs and workflow source. No labels insta
 
 ## Ordered tasks
 
-- [ ] Record approved product/architecture baseline and generated citations.
-- [ ] Scaffold four projects, pinned toolchain, root solution and test projects.
-- [ ] Implement evidence records, classification, refresh coordination, immutable snapshots and metrics.
-- [ ] Implement GitHub adapter, verified mappings, pagination, error isolation and revision checks.
-- [ ] Implement Razor attention page, refresh, safe links, visible coverage and error/empty states.
-- [ ] Wire Aspire hosting and OTLP telemetry; document local credentials and startup.
-- [ ] Add deterministic domain, adapter, concurrency and web request tests.
+- [x] Record approved product/architecture baseline and generated citations.
+- [x] Scaffold four projects, pinned toolchain, root solution and test projects.
+- [x] Implement evidence records, classification, refresh coordination, immutable snapshots and metrics.
+- [x] Implement GitHub adapter, verified mappings, pagination, error isolation and revision checks.
+- [x] Implement Razor attention page, refresh, safe links, visible coverage and error/empty states.
+- [x] Wire Aspire hosting and OTLP telemetry; document local credentials and startup.
+- [x] Add deterministic domain, adapter, concurrency and web request tests.
 - [ ] Extend CI/verify, run full checks and exercise runtime through Aspire.
 - [ ] Obtain independent Done audit, push final head, collect CI; stop for Juan’s judgement and merge approval.
 
@@ -47,3 +47,7 @@ DoD dimensions: acceptance coverage, completeness, tests, deterministic checks, 
 ## Risks and limits
 
 GitHub is not a transactional snapshot. Expose collection interval and incomplete outcomes. Bound all requests so refresh terminates. Newest release targets that cannot be resolved from authorized evidence remain incomplete. No claim of complete security/delivery metrics. npm install reports pre-existing dependency advisories; record and assess without unrequested major upgrades.
+
+## Implementation notes
+
+AppHost explicitly patches transitive MessagePack to 2.5.307 after restore audit rejected the vulnerable version. Application hosting URLs belong to launch profiles/Aspire, not appsettings; the endpoint regression test enforces this. No product scope changed.

@@ -6,11 +6,11 @@ description: Technical, organizational, and convention constraints that shape th
 
 # 2. Architecture constraints
 
-**Approved design; implementation pending.** Juan accepted this architecture on 2026-10-19. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
+**Approved architecture.** Juan accepted this architecture on 2026-10-19; issue 6 implements the initial slice. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
 
 ## Technical constraints
 
-The accepted [Bastion constraint](../product/model/requirements/constraints/con-bastion.md) governs placement and Aspire visibility. Exact SDK and Aspire versions will be selected and pinned during implementation after checking Bastion; no installation compatibility is asserted here.
+The accepted [Bastion constraint](../product/model/requirements/constraints/con-bastion.md) governs placement and Aspire visibility. SDK 10.0.112 and Aspire 13.6.1 were confirmed on Bastion and pinned in the [SDK configuration](../../global.json) and [AppHost](../../src/SoFa.AppHost/SoFa.AppHost.csproj).
 
 <!-- pdac:cite id="CON-BASTION" digest="sha256:9272e2603ef2cd419ca1389de021c86b4a2f4311fa5312eb4c12c8d7d6d25f58" -->
 

@@ -6,11 +6,11 @@ description: Fundamental decisions and strategies that shape the architecture.
 
 # 4. Solution strategy
 
-**Approved design; implementation pending.** Juan accepted this architecture on 2026-10-19. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
+**Approved architecture.** Juan accepted this architecture on 2026-10-19; issue 6 implements the initial slice. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
 
 ## Technology decisions
 
-[ADR-0001](../adr/0001-start-with-a-single-modular-application.md) proposes a C#/.NET application with an ASP.NET Core host and an Aspire AppHost. Juan accepted this decision on 2026-10-19.
+[ADR-0001](../adr/0001-start-with-a-single-modular-application.md) establishes a C#/.NET application with an ASP.NET Core host and an Aspire AppHost. Juan accepted this decision on 2026-10-19.
 
 ## Top-level decomposition
 

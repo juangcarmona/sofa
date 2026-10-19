@@ -6,7 +6,7 @@ description: Domain and architecture terminology used in this documentation.
 
 # 12. Glossary
 
-**Approved design; implementation pending.** Juan accepted this architecture on 2026-10-19. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
+**Approved architecture.** Juan accepted this architecture on 2026-10-19; issue 6 implements the initial slice. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
 
 | Term | Definition |
 | --- | --- |

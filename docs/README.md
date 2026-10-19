@@ -12,4 +12,4 @@ This directory separates product intent, architecture, decisions, and the shared
 | `reviews/` | Per-work-item retrospectives after integration. |
 | `delivery/` | Durable delivery plans and Fast Forward evidence when a work item requires them. |
 
-SoFa is currently a scaffold. Product and architecture statements remain intentionally unfilled until the product is defined.
+The initial product baseline and ADR-0001 were approved by Juan on 2026-10-19. See [running SoFa](running.md) and [the implementation plan](delivery/plans/issue-6.md).

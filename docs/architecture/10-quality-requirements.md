@@ -6,7 +6,7 @@ description: Quality goals and concrete scenarios for evaluating them.
 
 # 10. Quality requirements
 
-**Approved design; implementation pending.** Juan accepted this architecture on 2026-10-19. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
+**Approved architecture.** Juan accepted this architecture on 2026-10-19; issue 6 implements the initial slice. Product intent is recorded in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md).
 
 ## Quality goals
 
@@ -14,7 +14,7 @@ The proposed design prioritizes evidence accuracy, partial-result usefulness, re
 
 ## Evaluation scenarios
 
-These are proposed implementation checks, not checks run against an application today.
+Implementation checks live in [SoFa.Tests](../../tests/SoFa.Tests/SoFa.Tests.csproj); execution evidence is recorded with [issue 6](../delivery/ff/6/20261019-attention/summary.md).
 
 | Scenario | Expected architectural evidence |
 | --- | --- |
@@ -27,4 +27,4 @@ These are proposed implementation checks, not checks run against an application 
 | A refresh completes | Aspire shows correlated outcomes and durations; credentials are absent |
 | UI or GitHub transport changes | Attention tests run without web host or network dependencies |
 
-Keep tests under `tests/`, grouped by Attention, GitHub adapter, and Web concerns. Use source fixtures for deterministic semantics and a small authorized runtime smoke check during implementation. No application tests are added by this documentation proposal.
+Keep tests under `tests/`, grouped by Attention, GitHub adapter, and Web concerns. Use source fixtures for deterministic semantics and a small authorized runtime smoke check during implementation.

@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../SoFa.Attention/SoFa.Attention.csproj" />
+  </ItemGroup>
+</Project>
