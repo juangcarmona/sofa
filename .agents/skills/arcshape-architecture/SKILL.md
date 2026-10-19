@@ -5,6 +5,8 @@ description: Reverse engineer, create, and maintain evidence-grounded arc42 arch
 
 # ArcShape architecture documentation
 
+When the shared `architecture-docs` skill is installed, it owns the common workflow for architecture significance, product intent, evidence classification, citations, arc42 maintenance, ADR alignment, migration, and review. This skill adds ArcShape-specific capabilities: bounded evidence sessions, selective arc42 reference guidance, CLI validation, and reader builds. In standalone installations, use this skill as the complete workflow.
+
 Use this skill to understand a repository and propose accurate architecture documentation. The repository language and stack are not prerequisites: follow evidence in Markdown, configuration, source, tests, deployment manifests, and operational files.
 
 ## Operating rules
