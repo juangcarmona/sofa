@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261019-attention",
+  "workItem": 6,
+  "branch": "feat/6-repository-attention",
+  "startingCommit": "a50bf65de6e17c50f2c5be0fdbe972a7a80270db",
+  "startedAt": "2026-10-19T12:29:18.351380+00:00",
+  "executorModel": "gpt-6-astra",
+  "reviewerModel": "gpt-6.1-sol",
+  "maxCorrectionRounds": 3,
+  "status": "running",
+  "stages": [],
+  "reviews": [],
+  "corrections": [],
+  "stopReason": null,
+  "pullRequest": null,
+  "links": [
+    "https://github.com/juangcarmona/sofa/issues/6"
+  ]
+}
