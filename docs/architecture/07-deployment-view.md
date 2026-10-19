@@ -18,9 +18,9 @@ Bastion hosts the Aspire AppHost, SoFa web process, and Aspire dashboard. No dat
 | --- | --- | --- |
 | Web host, Attention, GitHub adapter | One local SoFa process | HTTPS to GitHub; OTLP to Aspire |
 | AppHost and dashboard | Bastion local processes | Resource supervision and telemetry |
-| Browser | Juan’s session | Loopback; SSH forwarding if browsing from another machine |
+| Browser | Juan’s session | Loopback by default; explicitly configured Bastion LAN interface for Juan’s other machine |
 
-Bind the application and dashboard to loopback, retain Aspire dashboard authentication, and avoid public ingress. A remote access requirement would need a separate security decision. AppHost starts the application; unattended service installation and boot supervision are outside this proposal.
+The dashboard stays on loopback with Aspire authentication. At Juan’s explicit request on 2026-10-19, the application can bind to a specific LAN IPv4 address through local AppHost configuration. This trusted-LAN mode permits LAN devices to view findings and refresh without an application login; no public ingress is configured. The explicit host allowlist and antiforgery protection remain in place. AppHost starts the application; unattended service installation and boot supervision are outside this proposal.
 
 This realizes the accepted [Bastion constraint](../product/model/requirements/constraints/con-bastion.md). Aspire’s [AppHost configuration](https://learn.microsoft.com/en-us/dotnet/aspire/app-host/configuration) and [dashboard](https://learn.microsoft.com/dotnet/aspire/dashboard) document orchestration and telemetry capabilities; they do not prove this repository has configured them.
 
