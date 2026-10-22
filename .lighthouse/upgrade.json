@@ -1,0 +1,56 @@
+{
+  "$schema": "./node_modules/@juangcarmona/lighthouse/assets/schemas/lighthouse-upgrade.schema.json",
+  "schemaVersion": 1,
+  "package": {
+    "name": "@juangcarmona/lighthouse",
+    "version": "0.4.0"
+  },
+  "baseline": "0.1.0",
+  "capabilities": {
+    "harness": "1",
+    "sdlc": "1"
+  },
+  "adoption": {
+    "labels": {
+      "id": "labels",
+      "status": "adopted",
+      "selection": "selected-by-default",
+      "provider": "github",
+      "version": "1",
+      "catalogVersion": "0.5.0",
+      "nextAction": null,
+      "recordPath": ".lighthouse/reconciliation/labels.json"
+    }
+  },
+  "projections": {
+    "harness": "1",
+    "sdlc": "1"
+  },
+  "lastAppliedMigration": "upgrade-0.4.0",
+  "files": {
+    "LIGHTHOUSE.md": {
+      "hash": "3d558b62cb6f304841f32fd0604893925609feaa215eed0fe03a7835b6a5117c",
+      "scope": "harness"
+    },
+    "scripts/lighthouse-guard.mjs": {
+      "hash": "08b66ddaaecab2fd5704b41f30a0bf4a5767dcb92cde30e74820b6e302cbc445",
+      "scope": "harness"
+    },
+    ".husky/commit-msg": {
+      "hash": "19543eb246c4fbfd7ca3f175ded3b0e536a74456eaac5ad4c2e7a2d1c3be0c90",
+      "scope": "harness"
+    },
+    ".husky/pre-push": {
+      "hash": "05ed0725b011c8f0f093c2525dd203b95ae37ccce8c87f3003643e3b74840e29",
+      "scope": "harness"
+    },
+    ".github/workflows/lighthouse.yml": {
+      "hash": "fa29fc3cff29b3d23ac39b3a6e76587d66717384e54858ddc1143c6f696983f2",
+      "scope": "harness"
+    },
+    ".lighthouse/sdlc.json": {
+      "hash": "3c439ac09a009ef6f6ec7ef9a26194e6de272e8459438eab2813946cb70b25c2",
+      "scope": "sdlc"
+    }
+  }
+}

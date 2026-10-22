@@ -1,5 +1,11 @@
 # Tooling and adoption
 
+## Lighthouse
+
+`@juangcarmona/lighthouse@0.4.0` is pinned exactly in `package.json` and `package-lock.json`, with `@juangcarmona/lighthouse-sdlc@0.5.0` selected in `lighthouse.json` and `.lighthouse/sdlc.json`. `.lighthouse/upgrade.json` records the applied `upgrade-0.4.0` migration and the adopted labels capability. Reconcile the provider-owned projection with `npx lighthouse upgrade` and validate it with `npx lighthouse verify --format json`.
+
+The distributed SDLC package reports contract version `0.5.0` inside its `contract.json`; that embedded contract version is distinct from the capability version and is recorded by the package, not changed locally. The labels capability is reconciled through `lighthouse capabilities plan` and `lighthouse capabilities apply`; the evidence lives under `.lighthouse/reconciliation/`.
+
 ## ProductShape
 
 `@prodshape/cli@0.22.0` is pinned exactly in `package.json` and `package-lock.json`; this was npm's `latest` tag on 2026-10-19. ProductShape owns `docs/product/`, `.product/config.yaml`, templates, installation metadata, and generated Codex integrations. Refresh managed integrations with `npx prodshape integration update`; check them with `npm run product:integrity` and `npm run product:doctor`.
