@@ -5,7 +5,7 @@ These are proposed issue slices, not created GitHub issues. They are ordered by 
 | Order | Proposed issue | Outcome | Depends on |
 | --- | --- | --- | --- |
 | 1 | `S0-01` Remove the obsolete Attention implementation | Application source, tests, delivery evidence, and accepted Attention ADR are removed from the implementation surface; the historical ProductShape change remains inert. | None |
-| 2 | `S0-02` Reconcile Lighthouse and provider ownership | Clean isolated-worktree adoption plan with exact versions, conflicts, and owner-approved apply set; the current branch records the remaining `infra/` boundary drift. | S0-01 |
+| 2 | `S0-02` Reconcile Lighthouse and provider ownership | Clean isolated-worktree adoption plan with exact versions, conflicts, and owner-approved apply set. | S0-01 |
 | 3 | `S0-03` Accept the initial runtime/security architecture | ADR or approved architecture update covering .NET 10/Aspire, PostgreSQL, Worker, OpenCode, and control-boundary security. | S0-02 |
 | 4 | `S1-01` Add the GitHub backlog projection | Read issues/projects and reconcile a local projection without replacing GitHub authority. | S0-03, Lighthouse adoption |
 | 5 | `S1-02` Shape one dependency-aware work unit | Persist priority, risk, acceptance criteria, dependency edges, and an explicit autonomy profile for one issue. | S1-01 |
