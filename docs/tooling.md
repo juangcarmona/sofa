@@ -4,13 +4,13 @@
 
 `@prodshape/cli@0.22.0` is pinned exactly in `package.json` and `package-lock.json`; this was npm's `latest` tag on 2026-10-19. ProductShape owns `docs/product/`, `.product/config.yaml`, templates, installation metadata, and generated Codex integrations. Refresh managed integrations with `npx prodshape integration update`; check them with `npm run product:integrity` and `npm run product:doctor`.
 
-The accepted product model is intentionally empty. Create the initial Product Change only after SoFa's product intent has been explained and reviewed.
+The accepted ProductShape model contains the Software Factory definition. Product intent changes go through Product Changes; do not edit the accepted model directly.
 
 ## ArcShape
 
-`@arcshape/cli@0.1.1` is pinned exactly in the package manifest and lockfile; this was npm's `latest` tag on 2026-10-19. ArcShape owns the twelve arc42 sections and its generated architecture skills and commands. Validate the structure with `npm run architecture:check` and update it through `npx arcshape`.
+`@arcshape/cli@0.1.3` is pinned exactly in the package manifest and lockfile. ArcShape owns the twelve arc42 sections and its generated architecture skills and commands. Validate the structure with `npm run architecture:check` and update it through `npx arcshape`.
 
-Architecture content remains intentionally unfilled until product intent and implementation evidence exist. Do not replace unknown facts with template assumptions.
+The twelve-section architecture structure is intentionally unfilled after removing the former Attention implementation. Do not replace unknown facts with template assumptions.
 
 ## Agentic SDLC and shared skills
 
@@ -20,7 +20,7 @@ Restore or update upstream skills through the skills CLI and review the resultin
 
 ## Runtime baseline
 
-The scaffold requires Node.js 22 or newer and currently uses npm with a committed lockfile. Application stack and deployment tooling are undecided.
+The repository currently requires Node.js 22 or newer and uses npm with a committed lockfile. No application runtime, .NET SDK, Aspire host, database or deployment shape is currently installed or accepted.
 
 ## Contribution conventions
 

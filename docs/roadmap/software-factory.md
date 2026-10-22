@@ -1,15 +1,15 @@
 # SoFa Software Factory roadmap
 
-**Planning status:** S0 proposal, 2026-10-22. This document records planning and reconciliation work only. It does not accept a Product Change, authorize execution, or change the runtime.
+**Planning status:** S0 cleanup and reconciliation, 2026-10-22. This document records planning and reconciliation work only. It does not authorize execution or change the runtime.
 
 ## Evidence boundary
 
 | Classification | Current evidence |
 | --- | --- |
-| Accepted product intent | None. `docs/product/model/` contains only placeholders. |
-| Draft product intent | `CHG-INITIAL` is the current draft candidate for the complete Software Factory. The former Repository Attention proposal is retained separately as historical material and is explicitly excluded from the product candidate. |
-| Proposed architecture | ADR-0001 and the ArcShape documents propose a single modular .NET/Aspire application for the factory contexts. They are not accepted decisions. |
-| Implementation reality | The current checkout branch is an asset branch with no application source. `origin/main` contains the read-only Attention implementation and its trusted-LAN configuration; that remote evidence was inspected without switching or modifying this checkout. |
+| Accepted product intent | `docs/product/model/` contains the applied Software Factory baseline from `CHG-INITIAL`. The former Repository Attention proposal remains separate historical material and is explicitly excluded from the product. |
+| Draft product intent | No active Product Change is present. The completed change record still contains one stale sentence saying there is no accepted definition; it is provider-owned history and must be corrected through ProductShape, not by hand. |
+| Proposed architecture | The ArcShape structure is present but intentionally empty after removing the Attention implementation. `docs/roadmap/runtime-architecture.md` remains a proposal; no architecture decision is accepted. |
+| Implementation reality | This cleanup branch has no application source. Its `origin/main` base still contains the old read-only Attention slice until this cleanup is integrated. |
 | S0 assumptions | PostgreSQL, an independently supervised Worker, OpenCode, and the execution/delivery contexts below are proposed targets. They require product and architecture acceptance before installation or implementation. |
 
 ## S0 outcome
@@ -18,7 +18,7 @@ SoFa is a personal Software Factory that helps Juan select and deliver small, re
 
 S0 prepares the first executable slice by:
 
-1. drafting the initial product definition in [CHG-INITIAL](../product/changes/active/chg-initial/change.md), without approval or application;
+1. recording the applied product baseline in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md) without adding implementation authority;
 2. explicitly excluding the historical Repository Attention proposal from the product scope;
 3. reconciling the existing checkout against Lighthouse ownership and published versions;
 4. documenting a .NET 10, Aspire, PostgreSQL, Worker, and OpenCode architecture proposal; and
@@ -79,8 +79,8 @@ These defaults are accepted for planning, but remain unimplemented until the Pro
 
 | Phase | Intent | Exit evidence | Product/architecture gate |
 | --- | --- | --- | --- |
-| S0 — reconcile and prepare | Product Change, bounded-context map, Lighthouse report, runtime proposal, and pilot backlog. | Draft artifacts validate; conflicts and assumptions are explicit; current verification is recorded. | Human review of the draft Product Change and proposed architecture. |
-| S1 — establish authorities | Reconcile Lighthouse, ProductShape, ArcShape, and shared lifecycle ownership in a clean worktree. | `lighthouse verify`, ProductShape integrity/doctor, ArcShape validation, and CI-like checks are green. | Accept Product Change before any execution capability. |
+| S0 — reconcile and prepare | Product baseline, bounded-context map, Lighthouse report, runtime proposal, and pilot backlog. | Cleanup diff is reviewable; conflicts and assumptions are explicit; current verification is recorded. | Human review of the proposed architecture before implementation. |
+| S1 — establish authorities | Reconcile Lighthouse, ProductShape, ArcShape, and shared lifecycle ownership in a clean worktree. | `lighthouse verify`, ProductShape integrity/doctor, ArcShape validation, and CI-like checks are green. | Accept the implementation architecture and security boundary before execution capability. |
 | S2 — triage vertical slice | Read GitHub issues into a coordination projection, prioritize, split one issue, and record dependencies. | One issue reaches a ready work unit without GitHub mutation beyond explicitly authorized lifecycle operations. | Human confirms triage and risk policy. |
 | S3 — recoverable execution | Execute one low-risk work unit through a supervised Worker and OpenCode with leases/checkpoints. | Interrupted execution resumes or stops safely, with no duplicate active lease and durable evidence. | Explicit acceptance of execution policy and security boundary. |
 | S4 — verification and delivery | Gather checks, PR, evidence, authorized integration, and post-delivery verification. | The pilot scenario passes end to end and delivery claims match source evidence. | Human authorizes PR approval, integration, and delivery where required. |
@@ -109,4 +109,4 @@ The exact adoption conflicts and a non-destructive sequence are recorded in [the
 
 ## Future first acceptance scenario
 
-The first pilot is deliberately a future acceptance test because the current Product Change is draft and no execution runtime is installed. Select one small GitHub issue from any configured project, triage it, shape one work unit, resolve dependencies, acquire a lease, execute through OpenCode, interrupt and recover once, run verification, open a PR, collect evidence, obtain any required authorized integration decision, integrate, and verify the delivered artifact. The detailed contract is in [first-pilot.md](first-pilot.md); it must not be run in S0.
+The first pilot is deliberately a future acceptance test because no execution runtime or accepted implementation architecture is installed. Select one small GitHub issue from any configured project, triage it, shape one work unit, resolve dependencies, acquire a lease, execute through OpenCode, interrupt and recover once, run verification, open a PR, collect evidence, obtain any required authorized integration decision, integrate, and verify the delivered artifact. The detailed contract is in [first-pilot.md](first-pilot.md); it must not be run in S0.
