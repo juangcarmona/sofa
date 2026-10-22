@@ -4,9 +4,9 @@ These are proposed issue slices, not created GitHub issues. They are ordered by 
 
 | Order | Proposed issue | Outcome | Depends on |
 | --- | --- | --- | --- |
-| 1 | `S0-01` Accept the Software Factory product boundary | Human-reviewed Product Change and context map; `CHG-INITIAL` defines the complete Software Factory, excludes historical Repository Attention material, and remains draft until accepted/applied. | None |
-| 2 | `S0-02` Reconcile Lighthouse and provider ownership | Clean isolated-worktree adoption plan with exact versions, conflicts, and owner-approved apply set. | S0-01 |
-| 3 | `S0-03` Accept the initial runtime/security architecture | ADR or approved architecture update covering .NET 10/Aspire, PostgreSQL, Worker, OpenCode, and control-boundary security. | S0-01, S0-02 |
+| 1 | `S0-01` Remove the obsolete Attention implementation | Application source, tests, delivery evidence, and accepted Attention ADR are removed from the implementation surface; the historical ProductShape change remains inert. | None |
+| 2 | `S0-02` Reconcile Lighthouse and provider ownership | Clean isolated-worktree adoption plan with exact versions, conflicts, and owner-approved apply set; the current branch records the remaining `infra/` boundary drift. | S0-01 |
+| 3 | `S0-03` Accept the initial runtime/security architecture | ADR or approved architecture update covering .NET 10/Aspire, PostgreSQL, Worker, OpenCode, and control-boundary security. | S0-02 |
 | 4 | `S1-01` Add the GitHub backlog projection | Read issues/projects and reconcile a local projection without replacing GitHub authority. | S0-03, Lighthouse adoption |
 | 5 | `S1-02` Shape one dependency-aware work unit | Persist priority, risk, acceptance criteria, dependency edges, and an explicit autonomy profile for one issue. | S1-01 |
 | 6 | `S1-03` Persist execution runs and leases | PostgreSQL migrations and transactional lease/fencing behavior with tests for expiry and contention. | S1-02 |
@@ -19,13 +19,12 @@ These are proposed issue slices, not created GitHub issues. They are ordered by 
 
 ## Acceptance criteria by slice
 
-### S0-01 — product boundary
+### S0-01 — remove obsolete implementation
 
-- The Product Change is `draft` or `proposed`, never `approved`.
-- The overlay validates or its draft-baseline limitation is explicitly recorded.
-- Backlog/Triage, Portfolio/Project Configuration, Execution, Scheduling, Verification/Delivery, and Runtime Operations have separate responsibilities.
-- The factory may operate on any configured project.
-- Repository Attention is explicitly out of scope; its historical proposal remains separate and is not approved or applied.
+- No application runtime or Attention source remains under `src/`.
+- The old .NET/Aspire setup, Attention tests, and Attention delivery evidence are removed.
+- ProductShape's applied Software Factory model remains unchanged.
+- Repository Attention remains only as inert historical ProductShape material.
 
 ### S0-02 — Lighthouse reconciliation
 

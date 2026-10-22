@@ -1,5 +1,5 @@
 # Tests
 
-`SoFa.Tests/` contains deterministic xUnit tests for rules, refresh coordination, GitHub responses, and the rendered web/antiforgery boundary. Fixtures make no GitHub writes. The synthetic-credential test inspects output, logs and exported traces.
+Application tests are intentionally absent while the Software Factory architecture is being established. The former Attention, GitHub adapter and web tests were removed with that out-of-scope implementation.
 
-`security/` verifies repository secret-scanner integrity and redaction. Run all checks with `npm run verify` at the root. Runtime evidence belongs under the linked issue’s `docs/delivery/ff/` run.
+`security/` verifies repository secret-scanner integrity and redaction. Run all checks with `npm run verify` at the root.
