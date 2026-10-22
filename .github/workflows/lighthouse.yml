@@ -1,0 +1,44 @@
+name: Lighthouse repository guardrails
+
+on:
+  pull_request:
+    paths:
+      - "lighthouse.json"
+      - "LIGHTHOUSE.md"
+      - "src/**"
+      - "docs/**"
+      - "infra/**"
+      - "scripts/**"
+      - ".husky/**"
+      - ".github/workflows/lighthouse.yml"
+  push:
+    branches: [main]
+    paths:
+      - "lighthouse.json"
+      - "LIGHTHOUSE.md"
+      - "src/**"
+      - "docs/**"
+      - "infra/**"
+      - "scripts/**"
+      - ".husky/**"
+      - ".github/workflows/lighthouse.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify Lighthouse foundation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: |
+          if [ -f scripts/lighthouse.mjs ]; then node scripts/lighthouse.mjs verify; else npx --no-install lighthouse verify; fi
+      - run: node scripts/lighthouse-guard.mjs verify

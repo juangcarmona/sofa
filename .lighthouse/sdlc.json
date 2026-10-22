@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/@juangcarmona/lighthouse-sdlc/schemas/control-plane.schema.json",
+  "schemaVersion": 1,
+  "package": {
+    "name": "@juangcarmona/lighthouse-sdlc",
+    "version": "0.2.0"
+  },
+  "routes": [
+    "supervised",
+    "plan-only",
+    "unattended",
+    "hotfix",
+    "stacked"
+  ],
+  "gates": [
+    "triaged",
+    "ready",
+    "planned",
+    "done"
+  ],
+  "state": {
+    "provider": "agent-host"
+  },
+  "memory": {
+    "provider": "agent-host",
+    "scopes": [
+      "run",
+      "project"
+    ]
+  },
+  "roles": {},
+  "adapters": {}
+}
