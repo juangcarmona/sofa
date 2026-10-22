@@ -23,3 +23,6 @@ test-results/
 **/obj/
 .aspire/
 **/appsettings.Local.json
+
+# ArcShape local analysis sessions.
+.arcshape/
