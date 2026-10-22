@@ -12,8 +12,7 @@
     "product:doctor": "prodshape doctor",
     "product:integrity": "prodshape integration update --check",
     "architecture:check": "arcshape validate --links",
-    "verify": "npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check && npm run verify:app",
-    "verify:app": "dotnet build SoFa.slnx -m:1 --disable-build-servers && dotnet test tests/SoFa.Tests/SoFa.Tests.csproj --no-build --no-restore && dotnet format SoFa.slnx --verify-no-changes --no-restore"
+    "verify": "npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check"
   },
   "repository": {
     "type": "git",

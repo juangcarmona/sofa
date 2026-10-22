@@ -1,9 +1,5 @@
 # Source
 
-- `SoFa.Attention/`: classification rules, evidence port, refresh coordination and snapshots.
-- `SoFa.GitHub/`: read-only GitHub HTTP adapter.
-- `SoFa.Web/`: Razor page, dependency composition, local request protection and OTLP setup.
-- `SoFa.AppHost/`: Aspire orchestration.
-- `tooling/`: repository security tooling.
+The application implementation boundary is intentionally empty. The former Repository Attention slice was removed because it is outside the accepted Software Factory product.
 
-See [architecture](../docs/architecture/05-building-block-view.md) and [startup](../docs/running.md).
+Repository-level tooling remains under `src/tooling/`. Future workspace and runtime implementation belongs here only after the product and architecture decisions establish those boundaries.

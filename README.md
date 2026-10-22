@@ -2,19 +2,19 @@
 
 SoFa — my software factory.
 
-SoFa is Juan’s local repository attention application. The first slice reads five repositories and shows current failed checks, PRs awaiting Juan, explicit blockers, and mapped release failures. See [running SoFa](docs/running.md) for Aspire startup and known coverage limits.
+SoFa is Juan’s personal software factory. The ProductShape baseline describes the complete factory from backlog intake through verified delivery, while application implementation is intentionally empty until the architecture is established.
 
 ## Repository map
 
 - [`docs/product/`](docs/product/README.md): ProductShape model and Product Changes.
 - [`docs/architecture/`](docs/architecture/README.md): ArcShape-managed arc42 architecture documentation.
 - [`docs/engineering-lifecycle.md`](docs/engineering-lifecycle.md): shared Agentic SDLC gates and working agreements.
-- [`src/`](src/README.md): implementation source.
-- [`tests/`](tests/README.md): automated tests.
+- [`src/`](src/README.md): reserved implementation boundary; currently empty apart from repository tooling.
+- [`tests/`](tests/README.md): repository and tooling tests.
 
 ## Tooling
 
-Requires Node.js 22 or newer and the .NET SDK pinned in `global.json`. Install dependencies and run the scaffold checks with:
+Requires Node.js 22 or newer. Install dependencies and run the scaffold checks with:
 
 ```sh
 npm ci

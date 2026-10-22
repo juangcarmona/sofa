@@ -6,6 +6,4 @@ description: Important architecture decisions and links to their records.
 
 # 9. Architecture decisions
 
-**Proposal only.** No application implementation or accepted architecture decision exists yet. Product intent is the applied [CHG-INITIAL](../../product/changes/completed/chg-initial/change.md).
-
-No architecture decisions are accepted yet. Proposed decisions are tracked in the [ADR index](../../adr/README.md), and do not constitute current implementation architecture.
+This directory is the canonical Architecture Decision Record collection for ArcShape documentation. Keep every ADR below this directory, normally as `ADR-NNNN-kebab-case-title.md` or in a stable project-defined subdirectory. Link every record from this README in alphabetical order by title, including its status and date; do not duplicate ADR bodies here or create a parallel `docs/adr/` collection.

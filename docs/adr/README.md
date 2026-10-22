@@ -4,4 +4,6 @@ Record significant architecture choices here with the shared `adr` skill. Accept
 
 | Number | Decision | Status | Date |
 | --- | --- | --- | --- |
-| 0001 | [Start with a single modular application](0001-start-with-a-single-modular-application.md) | Accepted | 2026-10-19 |
+| — | No accepted decisions | — | — |
+
+No architecture decisions are currently accepted. The former Attention decision was removed with that implementation; future decisions must be authored after the Software Factory architecture is defined.
