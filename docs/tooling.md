@@ -2,9 +2,9 @@
 
 ## Lighthouse
 
-`@juangcarmona/lighthouse@0.3.0` is pinned exactly in `package.json` and `package-lock.json`. The selected `@juangcarmona/lighthouse-sdlc@0.3.0` projection is recorded in `lighthouse.json` and `.lighthouse/sdlc.json`; `.lighthouse/upgrade.json` records the applied `upgrade-0.3.0` migration. Reconcile the provider-owned projection with `npx lighthouse upgrade` and validate it with `npx lighthouse verify --format json`.
+`@juangcarmona/lighthouse@0.3.1` is pinned exactly in `package.json` and `package-lock.json`. The selected `@juangcarmona/lighthouse-sdlc@0.4.0` projection is recorded in `lighthouse.json` and `.lighthouse/sdlc.json`; `.lighthouse/upgrade.json` records the applied `upgrade-0.3.1` migration. Reconcile the provider-owned projection with `npx lighthouse upgrade` and validate it with `npx lighthouse verify --format json`.
 
-The distributed SDLC package still reports contract version `0.1.0` inside its `contract.json`; that embedded contract version is distinct from the package version and is recorded as upstream versioning drift, not changed locally.
+The distributed SDLC package reports contract version `0.2.0` inside its `contract.json`; that embedded contract version is distinct from the package version and is recorded as upstream versioning drift, not changed locally.
 
 ## ProductShape
 
