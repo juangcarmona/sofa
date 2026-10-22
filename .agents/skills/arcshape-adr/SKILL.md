@@ -5,6 +5,8 @@ description: Draft, review, and maintain Markdown Architecture Decision Records 
 
 # ArcShape ADR workflow
 
+When the shared `adr` skill is installed, it owns the common ADR workflow and decision-authority rules. Follow it for repository conventions, maintainer acceptance, proposal status, history, and review. This skill adds ArcShape-specific guidance only. In standalone installations, use the workflow below as the complete fallback.
+
 1. Confirm the decision being made and who has authority to accept it. If the decision itself is unknown, ask; do not infer a choice from implementation alone.
 2. Inspect existing ADR conventions, indexes, relevant arc42 sections, and evidence. Default only when no repository convention exists: `docs/adr/` with four-digit sequential filenames.
 3. Draft a Markdown ADR with Context, Decision, Alternatives considered, Consequences, and References. Separate supplied decisions from observed facts and unresolved assumptions.

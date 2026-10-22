@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261019-attention",
+  "workItem": 6,
+  "branch": "feat/6-repository-attention",
+  "startingCommit": "a50bf65de6e17c50f2c5be0fdbe972a7a80270db",
+  "startedAt": "2026-10-19T12:29:18.351380+00:00",
+  "executorModel": "gpt-6-astra",
+  "reviewerModel": "gpt-6.1-sol",
+  "maxCorrectionRounds": 3,
+  "status": "complete",
+  "stages": [
+    {
+      "name": "refine",
+      "result": "ready",
+      "evidence": "https://github.com/juangcarmona/sofa/issues/6"
+    },
+    {
+      "name": "propose",
+      "result": "approved",
+      "outputCommit": "cda9894"
+    },
+    {
+      "name": "implement",
+      "result": "awaiting-owner-review",
+      "outputCommit": "3ca7c95"
+    },
+    {
+      "name": "integrate",
+      "result": "merged",
+      "outputCommit": "dcb0d6459ba34a59e6eff7cf9d1945786c0cafbe"
+    },
+    {
+      "name": "review",
+      "result": "recorded",
+      "evidence": "docs/reviews/issue-6.md"
+    }
+  ],
+  "reviews": [
+    {
+      "reviewerModel": "gpt-6.1-sol",
+      "kind": "plan",
+      "commit": "267ba8c",
+      "decision": "request-changes",
+      "findings": [
+        "ProductShape run revision may not equal actual publication target; require provenance or incomplete coverage.",
+        "Add explicit synthetic credential test across output and telemetry."
+      ]
+    },
+    {
+      "reviewerModel": "gpt-6.1-sol",
+      "kind": "plan",
+      "commit": "cda9894",
+      "decision": "approve",
+      "findings": []
+    },
+    {
+      "reviewerModel": "gpt-6.1-sol",
+      "kind": "done",
+      "commit": "37ed98f",
+      "decision": "request-changes",
+      "findings": [
+        "Retain earlier validated checks on later PR transport timeout.",
+        "Retain observed approval/blocker pages when pagination becomes incomplete.",
+        "Include sanitized failure-reason codes in telemetry."
+      ]
+    },
+    {
+      "reviewerModel": "gpt-6.1-sol",
+      "kind": "done",
+      "commit": "3ca7c95",
+      "decision": "approve",
+      "findings": [],
+      "limitations": "Owner DoD judgements and merge approval remain required; final-head CI and metadata review recorded in PR."
+    }
+  ],
+  "corrections": [
+    {
+      "gate": "plan",
+      "round": 1,
+      "changes": "Ambiguous ProductShape targets incomplete; add dispatch/checkout mismatch fixture and credential negative test."
+    },
+    {
+      "gate": "done",
+      "round": 1,
+      "changes": "Retain partial observations; bounded failure enums propagate to snapshots and traces; add regression fixtures and telemetry assertion."
+    }
+  ],
+  "stopReason": null,
+  "pullRequest": "https://github.com/juangcarmona/sofa/pull/7",
+  "links": [
+    "https://github.com/juangcarmona/sofa/issues/6"
+  ],
+  "completion": {
+    "mergeCommit": "dcb0d6459ba34a59e6eff7cf9d1945786c0cafbe",
+    "approval": "Juan explicitly approved PR #7, merge, issue closure and retrospective in conversation on 2026-10-19",
+    "finalReviewedHead": "078058094a5fa0f49fdc07dd8111c5ebb6ab47bd",
+    "finalPrCi": "https://github.com/juangcarmona/sofa/actions/runs/39262037959",
+    "mainCi": "https://github.com/juangcarmona/sofa/actions/runs/39262357315",
+    "retrospective": "docs/reviews/issue-6.md",
+    "issueState": "closed; status:done"
+  }
+}

@@ -17,3 +17,9 @@ pnpm-debug.log*
 dist/
 coverage/
 test-results/
+
+# .NET application outputs and local Aspire state.
+**/bin/
+**/obj/
+.aspire/
+**/appsettings.Local.json

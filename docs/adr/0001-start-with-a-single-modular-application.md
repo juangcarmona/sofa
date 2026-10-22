@@ -1,7 +1,7 @@
 ---
 name: start-with-a-single-modular-application
 description: Start SoFa with one application and an isolated Attention module, using Aspire for local orchestration and telemetry.
-status: Proposed
+status: Accepted
 date: 2026-10-19
 deciders: ["Juan G. Carmona"]
 tags: ["foundation", "modularity", "aspire"]
@@ -11,25 +11,25 @@ tags: ["foundation", "modularity", "aspire"]
 
 ## Context
 
-SoFa currently contains repository scaffolding and no application runtime. The draft [initial product change](../product/changes/active/chg-initial/change.md) describes the complete Software Factory, and Juan asks for a foundation that can grow without a large initial build. Aspire is a stated operating constraint. The interaction surface is not fixed by the product definition. Earlier Repository Attention architecture remains historical proposal material.
+SoFa contains a small application foundation and its accepted initial product change establishes the complete Software Factory. Juan asks for a foundation that can grow without a large initial build. Aspire is a stated operating constraint. The interaction surface is not fixed by the product definition. Earlier Repository Attention architecture remains historical proposal material.
 
 Raccord’s modular-monolith and deferred-events decisions provide a precedent for explicit boundaries and incremental infrastructure. They are references, not existing SoFa decisions.
 
 ## Decision
 
-We will, subject to Juan’s acceptance, implement one C#/.NET application with an ASP.NET Core host, a Repository Attention module, and a GitHub read adapter. An Aspire AppHost will compose local execution and telemetry. Choose and pin compatible SDK/package versions during implementation.
+We will implement one C#/.NET application with an ASP.NET Core host and modular business boundaries. An Aspire AppHost will compose local execution and telemetry. Choose and pin compatible SDK/package versions during implementation.
 
-The Attention module will own pure evidence classification and refresh orchestration behind narrow use-case interfaces. The GitHub adapter implements an Attention-owned evidence-source port. The web host composes these blocks and provides one server-rendered page with refresh and evidence links. Dependencies point inward; no business classification belongs in the host or adapter.
+Each approved factory capability will own its rules and use-case interfaces behind explicit module boundaries. The host composes those modules without taking ownership of product decisions or external-source semantics. Dependencies point inward; no business classification belongs in the host or adapter.
 
-Keep only the latest snapshot in memory. Begin with the four source projects described in the [building block view](../architecture/05-building-block-view.md). Add a separate module when an approved capability establishes another business boundary. Introduce persistence or asynchronous infrastructure only for a concrete requirement; introduce independently deployed services only for a demonstrated operational or ownership need.
+Keep the initial runtime small and modular. Add a separate module when an approved capability establishes another business boundary. Introduce persistence or asynchronous infrastructure only for a concrete requirement; introduce independently deployed services only for a demonstrated operational or ownership need.
 
-This balances a usable local surface and standard Aspire/.NET integration with a small codebase. It does not adopt the rest of Raccord’s module contracts, persistence, or shared-kernel machinery.
+This balances a small local foundation and standard Aspire/.NET integration with deliberate growth. It does not adopt the rest of Raccord’s module contracts, persistence, or shared-kernel machinery.
 
 ## Consequences
 
-- **Positive:** One application is simple to run locally. The core rules can be tested without GitHub or a browser, and future presentation or collection triggers can reuse the same use cases.
-- **Negative:** This introduces a .NET toolchain alongside existing npm documentation tooling. A page requires request protection and rendering checks. In-memory state disappears on restart.
-- **Neutral:** The first module remains synchronous within the process while network calls are asynchronous. Execution, hooks, history, and scheduling need later product decisions; no generic platform framework is created now.
+- **Positive:** One application is simple to run locally. Factory rules can be tested independently from presentation and external systems.
+- **Negative:** This introduces a .NET toolchain alongside existing npm documentation tooling. Runtime security and recovery controls remain implementation work.
+- **Neutral:** Modules remain in one process initially. Execution, hooks, history, and scheduling are product capabilities with explicit boundaries; no generic platform framework is created now.
 
 ## Alternatives considered
 
@@ -41,7 +41,7 @@ This balances a usable local surface and standard Aspire/.NET integration with a
 
 ## References
 
-- [Proposed solution strategy](../architecture/04-solution-strategy.md)
+- [Proposed solution strategy](../architecture/04-solution-strategy/README.md)
 - [Raccord ADR-0001](https://github.com/juangcarmona/raccord/blob/main/docs/adr/0001-modular-monolith.md), inspected in the sibling checkout
 - [Raccord ADR-0020](https://github.com/juangcarmona/raccord/blob/main/docs/adr/0020-synchronous-module-contracts-with-deferred-events.md), inspected in the sibling checkout
 - [Aspire service defaults](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/service-defaults)
