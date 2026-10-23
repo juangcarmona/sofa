@@ -2,9 +2,9 @@
 
 ## Lighthouse
 
-`@juangcarmona/lighthouse@0.4.0` is pinned exactly in `package.json` and `package-lock.json`, with `@juangcarmona/lighthouse-sdlc@0.5.0` selected in `lighthouse.json` and `.lighthouse/sdlc.json`. `.lighthouse/upgrade.json` records the applied `upgrade-0.4.0` migration and the adopted labels capability. Reconcile the provider-owned projection with `npx lighthouse upgrade` and validate it with `npx lighthouse verify --format json`.
+`@juangcarmona/lighthouse@0.7.0` is pinned exactly in `package.json` and `package-lock.json`, with `@juangcarmona/lighthouse-sdlc@0.6.0` selected in `lighthouse.json` and `.lighthouse/sdlc.json`. `.lighthouse/upgrade.json` records the applied `upgrade-0.7.0` migration and the adopted labels capability. Reconcile the provider-owned projection with `npx lighthouse upgrade` and validate it with `npx lighthouse verify --format json`.
 
-The distributed SDLC package reports contract version `0.5.0` inside its `contract.json`; that embedded contract version is distinct from the capability version and is recorded by the package, not changed locally. The labels capability is reconciled through `lighthouse capabilities plan` and `lighthouse capabilities apply`; the evidence lives under `.lighthouse/reconciliation/`.
+The distributed SDLC package selected at `0.6.0` publishes contract and capability-catalog version `0.5.0`; that upstream versioning distinction is not changed locally. The labels capability remains adopted and its evidence lives under `.lighthouse/reconciliation/`. Lighthouse UI `0.2.0` is available transitively, but no `visual-theme` profile is selected and no UI projection is adopted.
 
 ## ProductShape
 
