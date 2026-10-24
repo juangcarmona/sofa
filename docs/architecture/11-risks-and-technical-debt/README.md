@@ -10,8 +10,8 @@ description: Known risks, technical debt, and their planned responses.
 
 | Risk | Evidence | Response | First-slice posture |
 | --- | --- | --- | --- |
-| The documented SoFa handoff is not present in the current Lighthouse workflow | The router uses `workflow_dispatch`; stage workers use `workflow_call` and the self-hosted label. No SoFa process or wire contract exists in this repository. | Define and verify one explicit host adapter before claiming admission, leases, checkpoints, or supervision. | Blocking architectural gap. |
-| The current gh-aw/Copilot projection is mistaken for the target engine path | The compiled Lighthouse worker runs gh-aw with `engine: copilot`; the accepted target runs persistent OpenCode on Bastion with the execution account's OpenAI Codex/ChatGPT authentication. No adapter is implemented. | Keep the current projection labelled transitional. Implement and verify the Lighthouse-job-to-SoFa handoff before invoking OpenCode; do not add GitHub API credentials for this path. | Blocking implementation gap. |
+| The documented SoFa handoff is not present in the current Lighthouse workflow | The router uses `workflow_dispatch`; stage workers use `workflow_call` and the self-hosted label. The opt-in bridge and .NET supervisor implement the first host path; deployment acceptance is separate. | Define and verify one explicit host adapter before claiming admission, leases, checkpoints, or supervision. | Verify a real consumer run and receipt. |
+| The current gh-aw/Copilot projection is mistaken for the target engine path | The compiled Lighthouse worker runs gh-aw with `engine: copilot`; the accepted target runs persistent OpenCode on Bastion with the execution account's OpenAI Codex/ChatGPT authentication. The new adapter is opt-in and covers triage/refine. | Keep the current projection labelled transitional. Implement and verify the Lighthouse-job-to-SoFa handoff before invoking OpenCode; do not add GitHub API credentials for this path. | Blocking implementation gap. |
 | Bastion Codex authentication is unavailable to the service account | OpenCode ChatGPT/Codex login is account-local, while the runner is a dedicated `github-runner` service account. | Authenticate and health-check OpenCode in the exact service context; keep credentials outside workspaces and never copy them into GitHub secrets or artifacts. | Blocking implementation and operations check. |
 | Model selection becomes implicit in stage names | Lighthouse stages define lifecycle semantics, not model policy. | Define an observable OpenCode capability-to-model profile in Bastion configuration; do not encode model authorization as a new Lighthouse stage or gate. | Open implementation configuration. |
 | The initial trigger is overstated as a generic GitHub event | The current SDLC router declares only `workflow_dispatch`; `workflow_call` is the worker composition boundary. | Treat manual dispatch as the initial event. Add issue/PR ingress or a central SoFa ingress only as a later, explicit adapter. | No webhook; no implicit event consumer. |
@@ -25,16 +25,16 @@ description: Known risks, technical debt, and their planned responses.
 | GitHub runner scope is mistaken for host scope | Personal repositories do not share a native account-level runner registration; repository-level registrations are separate even when installed on one machine. | Document one registration per participating repository and keep global admission/capacity in SoFa. | Must be explicit before Bastion setup. |
 | Multiple registrations bypass the capacity rule | Several repository registrations on one host can receive jobs independently. | Require the SoFa runner adapter to admit work through one host-level capacity boundary before execution; allocate one isolated worker/workspace per admitted run. | Blocking for the multi-repository profile. |
 | Contract version drift | SoFa selects Lighthouse package `0.9.0` and SDLC package `0.8.0`; the distributed SDLC metadata still declares contract version `0.5.0`. | Verify package assets and contract versions in implementation CI; pin the exact consumed catalog. | The package-versus-contract distinction is recorded; no compatibility guess. |
-| Documentation is mistaken for implementation | Current source has no runtime. | Label target/proposed evidence and require runtime verification in the implementation phase. | No implementation claim. |
+| Documentation is mistaken for implementation | Current source has a bounded supervisor; later lifecycle stages remain unimplemented. | Label target/proposed evidence and require runtime verification in the implementation phase. | Require evidence for each deployed stage. |
 
 ## Technical debt
 
-- The logical Lighthouse-to-SoFa contract needs a versioned wire schema and a compatibility test once implementation is authorized.
+- The versioned Lighthouse host contract and packaged consumer tests exist; deploying a mismatched host package or policy must fail admission.
 - PostgreSQL placement, backup/restore, retention, and credential management remain operational decisions.
-- The exact OpenCode process contract, cancellation semantics, tool allowlist, service-account authentication check, and workspace driver remain to be designed during implementation.
+- The first container adapter defines deadlines, tool policy, authentication volume and read-only snapshots. Real-provider, cancellation and session-cleanup evidence must accompany deployment.
 - The capability-to-model profile and the provider/gateway split for future providers remain operational configuration decisions; no model IDs are invented in architecture documentation.
-- The authentication mechanism for the privileged local control boundary is not selected.
-- The initial project/repository identity reconciliation and GitHub API rate-limit strategy are not implemented.
+- The local control boundary uses Linux peer UID and socket permissions; deployment must verify the runner UID and deny sibling identities.
+- The first policy binds one repository to a kernel UID and verifies Actions/source identity with GitHub. Multi-repository enrollment and adaptive API rate-limit handling remain future work.
 - Runtime health and gateway/model version reporting are target capabilities, not current evidence.
 - The current architecture documents were empty ArcShape scaffolds; this change creates the first evidence-grounded target view, but it does not prove the target is installed.
 

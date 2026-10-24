@@ -12,7 +12,8 @@
     "product:doctor": "prodshape doctor",
     "product:integrity": "prodshape integration update --check",
     "architecture:check": "arcshape validate --links",
-    "verify": "npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check"
+    "verify": "npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check && npm run test:runtime",
+    "test:runtime": "node scripts/verify-runtime.mjs"
   },
   "repository": {
     "type": "git",

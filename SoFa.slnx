@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SoFa.AppHost/SoFa.AppHost.csproj" />
+    <Project Path="src/SoFa.Runtime/SoFa.Runtime.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SoFa.Runtime.Tests/SoFa.Runtime.Tests.csproj" />
+  </Folder>
+</Solution>

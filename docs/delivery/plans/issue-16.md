@@ -14,3 +14,11 @@ The maintainer accepted ADR-0004 and authorized implementation and the presentat
 ## Completion gate
 
 Run repository verification, .NET build/tests and PostgreSQL integration checks. The independent done-gate audit reconciles this plan against code and evidence. Report unresolved authentication, deployment, publication and end-to-end acceptance explicitly. The maintainer retains product, security, PR approval and delivery acceptance decisions.
+
+## Implementation evidence
+
+The first adapter, PostgreSQL coordination, kernel peer identity, container isolation, deadline/cancellation, session cleanup, workflow attestation and fenced issue-comment publisher are implemented. `npm run verify` passes with 19 .NET tests and Node regression tests. An independent audit reproduced and drove fixes for peer credentials, cancellation races, stale receipt upload and missing-session cleanup.
+
+A real OpenAI request from the engine returned `SOFA_PROVIDER_OK`. A real OpenCode triage produced a Lighthouse-valid blocked report from a deliberately incomplete source fixture; the .NET adapter stopped the container and removed its session. Repeated cleanup against the actual image also passed. These are runtime integration checks, not GitHub end-to-end acceptance.
+
+The dedicated `presentations` runner is registered separately from the existing SoFa runner. Consumer workflow installation, a live issue receipt and the owner-bound refinement decision remain pending. The first product PR is beyond this triage/refine implementation; the roadmap retains implementation/integration adapters and their human gates.
