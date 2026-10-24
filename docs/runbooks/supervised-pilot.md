@@ -20,6 +20,8 @@ Install the compatible Lighthouse package in the consumer, project `lighthouse-h
 
 The bridge writes a receipt to a unique `RUNNER_TEMP` file. Check the live GitHub Actions job, supervisor row, engine termination and published comment together. A `waiting-human` operational state can contain a blocked Lighthouse report: inspect its `result.status` and evidence before deciding the next stage.
 
+For refinement, the supervisor verifies the owner's exact command against the published triage receipt and checks that its timestamp is not earlier than publication. The engine receives that checked evidence under `hostEvidence.refinementApproval`, including the comment, owner, predecessor digest and receipt. This authorizes refinement only; the host rechecks it before publishing the result.
+
 ## Failure and retention
 
 Use `lighthouse-host-bridge status <runId>` and `cancel <runId>` through the authorized socket identity. Admission limits active capacity to one and attempts to three per issue/stage/source. Cancellation racing with claim is serialized; publication already in progress must be reconciled. A source change or workflow cancellation invalidates publication authority.
