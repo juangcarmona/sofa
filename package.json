@@ -36,6 +36,6 @@
     "@prodshape/cli": "0.23.0",
     "fflate": "0.8.3",
     "husky": "9.1.7",
-    "markdownlint-cli2": "0.23.3"
+    "markdownlint-cli2": "0.24.0"
   }
 }
