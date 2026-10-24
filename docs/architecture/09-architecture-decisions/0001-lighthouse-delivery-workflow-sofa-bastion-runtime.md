@@ -13,7 +13,7 @@ tags: [lighthouse, sofa, bastion, runtime, github-actions]
 
 SoFa must execute agentic engineering work across consumer repositories, but the repository lifecycle already exists in Lighthouse. Lighthouse defines routes, stages, gates, skills, stage-result contracts, gh-aw workflows, router/workers, explicit composition, and delivery evidence.
 
-SoFa has no implemented runtime yet. Its target problem is operational: schedule eligible work, provide one bounded execution capacity on a persistent Bastion, supervise the runner and engine, isolate a workspace, persist recovery state, and prevent stale work from publishing. The initial environment is one persistent Bastion with a self-hosted GitHub runner, SoFa process, model gateway, local/provider model services, and ephemeral execution resources.
+SoFa has no implemented runtime yet. Its target problem is operational: schedule eligible work, provide bounded execution capacity on a persistent Bastion, supervise the runner and engine, isolate a workspace, persist recovery state, and prevent stale work from publishing. The initial environment is one persistent Bastion with self-hosted GitHub runner registrations, a SoFa process, a model gateway, local/provider model services, and ephemeral execution resources.
 
 ## Decision
 
@@ -23,9 +23,9 @@ We will:
 2. Keep SoFa authoritative for cross-project scheduling, leases, checkpoints, fencing, recovery, capacity, concurrency, runner supervision, workspace lifecycle, isolation, operational persistence, engine integration, runtime health, and Bastion operation.
 3. Deploy the runner as a SoFa component on Bastion. It supplies `[self-hosted, linux, lighthouse-sdlc]` and hands the explicit Lighthouse job contract to the SoFa supervisor.
 4. Use this initial trigger path: GitHub event -> Lighthouse router -> Lighthouse worker -> GitHub Actions job -> SoFa runner on Bastion -> isolated execution -> Lighthouse stage result and delivery evidence.
-5. Keep Bastion persistent while making the execution worker and workspace ephemeral per run. The first slice has at most one active SoFa execution worker and does not require autoscaling, KEDA, a host fleet, a broker, ephemeral machines, or a microVM.
+5. Keep Bastion persistent while making one execution worker and workspace ephemeral per run. The first slice does not require autoscaling, KEDA, a host fleet, a broker, ephemeral machines, or a microVM. Bounded parallel capacity on that host is defined by [ADR-0002](0002-bounded-parallel-execution-on-bastion.md).
 6. Use leases, fencing tokens, monotonic checkpoint sequences, bounded cancellation/timeouts, and explicit recovery results so a stale worker cannot publish after authority expires.
-7. Keep OpenCode external to lifecycle control and use the model gateway as the model-routing, masking, metering, security, and health boundary.
+7. Keep OpenCode external to lifecycle control. The initial Bastion execution path invokes persistent OpenCode with the operator's OpenAI Codex/ChatGPT authentication; provider routing and model selection remain behind the OpenCode/provider boundary and may use a gateway when that gateway supports the selected provider authentication.
 8. Preserve Lighthouse gates `triaged`, `ready`, `planned`, and `done`. `ready`, `planned`, and `done` are gates, not stages. No `deploy` stage or state is introduced.
 9. Do not introduce a central SoFa webhook in the first slice. A future ingress may be added only as an adapter that preserves the same ownership boundaries.
 
@@ -35,7 +35,7 @@ We will:
 - **Positive:** A single persistent Bastion is sufficient for the first vertical slice while execution state and workspaces remain bounded and recoverable.
 - **Positive:** Fencing, checkpointing, and evidence references make failure and recovery explicit.
 - **Negative:** SoFa depends on the exact Lighthouse package and workflow contract and must verify version compatibility during implementation.
-- **Negative:** One Bastion and one active worker impose a hard capacity limit and a single-host failure domain.
+- **Negative:** One Bastion and its bounded worker capacity impose a hard resource limit and a single-host failure domain.
 - **Neutral:** The wire-level handoff schema, authentication mechanism, database schema, workspace driver, and OpenCode cancellation protocol remain implementation decisions constrained by this boundary.
 
 ## Alternatives considered

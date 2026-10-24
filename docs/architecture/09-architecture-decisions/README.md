@@ -11,5 +11,8 @@ This directory is the canonical ADR collection for SoFa. It owns the decision re
 | Decision | Status | Date | Record |
 | --- | --- | --- | --- |
 | Lighthouse owns delivery workflow and SoFa owns the Bastion execution runtime | Accepted | 2026-10-24 | [ADR-0001](0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md) |
+| One Bastion supports bounded parallel execution through repository-scoped runner registrations | Accepted | 2026-10-24 | [ADR-0002](0002-bounded-parallel-execution-on-bastion.md) |
+| Bastion OpenCode uses the operator's OpenAI Codex account without a GitHub API secret | Accepted | 2026-10-24 | [ADR-0003](0003-bastion-opencode-codex-authentication.md) |
+| Admit jobs locally and fence privileged publication | Accepted | 2026-10-24 | [ADR-0004](0004-local-admission-and-fenced-publication.md) |
 
 The decision is accepted for the architecture-alignment phase. It does not authorize implementation by itself; implementation remains a separate lifecycle item with its own validation and human gates.

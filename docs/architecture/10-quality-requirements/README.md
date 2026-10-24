@@ -18,11 +18,11 @@ description: Quality goals and concrete scenarios for evaluating them.
    - A workspace and execution worker are scoped to one run.
    - Cleanup or quarantine prevents cross-run contamination.
 4. **Operability**
-   - Bastion health, capacity, leases, workers, engine, gateway, and recovery posture are observable.
+   - Bastion health, bounded capacity, leases, workers, engine, gateway, and recovery posture are observable.
 5. **Evidence integrity**
    - Operational state, stage results, delivery evidence, telemetry, and human decisions remain separate.
 6. **Bounded first slice**
-   - The architecture runs on one persistent Bastion without a fleet, broker, autoscaler, or microVM requirement.
+   - The architecture runs several isolated executions on one persistent Bastion without a fleet, broker, autoscaler, or microVM requirement; the initial capacity target is five to six, subject to measurement.
 
 ## Quality scenarios
 
@@ -35,3 +35,7 @@ description: Quality goals and concrete scenarios for evaluating them.
 | Workspace contamination | A previous run leaves files or processes behind. | Clean or quarantine the workspace and refuse reuse until identity and ownership are verified. |
 | Untrusted repository | A fork or code classification requires stronger isolation. | Reject or route to a future sandbox/microVM profile; do not silently use the trusted profile. |
 | Bastion degradation | Database, runner, gateway, or model service becomes unhealthy. | Expose health degradation, stop unsafe dispatch, and retain recovery-required state. |
+
+## Pilot evidence
+
+The [presentations pilot](../../roadmap/first-pilot.md) owns the concrete acceptance scenarios. Its evidence must cover duplicate intake, same-key payload conflicts, stale publication, uncertain remote effects, cancellation, host capacity contention and source changes after approval. A successful recovery fixture does not prove that the real engine or GitHub publisher observes the same boundary.
