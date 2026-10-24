@@ -1,16 +1,18 @@
 # Presentations end-to-end pilot
 
-Juan selected `juangcarmona/presentations` on 2026-10-24. This is the acceptance plan for future execution, not a report of a completed run. The first milestone is a story reaching triage/refine; the full pilot adds a recoverable implementation, a PR and authorized integration.
+Juan selected `juangcarmona/presentations` on 2026-10-24. This document tracks the pilot acceptance boundary and links its recorded evidence. The first milestone is a story reaching triage/refine; the full pilot adds a recoverable implementation, a PR and authorized integration.
 
-## Observed preparation state
+## Verified preparation
 
-Local checkout HEAD is `a4eaa4a`. Lighthouse `0.9.0` and SDLC `0.8.0` are installed; `lighthouse verify --format json` reports six passed checks, no blocking problems and three unconfigured findings (authorities, labels and evidence). The Lighthouse files and current application work are uncommitted. The root package has build/typecheck scripts but no `verify`. No authenticated runtime execution or `presentations` runner readiness was tested in this reconciliation.
+The consumer adopts published Lighthouse CLI `0.9.1` and SDLC `0.9.0` at source/workflow revision `f92952632d8c4852ae984e147bec82076bd2169e`. [PR #3](https://github.com/juangcarmona/presentations/pull/3) preserved and published the presentation improvements; [PR #5](https://github.com/juangcarmona/presentations/pull/5) established the pilot, followed by workflow and evidence-scope corrections. Typecheck and the full build, including both decks, passed. The original working directories retain their ongoing work.
 
-Before running, preserve the current work and establish a committed pilot revision. Define the repository verification command, reconcile ProductShape/ArcShape requirements or explicit exceptions, adopt labels through Lighthouse's plan/apply route, and provision or verify the repository's own Bastion runner. Verify the repaired Lighthouse package in a clean consumer before upgrading. A locally installed package or passing foundation check does not satisfy these prerequisites.
+Bastion runs a dedicated repository runner, a persistent SoFa supervisor with PostgreSQL, and an isolated OpenCode 2.1.0 engine using the authorized OpenAI subscription. A real provider request passed. Host policy admits only `triage` and `refine`, one active execution and at most three attempts per issue/stage/source, with a ten-minute execution limit. This is the supervised rollout configuration, not a general factory sizing limit.
 
-## Story selection
+`lighthouse verify` reports no blocking failures or managed-file drift. The pilot explicitly records unconfigured ProductShape/ArcShape authorities, labels and evidence integration; these remain adoption work. The selected issue supplies product intent for this small additive change. Stage output is published as a validated issue comment; it does not install authorities, change labels or imply an owner gate decision.
 
-Choose one existing or newly refined, low-risk presentation-site issue with observable acceptance criteria and no new infrastructure, secrets, authentication or production-data access. The exact story is selected at pickup; this plan does not invent a product feature. Keep the current talks and editable deck sources inside their repository conventions.
+## Selected story
+
+[Presentations #6](https://github.com/juangcarmona/presentations/issues/6) adds a keyboard skip link to the shared catalogue layout. The first Tab exposes “Skip to content”; activation moves focus to main content on catalogue and talk-detail pages. Acceptance covers both themes and narrow viewports, preserving existing talks, deck sources and design. Typecheck, the full deck/site build and browser evidence belong to implementation acceptance.
 
 ## Milestone A: issue to refined story
 
@@ -22,6 +24,26 @@ Choose one existing or newly refined, low-risk presentation-site issue with obse
 6. The run waits at `ready` when owner approval is required. Report links to the issue, workflow run, SoFa attempt, result and source revision. Do not call waiting a failure or approval.
 
 Pass requires an actually published story or actionable clarification, not just a JSON artifact. The engine uses the intended service account and provider; a mocked run does not count.
+
+### Observed milestone A result — 2026-10-24
+
+[Triage Actions run 40118570862](https://github.com/juangcarmona/presentations/actions/runs/40118570862) completed with a passing `triaged` report and [published receipt](https://github.com/juangcarmona/presentations/issues/6#issuecomment-6387645389). The owner authorized refinement against that result. The first refinement published a blocked report because host-verified approval evidence was absent from engine context; [SoFa #20](https://github.com/juangcarmona/sofa/pull/20) corrected that gap after 35 runtime tests, repository CI and an independent audit passed.
+
+[Refinement Actions run 40120599045](https://github.com/juangcarmona/presentations/actions/runs/40120599045) then passed and [published the refined story](https://github.com/juangcarmona/presentations/issues/6#issuecomment-6387924060). The result has no missing evidence, unavailable checks or pending review for refinement. Its operational state is `waiting-human` at `ready`. The story defines six acceptance criteria, scope, risks, dependencies and later implementation checks; it does not claim those later checks have run.
+
+| Evidence | Value |
+| --- | --- |
+| Triage attempt | `8b6c16d7862efa8592ea174db11396846a1f993a3ce65ca1525221ac73aed222` |
+| Triage result SHA-256 | `2023761bf71e9a16b36ec1774663bbaf044ce90b27111ead49d1e09c1d1188b2` |
+| Refinement authorization | [Owner comment 6387898735](https://github.com/juangcarmona/presentations/issues/6#issuecomment-6387898735) |
+| Refinement attempt | `797feb06169c10945b0fc47d79834e46a46bce263a3d1311e21d8fff5bea177d` |
+| Refinement result SHA-256 | `c3ea295a92b8b75d7aab31830cf39de754a28b59d8d9867e5abbf3f9be45a619` |
+| Runtime source | SoFa `04024c1f5127a16ebedc1fffeb626b97c55c87bc` |
+| Runtime assembly SHA-256 | `209cf90a9102c10d7ce0f27d329e19fa2c69f361bb3afea9e41c5904cdb2500b` |
+
+The operator compared the remote comment with the persisted publication intent, recomputed the result digest and matched the Actions artifact to the PostgreSQL request/result/receipt. The source revision remained unchanged; the engine container and temporary workspace were removed and the supervisor returned healthy. PostgreSQL retains the outcomes, including the blocked attempt; Actions artifacts expire after 14 days.
+
+Milestone A is demonstrated through real GitHub, runner, SoFa and OpenCode execution. The human `ready` decision remains pending. Only triage/refine are currently implemented and enabled; milestones B/C require proposal, implementation and integration adapters, their validation and explicit gate decisions. No product implementation PR or accepted delivery is claimed.
 
 ## Milestone B: proposal to verified PR
 
