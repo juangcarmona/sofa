@@ -35,7 +35,7 @@ This is the current observed path, not the target engine path. The self-hosted r
 
 The registration used by this path is scoped to the repository that owns the workflow. In the personal-factory deployment, each participating repository has a different registration on the same Bastion. The shared physical host must not be confused with an account-wide GitHub runner.
 
-### Target supervised execution after an explicit SoFa adapter exists
+### Target lifecycle beyond the first host adapter
 
 ```mermaid
 sequenceDiagram
@@ -136,3 +136,13 @@ Fencing only database writes is insufficient. The engine must have no direct cre
 The engine's local process is terminated or isolated when its lease expires. A replacement may resume from verified artifacts and receipts, but cannot blindly replay a push, merge or partially executed tool call. Human approval binds the actual revision and policy; recovery does not manufacture fresh approval.
 
 <!-- pdac:cite id="BR-HUMAN-DECISION-BOUNDARIES" digest="sha256:e18b9a12d0dd80fe7a4f5ee7e7acc6a6329a6c07ec87cb6a59813f1eaea450f9" -->
+
+## Implemented supervised stage path
+
+The opt-in `lighthouse-host.yml` accepts owner-authored issue events, exact command comments or manual dispatch. The repository runner invokes the bridge without checking out or executing repository code. Admission verifies the kernel peer UID, pinned Lighthouse package/policy, current source commit and the live GitHub workflow run. Refinement also requires a published passing triage result and an owner comment bound to its digest and run identity.
+
+PostgreSQL serializes admission and allows one active execution globally. Exact duplicate requests return their existing state. Fresh event identities are capped at three attempts per issue, stage and source revision. A supervisor holds a PostgreSQL advisory leadership lock; each run retains a fencing counter and a deadline. The engine receives a read-only source snapshot, trusted stage context and one writable result file.
+
+Before publication the supervisor revalidates the issue, source, workflow and predecessor decision. It stores the complete intent, locks the run row, checks the fence and deadline, and records the GitHub receipt before releasing capacity. A missing response leaves publication uncertain and blocks new admission. Restart stops the old container and searches for the exact owner-authored comment; it does not repost an uncertain effect. Interrupted model work needs a fresh request. Cancellation is serialized against claim/publication, and the container is stopped before the execution slot is released.
+
+A valid published report moves the operational run to `waiting-human`. The contained Lighthouse status still distinguishes a completed stage from a question or blocker. No operation in this slice approves a gate, pushes a branch or merges a PR. [The operator runbook](../../runbooks/supervised-pilot.md) describes deployment and evidence collection.

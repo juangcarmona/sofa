@@ -1,5 +1,5 @@
 # Source
 
-The application implementation boundary is intentionally empty. The former Repository Attention slice was removed because it is outside the accepted Software Factory product.
+`SoFa.Runtime` implements supervised stage admission, PostgreSQL coordination, isolated execution and fenced GitHub publication. `SoFa.AppHost` composes the runtime and database for local operation. `bridge/` contains the repository runner adapter; `execution/` defines the bounded OpenCode image and policy.
 
-Repository-level tooling remains under `src/tooling/`. Future workspace and runtime implementation belongs here only after the product and architecture decisions establish those boundaries.
+Repository tooling remains under `tooling/`. See the [architecture](../docs/architecture/README.md) for ownership and the [pilot runbook](../docs/runbooks/supervised-pilot.md) for deployment and acceptance limits.

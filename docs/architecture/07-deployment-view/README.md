@@ -56,9 +56,9 @@ flowchart LR
 
 The machine is persistent; the execution and workspace are ephemeral. The initial topology does not assume autoscaling, KEDA, a host fleet, a broker, or ephemeral machines. Because the repositories are owned by a personal GitHub account, the host has one repository-scoped runner registration per participating repository. This is the GitHub-compatible way to share one physical Bastion without pretending that a personal account has an organization-level runner scope.
 
-The repository contains no SoFa deployment or runtime implementation. Bastion evidence is narrower: the `juangcarmona/sofa` repository currently has one active runner registration, `bastion-01`, with labels `[self-hosted, Linux, X64, lighthouse-sdlc, bastion]`; its systemd service is enabled and runs as the dedicated `github-runner` account from `/opt/actions-runner/sofa`. This proves GitHub job delivery capability only. It does not prove a SoFa handoff, admission, lease, workspace lifecycle, or OpenCode supervision.
+The repository implements a .NET supervisor, Aspire composition, PostgreSQL store, runner bridge and isolated OpenCode image. Deployment and end-to-end acceptance are recorded separately in the [pilot runbook](../../runbooks/supervised-pilot.md). The existing `sofa` runner registration remains a separate gh-aw capability and is not changed by this adapter.
 
-OpenCode `v2.1.0` is installed on Bastion for the `juan` account at `/home/juan/.opencode/bin/opencode`. No OpenCode authentication file was found for either the interactive account or `/var/lib/github-runner` during the metadata-only inspection. The SoFa Runtime, operational store, execution worker, service-account Codex/ChatGPT authentication, optional gateway, and model services in the diagram are therefore target deployment elements, not installed components. The current Lighthouse job still runs gh-aw/Copilot and is not the target OpenCode handoff.
+OpenCode authentication is operator-managed in a dedicated engine volume. Each attempt creates a fresh container and session; source and trusted input are read-only mounts, the result directory is writable, and temporary configuration/cache/state live in tmpfs. The supervisor alone holds the GitHub publication credential and Docker access. The repository runner has neither. A successful provider call from that engine context proves authentication only; the GitHub workflow and published receipt prove the handoff.
 
 ## Deployment mapping
 
@@ -113,7 +113,7 @@ The trusted-repository first slice may use a container or equivalent isolated wo
 
 ## Target pilot deployment
 
-[ADR-0004](../09-architecture-decisions/0004-local-admission-and-fenced-publication.md) defines these local boundaries. They are deployment work to perform before the pilot, not observed services:
+[ADR-0004](../09-architecture-decisions/0004-local-admission-and-fenced-publication.md) defines these local boundaries. The implementation supports the following deployment; the runbook records which components have been exercised:
 
 - One .NET admission/supervisor service and PostgreSQL store on Bastion, with Aspire for composition and diagnostics.
 - One repository-scoped GitHub runner and provisioned local bridge identity per participating repository. The existing shared service account must not be mistaken for per-repository credential isolation; distinct service identities and socket permissions are part of the proposal.
