@@ -1,20 +1,20 @@
 # Lighthouse adoption and conflict report
 
-**Assessment date:** 2026-10-22. **Mode:** S1 Lighthouse 0.4.0 adoption branch; ProductShape and ArcShape content were preserved, and the branch was updated from the cleaned `main`.
+**Assessment date:** 2026-10-23. **Mode:** S1 Lighthouse 0.7.0 adoption branch; ProductShape and ArcShape content were preserved, and the branch was updated from the cleaned `main`.
 
 ## Version report
 
-Published versions were checked with npm registry metadata on 2026-10-22. SoFa's checked-in versions were read from `package.json` and `package-lock.json`.
+Published versions were checked with npm registry metadata on 2026-10-23. SoFa's checked-in versions were read from `package.json` and `package-lock.json`.
 
 | Integration/package | SoFa checkout | Published/current | Classification | Action |
 | --- | --- | --- | --- | --- |
-| `@juangcarmona/lighthouse` | `0.4.0` exact in manifest/lockfile | `0.4.0` (`latest`) | Current and locally adopted; upgrade migration applied | Lighthouse owns its generated projection and guardrails. |
-| `@juangcarmona/lighthouse-sdlc` | `0.5.0` selected in `lighthouse.json` and `.lighthouse/sdlc.json` | `0.5.0` (`latest`) | Current selection; labels capability adopted | The labels capability is catalog version `0.5.0`; its reconciliation evidence is recorded under `.lighthouse/reconciliation/`. |
-| `@juangcarmona/lighthouse-ui` | absent | `0.1.0` (`latest`) | Not installed; optional for S0 | Defer until a user-facing visual contract is accepted. |
+| `@juangcarmona/lighthouse` | `0.7.0` exact in manifest/lockfile | `0.7.0` (`latest`) | Current and locally adopted; upgrade migration applied | Lighthouse owns its generated projection and guardrails. |
+| `@juangcarmona/lighthouse-sdlc` | `0.6.0` selected in `lighthouse.json` and `.lighthouse/sdlc.json` | `0.6.0` (`latest`) | Current selection; labels capability adopted | The package publishes contract/catalog version `0.5.0`; its reconciliation evidence is recorded under `.lighthouse/reconciliation/`. |
+| `@juangcarmona/lighthouse-ui` | `0.2.0` transitive dependency; not selected in `lighthouse.json` | `0.2.0` (`latest`) | Available but not adopted; no `visual-theme` profile | Defer projection until a user-facing visual contract is accepted. |
 | `@prodshape/cli` | `0.22.0` exact in manifest/lockfile | `0.22.0` (`latest`) | Current version; applied product baseline | Keep provider ownership. The model contains the Software Factory baseline. |
-| `@arcshape/cli` | `0.1.3` exact in manifest/lockfile | `0.1.3` (`latest`) | Current version; local analysis session incomplete | Keep ArcShape content under provider ownership and review the session separately. |
+| `@arcshape/cli` | `0.1.3` exact in manifest/lockfile | `0.1.4` (`latest`) | Stale by one published patch; local analysis session incomplete | Keep this separate from the Lighthouse update and update through ArcShape's CLI when authorized. |
 
-The published `@juangcarmona/lighthouse-sdlc@0.5.0` package exposes an embedded contract document whose contract version is `0.5.0`; the labels capability is selected by default and has been adopted for GitHub. The SoFa control-plane selection is `0.5.0`.
+The published `@juangcarmona/lighthouse-sdlc@0.6.0` package exposes contract and capability-catalog version `0.5.0`; the labels capability remains adopted for GitHub. The SoFa control-plane selection is `0.6.0`.
 
 ## Ownership and path inventory
 
@@ -27,14 +27,14 @@ The published `@juangcarmona/lighthouse-sdlc@0.5.0` package exposes an embedded 
 | Hooks | `.husky/commit-msg` and `.husky/pre-push` now call `scripts/lighthouse-guard.mjs`; old hooks are backed up outside the repository. | Lighthouse | Accepted and replaced through Lighthouse initialization. The old commitlint and branch checks remain available to CI. |
 | CI | Existing `.github/workflows/verify.yml` remains; Lighthouse also generated `.github/workflows/lighthouse.yml` with read-only contents permission. | SoFa workflow / Lighthouse workflow by path | Existing Commitlint and branch scripts remain the CI defense for now. Consolidation waits for a future Lighthouse release with CI, guardrail, pipeline, and script capabilities; no privileged operation was added. |
 | Runtime source | This branch is based on cleaned `main` and has no application source. | SoFa | The removed Attention slice is not part of the current product baseline. |
-| Package versions | ProductShape 0.22.0, ArcShape 0.1.3, Lighthouse 0.4.0, and SDLC 0.5.0 are selected locally. | Each owning publisher/CLI | The labels capability is adopted at catalog version 0.5.0; the reconciliation record is provider-owned evidence. |
+| Package versions | ProductShape 0.22.0, ArcShape 0.1.3, Lighthouse 0.7.0, and SDLC 0.6.0 are selected locally; Lighthouse UI 0.2.0 is transitive and unselected. | Each owning publisher/CLI | The labels capability is adopted at catalog version 0.5.0; ArcShape 0.1.4 is available but outside this update. |
 
 ## Conflict classification
 
 1. **Dirty checkout:** branch `chore/3-lighthouse-030` contains the Lighthouse upgrade commits and the main cleanup as an incorporated ancestor. The local `.arcshape` analysis session is ignored provider state. Treat unrelated files as user work.
 2. **Provider-owned ProductShape files:** `.product/installation.lock.json`, `.product/templates/**`, `.agents/commands/product/**`, and ProductShape-managed skills match the 0.22.0 installation lock according to `npm run product:integrity`. They are not hand-edit targets.
 3. **ArcShape content drift:** the root package is current at 0.1.3. The canonical directory structure validates, and the cleanup branch intentionally regenerated the twelve section documents as empty provider templates after removing the Attention implementation. The local analysis session is incomplete; it remains ignored provider state and must not overwrite authored content.
-4. **Lighthouse adoption:** the 0.4.0 baseline, upgrade projection, hooks, guard, workflow, SDLC selection, declared repository boundaries, and labels capability adoption are present. `lighthouse upgrade` reports the managed projections current and `lighthouse verify` passes 5/5. ProductShape is applied; ArcShape structure validates, while its local analysis session remains incomplete.
+4. **Lighthouse adoption:** the 0.7.0 baseline, upgrade projection, hooks, guard, workflow, SDLC selection, declared repository boundaries, and labels capability adoption are present. `lighthouse upgrade` reports the managed projections current and `lighthouse verify` reports 4 passed checks, 2 not-applicable profile checks, and no failures or blockers. ProductShape is applied; ArcShape structure validates, while its local analysis session remains incomplete.
 5. **Lifecycle overlap:** SoFa already has shared Agentic SDLC skills and an adopted lifecycle. Lighthouse's SDLC package is a versioned provider-neutral contract, not a reason to duplicate or replace the existing lifecycle document by hand. The integration plan must state which paths Lighthouse projects and which remain SoFa/Agent Toolkit-owned.
 6. **Security boundary:** the historical Attention app was explicitly exposed on a trusted LAN address without application authentication; it has now been removed from the implementation surface. Privileged execution, GitHub writes, and autonomous work remain unavailable through any current application surface.
 
@@ -44,7 +44,7 @@ The published `@juangcarmona/lighthouse-sdlc@0.5.0` package exposes an embedded 
 2. Run the exact published Lighthouse CLI in dry-run mode, review missing paths, drift, and conflicts, then apply only the Lighthouse-owned baseline paths.
 3. Decide whether Lighthouse's ProductShape and ArcShape authority preparation is appropriate for SoFa. If accepted, let their own CLIs initialize or reconcile those providers; never replace `.product/` or `docs/architecture/` with Lighthouse copies.
 4. Resolve the ArcShape package drift to published 0.1.3 through npm/package-lock update and `arcshape` validation, after checking the session and changed generated files. This is now complete; the remaining authority dry-run conflicts are intentional content differences.
-5. Install the exact published Lighthouse CLI. Apply its hooks, projection, guard, workflow, and control-plane paths through `lighthouse init`/`lighthouse reconcile`; apply the published 0.4.0 migration through `lighthouse upgrade --apply`; set the selected SDLC package to `0.5.0` in `lighthouse.json`, regenerate provider-owned projections through the CLI, and adopt the selected GitHub labels capability through `lighthouse capabilities plan` followed by the authorized `lighthouse capabilities apply`.
+5. Install the exact published Lighthouse CLI. Apply its hooks, projection, guard, workflow, and control-plane paths through `lighthouse init`/`lighthouse reconcile`; apply the published 0.7.0 migration through `lighthouse upgrade --apply`; set the selected SDLC package to `0.6.0` in `lighthouse.json`, regenerate provider-owned projections through the CLI, and retain the already-adopted GitHub labels capability.
 6. Keep ProductShape, ArcShape, and Agent Toolkit source paths authoritative. The cleanup branch regenerated the ArcShape section documents through the owning CLI after removing the obsolete implementation. Do not add inferred architecture facts to the templates; future architecture content must be authored only after the product boundary and architecture decisions are reviewed.
 7. Keep SoFa's existing Commitlint and branch-name checks in CI while Lighthouse owns the local hooks. Revisit this boundary when Lighthouse publishes the planned CI, guardrail, pipeline, and script capabilities.
 8. Verify with `lighthouse verify --format json`, `npm run verify`, and direct hook checks. Do not claim S1 complete until the ArcShape reconciliation, workflow review, current SHA, and CI evidence are reviewable.
@@ -57,7 +57,7 @@ The published ProductShape CLI `0.22.0` dry-run detected Claude Code and Agent S
 
 The published ArcShape CLI `0.1.3` generated the canonical root and twelve-section structure. The cleanup branch then regenerated the section documents through that CLI after removing the Attention implementation; ArcShape link validation passes. The local `.arcshape` analysis session remains ignored and uncommitted provider state.
 
-The current branch passes all five Lighthouse checks. `lighthouse upgrade --format json` reports no pending changes, the labels capability plan is re-runnable with no missing operations, and `npm run verify` passes: documentation lint, 16 tests, security scan, ProductShape validation/integrity/doctor, and ArcShape link validation.
+The current branch has no failed or blocking Lighthouse checks. `lighthouse upgrade --format json` reports no pending changes, the adopted labels capability remains verified, and `npm run verify` passes: documentation lint, 16 tests, security scan, ProductShape validation/integrity/doctor, and ArcShape link validation.
 
 ## Required reconciliation decisions
 
