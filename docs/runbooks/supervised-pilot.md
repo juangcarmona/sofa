@@ -24,6 +24,8 @@ The bridge writes a receipt to a unique `RUNNER_TEMP` file. Check the live GitHu
 
 Use `lighthouse-host-bridge status <runId>` and `cancel <runId>` through the authorized socket identity. Admission limits active capacity to one and attempts to three per issue/stage/source. Cancellation racing with claim is serialized; publication already in progress must be reconciled. A source change or workflow cancellation invalidates publication authority.
 
+A rejected Lighthouse request or result retains the validator's structured reason in the operational error, bounded to eight messages of 256 characters. Process logs and malformed validator output are omitted. Invalid results are never published; inspect the receipt before spending another attempt.
+
 After restart the supervisor stops old containers before fencing interrupted runs. For an uncertain publication it searches for the exact marker, content and publisher identity. No confirmed receipt means capacity stays blocked for operator reconciliation. Inspect the remote issue and stored intent before any repair; never reset a row merely to make the queue move.
 
 Source snapshots and output workspaces are deleted after termination. The supervisor deletes the run session after stopping its engine, including recovery after interruption. Cleanup failure keeps the operational slot occupied and requires intervention. PostgreSQL retains bounded requests, results, publication intents and receipts. Database backup, operational record expiry and disaster recovery remain deployment work beyond this first slice.

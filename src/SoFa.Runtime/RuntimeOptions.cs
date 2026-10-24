@@ -14,4 +14,4 @@ public sealed record RuntimeOptions
     public uint EngineUid { get; init; } = 20003;
 }
 
-public sealed class Rejected(string message) : Exception(message);
+public class Rejected(string message) : Exception(message);
