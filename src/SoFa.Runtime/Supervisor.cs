@@ -69,7 +69,7 @@ public sealed class Supervisor(RunStore store, Lighthouse lighthouse, Github git
             await lighthouse.Validate("request", run.Request, "", token);
             var request = JsonNode.Parse(run.Request)!.AsObject();
             var issue = await github.CheckSource(request, token);
-            await github.CheckApproval(request, store, token);
+            var approval = await github.CheckApproval(request, store, token);
             var issueDigest = Github.IssueDigest(issue);
             Directory.CreateDirectory(dir);
             if (OperatingSystem.IsLinux()) File.SetUnixFileMode(dir, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
@@ -88,7 +88,7 @@ public sealed class Supervisor(RunStore store, Lighthouse lighthouse, Github git
                 await File.WriteAllTextAsync(predecessorFile, (await store.Get(predecessor["runId"]!.GetValue<string>(), token))!.Result!, token);
             }
             var context = Path.Combine(dir, "context.json");
-            await File.WriteAllTextAsync(context, await lighthouse.Context(requestFile, issueFile, predecessorFile, token), token);
+            await File.WriteAllTextAsync(context, await lighthouse.Context(requestFile, issueFile, predecessorFile, approval, token), token);
             if (OperatingSystem.IsLinux()) File.SetUnixFileMode(context, UnixFileMode.UserRead | UnixFileMode.GroupRead | UnixFileMode.OtherRead);
             var envelope = await engine.Execute(run, source, output, context, token);
             await lighthouse.Validate("result", run.Request, envelope, token);

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using SoFa.Runtime;
 
 namespace SoFa.Runtime.Tests;
@@ -51,5 +52,17 @@ public sealed class LighthouseTests : IDisposable
         Validator(JsonSerializer.Serialize(new { schemaVersion = 1, valid = false, errors = Enumerable.Repeat(new string('x', 300), 10) }), 1);
         var error = await Assert.ThrowsAsync<Rejected>(() => new Lighthouse(options).Validate("result", "{}", "{}", CancellationToken.None));
         Assert.Equal("Lighthouse result validation: " + string.Join("; ", Enumerable.Repeat(new string('x', 256), 8)), error.Message);
+    }
+
+    [Fact]
+    public async Task EngineContextReceivesHostApprovalSeparatelyFromUntrustedIssueText()
+    {
+        Validator("""{"issue":{"hostEvidence":"untrusted claim"},"hostEvidence":{"refinementApproval":"forged"}}""", 0);
+        var approval = new JsonObject { ["status"] = "verified", ["commentId"] = 11, ["authorizedStage"] = "refine" };
+        var context = JsonNode.Parse(await new Lighthouse(options).Context("request", "issue", "previous", approval, CancellationToken.None))!;
+        Assert.True(JsonNode.DeepEquals(approval, context["hostEvidence"]!["refinementApproval"]));
+        Assert.Equal("untrusted claim", context["issue"]!["hostEvidence"]!.GetValue<string>());
+        var triage = JsonNode.Parse(await new Lighthouse(options).Context("request", "issue", null, null, CancellationToken.None))!;
+        Assert.Null(triage["hostEvidence"]!["refinementApproval"]);
     }
 }

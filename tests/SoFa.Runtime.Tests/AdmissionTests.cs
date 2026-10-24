@@ -1,6 +1,8 @@
 using Npgsql;
 using SoFa.Runtime;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Net;
 
 namespace SoFa.Runtime.Tests;
 
@@ -28,6 +30,57 @@ public sealed class AdmissionTests : IAsyncLifetime
         await command.ExecuteNonQueryAsync();
     }
     static string Request(string id = "one", int issue = 1) => JsonSerializer.Serialize(new { runId = id, repository = "owner/repository", stage = "triage", sourceRevision = "revision", issue, deadline = DateTime.UtcNow.AddMinutes(5).ToString("O") });
+
+    sealed class ApprovalHandler(Func<HttpRequestMessage, HttpResponseMessage> respond) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token) => Task.FromResult(respond(request));
+    }
+
+    [Theory]
+    [InlineData("valid")]
+    [InlineData("wrong-owner")]
+    [InlineData("wrong-command")]
+    [InlineData("before-publication")]
+    [InlineData("changed-publication")]
+    [InlineData("wrong-predecessor-digest")]
+    public async Task RefinementEvidenceRequiresMatchingOwnerAndPublishedPredecessor(string scenario)
+    {
+        var dir = Path.Combine(Path.GetTempPath(), $"sofa-approval-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(dir);
+        try
+        {
+            var options = new RuntimeOptions { Socket = "unused", ClientUid = 1, PolicyFile = Path.Combine(dir, "policy.json"), ContractRoot = "unused", WorkRoot = dir, GithubTokenFile = Path.Combine(dir, "token"), EngineImage = "unused", EngineAuthVolume = "unused", Model = "unused" };
+            await File.WriteAllTextAsync(options.PolicyFile, """{"owner":"owner"}""");
+            await File.WriteAllTextAsync(options.GithubTokenFile, "test-only");
+            var prior = JsonNode.Parse(Request())!.AsObject();
+            prior["policyDigest"] = "policy"; prior["packageVersion"] = "0.9.0"; prior["workflowRevision"] = "revision";
+            var run = await store.Admit(prior.ToJsonString(), CancellationToken.None);
+            const string result = """{"result":{"status":"passed"}}""";
+            const string receipt = "https://github.com/owner/repository/issues/1#issuecomment-10";
+            const string issueUrl = "https://api.github.com/repos/owner/repository/issues/1";
+            await store.Transition(run, "admitted", "waiting-human", CancellationToken.None, result: result, intent: "triage report", receipt: receipt);
+            var input = prior.DeepClone().AsObject();
+            input["stage"] = "refine"; input["approvalCommentId"] = 11L;
+            input["predecessor"] = new JsonObject { ["runId"] = run.Id, ["resultDigest"] = scenario == "wrong-predecessor-digest" ? "wrong" : Lighthouse.Hash(result) };
+            JsonObject Comment(string owner, string body, string url, string created) => new() { ["user"] = new JsonObject { ["login"] = owner }, ["body"] = body, ["html_url"] = url, ["issue_url"] = issueUrl, ["created_at"] = created };
+            var approval = Comment(scenario == "wrong-owner" ? "stranger" : "owner", scenario == "wrong-command" ? "/lh:refine other" : $"/lh:refine {run.Id}", "https://github.com/owner/repository/issues/1#issuecomment-11", scenario == "before-publication" ? "2026-10-24T10:00:00Z" : "2026-10-24T10:02:00Z");
+            var publication = Comment("owner", scenario == "changed-publication" ? "edited" : "triage report", receipt, "2026-10-24T10:01:00Z");
+            using var http = new HttpClient(new ApprovalHandler(request => new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent((request.RequestUri!.AbsolutePath.EndsWith("/11", StringComparison.Ordinal) ? approval : publication).ToJsonString()) }));
+            var github = new Github(options, new Lighthouse(options), http);
+            if (scenario == "valid")
+            {
+                var evidence = (await github.CheckApproval(input, store, CancellationToken.None))!;
+                Assert.Equal("verified", evidence["status"]!.GetValue<string>());
+                Assert.Equal("refine", evidence["authorizedStage"]!.GetValue<string>());
+                Assert.Equal(11L, evidence["commentId"]!.GetValue<long>());
+                Assert.Equal($"/lh:refine {run.Id}", evidence["body"]!.GetValue<string>());
+                Assert.Equal(Lighthouse.Hash(result), evidence["predecessorResultDigest"]!.GetValue<string>());
+                Assert.Equal(receipt, evidence["predecessorReceipt"]!.GetValue<string>());
+            }
+            else await Assert.ThrowsAsync<Rejected>(() => github.CheckApproval(input, store, CancellationToken.None));
+        }
+        finally { Directory.Delete(dir, true); }
+    }
     [Fact]
     public async Task ConcurrentDuplicatesReturnOneAttemptAndChangedPayloadFails()
     {

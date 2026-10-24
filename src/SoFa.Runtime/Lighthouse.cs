@@ -33,6 +33,11 @@ public sealed class Lighthouse(RuntimeOptions options)
         finally { Directory.Delete(dir, true); }
     }
     sealed record ValidationReport(int SchemaVersion, bool Valid, string[] Errors);
-    public Task<string> Context(string requestFile, string issueFile, string? predecessorFile, CancellationToken token) =>
-        ProcessRunner.Run("node", new[] { Path.Combine(options.ContractRoot, "src/host-contract.mjs"), "context", requestFile, issueFile }.Concat(predecessorFile is null ? [] : new[] { predecessorFile }), token);
+    public async Task<string> Context(string requestFile, string issueFile, string? predecessorFile, JsonObject? verifiedApproval, CancellationToken token)
+    {
+        var raw = await ProcessRunner.Run("node", new[] { Path.Combine(options.ContractRoot, "src/host-contract.mjs"), "context", requestFile, issueFile }.Concat(predecessorFile is null ? [] : new[] { predecessorFile }), token);
+        var context = JsonNode.Parse(raw)!.AsObject();
+        context["hostEvidence"] = new JsonObject { ["refinementApproval"] = verifiedApproval?.DeepClone() };
+        return context.ToJsonString();
+    }
 }

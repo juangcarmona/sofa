@@ -53,9 +53,9 @@ public sealed class Github(RuntimeOptions options, Lighthouse lighthouse, HttpCl
         if (issue["user"]!["login"]!.GetValue<string>() != policy["owner"]!.GetValue<string>()) throw new Rejected("Pilot intake accepts only owner-authored issues");
         return issue;
     }
-    public async Task CheckApproval(JsonObject request, RunStore store, CancellationToken token)
+    public async Task<JsonObject?> CheckApproval(JsonObject request, RunStore store, CancellationToken token)
     {
-        if (request["stage"]!.GetValue<string>() != "refine") return;
+        if (request["stage"]!.GetValue<string>() != "refine") return null;
         var previous = await store.Get(request["predecessor"]!["runId"]!.GetValue<string>(), token) ?? throw new Rejected("Predecessor is missing");
         if (previous.State != "waiting-human" || previous.Result is null || previous.Receipt is null) throw new Rejected("Predecessor is not a published result");
         var priorRequest = JsonNode.Parse(previous.Request)!;
@@ -64,7 +64,25 @@ public sealed class Github(RuntimeOptions options, Lighthouse lighthouse, HttpCl
         if (Lighthouse.Hash(previous.Result) != request["predecessor"]!["resultDigest"]!.GetValue<string>() || JsonNode.Parse(previous.Result)!["result"]!["status"]!.GetValue<string>() != "passed" || priorRequest["stage"]!.GetValue<string>() != "triage") throw new Rejected("Predecessor did not pass triage");
         var policy = await lighthouse.Policy(token);
         var comment = await Get($"repos/{previous.Repository}/issues/comments/{request["approvalCommentId"]!.GetValue<long>()}", token);
-        if (comment["user"]!["login"]!.GetValue<string>() != policy["owner"]!.GetValue<string>() || comment["body"]!.GetValue<string>().Trim() != $"/lh:refine {previous.Id}" || !comment["issue_url"]!.GetValue<string>().EndsWith($"/issues/{previous.Issue}", StringComparison.Ordinal)) throw new Rejected("No matching owner decision for this predecessor");
+        var owner = policy["owner"]!.GetValue<string>();
+        var issueUrl = $"https://api.github.com/repos/{previous.Repository}/issues/{previous.Issue}";
+        if (comment["user"]!["login"]!.GetValue<string>() != owner || comment["body"]!.GetValue<string>() != $"/lh:refine {previous.Id}" || comment["issue_url"]!.GetValue<string>() != issueUrl) throw new Rejected("No matching owner decision for this predecessor");
+        var receipt = new Uri(previous.Receipt);
+        if (!receipt.Fragment.StartsWith("#issuecomment-", StringComparison.Ordinal) || !long.TryParse(receipt.Fragment[14..], out var receiptId)) throw new Rejected("Predecessor receipt is not an issue comment");
+        var publication = await Get($"repos/{previous.Repository}/issues/comments/{receiptId}", token);
+        if (publication["html_url"]?.GetValue<string>() != previous.Receipt || publication["issue_url"]?.GetValue<string>() != issueUrl || publication["user"]?["login"]?.GetValue<string>() != owner || previous.Intent is null || publication["body"]?.GetValue<string>() != previous.Intent)
+            throw new Rejected("Predecessor publication no longer matches its receipt");
+        if (!DateTimeOffset.TryParse(comment["created_at"]?.GetValue<string>(), out var approvedAt) || !DateTimeOffset.TryParse(publication["created_at"]?.GetValue<string>(), out var publishedAt) || approvedAt < publishedAt)
+            throw new Rejected("Owner decision must follow predecessor publication");
+        return new JsonObject
+        {
+            ["status"] = "verified", ["verifiedBy"] = "SoFa", ["authorizedStage"] = "refine",
+            ["owner"] = owner, ["commentId"] = request["approvalCommentId"]!.DeepClone(),
+            ["commentUrl"] = comment["html_url"]?.DeepClone(), ["body"] = comment["body"]!.DeepClone(),
+            ["approvedAt"] = approvedAt.ToString("O"), ["predecessorPublishedAt"] = publishedAt.ToString("O"),
+            ["predecessorRunId"] = previous.Id, ["predecessorResultDigest"] = Lighthouse.Hash(previous.Result),
+            ["predecessorReceipt"] = previous.Receipt
+        };
     }
     public static string IssueDigest(JsonObject issue) => Lighthouse.Hash(new JsonObject { ["title"] = issue["title"]?.DeepClone(), ["body"] = issue["body"]?.DeepClone(), ["state"] = issue["state"]?.DeepClone() }.ToJsonString());
     public async Task Snapshot(string repository, string revision, string target, CancellationToken token)
