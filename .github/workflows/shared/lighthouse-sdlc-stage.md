@@ -17,6 +17,14 @@ safe-outputs:
     max: 1
     report-as-issue: false
 steps:
+  - name: Set up Node.js for Lighthouse contract
+    uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+    with:
+      node-version: 22
+      cache: npm
+  - name: Install Lighthouse contract
+    shell: bash
+    run: npm ci --ignore-scripts
   - name: Materialize the host input
     shell: bash
     env:
@@ -53,13 +61,17 @@ post-steps:
       RESULT_FILE: /tmp/gh-aw/agent/stage-result.json
     run: |
       set -euo pipefail
-      node src/packages/sdlc/src/sdlc.mjs stage-result --input "$RESULT_FILE" --format json
+      npx --no-install lighthouse-sdlc stage-result --input "$RESULT_FILE" --format json
       EXPECTED_STAGE="$EXPECTED_STAGE" RESULT_FILE="$RESULT_FILE" node --input-type=module <<'NODE'
       import { readFileSync } from 'node:fs';
+      import { createRequire } from 'node:module';
+      import { dirname, join } from 'node:path';
 
       const stage = process.env.EXPECTED_STAGE;
       const result = JSON.parse(readFileSync(process.env.RESULT_FILE, 'utf8'));
-      const contract = JSON.parse(readFileSync('src/packages/sdlc/stages.json', 'utf8'));
+      const require = createRequire(import.meta.url);
+      const packageRoot = dirname(require.resolve('@juangcarmona/lighthouse-sdlc/package.json'));
+      const contract = JSON.parse(readFileSync(join(packageRoot, 'stages.json'), 'utf8'));
       const expected = contract.stages.find((item) => item.id === stage);
       if (!expected || result.stage !== stage || result.gate !== expected.gate) {
         console.error(`stage-result does not match stages.json for ${stage}`);

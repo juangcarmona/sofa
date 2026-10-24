@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       route:
-        description: Lighthouse route from src/packages/sdlc/routes.json.
+        description: Lighthouse route from the installed Lighthouse SDLC contract.
         required: true
         type: choice
         options: [supervised, plan-only, unattended, hotfix, stacked]
@@ -59,6 +59,13 @@ jobs:
       review: ${{ steps.route.outputs.review }}
     steps:
       - uses: actions/checkout@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install Lighthouse contract
+        run: npm ci --ignore-scripts
       - name: Validate route, prerequisites and selected composition
         id: route
         env:
@@ -68,7 +75,9 @@ jobs:
           AVAILABLE: ${{ inputs.available }}
         run: |
           set -euo pipefail
-          node src/packages/sdlc/src/sdlc.mjs route --route "$ROUTE" --available "$AVAILABLE" --format json > route.json
+          # Lighthouse SDLC 0.8.0 emits a stale repository-local source path;
+          # use the installed package command until a fixed projection is published.
+          npx --no-install lighthouse-sdlc route --route "$ROUTE" --available "$AVAILABLE" --format json > route.json
           jq -e '.valid == true and .canRun == true' route.json >/dev/null
           jq -e --arg stage "$STAGE" '.stages | index($stage) != null' route.json >/dev/null
           if [ "$COMPOSITION" = ff ]; then

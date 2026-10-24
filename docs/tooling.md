@@ -4,6 +4,8 @@
 
 `@juangcarmona/lighthouse@0.9.0` is pinned exactly in `package.json` and `package-lock.json`, with `@juangcarmona/lighthouse-sdlc@0.8.0` selected in `lighthouse.json` and `.lighthouse/sdlc.json`. `.lighthouse/upgrade.json` records the applied `upgrade-0.9.0` migration and the adopted labels capability. The SDLC package now projects the Lighthouse router and six stage workers into `.github/workflows/`; validate the provider-owned projection with `npx lighthouse verify --format json`.
 
+The published SDLC 0.8.0 projection currently references source paths that are not present in an adopter checkout and does not install its selected package before execution. SoFa keeps the stage semantics and generated worker composition unchanged but carries a narrow consumer-side correction: the router and shared worker mechanics install the locked dependencies and invoke the installed `lighthouse-sdlc` contract. This is intentionally visible as managed-projection drift until a Lighthouse release publishes the corrected projection.
+
 The distributed SDLC package selected at `0.8.0` publishes contract and capability-catalog version `0.5.0`; that upstream versioning distinction remains unchanged. The labels capability remains adopted and its evidence lives under `.lighthouse/reconciliation/`. Lighthouse UI `0.2.0` is available transitively, but no `visual-theme` profile is selected and no UI projection is adopted.
 
 ## ProductShape
