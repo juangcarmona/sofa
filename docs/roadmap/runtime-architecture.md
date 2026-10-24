@@ -10,20 +10,26 @@ The original proposal is retained where it matches the current product model and
 
 The original proposal did not prove a central webhook, a host fleet, autoscaling, KEDA, a broker, or a stronger sandbox for trusted repositories. Those are not part of the first slice. A stronger sandbox remains a future requirement for untrusted forks or code.
 
+## Current execution audit
+
+The selected Lighthouse package is `@juangcarmona/lighthouse-sdlc@0.8.0` through Lighthouse `0.9.0`. Its current router is manually triggered with `workflow_dispatch`; the stage workers are composed with `workflow_call`; and the agent job is assigned to `[self-hosted, linux, lighthouse-sdlc]`. The compiled job currently runs gh-aw with the `copilot` engine, validates the Lighthouse `stage-result`, and uploads that artifact.
+
+SoFa currently has no application runtime, runner component, persistence, OpenCode adapter, Bastion deployment, or model gateway implementation. The runner label is therefore only a GitHub Actions capability contract. It does not prove that a job calls a SoFa supervisor, acquires a SoFa lease, creates a SoFa checkpoint, or invokes OpenCode. The target diagrams must be read as the desired adapter boundary, not as the current execution sequence.
+
 ## Shape
 
 Use one .NET 10 modular application composed by Aspire, with PostgreSQL for the minimum durable operational state, an independently supervised Worker for execution, and OpenCode as an external execution engine. Keep the web surface and Worker as separate processes with narrow contracts; do not introduce microservices, a broker, or a generic orchestration framework.
 
 ```mermaid
 flowchart LR
-    Event[GitHub event] --> Router[Lighthouse router]
+    Event[GitHub workflow_dispatch] --> Router[Lighthouse router]
     Router --> Stage[Lighthouse stage worker]
     Stage --> Job[GitHub Actions job]
-    Job --> Runner[SoFa runner capability]
+    Job --> Runner[SoFa runner capability / future host adapter]
     Runner --> Supervisor[SoFa Runtime / Supervisor]
     Supervisor --> Worker[One active execution worker]
     Worker --> Workspace[Ephemeral workspace / sandbox]
-    Worker --> OpenCode[OpenCode]
+    Worker --> OpenCode[OpenCode, if accepted engine path]
     OpenCode --> Gateway[Model gateway]
     Supervisor --> Postgres[(PostgreSQL operational state)]
     Job --> Evidence[Stage result and delivery evidence]
@@ -94,5 +100,8 @@ Minimum health signals are Worker heartbeat age, lease age/expiry, checkpoint la
 - The versioned wire schema and authentication for the Lighthouse-to-SoFa handoff.
 - The trusted-repository classification mechanism and the isolation driver.
 - Retention and deletion implementation for operational records and evidence.
+- Whether the first slice supervises the current gh-aw/Copilot job or adds a Lighthouse-supported OpenCode engine adapter.
+- The exact mechanism by which a Lighthouse job hands an execution contract to SoFa; the runner label alone is insufficient.
+- Whether supervision is at GitHub job level, engine-process level, or both, and which boundary owns checkpoint emission.
 
 Production deployment is outside the first slice and is not a Lighthouse stage. Any future delivery/deployment capability requires a separate product and architecture decision; it must not be introduced as an implicit lifecycle transition.

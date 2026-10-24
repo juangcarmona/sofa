@@ -10,7 +10,7 @@ description: Fundamental decisions and strategies that shape the architecture.
 
 The implementation target is intentionally conservative: a modular .NET 10 SoFa process composed by Aspire, PostgreSQL for durable operational state, a separately supervised Worker, and OpenCode behind a gateway. This is a target shape, not current implementation evidence. The first slice must not require a broker, a fleet, KEDA, autoscaling, a microservice decomposition, or an ephemeral host.
 
-The execution engine and model gateway are separate concerns. Lighthouse provides the task and stage semantics; SoFa provides admission, supervision, isolation, and operational evidence; OpenCode performs the agentic work; the gateway routes model calls and provides masking, metering, security controls, and health; model services perform inference.
+The execution engine and model gateway are separate concerns. Lighthouse provides the task and stage semantics. The published Lighthouse worker projection currently runs gh-aw with the `copilot` engine on the selected self-hosted runner and owns the stage-result publication. SoFa provides the future admission, supervision, isolation, and operational evidence boundary. OpenCode remains the target external engine named by the SoFa product model, but no current Lighthouse-to-OpenCode adapter is evidenced. The gateway routes model calls and provides masking, metering, security controls, and health for whichever engine path is actually accepted; model services perform inference.
 
 ## Top-level decomposition
 
@@ -45,6 +45,6 @@ Plain Concepts Platform and GitHub Agentic Workflows are mechanism references, n
 | Specialized workers and one-worker execution | Let Lighthouse workers own stage semantics and SoFa supervise one active execution worker on Bastion. | Platform worker names and assumptions about host topology. |
 | `workflow_call` composition and Safe Outputs | Preserve explicit Lighthouse `ff`, artifact validation, and safe output behavior. | New SoFa workflow composition or a new lifecycle stage. |
 | Project health and installed versions | Expose SoFa runtime, runner, gateway, model, and Lighthouse compatibility health. | Platform metrics, scoring, or claims that are not defined by Lighthouse or SoFa. |
-| OpenCode behind a gateway | Keep OpenCode external and use a Bastion/provider gateway for routing, masking, metering, security, and health. | Turning SoFa into a model server or copying Platform implementation. |
+| OpenCode behind a gateway | Keep OpenCode external and use a Bastion/provider gateway for routing, masking, metering, security, and health once the engine adapter is defined. | Claiming that the current gh-aw/Copilot worker already runs OpenCode, turning SoFa into a model server, or copying Platform implementation. |
 
 References: [Plain Concepts Platform: how we work](https://platform.plainconcepts.com/docs/how-we-work), [Platform agentic workflows](https://platform.plainconcepts.com/docs/reference/agents), [Platform project health](https://platform.plainconcepts.com/docs/health/agentic), and [GitHub Agentic Workflows](https://github.github.com/gh-aw/).

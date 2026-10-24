@@ -8,11 +8,35 @@ description: Runtime behavior and important interactions between building blocks
 
 ## Runtime scenarios
 
-### Normal supervised execution
+### Current Lighthouse execution boundary
 
 ```mermaid
 sequenceDiagram
-    participant GH as GitHub event
+    participant D as GitHub workflow_dispatch
+    participant R as Lighthouse router
+    participant V as Route validation job
+    participant W as Lighthouse workflow_call worker
+    participant A as GitHub Actions self-hosted job
+    participant C as gh-aw Copilot engine
+    participant L as Lighthouse stage-result validator
+    participant G as GitHub artifacts/checks
+
+    D->>R: route, stage, composition, input
+    R->>V: Validate route and prerequisites
+    V->>W: workflow_call for one stage or ff
+    W->>A: Schedule on [self-hosted, linux, lighthouse-sdlc]
+    A->>C: Execute compiled gh-aw agent job
+    C->>L: Write stage-result.json
+    L->>G: Validate and upload stage result
+```
+
+This is the current observed path. The self-hosted runner executes the Lighthouse job; no SoFa process, OpenCode adapter, lease, checkpoint, or SoFa operational result is present in the path. The `lighthouse.yml` repository guardrail workflow is a separate verification workflow and is not the SDLC router.
+
+### Target supervised execution after an explicit SoFa adapter exists
+
+```mermaid
+sequenceDiagram
+    participant GH as GitHub workflow_dispatch
     participant R as Lighthouse router
     participant W as Lighthouse stage worker
     participant A as GitHub Actions job
@@ -23,16 +47,16 @@ sequenceDiagram
     participant O as OpenCode
     participant G as Model gateway
 
-    GH->>R: Event or explicit dispatch
+    GH->>R: Manual dispatch
     R->>R: Validate route, stage, prerequisites, composition
     R->>W: Invoke one stage or explicit ff chain
     W->>A: Start reusable stage job
     A->>SR: Select [self-hosted, linux, lighthouse-sdlc]
-    SR->>SS: Submit explicit execution contract
+    SR->>SS: Future explicit host-adapter handoff
     SS->>DB: Create run and acquire lease
     DB-->>SS: Fencing token and lease expiry
     SS->>X: Create isolated workspace and worker
-    X->>O: Execute scoped stage work
+    X->>O: Execute scoped OpenCode work if that adapter is selected
     O->>G: Request routed model service
     G-->>O: Model response and bounded metadata
     X->>DB: Checkpoint sequence and heartbeat
@@ -42,7 +66,7 @@ sequenceDiagram
     SS->>DB: Record outcome, evidence references, and release lease
 ```
 
-The router remains responsible for choosing a route and stage. The Lighthouse worker remains responsible for stage semantics and writing the current `stage-result` artifact. GitHub Actions remains responsible for job orchestration and artifact publication. The GitHub runner executes the job assigned to its capability. SoFa admits and supervises the execution, creates the ephemeral workspace, records operational state, and enforces cancellation, timeout, fencing, and recovery. OpenCode performs agentic work behind the gateway; it does not choose the lifecycle transition.
+The router remains responsible for choosing a route and stage. The Lighthouse worker remains responsible for stage semantics and writing the current `stage-result` artifact. GitHub Actions remains responsible for job orchestration and artifact publication. The GitHub runner executes the job assigned to its capability. Only after an explicit adapter exists can SoFa admit and supervise a separate execution boundary, create the ephemeral workspace, record operational state, and enforce cancellation, timeout, fencing, and recovery. OpenCode performs agentic work behind the gateway only on the accepted engine path; it does not choose the lifecycle transition.
 
 `ff` is a Lighthouse composition mode. Its next stage is invoked only after the previous job succeeds and its declared result is valid. A failed, blocked, unavailable, or missing prerequisite stops the chain. SoFa reports the operational outcome; it does not turn a successful job into an implicit human decision.
 

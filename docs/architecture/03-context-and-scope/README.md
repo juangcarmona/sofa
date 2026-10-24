@@ -15,7 +15,7 @@ flowchart LR
     Operator["Human operator\nproduct, architecture, integration"]
     Repo["Consumer repository\nLighthouse / gh-aw configuration"]
     GitHub["GitHub\nevents, issues, PRs, checks, artifacts"]
-    Actions["GitHub Actions\nrouter, workflow_call, job"]
+    Actions["GitHub Actions\nworkflow_dispatch, workflow_call, job"]
 
     subgraph Bastion["Persistent Bastion"]
         SoFa["SoFa Runtime / Supervisor"]
@@ -41,7 +41,9 @@ flowchart LR
     SoFa --> GitHub
 ```
 
-The initial boundary has no central SoFa webhook. GitHub delivers an event to the Lighthouse router; the router validates the route and prerequisites; a Lighthouse worker runs in a GitHub Actions job; the job is placed on the SoFa-supplied runner capability. SoFa receives the job's explicit execution contract and supervises the isolated execution. A later ingress can be introduced only as an additional transport adapter, not as a new lifecycle authority.
+The current Lighthouse SDLC router is triggered by `workflow_dispatch`. Its stage workers are invoked through `workflow_call`; the repository guardrail workflow has separate `pull_request`, `push`, and `workflow_dispatch` triggers and is not an SDLC execution trigger. There is no current issue or pull-request event that invokes the SDLC router, and there is no central SoFa webhook.
+
+The current workflow projection places the agent job on `[self-hosted, linux, lighthouse-sdlc]`. That label is a GitHub Actions scheduling capability, not a callback into a SoFa process. The published workflow executes the gh-aw agent in that job and produces the Lighthouse `stage-result`; no SoFa handoff or supervisor process is currently implemented. The target architecture therefore requires an explicit host adapter before SoFa can receive an execution contract or supervise a separate execution worker. A later ingress can be introduced only as an additional transport adapter, not as a new lifecycle authority.
 
 ## Technical context
 
@@ -51,10 +53,16 @@ The initial boundary has no central SoFa webhook. GitHub delivers an event to th
 | GitHub Actions | Event trigger, router job, `workflow_call`, runner labels, job status, artifacts. | Initial dispatch and execution transport. |
 | GitHub API | Issues, PRs, checks, commits, workflow runs, review and merge evidence. | External source/evidence authority; SoFa stores references and observations. |
 | Lighthouse router/workers | Route/stage input, prerequisites, stage prompts, stage-result contract. | Lifecycle authority to be invoked, never reimplemented by SoFa. |
-| SoFa runner capability | Local bridge from the GitHub job to the SoFa runtime. | Admission, supervision, and result handoff; component deployed with SoFa. |
+| SoFa runner capability | Current GitHub Actions capability label supplied by the Bastion runner; future local bridge from a job to the SoFa runtime. | The label alone does not create admission, supervision, or a result handoff. |
 | OpenCode | Scoped execution request and bounded process/tool results. | External engine supervised by SoFa; not a lifecycle or persistence authority. |
 | Model gateway | Engine model requests, routing, masking, token metadata, health. | Existing or future Bastion service boundary; SoFa observes and correlates it. |
 | Local/provider model services | Model inference. | Provider/runtime dependency; no product or merge authority. |
+
+### Current versus target execution boundary
+
+The current Lighthouse package is the observed execution authority at the GitHub Actions job boundary: the worker workflow selects the gh-aw `copilot` engine, runs on the self-hosted capability, and validates/uploads the `stage-result`. The SoFa runtime, SoFa runner adapter, OpenCode process boundary, and Bastion model gateway remain target components with no implementation evidence in this repository.
+
+The target may add a SoFa-owned handoff inside the job or replace the job's engine through a Lighthouse-supported host contract. That choice is open until the Lighthouse engine contract and the SoFa-to-runner transport are specified and verified.
 
 ### Scope boundaries
 
