@@ -20,4 +20,4 @@ Define product direction, configure project policies, inspect evidence, and reta
 
 ## Boundaries
 
-This slice serves Juan personally. Company and organization portfolios are future scope; team roles and commercial accounts are not introduced.
+The factory serves Juan personally. He can admit requesters and authorize repository engineers under BR-WORK-AUTHORIZATION without introducing company portfolios, organization identity administration or commercial accounts.

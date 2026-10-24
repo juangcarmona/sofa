@@ -40,6 +40,26 @@ app.MapGet("/policy", async (Lighthouse lighthouse, CancellationToken token) =>
     policy["policyDigest"] = Lighthouse.Hash(await File.ReadAllTextAsync(options.PolicyFile, token));
     return Results.Json(policy);
 });
+app.MapPost("/route", async (JsonObject request, RunStore store, Lighthouse lighthouse, Github github, CancellationToken token) =>
+{
+    if (await store.ForWorkflow(request["workflowRunId"]!.GetValue<long>(), request["issue"]!.GetValue<long>(), token) is { } prior && JsonNode.Parse(prior.Request)?["authorization"] is JsonObject authorization)
+        return Results.Json(new JsonObject { ["action"] = "run", ["stage"] = "refine", ["route"] = "supervised", ["authorization"] = authorization.DeepClone() });
+    var issue = await github.CheckSource(request, token);
+    var label = await github.LabelEvent(request, token);
+    var policy = await lighthouse.Policy(token);
+    var facts = new JsonObject
+    {
+        ["repository"] = policy["repository"]!.DeepClone(), ["actor"] = label["actor"]!["login"]!.DeepClone(),
+        ["event"] = "issues", ["action"] = label["event"]!.DeepClone(), ["label"] = label["label"]!["name"]!.DeepClone(),
+        ["eventId"] = label["id"]!.DeepClone(), ["state"] = issue["state"]!.DeepClone(), ["isPullRequest"] = issue.ContainsKey("pull_request"),
+        ["labels"] = new JsonArray(issue["labels"]!.AsArray().Select(item => item!["name"]!.DeepClone()).ToArray())
+    };
+    var decision = await lighthouse.Route(facts, token);
+    if (decision["action"]?.GetValue<string>() != "run") throw new Rejected(decision["reason"]!.GetValue<string>());
+    request["stage"] = decision["stage"]!.DeepClone(); request["route"] = decision["route"]!.DeepClone(); request["authorization"] = decision["authorization"]!.DeepClone();
+    await github.CheckLabelAuthorization(request, token);
+    return Results.Json(decision);
+});
 app.MapPost("/runs", async (JsonObject request, RunStore store, Lighthouse lighthouse, Github github, Supervisor supervisor, CancellationToken token) =>
 {
     if (!supervisor.Ready) return Results.StatusCode(503);

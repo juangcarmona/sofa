@@ -30,20 +30,28 @@ else if (command === 'github-event') {
   if (process.env.GITHUB_REPOSITORY !== policy.repository || process.env.GITHUB_ACTOR !== policy.owner || event.issue?.pull_request) throw new Error('Unauthorized pilot event');
   const issue = Number(event.issue?.number ?? process.env.LIGHTHOUSE_ISSUE);
   const comment = event.comment;
-  const stage = comment?.body?.startsWith('/lh:refine ') ? 'refine' : 'triage';
+  const direct = process.env.GITHUB_EVENT_NAME === 'issues' && event.action === 'labeled';
+  let stage = comment?.body?.startsWith('/lh:refine ') ? 'refine' : 'triage';
+  const base = { repository: policy.repository, issue, sourceRevision: process.env.GITHUB_SHA, workflowRevision: process.env.LIGHTHOUSE_WORKFLOW_REVISION, workflowRunId: Number(process.env.GITHUB_RUN_ID), packageVersion: policy.packageVersion, policyDigest: policy.policyDigest };
+  let decision;
+  if (direct) {
+    if (event.label?.name !== 'refine') throw new Error('Unrelated label');
+    decision = await call('POST', '/route', base);
+    stage = decision.stage;
+  }
   if (comment && (comment.user?.login !== policy.owner || !(comment.body === '/lh:triage' || /^\/lh:refine [a-f0-9]{64}$/.test(comment.body)))) throw new Error('Unrelated comment does not resume a run');
   let predecessor = null;
-  if (stage === 'refine') {
+  if (stage === 'refine' && !direct) {
     const prior = await call('GET', `/runs/${comment.body.split(' ')[1]}`);
     if (!prior.result) throw new Error('Missing predecessor result');
     predecessor = { runId: prior.id, resultDigest: hash(prior.result) };
   }
-  const identity = `${policy.repository}:${issue}:${stage}:${comment?.id ?? event.issue?.created_at ?? process.env.GITHUB_RUN_ID}`;
+  const identity = `${policy.repository}:${issue}:${stage}:${decision?.authorization.eventId ?? comment?.id ?? event.issue?.created_at ?? process.env.GITHUB_RUN_ID}`;
   const runId = hash(identity);
   // GitHub retries recover the previously persisted request, including its deadline.
   let run;
   try { run = await call('GET', `/runs/${runId}`); } catch (error) { if (!error.message.includes('404')) throw error; }
-  if (!run) run = await call('POST', '/runs', { schemaVersion: 1, runId, repository: policy.repository, issue, stage, route: 'supervised', sourceRevision: process.env.GITHUB_SHA, workflowRevision: process.env.LIGHTHOUSE_WORKFLOW_REVISION, workflowRunId: Number(process.env.GITHUB_RUN_ID), packageVersion: policy.packageVersion, policyDigest: policy.policyDigest, deadline: new Date(Date.now() + (policy.maxSeconds - 5) * 1000).toISOString(), writeScope: [], predecessor, approvalCommentId: comment?.id && stage === 'refine' ? comment.id : null });
+  if (!run) run = await call('POST', '/runs', { ...(direct ? { authorization: decision.authorization } : {}), schemaVersion: direct ? 2 : 1, runId, repository: policy.repository, issue, stage, route: 'supervised', sourceRevision: process.env.GITHUB_SHA, workflowRevision: process.env.LIGHTHOUSE_WORKFLOW_REVISION, workflowRunId: Number(process.env.GITHUB_RUN_ID), packageVersion: policy.packageVersion, policyDigest: policy.policyDigest, deadline: new Date(Date.now() + (policy.maxSeconds - 5) * 1000).toISOString(), writeScope: [], predecessor, approvalCommentId: comment?.id && stage === 'refine' ? comment.id : null });
   const cancel = () => { call('POST', `/runs/${runId}/cancel`).finally(() => process.exit(130)); };
   process.once('SIGTERM', cancel); process.once('SIGINT', cancel);
   const end = Date.now() + (policy.maxSeconds + 30) * 1000;

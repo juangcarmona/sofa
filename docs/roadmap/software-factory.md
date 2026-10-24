@@ -54,7 +54,7 @@ Reference checkout revisions inspected: Foundations `ca8e414`, agent-harness `c4
 
 ## Two-entry delivery revision
 
-[ADR-0005](../architecture/09-architecture-decisions/0005-separate-entry-and-autonomy.md) records the agreed direction. [CHG-FACTORY-ENTRY-AUTHORITY-001](../product/changes/active/chg-factory-entry-authority-001/change.md) proposes the product semantics. The earlier M0–M4 milestones remain evidence milestones; their manual stage-by-stage sequence does not prescribe the revised workflow.
+[ADR-0005](../architecture/09-architecture-decisions/0005-separate-entry-and-autonomy.md) records the agreed direction. [CHG-FACTORY-ENTRY-AUTHORITY-001](../product/changes/completed/chg-factory-entry-authority-001/change.md) proposes the product semantics. The earlier M0–M4 milestones remain evidence milestones; their manual stage-by-stage sequence does not prescribe the revised workflow.
 
 | Slice | Required delivery | Acceptance evidence |
 | --- | --- | --- |

@@ -24,6 +24,12 @@ public sealed class Supervisor(RunStore store, Lighthouse lighthouse, Github git
                     else await store.Transition(run, run.State, "publication-uncertain", stopping, error: "No confirmed remote receipt; owner reconciliation is required before admitting more work");
                 }
                 else await store.Interrupt(run, stopping);
+                var recovered = (await store.Get(run.Id, stopping))!;
+                if (recovered.State != "publication-uncertain")
+                {
+                    await github.ReleaseWork(recovered, stopping);
+                    await store.MarkWork(recovered, false, stopping);
+                }
             }
             Ready = true;
             while (!stopping.IsCancellationRequested)
@@ -43,11 +49,14 @@ public sealed class Supervisor(RunStore store, Lighthouse lighthouse, Github git
     {
         var dir = Path.Combine(options.WorkRoot, "runs", run.Id);
         var publishing = false;
+        var workClaimed = false;
+        var humanTakeover = false;
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(stopping);
         deadline.CancelAfter(run.Deadline > DateTime.UtcNow ? run.Deadline - DateTime.UtcNow : TimeSpan.Zero);
         using var monitorStop = CancellationTokenSource.CreateLinkedTokenSource(stopping);
         async Task Monitor()
         {
+            var authorityCheck = DateTime.UtcNow;
             try
             {
                 while (!monitorStop.IsCancellationRequested)
@@ -57,6 +66,12 @@ public sealed class Supervisor(RunStore store, Lighthouse lighthouse, Github git
                     await using var heartbeat = new NpgsqlCommand("SELECT 1", leader);
                     await heartbeat.ExecuteScalarAsync(monitorStop.Token);
                     if (current?.Fence != run.Fence || current.State == "cancelling") { deadline.Cancel(); break; }
+                    if (DateTime.UtcNow >= authorityCheck)
+                    {
+                        var issue = await github.Get($"repos/{run.Repository}/issues/{run.Issue}", monitorStop.Token);
+                        if (Github.HasLabel(issue, "human-working")) { humanTakeover = true; deadline.Cancel(); break; }
+                        authorityCheck = DateTime.UtcNow.AddSeconds(5);
+                    }
                 }
             }
             catch (OperationCanceledException) when (monitorStop.IsCancellationRequested) { }
@@ -70,6 +85,12 @@ public sealed class Supervisor(RunStore store, Lighthouse lighthouse, Github git
             var request = JsonNode.Parse(run.Request)!.AsObject();
             var issue = await github.CheckSource(request, token);
             var approval = await github.CheckApproval(request, store, token);
+            if (Github.HasLabel(issue, "human-working") || Github.HasLabel(issue, "agent-working")) throw new Rejected("Work item is already reserved");
+            await store.MarkWork(run, true, token);
+            workClaimed = true;
+            await github.SetLabel(run, "agent-working", true, token);
+            var reserved = await github.Get($"repos/{run.Repository}/issues/{run.Issue}", token);
+            if (Github.HasLabel(reserved, "human-working")) throw new Rejected("Human reservation takes precedence");
             var issueDigest = Github.IssueDigest(issue);
             Directory.CreateDirectory(dir);
             if (OperatingSystem.IsLinux()) File.SetUnixFileMode(dir, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
@@ -99,6 +120,7 @@ public sealed class Supervisor(RunStore store, Lighthouse lighthouse, Github git
             }
             var freshIssue = await github.CheckSource(request, token);
             await github.CheckApproval(request, store, token);
+            if (Github.HasLabel(freshIssue, "human-working")) throw new Rejected("Human reservation takes precedence");
             if (Github.IssueDigest(freshIssue) != issueDigest) throw new Rejected("Issue changed during execution");
             var body = $"{value["effect"]!["body"]!.GetValue<string>()}\n\n{Github.Marker(run.Id)}\n\nRun `{run.Id}` · source `{request["sourceRevision"]!.GetValue<string>()}` · result `{Lighthouse.Hash(envelope)}`. Awaiting owner decision.";
             if (!await store.Transition(run, "running", "publishing", token, result: envelope, intent: body)) throw new Rejected("Execution authority changed before publication");
@@ -113,14 +135,24 @@ public sealed class Supervisor(RunStore store, Lighthouse lighthouse, Github git
             var current = await store.Get(run.Id, cleanup.Token);
             if (current is not null && current.Fence == run.Fence)
             {
-                var state = publishing ? "publication-uncertain" : current.State == "cancelling" ? "cancelled" : deadline.IsCancellationRequested ? "timed-out" : "failed";
-                if (current.State is "running" or "publishing" or "cancelling") await store.Transition(run, current.State, state, cleanup.Token, error: error is Rejected ? error.Message : error.GetType().Name);
+                var state = publishing ? "publication-uncertain" : humanTakeover || current.State == "cancelling" ? "cancelled" : deadline.IsCancellationRequested ? "timed-out" : "failed";
+                if (current.State is "running" or "publishing" or "cancelling") await store.Transition(run, current.State, state, cleanup.Token, error: humanTakeover ? "Human reservation requested takeover" : error is Rejected ? error.Message : error.GetType().Name);
             }
         }
         finally
         {
             monitorStop.Cancel(); await monitor;
             if (Directory.Exists(dir)) Directory.Delete(dir, true);
+            if (workClaimed)
+            {
+                using var cleanup = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+                var current = (await store.Get(run.Id, cleanup.Token))!;
+                if (current.State != "publication-uncertain")
+                {
+                    await github.ReleaseWork(current, cleanup.Token);
+                    await store.MarkWork(current, false, cleanup.Token);
+                }
+            }
         }
     }
 }

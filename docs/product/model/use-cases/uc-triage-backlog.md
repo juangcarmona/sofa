@@ -4,9 +4,9 @@ type: use-case
 title: Triage GitHub backlog work
 status: draft
 primary-actor: ACT-FACTORY-OWNER
-supporting-actors: [ACT-GITHUB-BACKLOG]
+supporting-actors: [ACT-GITHUB-BACKLOG, ACT-REQUESTER, ACT-ENGINEER]
 bounded-context: BC-BACKLOG-TRIAGE
-governed-by: [BR-GITHUB-SOURCE, BR-HUMAN-DECISION-BOUNDARIES]
+governed-by: [BR-GITHUB-SOURCE, BR-HUMAN-DECISION-BOUNDARIES, BR-WORK-AUTHORIZATION]
 uses-terms: [TERM-IDEA, TERM-WORK-UNIT]
 ---
 
@@ -16,7 +16,7 @@ Capture or promote an idea, then understand candidate GitHub work, project and i
 
 ## Trigger
 
-Juan requests a backlog refresh or reviews a changed source item.
+An admitted requester submits work, an engineer requests triage, or an authorized policy requests backlog refresh.
 
 ## Preconditions
 
@@ -27,7 +27,7 @@ GitHub evidence is reachable or its limitation is explicit.
 1. SoFa captures a new idea or reads configured GitHub projects and issues.
 2. If the candidate is an idea, Juan promotes it to or links it with a GitHub issue before normal backlog processing.
 3. SoFa reconciles GitHub source identities and records priority, status, dependencies, and evidence time.
-4. Juan selects a candidate for shaping or marks it needing clarification.
+4. The Lighthouse intake result selects continuation under the effective policy, requests information, refers a decision to an engineer, or rejects the request with a reason. Direct engineer entry is admitted separately and does not require this triage run.
 
 ## Alternative Flows
 

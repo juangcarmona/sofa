@@ -139,10 +139,18 @@ The engine's local process is terminated or isolated when its lease expires. A r
 
 ## Implemented supervised stage path
 
-The opt-in `lighthouse-host.yml` accepts owner-authored issue events, exact command comments or manual dispatch. The repository runner invokes the bridge without checking out or executing repository code. Admission verifies the kernel peer UID, pinned Lighthouse package/policy, current source commit and the live GitHub workflow run. Refinement also requires a published passing triage result and an owner comment bound to its digest and run identity.
+The opt-in `lighthouse-host.yml` accepts owner-authored issue events, exact command comments or manual dispatch. The repository runner invokes the bridge without checking out or executing repository code. Admission verifies the kernel peer UID, pinned Lighthouse package/policy, current source commit and the live GitHub workflow run. Schema-1 refinement requires a published passing triage result and an owner comment bound to its digest and run identity. Schema 2 admits direct refinement through the Lighthouse event router after verifying the latest owner `refine` label event against its workflow. The request retains the event identity and needs no triage predecessor.
 
 PostgreSQL serializes admission and allows one active execution globally. Exact duplicate requests return their existing state. Fresh event identities are capped at three attempts per issue, stage and source revision. A supervisor holds a PostgreSQL advisory leadership lock; each run retains a fencing counter and a deadline. The engine receives a read-only source snapshot, trusted stage context and one writable result file.
 
 Before publication the supervisor revalidates the issue, source, workflow and predecessor decision. It stores the complete intent, locks the run row, checks the fence and deadline, and records the GitHub receipt before releasing capacity. A missing response leaves publication uncertain and blocks new admission. Restart stops the old container and searches for the exact owner-authored comment; it does not repost an uncertain effect. Interrupted model work needs a fresh request. Cancellation is serialized against claim/publication, and the container is stopped before the execution slot is released.
 
 A valid published report moves the operational run to `waiting-human`. The contained Lighthouse status still distinguishes a completed stage from a question or blocker. No operation in this slice approves a gate, pushes a branch or merges a PR. [The operator runbook](../../runbooks/supervised-pilot.md) describes deployment and evidence collection.
+
+### Work reservations
+
+Admission remains serialized in PostgreSQL. A persisted `work_claimed` flag retains capacity through terminal publication and label cleanup. The supervisor sets `agent-working` before model execution, rechecks a human reservation, and removes the marker after termination. Recovery includes terminal runs whose label cleanup was interrupted; an uncertain publication continues to occupy capacity.
+
+`human-working` prevents admission and requests cancellation of running work. The monitor observes it within five seconds during execution; publication also rechecks it. Humans wait for `agent-working` to disappear before editing. This cooperative protocol cannot lock the GitHub editor. The publisher compares the issue title/body/state digest before publishing and rejects changed work.
+
+The direct-refine adapter consumes `refine` after publishing the validated report and projects `ready` or `needs-info`. Workflow retries recover the persisted request by workflow identity, so consumed command labels do not create another model run. The engine has no GitHub write credential. See [ADR-0005](../09-architecture-decisions/0005-separate-entry-and-autonomy.md) and the [runbook](../../runbooks/supervised-pilot.md).

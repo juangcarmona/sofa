@@ -9,6 +9,16 @@ public sealed class Lighthouse(RuntimeOptions options)
 {
     public static string Hash(string text) => Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text)));
     public async Task<JsonObject> Policy(CancellationToken token) => JsonNode.Parse(await File.ReadAllTextAsync(options.PolicyFile, token))!.AsObject();
+    public async Task<JsonObject> Route(JsonObject facts, CancellationToken token)
+    {
+        var file = Path.Combine(options.WorkRoot, $"route-{Guid.NewGuid():N}.json");
+        try
+        {
+            await File.WriteAllTextAsync(file, facts.ToJsonString(), token);
+            return JsonNode.Parse(await ProcessRunner.Run("node", [Path.Combine(options.ContractRoot, "src/host-contract.mjs"), "route-event", file, options.PolicyFile], token))!.AsObject();
+        }
+        finally { File.Delete(file); }
+    }
     public async Task Validate(string command, string request, string extra, CancellationToken token)
     {
         var dir = Path.Combine(options.WorkRoot, "validation", Guid.NewGuid().ToString("N"));
