@@ -67,3 +67,24 @@ Include these fault injections before claiming recoverability:
 Juan approves integration according to the pilot policy. The publisher checks the current PR head and required evidence, merges only with that authority and records the resulting default-branch commit. Verify the relevant post-merge checks and application behavior at that revision. Retain result/effect digests and durable evidence references before temporary Actions artifacts expire.
 
 The acceptance report separates factory liveness, engine completion, stage evidence, GitHub checks, human decisions and delivered behavior. Production deployment, unattended merge, a central webhook, untrusted forks and multi-host scaling are outside this pilot. Failure or a pending owner decision must remain visible.
+
+## Revised acceptance: two entries and policy-bound continuation
+
+The accepted direction is recorded in [ADR-0005](../architecture/09-architecture-decisions/0005-separate-entry-and-autonomy.md). Historical milestone A proves the supervised triage/refine slice only. Its manual predecessor approval and `ready` wait are historical pilot behavior, not mandatory stops for every future engineer instruction.
+
+[Presentations PR #9](https://github.com/juangcarmona/presentations/pull/9) contains a manually authored plan. It does not prove that SoFa executed OpenSpec proposal, implementation or publication. Preserve it as existing work; do not merge or overwrite it as an implementation outcome.
+
+The next acceptance run must distinguish these cases:
+
+| Input or condition | Required observation |
+| --- | --- |
+| Owner requests refine with verified engineering capability | Refinement starts without a triage run or copied run hash. |
+| Admitted requester opens an issue | Triage evaluates the request under the configured intake policy; no engineering or merge privilege is inferred. |
+| Engineer requests implement | The harness checks definition and risk, then produces real OpenSpec artifacts before code application; incomplete definition asks for the missing decision. |
+| Refine needs an answer | Only a permitted answer to that pending question resumes it; the original authority and limits remain unchanged. |
+| Refine is complete or splits work | Validated effects update the issue and configured labels; dependencies prevent premature child execution. |
+| CI fails on the implementation PR | A bounded correction updates the same PR, rechecks CI and retains evidence for each attempt. |
+| Duplicate, revoked authority, source drift or stale worker | No duplicate run or effect and no publication under stale authority. |
+| Implementation is verified | Integration remains subject to its separately configured authority; unattended execution does not imply merge permission. |
+
+Run E1 first with the owner's verified capability and the published compatible contract. Exercise requester roles in isolated adapter fixtures before enabling another real principal. E3 acceptance requires actual OpenSpec files, source changes, PR, checks and source-bound evidence from the runtime; manually preparing those artifacts in this chat does not count. Keep global pilot capacity one until shared admission and recovery are demonstrated.
