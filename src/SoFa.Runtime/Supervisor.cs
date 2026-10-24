@@ -36,7 +36,7 @@ public sealed class Supervisor(RunStore store, Lighthouse lighthouse, Github git
             }
         }
         catch (OperationCanceledException) when (stopping.IsCancellationRequested) { }
-        catch (Exception error) { logger.LogError("Supervisor stopped: {Type}", error.GetType().Name); lifetime.StopApplication(); }
+        catch (Exception error) { logger.LogError("Supervisor stopped: {Type}", error.GetType().Name); Environment.ExitCode = 1; lifetime.StopApplication(); }
         finally { Ready = false; }
     }
     async Task Execute(Run run, NpgsqlConnection leader, CancellationToken stopping)
