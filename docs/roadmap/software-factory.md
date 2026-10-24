@@ -1,6 +1,6 @@
 # Software factory delivery roadmap
 
-The reconciled design was accepted by Juan on 2026-10-24. Runtime implementation remains pending.
+The reconciled direction was accepted by Juan on 2026-10-24 and revised the same day to distinguish requester intake, engineer entry and per-run autonomy. Supervised triage/refine is implemented; the two-entry runtime and complete delivery loop remain pending.
 
 The first consumer is `juangcarmona/presentations`, selected by Juan on 2026-10-24. The objective is an observable path from a GitHub story through triage/refine to a verified PR and an explicitly authorized integration, with execution on Bastion. Start with one supervised execution; expand autonomy only after the failure paths work.
 
@@ -12,7 +12,7 @@ The first consumer is `juangcarmona/presentations`, selected by Juan on 2026-10-
 | How does SoFa implement it? | [Twelve architecture views](../architecture/README.md); durable choices in [ADRs](../architecture/09-architecture-decisions/README.md). |
 | What are the delivery stages and result contracts? | Exact installed Lighthouse SDLC package, selected in `.lighthouse/sdlc.json`. |
 | What work and code exist? | GitHub issues, commits, PRs and checks; SoFa stores references and observation time. |
-| Which attempt owns execution? | Future SoFa operational store: admission, lease, fencing, checkpoints and effect receipts. |
+| Which attempt owns execution? | SoFa PostgreSQL store for admission, lease, fencing and effect receipts; general checkpoint recovery remains to be demonstrated. |
 | What is next? | This roadmap and its [bounded implementation backlog](implementation-backlog.md). |
 | What proves delivery? | [Pilot acceptance](first-pilot.md), with real source, workflow, runtime and PR evidence. |
 
@@ -20,11 +20,9 @@ Lighthouse owns the baseline, harness and repository workflows. SoFa owns cross-
 
 ## Current evidence and discrepancies
 
-At SoFa commit `af8afec`, `src/` contains repository security tooling, not a factory application. No SoFa supervisor, PostgreSQL integration, execution bridge or engine adapter is implemented. The existing runner and OpenCode installation observations in [deployment](../architecture/07-deployment-view/README.md) are dated observations, not readiness certification for the pilot.
+The [pilot evidence](first-pilot.md) records real triage and refinement through GitHub Actions, SoFa, PostgreSQL and isolated OpenCode. The consumer has committed Lighthouse CLI `0.9.1` and SDLC `0.9.0`; its talk improvements were preserved and published. Stage results are validated comments, and only the owner-authored, owner-triggered supervised route is enabled. Implementation through a runtime-created PR and general recovery remain unproved.
 
-The inspected Lighthouse baseline is `434dfab`, with CLI `0.9.0` and SDLC `0.8.0`. Its gh-aw workers run Copilot; its router is manual-only. It needs consumer package resolution, strict completion/approval validation, automatic intake and a host handoff. Those changes belong to the [Lighthouse execution roadmap](https://github.com/juangcarmona/lighthouse/blob/main/docs/roadmap/factory-reconciliation.md), proposed in the paired reconciliation branch until merged.
-
-The local `presentations` adoption passes required Lighthouse checks, but its newly installed configuration and workflows are uncommitted. ProductShape/ArcShape, labels and evidence are unconfigured; roles and adapters are empty; there is no root `verify` script. Readiness must be rechecked on the committed pilot revision. Preserve its current application and talk work during adoption.
+The published Lighthouse host contract requires a triage predecessor and owner comment for refine. Its declared unattended route still lists supervised human gates. [The revised contract work](https://github.com/juangcarmona/lighthouse/issues/70) addresses those gaps; installing a newer package alone will not prove event routing, publication or autonomous delivery.
 
 Existing SoFa delivery instructions also use Agentic SDLC `status:*` lifecycle labels while Lighthouse owns a different stage/gate catalog. This is an adoption migration to resolve once, with explicit old-to-new state mapping and provider-supported generation. Do not run two label writers or edit generated skills to hide the conflict.
 
@@ -53,3 +51,16 @@ The reviewed [Platform documentation](https://platform.plainconcepts.dev/docs/ho
 Retain bounded clarification, one event/one route, one PR per scoped change, explicit merge decisions and unknown metrics. Adapt organization-level runner infrastructure to repository registrations on Bastion. Keep provider selection separate from GitHub transport. Do not copy workflow policies, source files or provenance into Lighthouse.
 
 Reference checkout revisions inspected: Foundations `ca8e414`, agent-harness `c491ef6`, agentic-workflows `7fd80c5` and project-health `75d57a8`. The engine path was traced through the reusable refine worker, shared OpenCode setup and compilation script; routing and staged-effect validation were checked in their executable actions. These revisions are comparison evidence, not dependencies of SoFa.
+
+## Two-entry delivery revision
+
+[ADR-0005](../architecture/09-architecture-decisions/0005-separate-entry-and-autonomy.md) records the agreed direction. [CHG-FACTORY-ENTRY-AUTHORITY-001](../product/changes/active/chg-factory-entry-authority-001/change.md) proposes the product semantics. The earlier M0–M4 milestones remain evidence milestones; their manual stage-by-stage sequence does not prescribe the revised workflow.
+
+| Slice | Required delivery | Acceptance evidence |
+| --- | --- | --- |
+| E1: authorized entry | Consume the shared Lighthouse decision contract and carry verified actor, capabilities and bounded authorization through the bridge, host and publisher. | An engineer starts refine without triage; unknown actors and forged, stale or revoked authority are refused before model use. |
+| E2: intake and continuation | Add requester triage, scoped clarification, dependency-aware refinement and validated label/issue effects. | Both entry channels work; a complete refinement continues under policy; a relevant reply resumes once and unrelated replies do nothing. |
+| E3: implementation | Execute the harness, persist real OpenSpec files and checkpoints, publish one PR and repair it within bounds. | Close the initiating chat; receive a verified implementation PR, with fault-injection and provenance evidence. |
+| E4: integration | Evaluate current-head checks and separate integration authorization. | Explicit owner merge initially; automatic merge only for separately configured classes after its acceptance cases pass. |
+
+Track this work in [#22](https://github.com/juangcarmona/sofa/issues/22), with Lighthouse [#70](https://github.com/juangcarmona/lighthouse/issues/70) owning reusable decisions. The existing local source branches and consumer talk work remain independent. The future web is another authenticated adapter to the same boundary, not another lifecycle or an unauthenticated control path.
