@@ -42,16 +42,6 @@
       "effect": "allow"
     },
     {
-      "action": "glob",
-      "resource": "*",
-      "effect": "allow"
-    },
-    {
-      "action": "grep",
-      "resource": "*",
-      "effect": "allow"
-    },
-    {
       "action": "execute",
       "resource": "*",
       "effect": "allow"
@@ -101,16 +91,6 @@
     {
       "action": "tool.use",
       "resource": "external_directory:/output/*",
-      "effect": "allow"
-    },
-    {
-      "action": "tool.use",
-      "resource": "glob:*",
-      "effect": "allow"
-    },
-    {
-      "action": "tool.use",
-      "resource": "grep:*",
       "effect": "allow"
     },
     {
