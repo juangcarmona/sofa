@@ -6,7 +6,7 @@ description: Draft, review, and maintain Markdown Architecture Decision Records 
 # ArcShape ADR workflow
 
 1. Confirm the decision being made and who has authority to accept it. If the decision itself is unknown, ask; do not infer a choice from implementation alone.
-2. Inspect existing ADR conventions, indexes, relevant arc42 sections, and evidence. Default only when no repository convention exists: `docs/adr/` with four-digit sequential filenames.
+2. Inspect existing ADR conventions, indexes, relevant arc42 sections, and evidence. In SoFa, records live under `docs/architecture/09-architecture-decisions/` with four-digit sequential filenames.
 3. Draft a Markdown ADR with Context, Decision, Alternatives considered, Consequences, and References. Separate supplied decisions from observed facts and unresolved assumptions.
 4. New records are Proposed unless the maintainer explicitly says the decision is accepted. Include the rejected alternatives and why they were rejected.
 5. Never rewrite history to reverse a decision. Propose a new ADR and show any superseding relationship for review. Keep the existing ADR's status until the new decision is accepted; then mark the old record superseded. Confirm the relationship with the maintainer before recording it.

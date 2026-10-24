@@ -20,7 +20,7 @@ The twelve-section architecture structure now contains the reviewed Software Fac
 
 ## Agentic SDLC and shared skills
 
-The portable Agentic SDLC skills and shared `adr`, `architecture-docs`, `git-worktrees`, and `rebase-safely` skills are installed for Codex under `.agents/skills/`. `skills-lock.json` records their source and content. Lifecycle conventions and project-owned role adaptations live in `docs/engineering-lifecycle.md` and `.agents/skills/`; Claude Code skill links point back to the portable sources where available.
+The portable Agentic SDLC skills and shared `architecture-docs`, `git-worktrees`, and `rebase-safely` skills are installed for Codex under `.agents/skills/`. The shared `adr` skill has been removed; ArcShape owns this repository's ADR workflow under `docs/architecture/09-architecture-decisions/`. `skills-lock.json` records the remaining installed shared skills. Lifecycle conventions and project-owned role adaptations live in `docs/engineering-lifecycle.md` and `.agents/skills/`; Claude Code skill links point back to the portable sources where available.
 
 Restore or update upstream skills through the skills CLI and review the resulting diff. Do not hand-edit installed package capabilities. The project owns its lifecycle document and adapted role skills.
 

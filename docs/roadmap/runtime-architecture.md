@@ -2,7 +2,7 @@
 
 **Status:** target architecture for the implementation phase, 2026-10-24. This document refines the original S0 proposal; it does not install services or authorize implementation.
 
-The canonical architectural views are now in [`docs/architecture/`](../architecture/README.md), and the durable ownership boundary is recorded in [ADR-0001](../adr/0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md). This roadmap document remains the planning-level summary.
+The canonical architectural views are now in [`docs/architecture/`](../architecture/README.md), and the durable ownership boundary is recorded in [ADR-0001](../architecture/09-architecture-decisions/0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md). This roadmap document remains the planning-level summary.
 
 ## Revision against evidence
 
