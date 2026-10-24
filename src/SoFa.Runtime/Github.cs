@@ -31,6 +31,12 @@ public sealed class Github(RuntimeOptions options, Lighthouse lighthouse, HttpCl
         var repo = await Get($"repos/{repository}", token);
         var branch = await Get($"repos/{repository}/commits/{repo["default_branch"]!.GetValue<string>()}", token);
         if (branch["sha"]!.GetValue<string>() != request["sourceRevision"]!.GetValue<string>()) throw new Rejected("Source revision changed");
+        var adoptionFile = await Get($"repos/{repository}/contents/.lighthouse/sdlc.json?ref={request["sourceRevision"]!.GetValue<string>()}", token);
+        if (adoptionFile["encoding"]?.GetValue<string>() != "base64") throw new Rejected("Consumer adoption record is unavailable");
+        var adoption = JsonNode.Parse(System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(adoptionFile["content"]!.GetValue<string>())))!;
+        if (adoption["package"]?["name"]?.GetValue<string>() != "@juangcarmona/lighthouse-sdlc" ||
+            adoption["package"]?["version"]?.GetValue<string>() != request["packageVersion"]!.GetValue<string>())
+            throw new Rejected("Consumer adoption version does not match the admitted contract");
         var owner = policy["owner"]!.GetValue<string>();
         var identity = await Get("user", token);
         if (identity["login"]!.GetValue<string>() != owner) throw new Rejected("Publisher identity does not match the registered owner");
