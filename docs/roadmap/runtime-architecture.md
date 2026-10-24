@@ -12,7 +12,9 @@ The original proposal did not prove a central webhook, a host fleet, autoscaling
 
 ## Current execution audit
 
-The selected Lighthouse package is `@juangcarmona/lighthouse-sdlc@0.8.0` through Lighthouse `0.9.0`. Its current router is manually triggered with `workflow_dispatch`; the stage workers are composed with `workflow_call`; and the agent job is assigned to `[self-hosted, linux, lighthouse-sdlc]`. The compiled job currently runs gh-aw with the `copilot` engine, validates the Lighthouse `stage-result`, and uploads that artifact.
+The selected Lighthouse package is `@juangcarmona/lighthouse-sdlc@0.8.0` through Lighthouse `0.9.0`. Its current router is manually triggered with `workflow_dispatch`; the stage workers are composed with `workflow_call`; and the agent job is assigned to `[self-hosted, linux, lighthouse-sdlc]`. The compiled job currently runs gh-aw with the `copilot` engine, validates the Lighthouse `stage-result`, and uploads that artifact. With no route decisions supplied, `supervised` and `plan-only` are runnable; `unattended`, `hotfix`, and `stacked` are valid routes but blocked by their declared prerequisites.
+
+The machine-readable stage descriptor currently declares `gate: done` for `integrate`. The architecture treats integration as an integration result and merge preparation, not as a new lifecycle gate. SoFa must preserve the published `stage-result` contract without introducing another gate, and this interpretation needs an explicit compatibility test before implementation.
 
 SoFa currently has no application runtime, runner component, persistence, OpenCode adapter, Bastion deployment, or model gateway implementation. The runner label is therefore only a GitHub Actions capability contract. It does not prove that a job calls a SoFa supervisor, acquires a SoFa lease, creates a SoFa checkpoint, or invokes OpenCode. The target diagrams must be read as the desired adapter boundary, not as the current execution sequence.
 
