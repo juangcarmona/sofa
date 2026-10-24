@@ -23,14 +23,16 @@ public sealed class GithubTests : IDisposable
     static HttpResponseMessage Json(string body) => new(HttpStatusCode.OK) { Content = new StringContent(body, System.Text.Encoding.UTF8, "application/json") };
     Github Client(Func<HttpRequestMessage, HttpResponseMessage> respond) => new(options, new Lighthouse(options), new HttpClient(new Handler(respond)));
     [Theory]
-    [InlineData("wrong-sha", "in_progress", "owner", false)]
-    [InlineData("revision", "completed", "owner", false)]
-    [InlineData("revision", "in_progress", "stranger", false)]
-    [InlineData("revision", "in_progress", "owner", true)]
-    public async Task AdmissionRequiresCurrentSourceAndAttestedWorkflow(string sha, string state, string actor, bool valid)
+    [InlineData("wrong-sha", "in_progress", "owner", "0.9.0", false)]
+    [InlineData("revision", "completed", "owner", "0.9.0", false)]
+    [InlineData("revision", "in_progress", "stranger", "0.9.0", false)]
+    [InlineData("revision", "in_progress", "owner", "0.8.0", false)]
+    [InlineData("revision", "in_progress", "owner", "0.9.0", true)]
+    public async Task AdmissionRequiresCurrentSourceAndAttestedWorkflow(string sha, string state, string actor, string adoptedVersion, bool valid)
     {
         var github = Client(request => request.RequestUri!.AbsolutePath switch
         {
+            "/repos/owner/repo/contents/.lighthouse/sdlc.json" => Json(new JsonObject { ["encoding"] = "base64", ["content"] = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(new JsonObject { ["package"] = new JsonObject { ["name"] = "@juangcarmona/lighthouse-sdlc", ["version"] = adoptedVersion } }.ToJsonString())) }.ToJsonString()),
             "/user" => Json("{\"login\":\"owner\"}"),
             "/repos/owner/repo" => Json("{\"default_branch\":\"main\"}"),
             "/repos/owner/repo/commits/main" => Json("{\"sha\":\"revision\"}"),
@@ -38,7 +40,7 @@ public sealed class GithubTests : IDisposable
             "/repos/owner/repo/issues/1" => Json("{\"state\":\"open\",\"user\":{\"login\":\"owner\"}}"),
             _ => throw new Exception("Unexpected GitHub request")
         });
-        var input = new JsonObject { ["sourceRevision"] = "revision", ["workflowRevision"] = "revision", ["workflowRunId"] = 1L, ["issue"] = 1L, ["policyDigest"] = Lighthouse.Hash(policy.ToJsonString()) };
+        var input = new JsonObject { ["packageVersion"] = "0.9.0", ["sourceRevision"] = "revision", ["workflowRevision"] = "revision", ["workflowRunId"] = 1L, ["issue"] = 1L, ["policyDigest"] = Lighthouse.Hash(policy.ToJsonString()) };
         if (valid) Assert.NotNull(await github.CheckSource(input, CancellationToken.None));
         else await Assert.ThrowsAsync<Rejected>(() => github.CheckSource(input, CancellationToken.None));
     }
