@@ -4,6 +4,14 @@
 
 This is a historical adoption report. Its statements that the ArcShape sections were empty describe the pre-alignment state. Issue #11 subsequently authored the reviewed target in the canonical twelve sections and recorded the Lighthouse/SoFa/Bastion boundary in ADR-0001; the runtime itself remains unimplemented.
 
+## Current update: Lighthouse 0.9.0
+
+On 2026-10-24, SoFa adopted the published Lighthouse `0.9.0` release. The release includes Lighthouse SDLC `0.8.0`, whose package contains the router, six stage workers, reusable workflow sources, and compiled `.lock.yml` workflows. Lighthouse projects those assets into `.github/workflows/` and keeps the existing six-stage route and four-gate contract unchanged.
+
+The same update pins ArcShape `0.1.6` and ProductShape `0.23.0` in the SoFa development toolchain and records those provider versions in `lighthouse.json`. ProductShape and ArcShape managed files were validated and were not overwritten. The runtime remains unimplemented.
+
+## Historical snapshot: 2026-10-23
+
 ## Version report
 
 Published versions were checked with npm registry metadata on 2026-10-23. SoFa's checked-in versions were read from `package.json` and `package-lock.json`.

@@ -16,7 +16,7 @@ description: Known risks, technical debt, and their planned responses.
 | Central webhook becomes an accidental bypass | No current Lighthouse evidence requires one. | Use GitHub event -> Lighthouse router -> job -> SoFa runner. Add ingress only as a reviewed adapter. | No webhook. |
 | Model gateway becomes a second engine authority | OpenCode and model services are distinct from lifecycle control. | Keep gateway/provider concerns behind the engine boundary; record bounded metadata only. | No model server in SoFa. |
 | Single Bastion is a capacity bottleneck | The first topology has one persistent host and one active worker. | Make capacity and health observable; do not assume autoscaling. | One active execution worker. |
-| Contract version drift | SoFa selects Lighthouse package `0.6.0`; the local inspected distributed metadata includes a `0.5.0` contract version. | Verify package assets and contract versions in implementation CI; pin the exact consumed catalog. | Documentation records the discrepancy; no compatibility guess. |
+| Contract version drift | SoFa selects Lighthouse package `0.9.0` and SDLC package `0.8.0`; the distributed SDLC metadata still declares contract version `0.5.0`. | Verify package assets and contract versions in implementation CI; pin the exact consumed catalog. | The package-versus-contract distinction is recorded; no compatibility guess. |
 | Documentation is mistaken for implementation | Current source has no runtime. | Label target/proposed evidence and require runtime verification in the implementation phase. | No implementation claim. |
 
 ## Technical debt

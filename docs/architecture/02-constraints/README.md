@@ -20,7 +20,7 @@ The target retains the existing runtime proposal where it is supported by produc
 
 These technology choices remain implementation targets until their implementation phase is authorized. They do not authorize adding code in this architecture-alignment change.
 
-The consumer repository selects Lighthouse package `0.6.0` through `.lighthouse/sdlc.json`. The inspected Lighthouse route catalog defines the six stages and the routes `supervised`, `plan-only`, `unattended`, `hotfix`, and `stacked`; the route determines which stages and prerequisites are eligible. The current distributed package must be treated as the contract authority during implementation, including its `stage-result` schema and generated workflow assets.
+The consumer repository selects Lighthouse SDLC package `0.8.0` through `.lighthouse/sdlc.json` and Lighthouse package `0.9.0` in the root manifest. The distributed route catalog defines the six stages and the routes `supervised`, `plan-only`, `unattended`, `hotfix`, and `stacked`; the route determines which stages and prerequisites are eligible. The current distributed package must be treated as the contract authority during implementation, including its `stage-result` schema and generated workflow assets.
 
 GitHub Actions is the initial transport and orchestration boundary. A job is assigned to the capability `[self-hosted, linux, lighthouse-sdlc]`; the SoFa deployment on Bastion supplies that capability. No central SoFa webhook is required by the current evidence.
 
