@@ -56,6 +56,7 @@ public sealed class Github(RuntimeOptions options, Lighthouse lighthouse, HttpCl
     public async Task<JsonObject?> CheckApproval(JsonObject request, RunStore store, CancellationToken token)
     {
         if (request["stage"]!.GetValue<string>() != "refine") return null;
+        if (request["schemaVersion"]?.GetValue<int>() == 2) return await CheckLabelAuthorization(request, token);
         var previous = await store.Get(request["predecessor"]!["runId"]!.GetValue<string>(), token) ?? throw new Rejected("Predecessor is missing");
         if (previous.State != "waiting-human" || previous.Result is null || previous.Receipt is null) throw new Rejected("Predecessor is not a published result");
         var priorRequest = JsonNode.Parse(previous.Request)!;
@@ -83,6 +84,72 @@ public sealed class Github(RuntimeOptions options, Lighthouse lighthouse, HttpCl
             ["predecessorRunId"] = previous.Id, ["predecessorResultDigest"] = Lighthouse.Hash(previous.Result),
             ["predecessorReceipt"] = previous.Receipt
         };
+    }
+    public static bool HasLabel(JsonObject issue, string name) => issue["labels"]?.AsArray().Any(label => label?["name"]?.GetValue<string>() == name) == true;
+    public async Task<JsonObject> LabelEvent(JsonObject request, CancellationToken token)
+    {
+        var policy = await lighthouse.Policy(token);
+        var repository = policy["repository"]!.GetValue<string>();
+        JsonObject? latest = null;
+        for (var page = 1; page <= 20; page++)
+        {
+            using var message = await Request(HttpMethod.Get, $"repos/{repository}/issues/{request["issue"]!.GetValue<long>()}/events?per_page=100&page={page}", token);
+            using var response = await http.SendAsync(message, token);
+            response.EnsureSuccessStatusCode();
+            var events = (await response.Content.ReadFromJsonAsync<JsonArray>(token))!;
+            foreach (var item in events.OfType<JsonObject>())
+                if (item["event"]?.GetValue<string>() is "labeled" or "unlabeled" && item["label"]?["name"]?.GetValue<string>() == "refine") latest = item;
+            if (events.Count < 100)
+            {
+                if (latest?["event"]?.GetValue<string>() != "labeled" || latest["actor"]?["login"]?.GetValue<string>() != policy["owner"]!.GetValue<string>()) throw new Rejected("No current owner refine label event");
+                return latest;
+            }
+        }
+        throw new Rejected("Issue event history exceeds the admission bound");
+    }
+    public async Task<JsonObject> CheckLabelAuthorization(JsonObject request, CancellationToken token)
+    {
+        var policy = await lighthouse.Policy(token);
+        if (policy["directRefine"]?.GetValue<bool>() != true) throw new Rejected("Direct refinement is disabled");
+        var repository = policy["repository"]!.GetValue<string>();
+        var issue = await Get($"repos/{repository}/issues/{request["issue"]!.GetValue<long>()}", token);
+        if (!HasLabel(issue, "refine") || HasLabel(issue, "human-working")) throw new Rejected("Refinement was revoked or reserved by a human");
+        var label = await LabelEvent(request, token);
+        if (label["id"]!.GetValue<long>() != request["authorization"]!["eventId"]!.GetValue<long>() || request["authorization"]!["actor"]!.GetValue<string>() != policy["owner"]!.GetValue<string>()) throw new Rejected("Refinement label authority changed");
+        var workflow = await Get($"repos/{repository}/actions/runs/{request["workflowRunId"]!.GetValue<long>()}", token);
+        if (workflow["event"]?.GetValue<string>() != "issues" || !DateTimeOffset.TryParse(workflow["created_at"]?.GetValue<string>(), out var started) || !DateTimeOffset.TryParse(label["created_at"]?.GetValue<string>(), out var labeled) || started < labeled || started - labeled > TimeSpan.FromMinutes(2)) throw new Rejected("Workflow does not correspond to the current label event");
+        return new JsonObject { ["status"] = "verified", ["verifiedBy"] = "SoFa", ["authorizedStage"] = "refine", ["entry"] = "engineer", ["owner"] = policy["owner"]!.DeepClone(), ["labelEventId"] = label["id"]!.DeepClone() };
+    }
+    public async Task SetLabel(Run run, string label, bool present, CancellationToken token)
+    {
+        using var request = await Request(present ? HttpMethod.Post : HttpMethod.Delete, $"repos/{run.Repository}/issues/{run.Issue}/labels{(present ? "" : "/" + Uri.EscapeDataString(label))}", token);
+        if (present) request.Content = JsonContent.Create(new { labels = new[] { label } });
+        using var response = await http.SendAsync(request, token);
+        if (present || response.StatusCode != System.Net.HttpStatusCode.NotFound) response.EnsureSuccessStatusCode();
+        var fresh = await Get($"repos/{run.Repository}/issues/{run.Issue}", token);
+        if (HasLabel(fresh, label) != present) throw new Rejected("Label projection could not be confirmed");
+    }
+    public async Task ReleaseWork(Run run, CancellationToken token)
+    {
+        if (run.Receipt is not null && JsonNode.Parse(run.Request)?["schemaVersion"]?.GetValue<int>() == 2)
+        {
+            var request = JsonNode.Parse(run.Request)!.AsObject();
+            var issue = await Get($"repos/{run.Repository}/issues/{run.Issue}", token);
+            JsonObject? current = null;
+            if (HasLabel(issue, "refine") && !HasLabel(issue, "human-working"))
+            {
+                try { current = await LabelEvent(request, token); }
+                catch (Rejected) { /* Revoked work does not project an outcome onto a newer request. */ }
+            }
+            if (current?["id"]?.GetValue<long>() == request["authorization"]!["eventId"]!.GetValue<long>())
+            {
+                var passed = JsonNode.Parse(run.Result!)!["result"]!["status"]!.GetValue<string>() == "passed";
+                await SetLabel(run, passed ? "ready" : "needs-info", true, token);
+                await SetLabel(run, passed ? "needs-info" : "ready", false, token);
+                await SetLabel(run, "refine", false, token);
+            }
+        }
+        await SetLabel(run, "agent-working", false, token);
     }
     public static string IssueDigest(JsonObject issue) => Lighthouse.Hash(new JsonObject { ["title"] = issue["title"]?.DeepClone(), ["body"] = issue["body"]?.DeepClone(), ["state"] = issue["state"]?.DeepClone() }.ToJsonString());
     public async Task Snapshot(string repository, string revision, string target, CancellationToken token)

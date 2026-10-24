@@ -82,6 +82,19 @@ public sealed class AdmissionTests : IAsyncLifetime
         finally { Directory.Delete(dir, true); }
     }
     [Fact]
+    public async Task ReservationHoldsCapacityUntilVisibleWorkIsReleasedAndSurvivesRestart()
+    {
+        var run = await store.Admit(Request(), CancellationToken.None);
+        await store.MarkWork(run, true, CancellationToken.None);
+        await store.Transition(run, "admitted", "waiting-human", CancellationToken.None);
+        await Assert.ThrowsAsync<Rejected>(() => store.Admit(Request("next", 2), CancellationToken.None));
+        Assert.Single(await new RunStore(database).Unfinished(CancellationToken.None));
+        await Assert.ThrowsAsync<Rejected>(() => store.MarkWork(run with { Fence = 0 }, false, CancellationToken.None));
+        await store.MarkWork(run, false, CancellationToken.None);
+        Assert.Empty(await store.Unfinished(CancellationToken.None));
+        Assert.NotNull(await store.Admit(Request("next", 2), CancellationToken.None));
+    }
+    [Fact]
     public async Task ConcurrentDuplicatesReturnOneAttemptAndChangedPayloadFails()
     {
         var request = Request();

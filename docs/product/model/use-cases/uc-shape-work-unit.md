@@ -4,9 +4,9 @@ type: use-case
 title: Shape a dependency-aware work unit
 status: draft
 primary-actor: ACT-FACTORY-OWNER
-supporting-actors: []
+supporting-actors: [ACT-ENGINEER, ACT-REQUESTER]
 bounded-context: BC-BACKLOG-TRIAGE
-governed-by: [BR-GITHUB-SOURCE, BR-HUMAN-DECISION-BOUNDARIES]
+governed-by: [BR-GITHUB-SOURCE, BR-HUMAN-DECISION-BOUNDARIES, BR-WORK-AUTHORIZATION]
 uses-terms: [TERM-WORK-UNIT]
 ---
 
@@ -16,7 +16,7 @@ Turn one candidate issue into the smallest independently verifiable work unit.
 
 ## Trigger
 
-Juan selects a triaged candidate.
+An authorized engineer requests refinement directly, or admitted requester intake continues under policy.
 
 ## Preconditions
 
@@ -24,9 +24,9 @@ The source item and its priority are known, and unresolved dependencies are reco
 
 ## Main Flow
 
-1. Juan defines scope, acceptance criteria, risk, decision boundary, and verification.
+1. The Lighthouse harness refines scope, acceptance criteria, risk, decision boundary and verification under the recorded authorization. It asks the appropriate decision owner only for information or decisions it cannot resolve from evidence.
 2. SoFa records dependencies and rejects a ready state when a prerequisite is unresolved.
-3. Juan accepts the work unit for scheduling.
+3. Complete refinement continues under its effective authorization or waits for the human decision required by policy. A matching answer resumes the pending question without expanding the grant.
 
 ## Alternative Flows
 

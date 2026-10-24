@@ -20,4 +20,4 @@ Decide product and architecture intent, set priorities, authorize risk profiles 
 
 ## Boundaries
 
-This is a personal factory. No team identity, delegated commercial role, or implicit approval is introduced.
+This remains a personal factory. Juan configures repository capabilities and may also act as an engineer or requester. Additional admitted repository actors do not imply team administration, commercial tenancy or implicit approval.

@@ -45,6 +45,61 @@ public sealed class GithubTests : IDisposable
         else await Assert.ThrowsAsync<Rejected>(() => github.CheckSource(input, CancellationToken.None));
     }
     [Fact]
+    public async Task LabelAuthorityRequiresOwnerLatestEventLiveLabelAndMatchingWorkflow()
+    {
+        policy["directRefine"] = true;
+        await File.WriteAllTextAsync(options.PolicyFile, policy.ToJsonString());
+        var label = new JsonObject { ["id"] = 42L, ["event"] = "labeled", ["label"] = new JsonObject { ["name"] = "refine" }, ["actor"] = new JsonObject { ["login"] = "owner" }, ["created_at"] = "2026-10-24T21:00:00Z" };
+        var issue = JsonNode.Parse("""{"labels":[{"name":"refine"}]}""")!.AsObject();
+        var workflow = JsonNode.Parse("""{"event":"issues","created_at":"2026-10-24T21:00:02Z"}""")!.AsObject();
+        var github = Client(request => request.RequestUri!.AbsolutePath switch
+        {
+            "/repos/owner/repo/issues/1/events" => Json(new JsonArray(label.DeepClone()).ToJsonString()),
+            "/repos/owner/repo/issues/1" => Json(issue.ToJsonString()),
+            "/repos/owner/repo/actions/runs/7" => Json(workflow.ToJsonString()),
+            _ => throw new Exception("Unexpected request")
+        });
+        var input = JsonNode.Parse("""{"schemaVersion":2,"stage":"refine","issue":1,"workflowRunId":7,"authorization":{"actor":"owner","eventId":42}}""")!.AsObject();
+        Assert.Equal("engineer", (await github.CheckLabelAuthorization(input, CancellationToken.None))["entry"]!.GetValue<string>());
+        foreach (var mutation in new Action[] {
+            () => label["actor"]!["login"] = "stranger", () => label["event"] = "unlabeled",
+            () => label["id"] = 43L, () => issue["labels"]!.AsArray().Add(new JsonObject { ["name"] = "human-working" }),
+            () => issue["labels"]!.AsArray().Clear(), () => workflow["event"] = "issue_comment",
+            () => workflow["created_at"] = "2026-10-24T20:59:59Z", () => workflow["created_at"] = "2026-10-24T21:03:00Z"
+        })
+        {
+            var savedLabel = label.DeepClone().AsObject(); var savedIssue = issue.DeepClone().AsObject(); var savedWorkflow = workflow.DeepClone().AsObject();
+            mutation();
+            await Assert.ThrowsAsync<Rejected>(() => github.CheckLabelAuthorization(input, CancellationToken.None));
+            label = savedLabel; issue = savedIssue; workflow = savedWorkflow;
+        }
+    }
+    [Fact]
+    public async Task ReservationCleanupProjectsOnlyItsOwnOutcomeAndPreservesHumanLabels()
+    {
+        var labels = new HashSet<string> { "refine", "agent-working", "unrelated" };
+        var github = Client(message =>
+        {
+            var path = message.RequestUri!.AbsolutePath;
+            if (path.EndsWith("/events", StringComparison.Ordinal)) return Json("""[{"id":42,"event":"labeled","label":{"name":"refine"},"actor":{"login":"owner"}}]""");
+            if (message.Method == HttpMethod.Post)
+                foreach (var label in JsonNode.Parse(message.Content!.ReadAsStringAsync().GetAwaiter().GetResult())!["labels"]!.AsArray()) labels.Add(label!.GetValue<string>());
+            if (message.Method == HttpMethod.Delete) labels.Remove(path.Split('/').Last());
+            return Json(new JsonObject { ["labels"] = new JsonArray(labels.Select(label => (JsonNode)new JsonObject { ["name"] = label }).ToArray()) }.ToJsonString());
+        });
+        var run = new Run("id", "owner/repo", 1, """{"schemaVersion":2,"issue":1,"authorization":{"eventId":42}}""", "waiting-human", 1, DateTime.UtcNow.AddMinutes(1), """{"result":{"status":"passed"}}""", "report", "receipt", null);
+        await github.ReleaseWork(run, CancellationToken.None);
+        Assert.True(labels.SetEquals(["ready", "unrelated"]));
+        await github.ReleaseWork(run, CancellationToken.None);
+        Assert.True(labels.SetEquals(["ready", "unrelated"]));
+        labels = ["refine", "agent-working", "human-working", "unrelated"];
+        await github.ReleaseWork(run, CancellationToken.None);
+        Assert.True(labels.SetEquals(["refine", "human-working", "unrelated"]));
+        labels = ["refine", "agent-working", "ready", "unrelated"];
+        await github.ReleaseWork(run with { Result = """{"result":{"status":"blocked"}}""" }, CancellationToken.None);
+        Assert.True(labels.SetEquals(["needs-info", "unrelated"]));
+    }
+    [Fact]
     public async Task ReconciliationRequiresExactIntentAndPublisherIdentity()
     {
         var run = new Run("id", "owner/repo", 1, "{}", "publishing", 1, DateTime.UtcNow.AddMinutes(1), "result", "body\n" + Github.Marker("id"), null, null);

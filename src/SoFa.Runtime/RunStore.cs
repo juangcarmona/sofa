@@ -16,11 +16,19 @@ public sealed class RunStore(NpgsqlDataSource database)
               request text NOT NULL, digest text NOT NULL, state text NOT NULL,
               fence bigint NOT NULL DEFAULT 1, deadline timestamptz NOT NULL,
               result text, intent text, receipt text, error text, created_at timestamptz NOT NULL DEFAULT now());
+            ALTER TABLE sofa_runs ADD COLUMN IF NOT EXISTS work_claimed boolean NOT NULL DEFAULT false;
             """);
         await cmd.ExecuteNonQueryAsync(token);
     }
     static Run Read(NpgsqlDataReader r) => new(r.GetString(0), r.GetString(1), r.GetInt64(2), r.GetString(3), r.GetString(4), r.GetInt64(5), r.GetDateTime(6), r.IsDBNull(7) ? null : r.GetString(7), r.IsDBNull(8) ? null : r.GetString(8), r.IsDBNull(9) ? null : r.GetString(9), r.IsDBNull(10) ? null : r.GetString(10));
     const string Columns = "id, repository, issue, request, state, fence, deadline, result, intent, receipt, error";
+    public async Task<Run?> ForWorkflow(long workflow, long issue, CancellationToken token)
+    {
+        await using var cmd = database.CreateCommand($"SELECT {Columns} FROM sofa_runs WHERE request::jsonb->>'workflowRunId'=$1 AND issue=$2");
+        cmd.Parameters.AddWithValue(workflow.ToString(System.Globalization.CultureInfo.InvariantCulture)); cmd.Parameters.AddWithValue(issue);
+        await using var reader = await cmd.ExecuteReaderAsync(token);
+        return await reader.ReadAsync(token) ? Read(reader) : null;
+    }
     public async Task<Run?> Get(string id, CancellationToken token)
     {
         await using var cmd = database.CreateCommand($"SELECT {Columns} FROM sofa_runs WHERE id=$1");
@@ -48,7 +56,7 @@ public sealed class RunStore(NpgsqlDataSource database)
                 return run;
             }
         }
-        await using var capacity = new NpgsqlCommand("SELECT count(*) FROM sofa_runs WHERE state IN ('admitted','running','publishing','publication-uncertain','cancelling')", connection, tx);
+        await using var capacity = new NpgsqlCommand("SELECT count(*) FROM sofa_runs WHERE work_claimed OR state IN ('admitted','running','publishing','publication-uncertain','cancelling')", connection, tx);
         if (Convert.ToInt64(await capacity.ExecuteScalarAsync(token)) != 0) throw new Rejected("Pilot capacity is occupied; retry the same request after the active attempt finishes");
         await using var attempts = new NpgsqlCommand("SELECT count(*) FROM sofa_runs WHERE repository=$1 AND issue=$2 AND request::jsonb->>'stage'=$3 AND request::jsonb->>'sourceRevision'=$4", connection, tx);
         attempts.Parameters.AddWithValue(input["repository"]!.GetValue<string>());
@@ -106,11 +114,17 @@ public sealed class RunStore(NpgsqlDataSource database)
     }
     public async Task<List<Run>> Unfinished(CancellationToken token)
     {
-        await using var cmd = database.CreateCommand($"SELECT {Columns} FROM sofa_runs WHERE state IN ('running','publishing','publication-uncertain','cancelling')");
+        await using var cmd = database.CreateCommand($"SELECT {Columns} FROM sofa_runs WHERE work_claimed OR state IN ('running','publishing','publication-uncertain','cancelling')");
         await using var reader = await cmd.ExecuteReaderAsync(token);
         var runs = new List<Run>();
         while (await reader.ReadAsync(token)) runs.Add(Read(reader));
         return runs;
+    }
+    public async Task MarkWork(Run run, bool claimed, CancellationToken token)
+    {
+        await using var cmd = database.CreateCommand("UPDATE sofa_runs SET work_claimed=$1 WHERE id=$2 AND fence=$3");
+        cmd.Parameters.AddWithValue(claimed); cmd.Parameters.AddWithValue(run.Id); cmd.Parameters.AddWithValue(run.Fence);
+        if (await cmd.ExecuteNonQueryAsync(token) != 1) throw new Rejected("Work reservation fence changed");
     }
     public async Task<bool> Interrupt(Run run, CancellationToken token)
     {

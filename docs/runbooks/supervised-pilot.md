@@ -37,3 +37,13 @@ Source snapshots and output workspaces are deleted after termination. The superv
 `npm run verify` includes PostgreSQL contention/fencing tests, kernel peer-identity tests, publisher authority/receipt checks, process cancellation and bridge artifact cleanup. `npm run test:runtime` provisions an isolated PostgreSQL test container unless `SOFA_TEST_DATABASE` is supplied.
 
 The OpenAI provider smoke request on 2026-10-24 returned `SOFA_PROVIDER_OK` from the dedicated engine image and authentication volume. This proves provider access. Consumer deployment, a live stage receipt, refinement approval and the eventual product PR need their own recorded evidence; local fixtures do not prove those outcomes.
+
+## Owner label refinement
+
+With the compatible schema-2 contract and `directRefine: true` host policy installed, create an issue and add `refine`. The default-branch workflow accepts only owner events and the host verifies the corresponding owner label event. No triage or copied run hash is required. The existing command-comment protocol remains compatible with schema 1.
+
+The issue shows `agent-working` while the host holds its reservation. A successful refinement publishes the story as a durable issue comment, adds `ready`, and removes `refine` and `agent-working`. A published question or blocked report adds `needs-info`. Answer by updating the issue body and adding `refine` again. Automatic reply routing, implementation and integration are not enabled by this slice.
+
+To take over, add `human-working` and wait for `agent-working` to disappear before editing. New runs are refused while the human label is present. Remove it before requesting more agent work. An ignored reservation cannot prevent a GitHub edit; changed issue content invalidates publication.
+
+A failed execution clears `agent-working` after cleanup and retains `refine`; inspect its Actions receipt before removing and readding the command label. Limits remain one global execution, three attempts per issue/stage/source and the configured deadline. Cleanup failure or uncertain publication retains the reservation and blocks new admission; restart reconciles the label after stopping the old engine. Never manually remove a working label to bypass a persistent reservation.
