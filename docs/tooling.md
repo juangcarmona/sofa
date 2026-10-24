@@ -2,25 +2,25 @@
 
 ## Lighthouse
 
-`@juangcarmona/lighthouse@0.7.0` is pinned exactly in `package.json` and `package-lock.json`, with `@juangcarmona/lighthouse-sdlc@0.6.0` selected in `lighthouse.json` and `.lighthouse/sdlc.json`. `.lighthouse/upgrade.json` records the applied `upgrade-0.7.0` migration and the adopted labels capability. Reconcile the provider-owned projection with `npx lighthouse upgrade` and validate it with `npx lighthouse verify --format json`.
+`@juangcarmona/lighthouse@0.9.0` is pinned exactly in `package.json` and `package-lock.json`, with `@juangcarmona/lighthouse-sdlc@0.8.0` selected in `lighthouse.json` and `.lighthouse/sdlc.json`. `.lighthouse/upgrade.json` records the applied `upgrade-0.9.0` migration and the adopted labels capability. The SDLC package now projects the Lighthouse router and six stage workers into `.github/workflows/`; validate the provider-owned projection with `npx lighthouse verify --format json`.
 
-The distributed SDLC package selected at `0.6.0` publishes contract and capability-catalog version `0.5.0`; that upstream versioning distinction is not changed locally. The labels capability remains adopted and its evidence lives under `.lighthouse/reconciliation/`. Lighthouse UI `0.2.0` is available transitively, but no `visual-theme` profile is selected and no UI projection is adopted.
+The distributed SDLC package selected at `0.8.0` publishes contract and capability-catalog version `0.5.0`; that upstream versioning distinction remains unchanged. The labels capability remains adopted and its evidence lives under `.lighthouse/reconciliation/`. Lighthouse UI `0.2.0` is available transitively, but no `visual-theme` profile is selected and no UI projection is adopted.
 
 ## ProductShape
 
-`@prodshape/cli@0.22.0` is pinned exactly in `package.json` and `package-lock.json`; this was npm's `latest` tag on 2026-10-19. ProductShape owns `docs/product/`, `.product/config.yaml`, templates, installation metadata, and generated Codex integrations. Refresh managed integrations with `npx prodshape integration update`; check them with `npm run product:integrity` and `npm run product:doctor`.
+`@prodshape/cli@0.23.0` is pinned exactly in `package.json` and `package-lock.json`. Lighthouse records ProductShape `0.23.0` as the adopted authority in `lighthouse.json`; the ProductShape installation remains provider-owned. Refresh managed integrations with `npx prodshape integration update`; check them with `npm run product:integrity` and `npm run product:doctor`.
 
 The accepted ProductShape model contains the Software Factory definition. Product intent changes go through Product Changes; do not edit the accepted model directly.
 
 ## ArcShape
 
-`@arcshape/cli@0.1.3` is pinned exactly in the package manifest and lockfile. ArcShape owns the twelve arc42 sections and its generated architecture skills and commands. Validate the structure with `npm run architecture:check` and update it through `npx arcshape`.
+`@arcshape/cli@0.1.6` is pinned exactly in the package manifest and lockfile. Lighthouse records ArcShape `0.1.6` as the adopted authority in `lighthouse.json`; ArcShape owns the twelve arc42 sections and its generated architecture skills and commands. Validate the structure with `npm run architecture:check` and update it through `npx arcshape`.
 
-The twelve-section architecture structure is intentionally unfilled after removing the former Attention implementation. Do not replace unknown facts with template assumptions.
+The twelve-section architecture structure now contains the reviewed Software Factory target, including the Lighthouse/SoFa/Bastion boundary and ADR-0001. It describes the target and current evidence; it does not prove that a runtime is installed. Continue to update the sections through ArcShape's ownership and do not replace unknown implementation facts with assumptions.
 
 ## Agentic SDLC and shared skills
 
-The portable Agentic SDLC skills and shared `adr`, `architecture-docs`, `git-worktrees`, and `rebase-safely` skills are installed for Codex under `.agents/skills/`. `skills-lock.json` records their source and content. Lifecycle conventions and project-owned role adaptations live in `docs/engineering-lifecycle.md` and `.agents/skills/`; Claude Code skill links point back to the portable sources where available.
+The portable Agentic SDLC skills and shared `architecture-docs`, `git-worktrees`, and `rebase-safely` skills are installed for Codex under `.agents/skills/`. The shared `adr` skill has been removed; ArcShape owns this repository's ADR workflow under `docs/architecture/09-architecture-decisions/`. `skills-lock.json` records the remaining installed shared skills. Lifecycle conventions and project-owned role adaptations live in `docs/engineering-lifecycle.md` and `.agents/skills/`; Claude Code skill links point back to the portable sources where available.
 
 Restore or update upstream skills through the skills CLI and review the resulting diff. Do not hand-edit installed package capabilities. The project owns its lifecycle document and adapted role skills.
 

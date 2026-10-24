@@ -7,12 +7,6 @@
       "skillPath": "packages/agentic-sdlc/skills/adopt/SKILL.md",
       "computedHash": "0bc01cd0e23ac996fbab708d232a1ab80393eb51ad2c6a914aabeb72a61b0746"
     },
-    "adr": {
-      "source": "juangcarmona/agent-toolkit",
-      "sourceType": "github",
-      "skillPath": "skills/adr/SKILL.md",
-      "computedHash": "03866307476c3ffde3d746c14c0f5c46851ecfd0faa174da2cc7e356c8a7c758"
-    },
     "architecture-docs": {
       "source": "juangcarmona/agent-toolkit",
       "sourceType": "github",

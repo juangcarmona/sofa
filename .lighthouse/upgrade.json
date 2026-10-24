@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "package": {
     "name": "@juangcarmona/lighthouse",
-    "version": "0.7.0"
+    "version": "0.9.0"
   },
   "baseline": "0.1.0",
   "capabilities": {
@@ -26,10 +26,10 @@
     "harness": "1",
     "sdlc": "1"
   },
-  "lastAppliedMigration": "upgrade-0.7.0",
+  "lastAppliedMigration": "upgrade-0.9.0",
   "files": {
     "LIGHTHOUSE.md": {
-      "hash": "f4950ba3b4e33c2a0370c031c48935dc9bc6b199ab65f9f0d2024ff3758c5d69",
+      "hash": "1847db004894e558c1c42e4291a001106bedae08c23cf0e58bb5dc5f814b06e2",
       "scope": "harness"
     },
     "scripts/lighthouse-guard.mjs": {
@@ -48,8 +48,72 @@
       "hash": "fa29fc3cff29b3d23ac39b3a6e76587d66717384e54858ddc1143c6f696983f2",
       "scope": "harness"
     },
+    ".agents/skills/lighthouse-init/SKILL.md": {
+      "hash": "48e1692c905934d9ddceb180ee8cfafda193683d3f21debb54d8287ada068ddc",
+      "scope": "harness"
+    },
+    ".github/workflows/lighthouse-sdlc-router.yml": {
+      "hash": "845d49f3750d0971e4c9be7f2cbefd3a5042f14edb4a721e386eefa4ed67025a",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-triage.md": {
+      "hash": "74476199e7f975207f0283c0e48acd6ee408428846932ea5c88e107595686229",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-triage.lock.yml": {
+      "hash": "595bd36e84750b80418b253f66bea710209a94450de6f6a2afc813d98338dc9d",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-refine.md": {
+      "hash": "04a83ebc1504ee18895fbc3619e9f1484e0820ae9b667ed83fda9edd186b2a3a",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-refine.lock.yml": {
+      "hash": "56f6ed240c91f1d43393aea3d8937e7b17404c82df25217f0470fe205a2ea3bb",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-propose.md": {
+      "hash": "5e8a600ae941d40dc7b265c78a72e8f12b301dd240de98aac14b09aab761d786",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-propose.lock.yml": {
+      "hash": "aac1e54dcf7fb77e965d11bf7ec7c2a18b499fb4776b5b43b2cf1401196e7806",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-implement.md": {
+      "hash": "940e216f3017a1795274f5de205c688c9c5c27fc99710e9bcae05db275de2d71",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-implement.lock.yml": {
+      "hash": "a02de229920a66a18fa339bda56c07ac26c60294c6f808fdc0ac0c6e6c2f6b2d",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-integrate.md": {
+      "hash": "609a0a5456f38e29496ce4adafd5b80f4b74e12de32d0d190b567b94055d6bef",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-integrate.lock.yml": {
+      "hash": "40c01e454008620ce520aa285d8e0b67188e726554aa5f95a83194e2979a900b",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-review.md": {
+      "hash": "5253f80040a2e2a255f5bc76949b587bbc5dcfec3a806942e50395d72b958bf8",
+      "scope": "sdlc"
+    },
+    ".github/workflows/lighthouse-sdlc-review.lock.yml": {
+      "hash": "703231d58f0d7e072b60556911f80165f4c84b195721e3060b2a01327af1f8f2",
+      "scope": "sdlc"
+    },
+    ".github/workflows/shared/lighthouse-sdlc-stage.md": {
+      "hash": "3ac1290792720ec4dfafc390439b6e15f7aa9c928edb94ac1b632a427883b00c",
+      "scope": "sdlc"
+    },
     ".lighthouse/sdlc.json": {
-      "hash": "ec04abc57326fc8435acfa2ee0e45217bf23cf2e5858d0c23373ffc98a6098bf",
+      "hash": "a176682ab60f65ae7a49ba7f6fabca12d37709bcaef8f71a4536ee2d636f3cdf",
+      "scope": "sdlc"
+    },
+    ".lighthouse/commands.json": {
+      "hash": "52a6c8c2916ec4ddaf36ab5d7efb5b94d5fcaefbde377eb70cf63fbfbdffc3e4",
       "scope": "sdlc"
     }
   }

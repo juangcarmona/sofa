@@ -21,7 +21,7 @@ An item is ready when every applicable dimension is present. Inapplicable ones a
 | 9 | Affected behaviour | Kept — when applicable, identify existing flows the change may alter |
 | 10 | Quality expectations | Kept — security is relevant; performance and accessibility are stated when applicable |
 | 11 | Test impact | Adapted — identified during Plan, not required at Ready |
-| 12 | Existing decisions | Kept — ADRs (`docs/adr/`), accepted product intent (`docs/product/`), and architecture (`docs/architecture/`) |
+| 12 | Existing decisions | Kept — ADRs (`docs/architecture/09-architecture-decisions/`), accepted product intent (`docs/product/`), and architecture (`docs/architecture/`) |
 | 13 | Unknowns / risks | Kept — material uncertainty must be recorded, not necessarily resolved |
 
 ### Additional to this project

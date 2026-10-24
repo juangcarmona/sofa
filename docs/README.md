@@ -8,8 +8,7 @@ This directory separates product intent, architecture, decisions, and the shared
 | [`architecture/`](architecture/README.md) | Reserved arc42 structure for the architecture that will realize accepted product intent. |
 | [`engineering-lifecycle.md`](engineering-lifecycle.md) | Shared Agentic SDLC lifecycle, gates, roles, and repository workflow. |
 | [`tooling.md`](tooling.md) | Installed tool versions, generated-file ownership, and verified tooling limitations. |
-| `adr/` | Rationale and consequences of significant architecture decisions, when one is made. |
 | `reviews/` | Per-work-item retrospectives after integration. |
 | `delivery/` | Durable delivery plans and Fast Forward evidence when a work item requires them. |
 
-The accepted product baseline is the Software Factory. There is currently no application runtime or accepted implementation architecture; future architecture work must start from the product model and new decisions.
+The accepted product baseline is the Software Factory. The target implementation architecture is documented in the twelve arc42 sections and [ADR-0001](architecture/09-architecture-decisions/0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md); no application runtime has been implemented yet. Future implementation work must start from that architecture and the product model.

@@ -1,41 +1,47 @@
-# Initial runtime architecture proposal
+# Runtime architecture: reviewed target
 
-**Status:** proposed, not accepted. This document is a planning artifact for S0. It does not amend ADR-0001, install services, or authorize execution.
+**Status:** target architecture for the implementation phase, 2026-10-24. This document refines the original S0 proposal; it does not install services or authorize implementation.
+
+The canonical architectural views are now in [`docs/architecture/`](../architecture/README.md), and the durable ownership boundary is recorded in [ADR-0001](../architecture/09-architecture-decisions/0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md). This roadmap document remains the planning-level summary.
+
+## Revision against evidence
+
+The original proposal is retained where it matches the current product model and infrastructure constraints: one modular .NET 10 application, Aspire composition, PostgreSQL operational state, an independently supervised Worker, and OpenCode as an external engine. The inspected Lighthouse routes, skills, stage-result contract, and gh-aw workflows require one explicit adaptation: Lighthouse, not SoFa, owns repository stages, route composition, gates, stage results, and delivery evidence. SoFa is the runtime supervisor and operational control plane behind the GitHub Actions runner capability.
+
+The original proposal did not prove a central webhook, a host fleet, autoscaling, KEDA, a broker, or a stronger sandbox for trusted repositories. Those are not part of the first slice. A stronger sandbox remains a future requirement for untrusted forks or code.
 
 ## Shape
 
-Use one .NET 10 modular application composed by Aspire, with PostgreSQL for the minimum durable control-plane state, an independently supervised Worker for execution, and OpenCode as an external execution engine. Keep the web surface and Worker as separate processes with narrow contracts; do not introduce microservices, a broker, or a generic orchestration framework.
+Use one .NET 10 modular application composed by Aspire, with PostgreSQL for the minimum durable operational state, an independently supervised Worker for execution, and OpenCode as an external execution engine. Keep the web surface and Worker as separate processes with narrow contracts; do not introduce microservices, a broker, or a generic orchestration framework.
 
 ```mermaid
 flowchart LR
-    Browser[LAN read surface] --> Web[SoFa Web]
-    Web --> Control[Authenticated control boundary]
-    Control --> Triage[Backlog and Triage]
-    Control --> Scheduling[Scheduling]
-    Scheduling --> Worker[Independent Worker]
-    Worker --> Execution[Execution module]
-    Worker --> OpenCode[OpenCode process]
-    Execution --> Postgres[(PostgreSQL)]
-    Triage --> Postgres
-    Scheduling --> Postgres
-    Delivery[Verification and Delivery] --> Postgres
-    Worker --> Delivery
-    AppHost[Aspire AppHost] -. composition and telemetry .-> Web
-    AppHost -. supervision and telemetry .-> Worker
+    Event[GitHub event] --> Router[Lighthouse router]
+    Router --> Stage[Lighthouse stage worker]
+    Stage --> Job[GitHub Actions job]
+    Job --> Runner[SoFa runner capability]
+    Runner --> Supervisor[SoFa Runtime / Supervisor]
+    Supervisor --> Worker[One active execution worker]
+    Worker --> Workspace[Ephemeral workspace / sandbox]
+    Worker --> OpenCode[OpenCode]
+    OpenCode --> Gateway[Model gateway]
+    Supervisor --> Postgres[(PostgreSQL operational state)]
+    Job --> Evidence[Stage result and delivery evidence]
+    Supervisor --> Evidence
 ```
 
-The factory modules stay independent of one another through narrow contracts. Any existing unauthenticated LAN read route is legacy infrastructure, not a factory control boundary; it must not reach execution or privileged capabilities.
+The runtime modules stay independent through narrow contracts. Any existing unauthenticated LAN read route is legacy infrastructure, not a factory control boundary; it must not reach execution or privileged capabilities. GitHub Actions remains the initial dispatch transport, so no central SoFa webhook is required.
 
 ## Responsibilities
 
 | Component | Owns | Does not own |
 | --- | --- | --- |
 | Web | Non-privileged read surface and a separately authenticated control entry point when accepted. | Worker authority, GitHub mutation, or secrets in the browser. |
-| Backlog/Triage | GitHub projection, priorities, dependency edges, and ready work-unit shape. | Replacing GitHub's issue authority. |
+| Backlog/Triage projection | Project/work-item identity and scheduling input references. | Lighthouse triage, route semantics, or replacing GitHub's issue authority. |
 | Scheduling | Eligibility, WIP, risk policy, and cross-project selection. | Implementation or human approvals. |
-| Worker | Lease acquisition, checkpointed execution, cancellation, recovery, and sanitized telemetry. | Unbounded command execution or policy changes. |
-| Execution | Run state machine and OpenCode adapter contract. | Secrets policy, scheduling, or merge authority. |
-| Verification/Delivery | Checks, PR/evidence links, authorized integration, and post-delivery verification. | Claiming human approval from automation. |
+| Worker and supervisor | Lease acquisition, checkpointed execution, cancellation, recovery, and sanitized telemetry. | Unbounded command execution, lifecycle policy, or gate changes. |
+| Execution adapter | Run boundary and OpenCode process contract. | Secrets policy, scheduling, stage semantics, or merge authority. |
+| Verification/evidence projection | References to checks, PRs, stage results, authorized integration, and post-delivery observations. | Replacing Lighthouse evidence or claiming human approval from automation. |
 | PostgreSQL | Durable control-plane records and concurrency guarantees. | Prompts, credentials, full transcripts, or arbitrary source archives by default. |
 | Aspire AppHost | Local composition, dependency wiring, and operational telemetry. | Product workflow or durable business state. |
 
@@ -79,10 +85,14 @@ Use standard .NET/Aspire OpenTelemetry for correlated traces, metrics, and logs.
 
 Minimum health signals are Worker heartbeat age, lease age/expiry, checkpoint lag, queue/eligible-work count, PostgreSQL connectivity, OpenCode process outcome, verification failure count, and recovery-required count. Maintenance must include stale-lease reconciliation, failed-run retention, evidence cleanup according to policy, database backups/restore checks, and version drift checks. Each maintenance action needs an owner and must remain observable.
 
-## Open architecture decisions
+## Decisions still open for implementation
 
 - .NET 10 SDK and compatible Aspire package versions on Bastion.
 - PostgreSQL placement, backup/restore, and credential management.
 - OpenCode process contract, workspace isolation, allowed tools, and cancellation semantics.
 - Authentication for the control boundary and the exact risk-policy schema.
-- Whether delivery includes production deployment or only post-merge verification in the first slice.
+- The versioned wire schema and authentication for the Lighthouse-to-SoFa handoff.
+- The trusted-repository classification mechanism and the isolation driver.
+- Retention and deletion implementation for operational records and evidence.
+
+Production deployment is outside the first slice and is not a Lighthouse stage. Any future delivery/deployment capability requires a separate product and architecture decision; it must not be introduced as an implicit lifecycle transition.
