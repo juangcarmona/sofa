@@ -15,23 +15,24 @@ SoFa is one runtime boundary inside a larger delivery system. The following owne
 | Lighthouse router | Lighthouse | Validate event inputs, route, prerequisites, and composition mode. | SoFa leases, workspace lifecycle, or model execution. |
 | Lighthouse stage worker | Lighthouse | Execute exactly one configured stage and produce the current `stage-result` contract. | Later stages, merge authorization, or runtime recovery. |
 | GitHub Actions job | GitHub / consumer repository | Carry event and workflow inputs, select runner capability, upload artifacts, and report job status. | Product approval or durable SoFa operational state. |
-| SoFa scheduler and admission | SoFa | Select eligible work, enforce capacity/policy, and accept one explicit execution request. | Lighthouse route or gate semantics. |
-| SoFa supervisor and Worker | SoFa | Acquire leases, create checkpoints, supervise one execution worker, cancel, timeout, recover, and publish only while fenced. | Lifecycle stage meaning or human decisions. |
-| SoFa runner capability | SoFa, deployed on Bastion | Provide the self-hosted runner capability; a future adapter may hand an accepted job contract to the supervisor. | The current label alone does not create a SoFa callback, a second repository workflow, or a lifecycle engine. |
+| SoFa scheduler and admission | SoFa | Select eligible work, enforce capacity/policy, and admit explicit execution requests up to healthy capacity. | Lighthouse route or gate semantics. |
+| SoFa supervisor and Worker | SoFa | Acquire leases, create checkpoints, supervise one worker per run, cancel, timeout, recover, and publish only while fenced. | Lifecycle stage meaning or human decisions. |
+| SoFa runner registration set | SoFa, deployed on Bastion | Provide one repository-scoped GitHub runner registration per participating personal repository; a future adapter hands an accepted job contract to the shared supervisor. | The registrations are not an account-wide GitHub runner, do not create multiple SoFa workers, and do not own lifecycle semantics. |
 | Execution workspace / sandbox | SoFa runtime | Isolate checkout, tool state, and temporary artifacts for one run; clean or quarantine it at termination. | Persistent source of truth. |
-| OpenCode adapter and process | SoFa integration plus OpenCode (target) | If accepted, start and supervise the external engine with scoped inputs and cancellation. | It is not invoked by the current Lighthouse gh-aw/Copilot workflow; it does not own model serving, route selection, gates, or merge decisions. |
+| OpenCode adapter and process | SoFa integration plus OpenCode (target) | Start and supervise the persistent Bastion OpenCode process with scoped inputs, Codex/ChatGPT account authentication, cancellation, and bounded operational observation. | It is not invoked by the current Lighthouse gh-aw/Copilot projection; it does not own model serving, route selection, gates, or merge decisions. |
 | Operational store | SoFa | Persist coordination, recovery, lease, checkpoint, health, and evidence references. | Credentials, raw source archives, full prompts, or full transcripts by default. |
 | Model gateway | Bastion infrastructure | Route model calls, mask sensitive data, meter tokens, enforce security, and expose model health. | Agent lifecycle or GitHub delivery authority. |
 | Model services | Bastion/provider | Perform inference. | SoFa or Lighthouse state. |
 
 ### Observed Lighthouse worker boundary
 
-The current generated Lighthouse worker is not a thin callback to SoFa. Its source declares `engine: copilot` and `runs-on: [self-hosted, linux, lighthouse-sdlc]`; the compiled workflow installs and invokes the Copilot CLI in the agent job, then validates and uploads the Lighthouse `stage-result`. SoFa has no application or runner implementation in this repository that intercepts that job. The target decomposition must therefore distinguish the existing GitHub Actions worker from any future SoFa execution worker.
+The current generated Lighthouse worker is not a thin callback to SoFa. Its source declares `engine: copilot` and `runs-on: [self-hosted, linux, lighthouse-sdlc]`; the compiled workflow installs and invokes the Copilot CLI in the agent job, then validates and uploads the Lighthouse `stage-result`. SoFa has no application or runner implementation in this repository that intercepts that job. The target decomposition therefore distinguishes this transitional GitHub Actions projection from the future SoFa execution worker, which invokes persistent OpenCode on Bastion.
 
 ## Level 2: building blocks
 
 ```mermaid
 flowchart TB
+    accTitle: SoFa and Lighthouse building blocks
     subgraph Lighthouse["Lighthouse in the consumer repository"]
         Router[Router]
         Stage[Stage workers]
@@ -51,7 +52,7 @@ flowchart TB
     subgraph Sofa["SoFa on Bastion"]
         Admission[Admission and scheduling]
         Supervisor[Supervisor]
-        Runner[Runner capability]
+        Runner[Runner registrations per repository]
         State[Operational state]
         Admission --> Supervisor
         Supervisor --> Runner
@@ -60,8 +61,8 @@ flowchart TB
 
     subgraph Execution["Per-run execution"]
         Workspace[Ephemeral workspace / sandbox]
-        Worker[One active execution worker]
-        OpenCode[OpenCode]
+        Worker[Bounded execution workers]
+        OpenCode[OpenCode + Codex auth]
         Workspace --> Worker
         Worker --> OpenCode
     end
@@ -70,8 +71,8 @@ flowchart TB
     Job --> Runner
     Runner --> Admission
     Supervisor --> Workspace
-    OpenCode --> Gateway[Model gateway]
-    Gateway --> Models[Model services]
+    OpenCode --> Providers[OpenAI Codex / future providers]
+    Providers --> Models[Model services]
     Job --> Artifact
 ```
 

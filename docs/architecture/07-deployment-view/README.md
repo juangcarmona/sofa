@@ -10,6 +10,7 @@ description: Infrastructure and environment mapping for the system.
 
 ```mermaid
 flowchart LR
+    accTitle: SoFa deployment on one persistent Bastion
     subgraph Cloud["GitHub cloud"]
         Repo[Consumer repository]
         Actions[GitHub Actions]
@@ -20,29 +21,44 @@ flowchart LR
 
     subgraph Host["One persistent Bastion"]
         Runtime[SoFa Runtime / Supervisor]
-        Runner[Self-hosted GitHub runner]
+        subgraph Registrations["Repository-scoped runner registrations"]
+            RunnerA["Runner A"]
+            RunnerB["Runner B"]
+            RunnerN["Runner N"]
+        end
         DB[(PostgreSQL operational store)]
-        Gateway[Model gateway]
-        LocalModels[Local inference services]
+        OpenCode[Persistent OpenCode
+                 Codex/ChatGPT auth]
+        Providers[OpenAI Codex / future providers]
+        Gateway[Optional model gateway]
+        LocalModels[Local or provider model services]
         Runtime --> DB
-        Runtime --> Runner
-        Runtime --> Gateway
+        Runtime --> Registrations
+        RunnerA --> Runtime
+        RunnerB --> Runtime
+        RunnerN --> Runtime
+        Runtime --> OpenCode
+        OpenCode --> Providers
+        Providers --> Gateway
         Gateway --> LocalModels
-        Runner --> Runtime
-        Worker[One active execution worker]
+        Workers["Bounded execution workers\ninitial capacity target: 5-6"]
         Workspace[Ephemeral workspace / sandbox]
-        Runtime --> Worker
-        Worker --> Workspace
+        Runtime --> Workers
+        Workers --> Workspace
     end
 
-    Actions --> Runner
+    Actions --> RunnerA
+    Actions --> RunnerB
+    Actions --> RunnerN
     Runtime --> API
     Repo -. Lighthouse workflows .-> Actions
 ```
 
-The machine is persistent; the execution and workspace are ephemeral. The initial topology does not assume autoscaling, KEDA, a host fleet, a broker, or ephemeral machines.
+The machine is persistent; the execution and workspace are ephemeral. The initial topology does not assume autoscaling, KEDA, a host fleet, a broker, or ephemeral machines. Because the repositories are owned by a personal GitHub account, the host has one repository-scoped runner registration per participating repository. This is the GitHub-compatible way to share one physical Bastion without pretending that a personal account has an organization-level runner scope.
 
-The current repository has no Bastion deployment, SoFa process, PostgreSQL instance, or runner configuration to inspect. The only present runtime mapping is the Lighthouse workflow contract: GitHub Actions schedules the compiled agent job onto a runner labelled `[self-hosted, linux, lighthouse-sdlc]`. That job currently runs gh-aw/Copilot. The SoFa Runtime, operational store, execution worker, workspace lifecycle, gateway, and model services in the diagram are target deployment elements, not installed components.
+The repository contains no SoFa deployment or runtime implementation. Bastion evidence is narrower: the `juangcarmona/sofa` repository currently has one active runner registration, `bastion-01`, with labels `[self-hosted, Linux, X64, lighthouse-sdlc, bastion]`; its systemd service is enabled and runs as the dedicated `github-runner` account from `/opt/actions-runner/sofa`. This proves GitHub job delivery capability only. It does not prove a SoFa handoff, admission, lease, workspace lifecycle, or OpenCode supervision.
+
+OpenCode `v2.1.0` is installed on Bastion for the `juan` account at `/home/juan/.opencode/bin/opencode`. No OpenCode authentication file was found for either the interactive account or `/var/lib/github-runner` during the metadata-only inspection. The SoFa Runtime, operational store, execution worker, service-account Codex/ChatGPT authentication, optional gateway, and model services in the diagram are therefore target deployment elements, not installed components. The current Lighthouse job still runs gh-aw/Copilot and is not the target OpenCode handoff.
 
 ## Deployment mapping
 
@@ -50,12 +66,44 @@ The current repository has no Bastion deployment, SoFa process, PostgreSQL insta
 | --- | --- | --- |
 | Bastion operating system and service management | Persistent | Keep the SoFa deployment, runner, gateway, and local model services available and diagnosable. |
 | SoFa Runtime / Supervisor | Persistent process | Coordinate scheduling, admission, leases, recovery, health, and execution lifecycle. |
-| GitHub Actions self-hosted runner service | Persistent process | Receive jobs labelled for the SoFa capability and execute repository workflow steps. A label does not establish a callback into the SoFa process. |
+| GitHub Actions self-hosted runner registration set | Persistent processes | Receive jobs for the repository to which each registration belongs and execute workflow steps labelled for the SoFa capability. Each registration has its own directory, service, token, and workspace root; a label does not establish a callback into the SoFa process or a global capacity limit. |
 | Operational PostgreSQL | Persistent service/data | Store bounded operational state, recovery records, and evidence references. |
-| Model gateway and local model services | Persistent services | Route and serve model requests; expose health and bounded usage metadata. |
-| SoFa execution worker | Per execution | Perform one admitted execution under a lease and fencing token. |
+| OpenCode and its execution-account authentication | Persistent installation and credential state | Execute the scoped run and select the configured OpenAI Codex/future provider model. Credentials remain outside repositories, workspaces, GitHub secrets, and artifacts. |
+| Model gateway and local/provider model services | Optional persistent services | Route and serve model requests when configured; expose health and bounded usage metadata. The initial OpenAI Codex subscription path may connect directly from OpenCode. |
+| SoFa execution worker | Per execution | Perform one admitted execution under a lease and fencing token; several may run concurrently within the host capacity. |
 | Workspace / sandbox | Per execution | Checkout and temporary tool state for one run; clean or quarantine after termination. |
 | Execution logs and model metadata | Bounded per execution | Retain only the operational/evidence subset needed by policy; do not persist full transcripts by default. |
+
+### Personal-repository registration procedure
+
+For every repository that is allowed to use the Bastion:
+
+1. Open that repository's `Settings → Actions → Runners → New self-hosted runner` page.
+2. Select the Bastion operating system and architecture and use the generated, time-limited registration token.
+3. Configure a distinct runner directory and service, for example `/opt/actions-runner/<repository>` and `bastion-<repository>`.
+4. Add the capability labels `[self-hosted, linux, lighthouse-sdlc]` required by the Lighthouse stage workflows.
+5. Run the service as the dedicated local `github-runner` user, never as the personal administrator account or root.
+6. Keep the working directory and workspace root distinct for every registration.
+
+This procedure subscribes that repository's GitHub Actions jobs to the Bastion. It does not by itself invoke SoFa, acquire a lease, create a checkpoint, or enforce global capacity. Those responsibilities belong to the SoFa adapter and supervisor.
+
+### Capacity and resource model
+
+A lock alone is not an isolation boundary. SoFa uses admission capacity to decide how many runs may be active and a separate per-run workspace/sandbox to prevent contamination. The effective concurrency is the lowest healthy limit among:
+
+```text
+effective capacity = min(
+  configured host limit,
+  online runner registrations,
+  available memory / measured per-run memory budget,
+  free disk / measured per-run workspace budget,
+  safe model-gateway and model-service concurrency
+)
+```
+
+The runner registration itself is comparatively small compared with a checkout, dependency tree, build output, agent process, and model-service pressure. The runner package shown by the current GitHub setup page is 227,660,598 bytes compressed for Linux x64 (`2.338.0`); the extracted installation and logs must be measured on Bastion. Five or six registrations therefore cost roughly the package size multiplied by the number of separate installations if binaries are duplicated, while five or six concurrent workspaces and agent processes are the dominant sizing variables.
+
+The initial architecture target is five to six concurrent trusted-repository runs, not a guaranteed capacity number. Before enabling that level, the implementation must measure idle runner memory, per-run peak memory, workspace growth, disk cleanup, model-service concurrency, and recovery headroom. SoFa must queue or reject new work when those measurements or health signals make another run unsafe.
 
 ### Lifecycle and cleanup
 

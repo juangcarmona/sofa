@@ -18,11 +18,11 @@ description: Quality goals and concrete scenarios for evaluating them.
    - A workspace and execution worker are scoped to one run.
    - Cleanup or quarantine prevents cross-run contamination.
 4. **Operability**
-   - Bastion health, capacity, leases, workers, engine, gateway, and recovery posture are observable.
+   - Bastion health, bounded capacity, leases, workers, engine, gateway, and recovery posture are observable.
 5. **Evidence integrity**
    - Operational state, stage results, delivery evidence, telemetry, and human decisions remain separate.
 6. **Bounded first slice**
-   - The architecture runs on one persistent Bastion without a fleet, broker, autoscaler, or microVM requirement.
+   - The architecture runs several isolated executions on one persistent Bastion without a fleet, broker, autoscaler, or microVM requirement; the initial capacity target is five to six, subject to measurement.
 
 ## Quality scenarios
 

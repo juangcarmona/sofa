@@ -8,7 +8,7 @@ description: System purpose, stakeholders, and architecture goals.
 
 ## Requirements overview
 
-SoFa is the operational runtime and coordination plane for the Software Factory. It schedules eligible work across projects and supervises one bounded execution at a time on the persistent Bastion machine. It does not replace the repository lifecycle owned by Lighthouse.
+SoFa is the operational runtime and coordination plane for the Software Factory. It schedules eligible work across projects and supervises bounded concurrent executions on the persistent Bastion machine. It does not replace the repository lifecycle owned by Lighthouse.
 
 The target architecture realizes the current product intent for multi-project scheduling and recoverable execution while keeping GitHub as the backlog and delivery evidence authority. Product intent remains owned by ProductShape; this document describes the architectural realization only.
 
@@ -38,10 +38,10 @@ There is no requirement in the inspected Lighthouse contract for a central SoFa 
 | --- | --- | --- |
 | Authority preservation | Lighthouse remains the source of lifecycle and stage semantics; SoFa is never a second lifecycle engine. | Every execution references one Lighthouse route and stage; no `deploy` state exists. |
 | Recoverability | A lost process cannot silently become success, and an eligible run can resume from a valid checkpoint. | Lease expiry, fencing, checkpoint sequence, cancellation, timeout, and recovery outcome are durable. |
-| Isolation | One execution cannot contaminate another workspace or publish after its authority expires. | One active SoFa execution worker, ephemeral workspace, no host Docker socket, fencing rejection for stale workers. |
+| Isolation | One execution cannot contaminate another workspace or publish after its authority expires. | One worker and one ephemeral workspace per run, bounded concurrent capacity on Bastion, no host Docker socket, fencing rejection for stale workers. |
 | Evidence integrity | Operational state, stage result, delivery evidence, telemetry, and human decisions remain distinguishable. | Each category has an explicit reference or record type. |
 | Operability | The persistent Bastion can be diagnosed and maintained without turning telemetry into product truth. | Health exposes worker, lease, database, engine, gateway, capacity, and recovery signals. |
-| Bounded complexity | The first slice works on one Bastion without assuming a fleet, broker, autoscaler, or microVM. | One deployable SoFa runtime, one persistent database, one runner capability. |
+| Bounded complexity | The first slice works on one Bastion without assuming a fleet, broker, autoscaler, or microVM. | One deployable SoFa runtime, one persistent database, repository-scoped runner registrations, and bounded host concurrency. |
 
 ## Stakeholders
 

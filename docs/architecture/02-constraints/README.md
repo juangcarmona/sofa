@@ -15,7 +15,7 @@ The target retains the existing runtime proposal where it is supported by produc
 - one modular .NET 10 application composed locally with Aspire;
 - PostgreSQL as the minimum durable operational control-plane store;
 - an independently supervised Worker inside the SoFa deployment;
-- OpenCode as an external execution engine behind a model gateway; and
+- OpenCode as an external execution engine using Bastion-local OpenAI Codex/ChatGPT authentication, with an optional provider gateway; and
 - one persistent Bastion host with ephemeral execution workspaces.
 
 These technology choices remain implementation targets until their implementation phase is authorized. They do not authorize adding code in this architecture-alignment change.
@@ -23,6 +23,22 @@ These technology choices remain implementation targets until their implementatio
 The consumer repository selects Lighthouse SDLC package `0.8.0` through `.lighthouse/sdlc.json` and Lighthouse package `0.9.0` in the root manifest. The distributed route catalog defines the six stages and the routes `supervised`, `plan-only`, `unattended`, `hotfix`, and `stacked`; the route determines which stages and prerequisites are eligible. The current distributed package must be treated as the contract authority during implementation, including its `stage-result` schema and generated workflow assets.
 
 GitHub Actions is the initial transport and orchestration boundary. A job is assigned to the capability `[self-hosted, linux, lighthouse-sdlc]`; the SoFa deployment on Bastion supplies that capability. No central SoFa webhook is required by the current evidence.
+
+## Personal GitHub runner scope
+
+GitHub runner registration scope and machine scope are different. GitHub documents repository-level runners as dedicated to one repository; organization-level runners are the mechanism for serving multiple repositories in one organization. This SoFa factory uses personal repositories, not an organization, so the native GitHub deployment profile is:
+
+- one persistent Bastion host;
+- one repository-scoped runner registration for every participating personal repository;
+- one separate runner directory, service unit, and working directory per registration;
+- the same capability labels, initially `[self-hosted, linux, lighthouse-sdlc]`; and
+- one SoFa admission and capacity boundary shared by all registrations on the host.
+
+The registrations are multiple GitHub entry points into one physical host. They are not multiple Bastions, and they do not define SoFa worker capacity. GitHub labels select a registration that is visible to the repository; they do not enforce a global capacity across personal repositories. SoFa owns that capacity and may run several isolated executions concurrently, subject to healthy resources and policy.
+
+If a repository has no registration on Bastion, its Lighthouse job cannot use Bastion through the native repository-scoped runner path. A central workflow or ingress could change that topology, but neither exists in the current Lighthouse contract and neither is introduced by this architecture definition.
+
+Reference: [GitHub self-hosted runners](https://docs.github.com/en/actions/concepts/runners/self-hosted-runners).
 
 ## Organizational constraints
 

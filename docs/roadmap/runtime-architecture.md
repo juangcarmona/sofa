@@ -6,13 +6,15 @@ The canonical architectural views are now in [`docs/architecture/`](../architect
 
 ## Revision against evidence
 
-The original proposal is retained where it matches the current product model and infrastructure constraints: one modular .NET 10 application, Aspire composition, PostgreSQL operational state, an independently supervised Worker, and OpenCode as an external engine. The inspected Lighthouse routes, skills, stage-result contract, and gh-aw workflows require one explicit adaptation: Lighthouse, not SoFa, owns repository stages, route composition, gates, stage results, and delivery evidence. SoFa is the runtime supervisor and operational control plane behind the GitHub Actions runner capability.
+The original proposal is retained where it matches the current product model and infrastructure constraints: one modular .NET 10 application, Aspire composition, PostgreSQL operational state, an independently supervised Worker, and OpenCode as the external execution engine. The inspected Lighthouse routes, skills, stage-result contract, and gh-aw workflows require one explicit adaptation: Lighthouse, not SoFa, owns repository stages, route composition, gates, stage results, and delivery evidence. SoFa is the runtime supervisor and operational control plane behind the GitHub Actions runner capability. The engine correction is also explicit: the target job hands off to SoFa, which invokes persistent OpenCode on Bastion; gh-aw's current Copilot engine is observed transitional configuration, not the target provider path.
 
 The original proposal did not prove a central webhook, a host fleet, autoscaling, KEDA, a broker, or a stronger sandbox for trusted repositories. Those are not part of the first slice. A stronger sandbox remains a future requirement for untrusted forks or code.
 
+The GitHub deployment constraint is explicit: SoFa is operated across Juan's personal repositories, not an organization. GitHub runner registrations are therefore repository-scoped. The target uses one persistent Bastion with one registration, directory, service, and working directory per participating repository. These registrations share the physical host, while SoFa owns the host-level admission and bounded concurrency rule. The initial capacity target is five to six isolated executions, subject to resource measurement and health. No account-wide GitHub runner registration is assumed, and no central webhook is introduced to hide that constraint.
+
 ## Current execution audit
 
-The selected Lighthouse package is `@juangcarmona/lighthouse-sdlc@0.8.0` through Lighthouse `0.9.0`. Its current router is manually triggered with `workflow_dispatch`; the stage workers are composed with `workflow_call`; and the agent job is assigned to `[self-hosted, linux, lighthouse-sdlc]`. The compiled job currently runs gh-aw with the `copilot` engine, validates the Lighthouse `stage-result`, and uploads that artifact. With no route decisions supplied, `supervised` and `plan-only` are runnable; `unattended`, `hotfix`, and `stacked` are valid routes but blocked by their declared prerequisites.
+The selected Lighthouse package is `@juangcarmona/lighthouse-sdlc@0.8.0` through Lighthouse `0.9.0`. Its current router is manually triggered with `workflow_dispatch`; the stage workers are composed with `workflow_call`; and the agent job is assigned to `[self-hosted, linux, lighthouse-sdlc]`. The compiled job currently runs gh-aw with the `copilot` engine, validates the Lighthouse `stage-result`, and uploads that artifact. The observed run failed during Copilot credential activation before the agent job reached Bastion. With no route decisions supplied, `supervised` and `plan-only` are runnable; `unattended`, `hotfix`, and `stacked` are valid routes but blocked by their declared prerequisites.
 
 The machine-readable stage descriptor currently declares `gate: done` for `integrate`. The architecture treats integration as an integration result and merge preparation, not as a new lifecycle gate. SoFa must preserve the published `stage-result` contract without introducing another gate, and this interpretation needs an explicit compatibility test before implementation.
 
@@ -20,19 +22,22 @@ SoFa currently has no application runtime, runner component, persistence, OpenCo
 
 ## Shape
 
-Use one .NET 10 modular application composed by Aspire, with PostgreSQL for the minimum durable operational state, an independently supervised Worker for execution, and OpenCode as an external execution engine. Keep the web surface and Worker as separate processes with narrow contracts; do not introduce microservices, a broker, or a generic orchestration framework.
+Use one .NET 10 modular application composed by Aspire, with PostgreSQL for the minimum durable operational state, an independently supervised Worker for execution, and persistent OpenCode on Bastion. Keep the web surface and Worker as separate processes with narrow contracts; do not introduce microservices, a broker, or a generic orchestration framework.
 
 ```mermaid
 flowchart LR
     Event[GitHub workflow_dispatch] --> Router[Lighthouse router]
     Router --> Stage[Lighthouse stage worker]
     Stage --> Job[GitHub Actions job]
-    Job --> Runner[SoFa runner capability / future host adapter]
-    Runner --> Supervisor[SoFa Runtime / Supervisor]
-    Supervisor --> Worker[One active execution worker]
+    Job --> Runner[Repository-scoped SoFa runner registration]
+    Runner --> Registrations[One registration per personal repository on Bastion]
+    Registrations --> Admission[Shared SoFa admission / capacity]
+    Admission --> Supervisor[SoFa Runtime / Supervisor]
+    Supervisor --> Worker[Bounded execution workers\ninitial target: 5-6]
     Worker --> Workspace[Ephemeral workspace / sandbox]
-    Worker --> OpenCode[OpenCode, if accepted engine path]
-    OpenCode --> Gateway[Model gateway]
+    Worker --> OpenCode[Persistent OpenCode on Bastion]
+    OpenCode --> Codex[OpenAI Codex via service-account auth]
+    Codex --> Gateway[Optional provider gateway]
     Supervisor --> Postgres[(PostgreSQL operational state)]
     Job --> Evidence[Stage result and delivery evidence]
     Supervisor --> Evidence
@@ -102,8 +107,11 @@ Minimum health signals are Worker heartbeat age, lease age/expiry, checkpoint la
 - The versioned wire schema and authentication for the Lighthouse-to-SoFa handoff.
 - The trusted-repository classification mechanism and the isolation driver.
 - Retention and deletion implementation for operational records and evidence.
-- Whether the first slice supervises the current gh-aw/Copilot job or adds a Lighthouse-supported OpenCode engine adapter.
 - The exact mechanism by which a Lighthouse job hands an execution contract to SoFa; the runner label alone is insufficient.
+- The non-interactive health check proving that the dedicated `github-runner` account can use the OpenCode Codex/ChatGPT authentication.
+- The capability-to-model profile and whether future providers use the optional gateway or direct OpenCode provider configuration.
+- The adapter mechanism that makes every repository-scoped registration enter the shared SoFa admission boundary before agent execution; the current gh-aw worker runs directly on the runner and does not yet provide this handoff.
+- The exact Bastion concurrency limit after measuring model services, agent processes, workspaces, disk, memory, and thermal/network headroom; five to six is the initial sizing target, not a measured limit.
 - Whether supervision is at GitHub job level, engine-process level, or both, and which boundary owns checkpoint emission.
 
 Production deployment is outside the first slice and is not a Lighthouse stage. Any future delivery/deployment capability requires a separate product and architecture decision; it must not be introduced as an implicit lifecycle transition.
