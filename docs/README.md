@@ -12,4 +12,4 @@ This directory separates product intent, architecture, decisions, and the shared
 | `reviews/` | Per-work-item retrospectives after integration. |
 | `delivery/` | Durable delivery plans and Fast Forward evidence when a work item requires them. |
 
-The accepted product baseline is the Software Factory. There is currently no application runtime or accepted implementation architecture; future architecture work must start from the product model and new decisions.
+The accepted product baseline is the Software Factory. The target implementation architecture is documented in the twelve arc42 sections and [ADR-0001](adr/0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md); no application runtime has been implemented yet. Future implementation work must start from that architecture and the product model.

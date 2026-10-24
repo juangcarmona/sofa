@@ -4,6 +4,6 @@ Record significant architecture choices here with the shared `adr` skill. Accept
 
 | Number | Decision | Status | Date |
 | --- | --- | --- | --- |
-| — | No accepted decisions | — | — |
+| [ADR-0001](0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md) | Lighthouse owns delivery workflow and SoFa owns the Bastion execution runtime | Accepted | 2026-10-24 |
 
-No architecture decisions are currently accepted. The former Attention decision was removed with that implementation; future decisions must be authored after the Software Factory architecture is defined.
+The former Attention decision was removed with that implementation. New decisions must be authored with the shared ADR workflow and supersede this record rather than rewriting its rationale.
