@@ -3,6 +3,13 @@ using System.Text;
 
 namespace SoFa.Runtime;
 
+public sealed class ProcessFailure(string executable, int exitCode, string output)
+    : Rejected($"{Path.GetFileName(executable)} failed with exit code {exitCode}")
+{
+    public int ExitCode { get; } = exitCode;
+    public string Output { get; } = output;
+}
+
 public static class ProcessRunner
 {
     public static async Task<string> Run(string executable, IEnumerable<string> args, CancellationToken cancellation, string? input = null, int maxOutput = 1_048_576)
@@ -29,7 +36,7 @@ public static class ProcessRunner
         if (input is not null) await process.StandardInput.WriteAsync(input.AsMemory(), timeout.Token);
         process.StandardInput.Close();
         await Task.WhenAll(stdout, stderr, process.WaitForExitAsync(timeout.Token));
-        if (process.ExitCode != 0) throw new Rejected($"{Path.GetFileName(executable)} failed with exit code {process.ExitCode}");
+        if (process.ExitCode != 0) throw new ProcessFailure(executable, process.ExitCode, await stdout);
         return await stdout;
     }
 }

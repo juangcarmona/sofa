@@ -5,6 +5,7 @@ The maintainer accepted ADR-0004 and authorized implementation and the presentat
 ## Work and verification
 
 - Consume the Lighthouse package's request, result and effect validators from a pinned installation outside the execution workspace. Test unknown fields, incompatible versions, source identity, unsupported scope and blocked results.
+- Retain bounded structured validator diagnostics after rejection. The first live pilot exposed a generic process-exit error that hid the contract failure; reject inconsistent reports and omit process logs from operational errors.
 - Implement a .NET 10 supervisor and PostgreSQL admission store. Use a repository-bound Unix socket, transactional global capacity one, immutable request identities and durable operational outcomes. Test contention, duplicate requests and changed payload rejection against PostgreSQL.
 - Supervise one isolated OpenCode container with a read-only source snapshot, a writable result directory, a bounded deadline and no publication credential. Terminate the container before releasing capacity. Test cancellation and interrupted recovery; treat missing provider authentication as unavailable.
 - Publish only Lighthouse-validated issue comments after verifying current source, issue content, policy and lease authority. Persist intent before dispatch and receipt afterwards. Reconcile by stable marker after uncertain publication; never blindly retry.
@@ -17,8 +18,8 @@ Run repository verification, .NET build/tests and PostgreSQL integration checks.
 
 ## Implementation evidence
 
-The first adapter, PostgreSQL coordination, kernel peer identity, container isolation, deadline/cancellation, session cleanup, workflow attestation and fenced issue-comment publisher are implemented. `npm run verify` passes with 19 .NET tests and Node regression tests. An independent audit reproduced and drove fixes for peer credentials, cancellation races, stale receipt upload and missing-session cleanup.
+The first adapter, PostgreSQL coordination, kernel peer identity, container isolation, deadline/cancellation, session cleanup, workflow attestation and fenced issue-comment publisher are implemented and covered by .NET and Node tests in `npm run verify`. An independent audit reproduced and drove fixes for peer credentials, cancellation races, stale receipt upload and missing-session cleanup.
 
 A real OpenAI request from the engine returned `SOFA_PROVIDER_OK`. A real OpenCode triage produced a Lighthouse-valid blocked report from a deliberately incomplete source fixture; the .NET adapter stopped the container and removed its session. Repeated cleanup against the actual image also passed. These are runtime integration checks, not GitHub end-to-end acceptance.
 
-The dedicated `presentations` runner is registered separately from the existing SoFa runner. Consumer workflow installation, a live issue receipt and the owner-bound refinement decision remain pending. The first product PR is beyond this triage/refine implementation; the roadmap retains implementation/integration adapters and their human gates.
+The dedicated `presentations` runner is registered separately from the existing SoFa runner. The consumer now adopts Lighthouse CLI 0.9.1 and SDLC 0.9.0. After correcting a workflow expression context, [the first live triage](https://github.com/juangcarmona/presentations/actions/runs/40117524911) reached execution but failed result validation before publication. Its operational artifact records that failure; successful stage publication and the owner-bound refinement decision remain pending. The first product PR is beyond this triage/refine implementation; the roadmap retains implementation/integration adapters and their human gates.
