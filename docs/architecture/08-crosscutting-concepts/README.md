@@ -27,6 +27,8 @@ The following is the minimum operational vocabulary. It is not a replacement for
 | Evidence reference | Pointer to a GitHub artifact, check, PR, commit, stage result, or bounded local observation. | Telemetry or a product requirement. |
 | Worker heartbeat | Liveness observation for a SoFa worker. | Proof that the work succeeded. |
 | Recovery result | Record of resumed, stopped, rejected, or human-required recovery. | A fresh lifecycle stage. |
+| Runner host | The persistent Bastion machine that can host several repository-scoped GitHub runner registrations. | A GitHub runner registration or a SoFa execution worker. |
+| Runner registration | One GitHub Actions registration tied to one personal repository and installed in one directory/service on Bastion. | An account-wide runner, a lease, or a capacity decision. |
 
 ### Persistence categories
 
@@ -40,7 +42,15 @@ The following is the minimum operational vocabulary. It is not a replacement for
 
 The operational store must support at least `execution_run`, `work_item`, project/repository reference, route, stage, lease, fencing token, checkpoint sequence, workspace reference, commit reference, cancellation, timeout, outcome, evidence reference, worker heartbeat, and recovery result. The exact relational schema is implementation work.
 
+Runner registrations are deployment identity, not operational execution state. SoFa records the selected repository and registration identity as bounded run metadata, but it does not persist registration tokens or credentials. A registration may receive a GitHub job; only SoFa admission may make that job an active execution under the global capacity policy.
+
 <!-- pdac:cite id="FR-RECOVERABLE-EXECUTION" digest="sha256:d5bed96280fd88240c3492cc4ff6a609ad80e6d6b2891e536c36f36a78772678" -->
+
+## Engine and gateway boundary
+
+The current Lighthouse projection uses gh-aw with the Copilot engine. gh-aw provides its own workflow-level sandbox, credential isolation, agent firewall, threat detection, Safe Outputs, token steering, and OpenTelemetry hooks in the compiled job. Those are observed mechanisms of the current transitional Lighthouse projection and are not SoFa-owned state.
+
+The target Bastion hosts persistent OpenCode under the dedicated execution account. OpenCode uses the account's OpenAI Codex/ChatGPT authentication and selects models through its provider configuration. SoFa supervises the process boundary and correlates bounded operational metadata; it does not duplicate gh-aw controls, become a model server, or move the credential into GitHub. A gateway remains an optional provider-routing boundary for providers and controls that require it, and its presence must be proved by Bastion evidence.
 
 ## Security and privacy
 
@@ -48,7 +58,7 @@ The existing LAN surface is not a privileged control plane. Unauthenticated LAN 
 
 The trusted-repository first slice uses least privilege, scoped credentials, an ephemeral workspace, no host Docker socket, and no unnecessary container privileges. Credentials are injected only for the duration and scope of the operation and are removed before cleanup. Forks and untrusted code need a stronger isolation boundary, such as Docker Sandbox or a microVM, before they are admitted; that decision is intentionally outside the first slice.
 
-SoFa supervises OpenCode but does not become a model server. The gateway owns model routing, masking, token metering, and provider-facing security controls. SoFa correlates bounded operational metadata and health with the run. It must not duplicate gateway policy or persist full model conversations by default.
+SoFa supervises OpenCode but does not become a model server. OpenCode owns the initial provider/model selection through its Bastion configuration; an enabled gateway owns routing, masking, token metering, and provider-facing security controls for the providers it serves. SoFa correlates bounded operational metadata and health with the run. It must not duplicate provider policy or persist full model conversations by default.
 
 ## Observability and operations
 
@@ -68,3 +78,11 @@ Every operational publication is correlated by `executionRunId`, worker identity
 | `review` | Closes the review without a new gate. | Records the review evidence and does not add `deploy`. |
 
 `ff` is the explicit composition mechanism. It stops when a required stage fails or is blocked. Evidence and acceptance remain separate: deterministic checks, agent output, stage results, GitHub delivery evidence, and human decisions are independently recorded.
+
+## Lifecycle storage and one writer
+
+GitHub remains authoritative for source, issues, PRs and checks. Lighthouse owns the transition rules and validates delivery events. SoFa may persist those validated events and cache a rebuildable projection; it owns only the operational state machine for admission/execution/recovery. Labels are a provider projection, not authorization. Existing Agentic SDLC `status:*` instructions need an explicit adoption migration before Lighthouse becomes the consumer's sole label writer.
+
+Persist run/attempt identities, source and policy digests, leases, checkpoints, event references and effect receipts in PostgreSQL. Keep large verification artifacts in bounded artifact storage with hashes and retention policy; a reference to an expiring GitHub artifact is insufficient long-term evidence. An effect ledger records planned, confirmed or uncertain remote outcomes so recovery can reconcile them.
+
+The database can enforce operational uniqueness and monotonic checkpoints. It cannot guarantee atomicity with GitHub, and an engine session ID cannot prove a tool call's remote effect. Missing metrics remain unavailable; report measured coverage for usage totals instead of treating unreported calls as free.

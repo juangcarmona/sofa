@@ -1,49 +1,20 @@
-# S0-to-pilot implementation backlog
+# Factory implementation backlog
 
-These are proposed issue slices, not created GitHub issues. They are ordered by dependency and intentionally small. Each issue must go through the shared lifecycle and GitHub `status:*` labels; no issue is authorized by this document.
+These are proposed delivery slices for the [roadmap](software-factory.md), not claims of created issues or completed implementation. The existing architecture work remains linked to issue #14. Plan future implementation in separate work items so its validation and scope remain clear.
 
-| Order | Proposed issue | Outcome | Depends on |
+| Slice | Owner | Dependency | Acceptance |
 | --- | --- | --- | --- |
-| 1 | `S0-01` Remove the obsolete Attention implementation | Application source, tests, delivery evidence, and accepted Attention ADR are removed from the implementation surface; the historical ProductShape change remains inert. | None |
-| 2 | `S0-02` Reconcile Lighthouse and provider ownership | Clean isolated-worktree adoption plan with exact versions, conflicts, and owner-approved apply set. | S0-01 |
-| 3 | `S0-03` Accept the initial runtime/security architecture | **Completed by issue #11:** ADR and approved architecture update covering .NET 10/Aspire, PostgreSQL, Worker, OpenCode, Lighthouse, Bastion, and control-boundary security. | S0-02 |
-| 4 | `S1-01` Add the GitHub backlog projection | Read issues/projects and reconcile a local projection without replacing GitHub authority. | S0-03, Lighthouse adoption |
-| 5 | `S1-02` Shape one dependency-aware work unit | Persist priority, risk, acceptance criteria, dependency edges, and an explicit autonomy profile for one issue. | S1-01 |
-| 6 | `S1-03` Persist execution runs and leases | PostgreSQL migrations and transactional lease/fencing behavior with tests for expiry and contention. | S1-02 |
-| 7 | `S1-04` Add checkpointed Worker/OpenCode adapter | One bounded low-risk capability, cancellation, sanitized telemetry, and no privileged command path. | S1-03 |
-| 8 | `S1-05` Recover an interrupted run | Resume from the last valid checkpoint or stop explicitly; prove stale Worker fencing. | S1-04 |
-| 9 | `S1-06` Record verification and PR evidence | Capture checks, PR, review state, and source revisions without inferring human approval. | S1-05 |
-| 10 | `S1-07` Gate authorized integration and delivery verification | Explicit human integration gate followed by post-integration artifact/commit verification. | S1-06 |
-| 11 | `S1-08` Run the first pilot | Execute [the future pilot](first-pilot.md) and retain durable evidence and limitations. | S1-07 |
-| 12 | `S2-01` Add multi-project scheduling and maintenance | Only after the pilot: dependency-aware selection, WIP/risk limits, health signals, and stale-run maintenance. | S1-08 |
+| P0: consumer readiness | `presentations` and Lighthouse | Lighthouse L1 | Preserve and commit current adoption/application work; establish a meaningful `verify` command; reconcile authorities, labels and workflow package resolution; record the exact revision and repository runner. |
+| S1: execution bridge and durable admission | SoFa | Lighthouse L2 | Compose .NET 10, Aspire and PostgreSQL; one registered local client submits a scoped request; duplicate requests return the same execution; unauthorized identity/version/scope is rejected; global limit one is enforced transactionally. |
+| S2: bounded engine execution | SoFa | S1 | Authenticate OpenCode in the execution service context; run a read-only stage in an isolated workspace; enforce deadline/cancel; keep provider credentials and publication credentials outside the checkout. |
+| P1: automatic triage/refine | Lighthouse and consumer | P0, S2, Lighthouse L3 | A real issue, optional clarification and owner gate produce a visible refined story, one effect receipt and correlated artifacts. No source change or PR is needed for this milestone. |
+| S3: recovery and fenced publisher | SoFa | S2 | Persist checkpoints and effect intents; kill a worker; reject stale publications; reconcile a remote timeout before retry; verify cancellation, cleanup/quarantine and bounded recovery. |
+| P2: implementation through PR | Lighthouse and consumer | P1, S3, Lighthouse L4 | Approved proposal produces one bounded patch, real verification and one PR through the trusted publisher. Independent review is recorded separately. |
+| P3: integration evidence | Consumer and SoFa | P2 | Explicit merge authority is bound to the current head; verify the resulting default-branch commit and checks; retain evidence beyond GitHub artifact expiry according to policy. |
+| S4: multi-repository scheduling | SoFa | P3 | A second repository has its own registration/identity; global/per-project limits hold under contention, revocation works and measured resources justify any concurrency increase. |
 
-## Acceptance criteria by slice
+## Delivery invariants
 
-### S0-01 — remove obsolete implementation
+Each slice names the policy and source revision it used, and tests behavior at a trust or recovery boundary. Fixtures do not count as external-client execution. Successful model output does not count as published refinement. An open PR does not count as accepted delivery. Preserve package and provider ownership during every upgrade.
 
-- No application runtime or Attention source remains under `src/`.
-- The old .NET/Aspire setup, Attention tests, and Attention delivery evidence are removed.
-- ProductShape's applied Software Factory model remains unchanged.
-- Repository Attention remains only as inert historical ProductShape material.
-
-### S0-02 — Lighthouse reconciliation
-
-- Current dirty paths, hooks, agents, skills, CI, ProductShape, ArcShape, package versions, and provider owners are inventoried.
-- Published versions are verified and no stale local version is silently treated as current.
-- Lighthouse dry-run output classifies missing paths, conflicts, drift, and proposed writes.
-- No provider-owned or dirty file is overwritten.
-- The Lighthouse-owned hooks replace the previous hooks; the old hooks are preserved outside the repository, and CI-only checks remain accounted for.
-
-### S0-03 — runtime/security architecture (completed by issue #11)
-
-- Durable state includes work units, dependencies, runs, leases/fencing, checkpoints, evidence, and worker liveness.
-- Any existing unauthenticated LAN surface remains non-privileged and cannot reach execution, GitHub writes, privileged commands, or integration gates.
-- The existing unauthenticated LAN surface cannot reach execution, GitHub writes, privileged commands, or integration gates.
-- PostgreSQL/OpenCode installation remains deferred until the implementation phase is authorized.
-
-### S1-01 through S1-07 — pilot foundation
-
-- Each slice has tests and source evidence for its acceptance criteria.
-- Every external write and human decision is explicit and attributable.
-- Failure, cancellation, restart, stale lease, missing evidence, and unavailable source states are visible.
-- CI, PR, integration, and delivery evidence are linked to the work item and run.
+Database and bridge work can use a fake engine until S2; label it a transport/contract test. Real `presentations` acceptance cannot use the fake engine or bypass Lighthouse gates. Keep model selection, service-account login and any later engine substitution visible as operational dependencies.

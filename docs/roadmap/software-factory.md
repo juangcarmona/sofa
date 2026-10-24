@@ -1,112 +1,55 @@
-# SoFa Software Factory roadmap
+# Software factory delivery roadmap
 
-**Planning status:** S0 architecture alignment complete, 2026-10-24. This document records planning and reconciliation work only. It does not authorize execution or change the runtime.
+The reconciled design was accepted by Juan on 2026-10-24. Runtime implementation remains pending.
 
-## Evidence boundary
+The first consumer is `juangcarmona/presentations`, selected by Juan on 2026-10-24. The objective is an observable path from a GitHub story through triage/refine to a verified PR and an explicitly authorized integration, with execution on Bastion. Start with one supervised execution; expand autonomy only after the failure paths work.
 
-| Classification | Current evidence |
+## Sources of truth
+
+| Question | Canonical source |
 | --- | --- |
-| Accepted product intent | `docs/product/model/` contains the applied Software Factory baseline from `CHG-INITIAL`. The former Repository Attention proposal remains separate historical material and is explicitly excluded from the product. |
-| Draft product intent | No active Product Change is present. The completed change record still contains one stale sentence saying there is no accepted definition; it is provider-owned history and must be corrected through ProductShape, not by hand. |
-| Target architecture | The twelve ArcShape sections and [ADR-0001](../architecture/09-architecture-decisions/0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md) define the reviewed Lighthouse/SoFa/Bastion boundary. The target remains unimplemented. |
-| Implementation reality | This repository has no application runtime, runner, persistence, or execution workflow. The target documentation is not implementation evidence. |
-| S0 assumptions | PostgreSQL, an independently supervised Worker, OpenCode, and the execution/delivery contexts below are proposed targets. They require product and architecture acceptance before installation or implementation. |
+| What does SoFa do? | [ProductShape model](../product/README.md). The Software Factory change has been applied; artifact statuses still say `draft`. Do not interpret application of the change or validation as runtime acceptance. |
+| How does SoFa implement it? | [Twelve architecture views](../architecture/README.md); durable choices in [ADRs](../architecture/09-architecture-decisions/README.md). |
+| What are the delivery stages and result contracts? | Exact installed Lighthouse SDLC package, selected in `.lighthouse/sdlc.json`. |
+| What work and code exist? | GitHub issues, commits, PRs and checks; SoFa stores references and observation time. |
+| Which attempt owns execution? | Future SoFa operational store: admission, lease, fencing, checkpoints and effect receipts. |
+| What is next? | This roadmap and its [bounded implementation backlog](implementation-backlog.md). |
+| What proves delivery? | [Pilot acceptance](first-pilot.md), with real source, workflow, runtime and PR evidence. |
 
-## S0 outcome
+Lighthouse owns the baseline, harness and repository workflows. SoFa owns cross-repository selection and host operation. OpenCode executes a bounded stage; a model provider serves inference. GitHub Actions transports jobs to one runner registration per repository. These are responsibilities, not a requirement to create more repositories or packages.
 
-SoFa is a personal Software Factory that helps Juan select and deliver small, recoverable work across any configured project. GitHub remains the backlog and source-of-truth system. SoFa coordinates evidence, leases, checkpoints, verification, and policy-bound decisions; it does not become a second issue tracker or silently acquire authority.
+## Current evidence and discrepancies
 
-S0 prepares the first executable slice by:
+At SoFa commit `af8afec`, `src/` contains repository security tooling, not a factory application. No SoFa supervisor, PostgreSQL integration, execution bridge or engine adapter is implemented. The existing runner and OpenCode installation observations in [deployment](../architecture/07-deployment-view/README.md) are dated observations, not readiness certification for the pilot.
 
-1. recording the applied product baseline in [CHG-INITIAL](../product/changes/completed/chg-initial/change.md) without adding implementation authority;
-2. explicitly excluding the historical Repository Attention proposal from the product scope;
-3. reconciling the existing checkout against Lighthouse ownership and published versions;
-4. documenting and recording the reviewed .NET 10, Aspire, PostgreSQL, Worker, OpenCode, Lighthouse, and Bastion architecture; and
-5. defining a small, dependency-aware backlog and a future acceptance pilot.
+The inspected Lighthouse baseline is `434dfab`, with CLI `0.9.0` and SDLC `0.8.0`. Its gh-aw workers run Copilot; its router is manual-only. It needs consumer package resolution, strict completion/approval validation, automatic intake and a host handoff. Those changes belong to the [Lighthouse execution roadmap](https://github.com/juangcarmona/lighthouse/blob/main/docs/roadmap/factory-reconciliation.md), proposed in the paired reconciliation branch until merged.
 
-The roadmap does not install PostgreSQL or OpenCode, update provider-owned integrations, create execution workflows, or expose execution through the current unauthenticated LAN surface.
+The local `presentations` adoption passes required Lighthouse checks, but its newly installed configuration and workflows are uncommitted. ProductShape/ArcShape, labels and evidence are unconfigured; roles and adapters are empty; there is no root `verify` script. Readiness must be rechecked on the committed pilot revision. Preserve its current application and talk work during adoption.
 
-## Proposed product change
+Existing SoFa delivery instructions also use Agentic SDLC `status:*` lifecycle labels while Lighthouse owns a different stage/gate catalog. This is an adoption migration to resolve once, with explicit old-to-new state mapping and provider-supported generation. Do not run two label writers or edit generated skills to hide the conflict.
 
-The proposed future product has one personal actor, GitHub as the external backlog/evidence authority, and these bounded contexts:
+## Milestones
 
-```mermaid
-flowchart LR
-    GitHub --> Triage[Backlog and Triage]
-    Triage --> Execution[Execution]
-    Scheduling[Scheduling] --> Execution
-    Execution --> Verification[Verification and Delivery]
-    Verification --> GitHub
-    Runtime -. health and telemetry .-> Execution
-```
-
-| Context | Responsibility | Explicit boundary |
+| Milestone | Owner and dependency | Demonstrable exit |
 | --- | --- | --- |
-| Backlog and Triage | Import and classify GitHub issues, retain project/issue priority, and shape small work units with dependencies. | GitHub remains the source of truth; SoFa stores a local coordination projection and never invents a competing issue state. |
-| Execution | Run one authorized work unit through a leased, checkpointed engineering loop. | Does not own scheduling, delivery authority, or product approval. |
-| Scheduling | Continuously select eligible work across projects subject to dependencies, WIP, risk, leases, capacity, and policy. | It may recommend or dispatch only while authority is active and within an accepted autonomy policy; pause and revocation must be supported. |
-| Verification and Delivery | Collect deterministic checks, review evidence, PR state, authorized integration, and verified delivery evidence. | It cannot turn a green check into human approval or deploy without an explicit product and operational gate. |
-| Runtime Operations | Observe health, worker liveness, telemetry, maintenance, and recovery posture. | Operational telemetry is not product evidence and does not grant execution authority. |
+| M0: reproducible consumer | Lighthouse L1; consumer preparation | Packed workflows resolve in a clean consumer, strict continuation tests pass, and committed `presentations` has verification, authorities or explicit exceptions, labels and its runner registration. |
+| M1: real triage and refinement | Lighthouse L2/L3 plus SoFa bridge, minimal store and one engine worker | A story in `presentations` automatically reaches a persisted triage/refine result or a specific clarification; owner approval remains explicit at required gates. The refined story is actually visible in GitHub. |
+| M2: recoverable implementation | SoFa lease/checkpoint/publication work; Lighthouse L4 | After approved proposal, one scoped change produces a real PR. Forced interruption, duplicate event, stale worker, timeout and uncertain publication pass the pilot's failure cases. |
+| M3: verified delivery | Repository checks, independent review and explicit integration authorization | The selected PR merges only under policy; the exact default-branch commit and post-merge checks are recorded. No production deployment is inferred. |
+| M4: controlled expansion | M3 evidence and operator policy decision | Add a second personal repository; prove shared admission and fairness; measure before raising concurrency towards five or six. Enable unattended work only for an explicitly accepted low-risk class. |
 
-The factory keeps Backlog/Triage, Execution, Scheduling, Verification/Delivery, and Runtime Operations independent through explicit ports. No context silently acquires another context's authority.
+M0/M1 are the first proof of value. M2/M3 establish recoverable delivery. M4 is the medium-term evolution. Use acceptance evidence to sequence work rather than promise dates before engine authentication, consumer state and runner capacity are measured.
 
-## Product evolution
+## Rollout policy
 
-The proposed change covers:
+The pilot uses supervised gates, one globally active execution and the product default of one execution per project. Security impact, privileged operations and destructive data actions keep human decisions. Existing recovery and retention rules remain owned by the [product model](../product/model/business-rules/); the runtime must enforce them and report unsupported controls. Missing usage information is unknown, not zero cost; do not promise a hard monetary cap without a provider mechanism that enforces it.
 
-- GitHub-backed backlog ingestion and triage, with project and issue priorities preserved and visible;
-- small work units with explicit dependencies, scope, acceptance criteria, risk, and a named decision boundary;
-- durable execution runs with leases, checkpoints, idempotency, recovery, and evidence references;
-- human decision boundaries for product intent, architecture, risky operations, PR approval, integration, and delivery;
-- risk-based autonomy profiles that can stop, ask, or proceed only within an accepted policy;
-- evidence-driven verification from local checks through CI, PR, authorized integration, and verified delivery;
-- multi-project scheduling with dependency and concurrency awareness; and
-- runtime health, telemetry, maintenance, retention, and safe recovery.
+The operator may pause admission and cancel a run. Raising capacity or replacing a human gate is a recorded policy change tied to scope and evidence. Before M4, demonstrate correct completion, intentional human waits, rejection of stale publication and recovery from host/worker failure. A digest should report actionable changes and required decisions rather than repeatedly announcing unchanged waits.
 
-This is a personal factory, not a multi-tenant service. No team identity model, commercial offering, generic plugin SDK, broker, or microservice topology is implied.
+## Reference mechanisms
 
-## Accepted planning defaults
+The reviewed [Platform documentation](https://platform.plainconcepts.dev/docs/how-we-work), [presentation](https://platform.ckgrafico.com/) and local Foundations, agent-harness, agentic-workflows and project-health sources support four useful mechanisms: deterministic event routing, shared installed instructions, validated outward effects and measured delivery. The presentation is explanatory; code and tests establish implemented behavior. Its four repositories need not become four repositories here: Lighthouse covers the reusable baseline/harness/workflow contract and SoFa covers personal operation and evidence consumption.
 
-These defaults are accepted for planning, but remain unimplemented until the Product Change and architecture are approved through their lifecycle:
+Retain bounded clarification, one event/one route, one PR per scoped change, explicit merge decisions and unknown metrics. Adapt organization-level runner infrastructure to repository registrations on Bastion. Keep provider selection separate from GitHub transport. Do not copy workflow policies, source files or provenance into Lighthouse.
 
-- Critical security, privilege, destructive-data, ambiguous, or conflicting-risk work stops at a human gate.
-- Retain execution metadata/checkpoints for 90 days, delivery evidence/decision records for 365 days, and detailed telemetry for 30 days by default.
-- Recover automatically for at most three attempts or 30 minutes of cumulative recovery time, then stop for a human decision.
-- Allow one active execution per project by default; project overrides are disabled initially and cannot exceed healthy worker capacity.
-- Keep privileged control loopback-only and separately authenticated; the existing LAN surface remains read-only and non-privileged.
-
-## Roadmap phases
-
-| Phase | Intent | Exit evidence | Product/architecture gate |
-| --- | --- | --- | --- |
-| S0 — reconcile and prepare | Product baseline, bounded-context map, Lighthouse report, reviewed runtime architecture, ADR, and pilot backlog. | Ownership, trigger, persistence, isolation, recovery, and gate boundaries are documented; current verification is recorded. | Human review of the implementation plan before runtime work. |
-| S1 — establish authorities | Reconcile Lighthouse, ProductShape, ArcShape, and shared lifecycle ownership in a clean worktree. | `lighthouse verify`, ProductShape integrity/doctor, ArcShape validation, and CI-like checks are green. | Accept the implementation architecture and security boundary before execution capability. |
-| S2 — triage vertical slice | Read GitHub issues into a coordination projection, prioritize, split one issue, and record dependencies. | One issue reaches a ready work unit without GitHub mutation beyond explicitly authorized lifecycle operations. | Human confirms triage and risk policy. |
-| S3 — recoverable execution | Execute one low-risk work unit through a supervised Worker and OpenCode with leases/checkpoints. | Interrupted execution resumes or stops safely, with no duplicate active lease and durable evidence. | Explicit acceptance of execution policy and security boundary. |
-| S4 — verification and delivery | Gather checks, PR, evidence, authorized integration, and post-delivery verification. | The pilot scenario passes end to end and delivery claims match source evidence. | Human authorizes PR approval, integration, and delivery where required. |
-| S5 — schedule and operate | Add continuous multi-project selection, health/maintenance loops, and bounded autonomy based on pilot evidence. | Scheduling and maintenance remain observable, recoverable, pausable, revocable, and within the accepted WIP/risk policy. | Reassess product scope before expanding autonomy. |
-
-S0 deliberately stops before runtime implementation. The first durable slice is the smallest path that exercises the whole loop; it is not a general orchestration platform.
-
-## Human decision boundaries and autonomy
-
-| Decision | Default owner | Automation posture |
-| --- | --- | --- |
-| Product intent and Product Change approval/application | Policy-defined review and human gate for critical impact | Deterministic and semantic review may proceed automatically when policy permits; security, privilege, and destructive-data impact always stop. |
-| Architecture and security boundary | Policy-defined review and human gate for critical impact | Code ownership and semantic review may proceed automatically; security and privilege impact always stop. |
-| Work-item triage and priority | Juan, informed by GitHub evidence | Suggest; do not silently reorder or rewrite GitHub. |
-| Low-risk local implementation and deterministic checks | Accepted execution policy | May proceed under a lease and checkpoint policy. |
-| Secrets, privileged commands, network exposure, or destructive operations | Human gate | Always stop for human authorization. |
-| PR approval, merge, release, and production acceptance | Configured policy, with a human gate for critical impact | Never infer authorization from green automation. |
-
-Any existing unauthenticated LAN read surface is legacy infrastructure, not the factory control plane. It must remain non-privileged and strictly read-only while privileged commands are bound to a separately authenticated control channel.
-
-## Dependencies on Lighthouse
-
-SoFa should consume Lighthouse for the cross-project engineering baseline, package contracts, managed projections, and lifecycle contract. SoFa owns factory orchestration, scheduling, runners, PostgreSQL state, OpenCode supervision, repository-specific adapters, and runtime operations. ProductShape owns product intent; ArcShape owns architecture documentation; Lighthouse must not replace either authority.
-
-The exact adoption conflicts and a non-destructive sequence are recorded in [the Lighthouse reconciliation report](lighthouse-adoption.md). The Lighthouse baseline and ArcShape structure are now adopted locally, with SoFa's authored architecture content retained. S1 still depends on recording the authority relationship, reviewing the generated workflow, and obtaining human acceptance of the broader factory change.
-
-## Future first acceptance scenario
-
-The first pilot is deliberately a future acceptance test because no execution runtime is installed. The implementation may use the reviewed architecture in [docs/architecture](../architecture/README.md) and [ADR-0001](../architecture/09-architecture-decisions/0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md). Select one small GitHub issue from any configured project, triage it, shape one work unit, resolve dependencies, acquire a lease, execute through OpenCode, interrupt and recover once, run verification, open a PR, collect evidence, obtain any required authorized integration decision, integrate, and verify the delivered artifact. The detailed contract is in [first-pilot.md](first-pilot.md); it must not be run before implementation gates pass.
+Reference checkout revisions inspected: Foundations `ca8e414`, agent-harness `c491ef6`, agentic-workflows `7fd80c5` and project-health `75d57a8`. The engine path was traced through the reusable refine worker, shared OpenCode setup and compilation script; routing and staged-effect validation were checked in their executable actions. These revisions are comparison evidence, not dependencies of SoFa.
