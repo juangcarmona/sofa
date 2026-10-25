@@ -28,8 +28,7 @@
       "provider": "github",
       "version": "1",
       "catalogVersion": "0.5.0",
-      "nextAction": null,
-      "recordPath": ".lighthouse/reconciliation/github-profile.json"
+      "nextAction": null
     }
   },
   "projections": {
