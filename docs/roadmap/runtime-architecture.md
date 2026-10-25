@@ -1,5 +1,7 @@
 # Runtime architecture navigation
 
+Historical runtime plan. [ADR-0006](../architecture/09-architecture-decisions/0006-observe-repository-owned-workflows.md) supersedes SoFa execution ownership; consult the current architecture before using this plan.
+
 The canonical target design is the [ArcShape architecture](../architecture/README.md). The current source remains a scaffold; no SoFa runtime is implemented.
 
 | Concern | Owning section |

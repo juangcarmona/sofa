@@ -1,17 +1,17 @@
 ---
 id: FR-RISK-CLASSIFICATION
 type: functional-requirement
-title: Classify work-unit risk with evidence
+title: Verify risk decisions from repository evidence
 status: draft
 derived-from: [BR-UNKNOWN-RISK]
 uses-terms: [TERM-WORK-UNIT, TERM-EXECUTION-RUN]
-verification: [{scenario: "Given deterministic and semantic evidence for a work unit, SoFa records a risk classification, confidence, and evidence references."}, {scenario: "Given critical or ambiguous risk evidence, SoFa creates a human-gate decision instead of authorizing execution."}, {scenario: "Given disagreement between deterministic and semantic assessments, SoFa uses the higher risk, preserves both assessments, and creates a human-gate decision."}]
+verification: [{scenario: "Source observations preserve identity and limitations; stopping SoFa does not stop repository workflows; a read refresh cannot dispatch or publish work."}]
 ---
 
 ## Requirement
 
-The product MUST support risk classification from deterministic checks and semantic review. It MUST record classification, confidence, evidence references, and observed time. Critical or ambiguous results MUST route to a human gate. When assessments disagree, it MUST use the higher risk, preserve both assessments, and route to a human gate. Unknown risk MUST remain ineligible for execution until classification or an explicit decision is recorded.
+SoFa MUST expose repository risk classifications, their confidence, evidence, age and applicable human decisions. It MAY flag missing, conflicting or stale assessments for review. It MUST NOT turn a local assessment into workflow authorization or impose an implicit execution gate. Required checks and stopping rules belong to the repository workflow and Lighthouse contract.
 
 ## Rationale
 
-Risk-based autonomy requires an attributable classification and a safe path for uncertainty.
+The owner supervises work across repositories without making that view a prerequisite for delivery.

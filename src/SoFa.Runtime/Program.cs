@@ -5,6 +5,9 @@ using System.Net.Sockets;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
+if (Environment.GetEnvironmentVariable("SOFA_ENABLE_LEGACY_EXECUTION") != "true")
+    throw new InvalidOperationException("SoFa execution is retired. Use repository workflows and the independent runtime. Set SOFA_ENABLE_LEGACY_EXECUTION=true only for an explicit historical rollback.");
+
 if (!OperatingSystem.IsLinux()) throw new PlatformNotSupportedException("SoFa's local bridge requires Linux peer credentials");
 var builder = WebApplication.CreateBuilder(args);
 var options = builder.Configuration.GetSection("Runtime").Get<RuntimeOptions>() ?? throw new InvalidOperationException("Runtime configuration is required");

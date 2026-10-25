@@ -1,5 +1,7 @@
 # Software factory delivery roadmap
 
+Historical runtime plan. [ADR-0006](../architecture/09-architecture-decisions/0006-observe-repository-owned-workflows.md) supersedes SoFa execution ownership; consult the current architecture before using this plan.
+
 The reconciled direction was accepted by Juan on 2026-10-24 and revised the same day to distinguish requester intake, engineer entry and per-run autonomy. Supervised triage/refine is implemented; the two-entry runtime and complete delivery loop remain pending.
 
 The first consumer is `juangcarmona/presentations`, selected by Juan on 2026-10-24. The objective is an observable path from a GitHub story through triage/refine to a verified PR and an explicitly authorized integration, with execution on Bastion. Start with one supervised execution; expand autonomy only after the failure paths work.

@@ -1,17 +1,17 @@
 ---
 id: FR-RUNTIME-HEALTH
 type: functional-requirement
-title: Surface runtime health and maintenance needs
+title: Surface independent runtime health
 status: draft
 derived-from: [UC-MAINTAIN-RUNTIME, BR-RECOVERABLE-EXECUTION]
 uses-terms: [TERM-EXECUTION-RUN]
-verification: [{scenario: "Given a stale Worker heartbeat, expired lease, or missing checkpoint, the runtime reports a recovery-required condition with its source and age."}, {scenario: "Given unavailable telemetry or database health, SoFa reports unknown rather than healthy."}]
+verification: [{scenario: "Source observations preserve identity and limitations; stopping SoFa does not stop repository workflows; a read refresh cannot dispatch or publish work."}]
 ---
 
 ## Requirement
 
-The product MUST expose Worker liveness, lease age, checkpoint progress, database connectivity, OpenCode outcome, verification failures, recovery-required runs, and maintenance limitations. Health observation MUST NOT mutate repository work as a side effect.
+SoFa MUST expose available runner, executor, workflow and provider health with source identity, observation time and limitations. Missing telemetry MUST be unknown rather than healthy. Health observation MUST NOT launch, cancel, recover or modify repository work. A SoFa outage MUST NOT stop the independently supervised runtime.
 
 ## Rationale
 
-The factory cannot safely schedule or recover work without knowing whether its own control plane is trustworthy.
+The owner supervises work across repositories without making that view a prerequisite for delivery.

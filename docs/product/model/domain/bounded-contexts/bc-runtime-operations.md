@@ -1,22 +1,22 @@
 ---
 id: BC-RUNTIME-OPERATIONS
 type: bounded-context
-title: Runtime operations
+title: Runtime health observation
 status: draft
 ---
 
 ## Responsibility
 
-Make worker health, leases, checkpoints, telemetry, maintenance, retention, and recovery posture visible.
+Observe independent runtimes, runner availability, execution progress and evidence retention.
 
 ## Language
 
-Heartbeat, stale lease, health, maintenance, telemetry, retention, and recovery-required.
+Health, elapsed time, availability, interruption and evidence age.
 
 ## Boundaries
 
-Operational health is not product evidence and does not grant execution or delivery authority.
+Health findings do not dispatch, cancel or recover work and are not mandatory execution gates.
 
 ## External Relationships
 
-Observes BC-EXECUTION and BC-DELIVERY while surfacing operational action to ACT-FACTORY-OWNER.
+Observes source runtime evidence and presents findings to ACT-FACTORY-OWNER.

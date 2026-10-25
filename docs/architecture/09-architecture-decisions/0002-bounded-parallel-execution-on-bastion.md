@@ -1,13 +1,15 @@
 ---
 name: bounded-parallel-execution-on-bastion
 description: One persistent Bastion supports several isolated SoFa executions through repository-scoped runner registrations.
-status: Accepted
+status: Superseded
 date: 2026-10-24
 deciders: [Juan García Carmona]
 tags: [sofa, bastion, github-actions, runners, concurrency, isolation]
 ---
 
 # ADR-0002: Bounded parallel execution on one Bastion
+
+Superseded by [ADR-0006](0006-observe-repository-owned-workflows.md) after the owner changed the product boundary. The remainder preserves the original decision.
 
 ## Context
 

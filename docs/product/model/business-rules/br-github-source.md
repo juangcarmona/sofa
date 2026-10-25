@@ -1,7 +1,7 @@
 ---
 id: BR-GITHUB-SOURCE
 type: business-rule
-title: GitHub remains the backlog source of truth
+title: GitHub owns work and workflow evidence
 status: draft
 applies-to: [BC-BACKLOG-TRIAGE, BC-DELIVERY]
 uses-terms: [TERM-IDEA, TERM-WORK-UNIT, TERM-DELIVERY-EVIDENCE]
@@ -9,16 +9,16 @@ uses-terms: [TERM-IDEA, TERM-WORK-UNIT, TERM-DELIVERY-EVIDENCE]
 
 ## Rule
 
-SoFa MAY capture an idea before it has a GitHub identity. Before the idea enters the normal backlog flow, it MUST become or link to a GitHub issue. SoFa MUST preserve GitHub issue, project, pull request, check, review, workflow, commit, and artifact identities when projecting or explaining work. Local state may coordinate execution, but it MUST NOT silently replace GitHub backlog state or present an unverified local claim as source fact.
+SoFa MAY capture ideas before promotion. Normal repository work MUST have a GitHub issue identity. Issues, comments, pull requests, checks, workflow runs, source revisions and artifacts remain authoritative in GitHub. SoFa projections MUST retain source identities, timestamps and limitations. They MUST NOT replace source state or become a mandatory coordinator for execution.
 
 ## Rationale
 
-The factory spans repositories; source identity and evidence links prevent a second, drifting backlog.
+The owner supervises work across repositories without making that view a prerequisite for delivery.
 
 ## Examples
 
-A repeated import updates a known issue projection rather than creating a duplicate. An idea without a promoted GitHub issue remains an idea and is not eligible for normal work-unit execution. A missing GitHub response is reported as unavailable rather than clear.
+An unavailable workflow is shown as unknown with its source link; no replacement execution starts in SoFa.
 
 ## Exceptions
 
-None without an explicitly accepted Product Change.
+None that makes SoFa an implicit execution authority.
