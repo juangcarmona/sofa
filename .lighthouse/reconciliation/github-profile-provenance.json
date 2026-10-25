@@ -1,0 +1,49 @@
+{
+  "sourceRepository": "juangcarmona/lighthouse",
+  "sourceRevision": "f2471806f4abfdda73ba5b4506ca9d728c2de2f8",
+  "distribution": "locally packed PR candidate; not an npm release",
+  "artifacts": [
+    {
+      "filename": "juangcarmona-lighthouse-0.9.2.tgz",
+      "sha256": "5d43859f4fd5da872f8946ab7040440a537dd646087b48b7b036e3ec167f2e25"
+    },
+    {
+      "filename": "juangcarmona-lighthouse-sdlc-0.10.0.tgz",
+      "sha256": "13272415d70101a722af331efc355b3217e93438cd9826ed1fd8190e938b603d"
+    },
+    {
+      "filename": "juangcarmona-lighthouse-ui-0.2.0.tgz",
+      "sha256": "79203d681f820b115af76f72478919bb5aa4afcc6a2ca7b9da2c28a3f0eadf0a"
+    }
+  ],
+  "profileVersion": 1,
+  "repository": "juangcarmona/sofa",
+  "sourcePullRequest": "https://github.com/juangcarmona/lighthouse/pull/75",
+  "verifiedAt": "2026-10-25T06:32:51.831Z",
+  "mainRevisionUnchanged": "d85f0e3cdb3ca24a1911b5c3312f8fd841d3d7ee",
+  "verificationStatus": "passed",
+  "remainingChanges": [],
+  "exceptions": [
+    {
+      "id": "repository.allow_merge_commit",
+      "reason": "Preserve the existing merge strategy while open work is in progress; squash remains available.",
+      "expected": true
+    },
+    {
+      "id": "repository.allow_rebase_merge",
+      "reason": "Preserve the existing integration options while open work is in progress.",
+      "expected": true
+    },
+    {
+      "id": "releases.immutable",
+      "reason": "No validated draft-and-attach release publisher is configured for this repository.",
+      "expected": null
+    }
+  ],
+  "manualRecommendations": [
+    "Keep Wiki deferred or explicitly selected, with editing restricted to collaborators.",
+    "Review issue forms, sponsorship, Projects, social preview and archive participation for the product.",
+    "Review commit comments, linked-issue auto-close, LFS archives and multi-ref push limits in GitHub settings; this adapter does not manage them.",
+    "Review Actions retention, workflow-specific token permissions, self-hosted admission and integration authority separately; repository defaults do not enforce those controls."
+  ]
+}
