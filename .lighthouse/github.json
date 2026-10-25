@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "profileVersion": 1,
+  "repository": "juangcarmona/sofa",
+  "intake": "collaborators",
+  "requiredChecks": [
+    {
+      "context": "verify",
+      "integrationId": 15368
+    }
+  ],
+  "requiredApprovals": 0,
+  "evidenceBranch": "process/retrospectives",
+  "releaseWorkflowReady": false,
+  "overrides": {
+    "repository.allow_merge_commit": {
+      "value": true,
+      "reason": "Preserve the existing merge strategy while open work is in progress; squash remains available."
+    },
+    "repository.allow_rebase_merge": {
+      "value": true,
+      "reason": "Preserve the existing integration options while open work is in progress."
+    },
+    "releases.immutable": {
+      "value": null,
+      "reason": "No validated draft-and-attach release publisher is configured for this repository."
+    }
+  }
+}
