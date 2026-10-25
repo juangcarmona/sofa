@@ -1,13 +1,15 @@
 ---
 name: lighthouse-delivery-workflow-sofa-bastion-runtime
 description: Lighthouse owns repository delivery workflow while SoFa owns supervised execution on Bastion.
-status: Accepted
+status: Superseded
 date: 2026-10-24
 deciders: [Juan García Carmona]
 tags: [lighthouse, sofa, bastion, runtime, github-actions]
 ---
 
 # ADR-0001: Lighthouse owns delivery workflow and SoFa owns the Bastion execution runtime
+
+Superseded by [ADR-0006](0006-observe-repository-owned-workflows.md) after the owner changed the product boundary. The remainder preserves the original decision.
 
 ## Context
 

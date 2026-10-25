@@ -1,7 +1,7 @@
 ---
 id: UC-MAINTAIN-RUNTIME
 type: use-case
-title: Maintain runtime health and recovery posture
+title: Inspect health of independent execution infrastructure
 status: draft
 primary-actor: ACT-FACTORY-OWNER
 supporting-actors: []
@@ -12,30 +12,31 @@ uses-terms: [TERM-EXECUTION-RUN, TERM-RUNTIME-HEALTH, TERM-RETENTION-POLICY]
 
 ## Goal
 
-Detect unhealthy workers, stale leases, missing checkpoints, retention pressure, and recovery-required runs.
+Inspect health of independent execution infrastructure.
 
 ## Trigger
 
-A health observation or scheduled maintenance window occurs.
+An owner requests a refresh or a configured source observation is refreshed.
 
 ## Preconditions
 
-Runtime signals and durable run state are available or their absence is visible.
+Repository identity is configured; unavailable source access is explicit.
 
 ## Main Flow
 
-1. SoFa observes worker heartbeat, lease, database, OpenCode, and evidence health.
-2. SoFa records an operational finding and safe maintenance recommendation.
-3. Juan decides whether to recover, pause, or change policy.
+1. SoFa reads available runner and runtime observations.
+2. SoFa reports source, age, failure and missing evidence.
+3. Juan operates the independent runtime through its own tools.
+4. Observation does not mutate execution or repository work.
 
 ## Alternative Flows
 
-An unavailable telemetry path is reported as unknown rather than healthy.
+Unavailable or stale evidence is shown with a source link and observation time.
 
 ## Failure Conditions
 
-Maintenance cannot delete or mutate source work as a side effect of health observation.
+An observation cannot authorize work or claim success without evidence.
 
 ## Postconditions
 
-The operational state and next human action are explicit.
+The owner can inspect source-backed state without SoFa becoming an execution dependency.

@@ -4,61 +4,10 @@ arc42-section: "02"
 description: Technical, organizational, and convention constraints that shape the architecture.
 ---
 
-# 2. Architecture constraints
+# 02. Independent execution
 
-## Technical constraints
+No SoFa database, service, queue or lease is required by a repository workflow. Existing unauthenticated read surfaces remain read-only. Future controls need authentication and use the repository entrypoint. The future UI framework is not selected by this correction.
 
-The current repository is a scaffold. The inspected `src/` and `tests/` contain security tooling and tests, but no .NET application, Aspire AppHost, PostgreSQL integration, Worker, OpenCode adapter, gateway integration, self-hosted runner component, or SoFa workflow. The files under `docs/roadmap/` are therefore proposals and planning evidence, not proof of installed infrastructure.
+<!-- pdac:cite id="CON-FACTORY-RUNTIME" digest="sha256:3e183bdd765a663d966e19e3c645ee91e36c8e30b14dacc9f4724c670fd21a2d" -->
 
-The target retains the existing runtime proposal where it is supported by product and Lighthouse evidence:
-
-- one modular .NET 10 application composed locally with Aspire;
-- PostgreSQL as the minimum durable operational control-plane store;
-- an independently supervised Worker inside the SoFa deployment;
-- OpenCode as an external execution engine using Bastion-local OpenAI Codex/ChatGPT authentication, with an optional provider gateway; and
-- one persistent Bastion host with ephemeral execution workspaces.
-
-These technology choices remain implementation targets until their implementation phase is authorized. They do not authorize adding code in this architecture-alignment change.
-
-The consumer repository selects Lighthouse SDLC package `0.8.0` through `.lighthouse/sdlc.json` and Lighthouse package `0.9.0` in the root manifest. The distributed route catalog defines the six stages and the routes `supervised`, `plan-only`, `unattended`, `hotfix`, and `stacked`; the route determines which stages and prerequisites are eligible. The current distributed package must be treated as the contract authority during implementation, including its `stage-result` schema and generated workflow assets.
-
-GitHub Actions is the initial transport and orchestration boundary. A job is assigned to the capability `[self-hosted, linux, lighthouse-sdlc]`; the SoFa deployment on Bastion supplies that capability. No central SoFa webhook is required by the current evidence.
-
-## Personal GitHub runner scope
-
-GitHub runner registration scope and machine scope are different. GitHub documents repository-level runners as dedicated to one repository; organization-level runners are the mechanism for serving multiple repositories in one organization. This SoFa factory uses personal repositories, not an organization, so the native GitHub deployment profile is:
-
-- one persistent Bastion host;
-- one repository-scoped runner registration for every participating personal repository;
-- one separate runner directory, service unit, and working directory per registration;
-- the same capability labels, initially `[self-hosted, linux, lighthouse-sdlc]`; and
-- one SoFa admission and capacity boundary shared by all registrations on the host.
-
-The registrations are multiple GitHub entry points into one physical host. They are not multiple Bastions, and they do not define SoFa worker capacity. GitHub labels select a registration that is visible to the repository; they do not enforce a global capacity across personal repositories. SoFa owns that capacity and may run several isolated executions concurrently, subject to healthy resources and policy.
-
-If a repository has no registration on Bastion, its Lighthouse job cannot use Bastion through the native repository-scoped runner path. A central workflow or ingress could change that topology, but neither exists in the current Lighthouse contract and neither is introduced by this architecture definition.
-
-Reference: [GitHub self-hosted runners](https://docs.github.com/en/actions/concepts/runners/self-hosted-runners).
-
-## Organizational constraints
-
-- Lighthouse owns stages, routes, gates, skills, `stage-result` contracts, gh-aw workflows, router/workers, explicit composition, execution contracts, and delivery evidence.
-- SoFa owns cross-project scheduling, leases, checkpoints, fencing, recovery, capacity, concurrency, runner supervision, workspace lifecycle, isolation, operational persistence, engine integration, runtime health, and Bastion operation.
-- Bastion owns the persistent machine, deployed processes, local runner, model gateway, model services, and execution resources.
-- ProductShape owns product intent; ArcShape architecture documentation explains the realized shape; ADRs preserve durable rationale.
-- The runner is a deployable SoFa component. It is not a Lighthouse repository and must not become a second lifecycle implementation.
-
-## Conventions
-
-Lighthouse semantics are fixed at the integration boundary:
-
-| Lighthouse contract | Meaning for SoFa |
-| --- | --- |
-| `triage` | Reports the `triaged` gate; validation and its required decision remain separate. |
-| `refine` | Reports the `ready` gate; readiness is not approval. |
-| `propose` | Reports the `planned` gate; execution requires the recorded decision. |
-| `implement` | Reports the `done` gate; completion requires successful evidence and required decisions. |
-| `integrate` | Produces an integration result and merge preparation; it does not imply that SoFa may merge. |
-| `review` | Produces a review result with no new gate. |
-
-`ready`, `planned`, and `done` are gates, not stages. `ff` is explicit composition of the configured route. The target continuation contract stops on a failed or blocked prerequisite. The current workflow checks described in section 06 do not yet fully enforce this. SoFa must preserve this behavior and must not introduce `deploy` or any other lifecycle state.
+See [ADR-0006](../09-architecture-decisions/0006-observe-repository-owned-workflows.md) for the accepted boundary and superseded design.

@@ -10,7 +10,7 @@ uses-terms: []
 
 ## Definition
 
-A durable attempt to perform one work unit under a recorded policy, lease, checkpoint sequence, and outcome.
+A source-identified attempt by a repository workflow and independent runtime to perform one work unit under a recorded policy and outcome.
 
 ## Distinguish From
 
@@ -18,4 +18,4 @@ A lease grants temporary ownership; a checkpoint records recoverable progress; n
 
 ## Usage
 
-UC-EXECUTE-WORK-UNIT creates it; UC-MAINTAIN-RUNTIME observes its health; QR-EXECUTION-RECOVERY evaluates its recovery behavior.
+UC-EXECUTE-WORK-UNIT observes it; UC-MAINTAIN-RUNTIME observes its health; QR-EXECUTION-RECOVERY evaluates its recovery behavior.

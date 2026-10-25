@@ -1,5 +1,7 @@
 # Supervised pilot operations
 
+Historical rollback runbook. The presentations pilot now uses repository workflows and an independent executor. SoFa execution is disabled by default; do not deploy this supervisor as the normal path. See [ADR-0006](../architecture/09-architecture-decisions/0006-observe-repository-owned-workflows.md).
+
 This runbook covers the first triage/refine adapter from issue 16. It requires Linux, Docker, Node 24, .NET 10 and an exact released Lighthouse SDLC host contract. The maintained contract is documented in the installed package's `host-contract.md`.
 
 ## Prepare the host

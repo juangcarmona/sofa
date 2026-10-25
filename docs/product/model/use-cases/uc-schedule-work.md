@@ -1,7 +1,7 @@
 ---
 id: UC-SCHEDULE-WORK
 type: use-case
-title: Schedule eligible work across projects
+title: Compare source queues and recommend work
 status: draft
 primary-actor: ACT-FACTORY-OWNER
 supporting-actors: []
@@ -12,31 +12,31 @@ uses-terms: [TERM-PROJECT, TERM-WORK-UNIT, TERM-EXECUTION-RUN, TERM-SCHEDULING-D
 
 ## Goal
 
-Select the next eligible work within project priority, dependency, WIP, lease, and risk limits.
+Compare source queues and recommend work.
 
 ## Trigger
 
-The scheduler's evaluation loop runs, Juan requests a recommendation, or an accepted policy permits dispatch.
+An owner requests a refresh or a configured source observation is refreshed.
 
 ## Preconditions
 
-The work unit is ready and its dependencies, risk profile, and execution policy are known.
+Repository identity is configured; unavailable source access is explicit.
 
 ## Main Flow
 
-1. SoFa filters blocked, leased, capacity-limited, and policy-ineligible work.
-2. SoFa orders eligible candidates using project and issue priority.
-3. SoFa dispatches within the accepted policy when authority is active, or records a recommendation when dispatch is not permitted.
-4. SoFa records the decision, pauses, or revokes dispatch when policy, Juan, or a fail-safe condition requires it.
+1. SoFa reads repository priorities, dependencies and queue evidence.
+2. SoFa presents candidates and limitations without dispatching work.
+3. Juan may request an action through the repository entrypoint directly or a separately authenticated SoFa control.
+4. The repository workflow owns authorization and scheduling.
 
 ## Alternative Flows
 
-No eligible work, a policy stop, a dependency change, a paused scheduler, revoked dispatch authority, or fail-safe condition produces an explicit idle or blocked result.
+Unavailable or stale evidence is shown with a source link and observation time.
 
 ## Failure Conditions
 
-Scheduling never silently changes source priority or bypasses a human gate.
+An observation cannot authorize work or claim success without evidence.
 
 ## Postconditions
 
-The selected work unit is queued with a traceable scheduling decision or remains visibly unselected.
+The owner can inspect source-backed state without SoFa becoming an execution dependency.

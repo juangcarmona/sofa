@@ -11,8 +11,8 @@ verification: [{scenario: "Given an interrupted run and a new Worker, the new Wo
 
 ## Requirement
 
-Execution recovery MUST be durable, attributable, idempotent at checkpoint boundaries, and safe against stale owners.
+SoFa MUST expose source recovery evidence and uncertainty without owning execution or recovery. Its outage MUST NOT stop repository workflows.
 
 ## Measurement
 
-Run the pilot interruption scenario repeatedly and verify one active lease, ordered checkpoints, a bounded recovery outcome, and no duplicate terminal success.
+Stop SoFa during a repository execution and verify that the workflow still publishes its result. Refresh the observation and verify it preserves the original run and outcome.

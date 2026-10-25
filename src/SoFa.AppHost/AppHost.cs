@@ -1,5 +1,4 @@
+// Repository workflows and the independent runtime own execution (ADR-0006).
+// The observer must not start a supervisor or an execution database.
 var builder = DistributedApplication.CreateBuilder(args);
-var database = builder.AddPostgres("database").WithDataVolume().AddDatabase("sofa");
-builder.AddProject<Projects.SoFa_Runtime>("supervisor")
-    .WithReference(database).WaitFor(database);
 builder.Build().Run();

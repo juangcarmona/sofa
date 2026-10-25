@@ -1,13 +1,15 @@
 ---
 name: local-admission-and-fenced-publication
 description: Admit repository jobs through a local supervisor and fence every privileged effect.
-status: Accepted
+status: Superseded
 date: 2026-10-24
 deciders: [Juan García Carmona]
 tags: [runtime, isolation, recovery, publication]
 ---
 
 # ADR-0004: Admit jobs locally and fence privileged publication
+
+Superseded by [ADR-0006](0006-observe-repository-owned-workflows.md) after the owner changed the product boundary. The remainder preserves the original decision.
 
 ## Context
 

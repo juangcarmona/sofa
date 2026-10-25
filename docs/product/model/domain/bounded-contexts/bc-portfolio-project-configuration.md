@@ -1,22 +1,22 @@
 ---
 id: BC-PORTFOLIO-PROJECT-CONFIGURATION
 type: bounded-context
-title: Portfolio and project configuration
+title: Portfolio and source configuration
 status: draft
 ---
 
 ## Responsibility
 
-Maintain the configured project repository identities and default branches, and expose discovered project, engineering, workflow, policy, and delivery metadata that the factory uses to coordinate work.
+Maintain repository identities and discover workflow, evidence and runtime observation endpoints.
 
 ## Language
 
-Project, repository identity, default branch, discovered metadata, profile, capacity, priority policy, risk policy, autonomy policy, and delivery destination.
+Repository, source identity, access, observation time and policy provenance.
 
 ## Boundaries
 
-This context configures the minimum project references and reconciles discovered metadata, but does not replace GitHub backlog state, execute work, manage agent sessions, or claim delivery. Workspace Management and Agent Runtime remain internal capabilities for now, not separate product contexts.
+This context configures observation and authorized source controls, not workers, sandboxes or agent sessions.
 
 ## External Relationships
 
-Receives configuration decisions from ACT-FACTORY-OWNER and supplies project policy to BC-BACKLOG-TRIAGE, BC-SCHEDULING, BC-EXECUTION, and BC-DELIVERY.
+Supplies configured source identities to observation and verification contexts.

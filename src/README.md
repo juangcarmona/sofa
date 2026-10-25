@@ -1,5 +1,7 @@
 # Source
 
-`SoFa.Runtime` implements supervised stage admission, PostgreSQL coordination, isolated execution and fenced GitHub publication. `SoFa.AppHost` composes the runtime and database for local operation. `bridge/` contains the repository runner adapter; `execution/` defines the bounded OpenCode image and policy.
+`observation/github.mjs` reads workflow runs and attention labels from configured GitHub repositories. It records source identities, timestamps and collection limits; it does not dispatch, cancel or publish work.
 
-Repository tooling remains under `tooling/`. See the [architecture](../docs/architecture/README.md) for ownership and the [pilot runbook](../docs/runbooks/supervised-pilot.md) for deployment and acceptance limits.
+`SoFa.Runtime`, `bridge/` and `execution/` retain the superseded pilot implementation for historical rollback. Runtime startup requires an explicit legacy opt-in and `SoFa.AppHost` no longer launches it. Repository workflows use an independent executor. New execution functionality does not belong in SoFa.
+
+See the [architecture](../docs/architecture/README.md) for ownership.

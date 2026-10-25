@@ -1,5 +1,7 @@
 # Factory implementation backlog
 
+Historical runtime plan. [ADR-0006](../architecture/09-architecture-decisions/0006-observe-repository-owned-workflows.md) supersedes SoFa execution ownership; consult the current architecture before using this plan.
+
 These are proposed delivery slices for the [roadmap](software-factory.md), not claims of created issues or completed implementation. The existing architecture work remains linked to issue #14. Plan future implementation in separate work items so its validation and scope remain clear.
 
 | Slice | Owner | Dependency | Acceptance |

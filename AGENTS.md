@@ -4,7 +4,7 @@ Read [README.md](README.md), [docs/README.md](docs/README.md), and [docs/enginee
 
 ## Sources of truth
 
-- Product intent belongs to ProductShape under `docs/product/`. Change it through a Product Change; do not edit an accepted model directly. The accepted product baseline is the Software Factory; Repository Attention is not product scope.
+- Product intent belongs to ProductShape under `docs/product/`. Change it through a Product Change; do not edit an accepted model directly. The accepted product baseline is cross-repository factory observation and verification. GitHub workflows and an independent runtime own execution; SoFa must not become their prerequisite.
 - Architecture belongs to `docs/architecture/` and explains how the implementation realizes accepted product intent. Use ArcShape's generated structure and the installed `architecture-docs` skill. Do not invent product requirements or architectural facts.
 - Significant architecture decisions belong in `docs/architecture/09-architecture-decisions/` through the ArcShape ADR workflow.
 - Implementation and tests belong under `src/` and `tests/`.

@@ -1,7 +1,7 @@
 ---
 id: UC-EXECUTE-WORK-UNIT
 type: use-case
-title: Execute and recover one work unit
+title: Inspect one repository-owned execution
 status: draft
 primary-actor: ACT-FACTORY-OWNER
 supporting-actors: [ACT-OPENCODE, ACT-ENGINEER]
@@ -12,31 +12,31 @@ uses-terms: [TERM-WORK-UNIT, TERM-EXECUTION-RUN]
 
 ## Goal
 
-Perform authorized work with durable ownership, checkpoints, cancellation, and recovery.
+Inspect one repository-owned execution.
 
 ## Trigger
 
-A ready work unit is dispatched under an accepted policy.
+An owner requests a refresh or a configured source observation is refreshed.
 
 ## Preconditions
 
-The work unit is eligible, the Worker is healthy, and the control boundary authorizes the selected capability.
+Repository identity is configured; unavailable source access is explicit.
 
 ## Main Flow
 
-1. SoFa verifies the effective authorization, Lighthouse decision, source and policy before the Worker acquires a lease and creates a run.
-2. OpenCode follows the Lighthouse harness in the scoped workspace, producing the actual required OpenSpec artifacts, code and verification outcomes. A planning-only run stops before code application.
-3. The Worker records checkpoints and verification results, and continues only within the effective autonomy and limits. Required human decisions remain explicit. Integration uses a separate authorization.
-4. The run ends in success, failure, blocked, or interrupted state.
+1. The repository workflow authorizes and starts its independent runtime.
+2. SoFa observes stage progress and source-linked results when reachable.
+3. SoFa exposes missing or conflicting evidence and the source action needed.
+4. Execution and publication continue when SoFa is stopped.
 
 ## Alternative Flows
 
-After interruption, a new Worker validates the latest checkpoint, fencing token, workspace identity, and policy. It resumes automatically when all evidence permits; otherwise it stops for Juan.
+Unavailable or stale evidence is shown with a source link and observation time.
 
 ## Failure Conditions
 
-Lease loss, policy violation, unavailable OpenCode, or missing checkpoint evidence prevents a success claim.
+An observation cannot authorize work or claim success without evidence.
 
 ## Postconditions
 
-The run and its evidence are durable, attributable, and safe to inspect or recover.
+The owner can inspect source-backed state without SoFa becoming an execution dependency.
