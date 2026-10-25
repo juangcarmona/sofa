@@ -1,6 +1,8 @@
 # Factory implementation backlog
 
-These are proposed delivery slices for the [roadmap](software-factory.md), not claims of created issues or completed implementation. The existing architecture work remains linked to issue #14. Plan future implementation in separate work items so its validation and scope remain clear.
+These delivery slices organize the [roadmap](software-factory.md); their acceptance criteria do not imply completed implementation. The existing architecture work remains linked to issue #14. Track implementation in separate work items so its validation and scope remain clear.
+
+[Issue #25](https://github.com/juangcarmona/sofa/issues/25) now tracks the implementation-through-PR phase. Its [delivery plan](../delivery/plans/issue-25.md) includes evidence capture before cleanup, independent code review and the existing post-integration retrospective. The work is planned; writable execution and continuous-improvement automation are not deployed.
 
 | Slice | Owner | Dependency | Acceptance |
 | --- | --- | --- | --- |
