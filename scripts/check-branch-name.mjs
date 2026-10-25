@@ -9,9 +9,12 @@ const branchName =
 const allowedBranchName =
   /^(feat|fix|docs|refactor|test|chore|build|ci|perf|revert)\/[1-9]\d*-[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
-if (!allowedBranchName.test(branchName)) {
+const dependencyBranchName =
+  /^dependabot\/(?:npm_and_yarn|github_actions)\/[a-zA-Z0-9][a-zA-Z0-9._-]*(?:\/[a-zA-Z0-9][a-zA-Z0-9._-]*)*$/;
+
+if (!allowedBranchName.test(branchName) && !dependencyBranchName.test(branchName)) {
   console.error(
-    `Invalid branch name: ${branchName || "(detached HEAD)"}. Use <type>/<issue-number>-<kebab-case-slug>, for example feat/47-export-report.`,
+    `Invalid branch name: ${branchName || "(detached HEAD)"}. Use <type>/<issue-number>-<kebab-case-slug>, for example feat/47-export-report, or a supported Dependabot branch.`,
   );
   process.exitCode = 1;
 }
