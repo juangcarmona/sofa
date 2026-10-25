@@ -1,7 +1,7 @@
 ---
 id: BR-UNKNOWN-RISK
 type: business-rule
-title: Unknown risk blocks execution authorization
+title: Expose unknown risk without granting authority
 status: draft
 applies-to: [BC-BACKLOG-TRIAGE, BC-EXECUTION, BC-SCHEDULING]
 uses-terms: [TERM-WORK-UNIT, TERM-EXECUTION-RUN]
@@ -9,16 +9,16 @@ uses-terms: [TERM-WORK-UNIT, TERM-EXECUTION-RUN]
 
 ## Rule
 
-A work unit with unknown or unresolved risk MAY be captured, triaged, and shaped, but MUST NOT be authorized for execution. Deterministic checks and semantic review MAY classify risk. Critical or ambiguous results MUST route to a human gate. When deterministic and semantic assessments disagree, SoFa MUST use the higher risk classification and route the work to a human gate while preserving both assessments. Execution requires a classified risk or an explicit decision that resolves the uncertainty and is recorded with the work unit.
+SoFa MUST show absent, stale, ambiguous or conflicting risk evidence as a limitation requiring attention. Execution eligibility and required risk gates belong to the repository workflow. SoFa MUST NOT infer approval, dispatch work or impose an unconfigured gate from its own risk assessment.
 
 ## Rationale
 
-Unknown risk cannot safely select an autonomy policy or establish the boundary for an unattended execution.
+The owner supervises work across repositories without making that view a prerequisite for delivery.
 
 ## Examples
 
-An issue can be split into a candidate work unit while its security impact is investigated. The scheduler may show it as blocked for risk classification, but it cannot acquire an execution lease for it. A deterministic check may classify a routine documentation change as low risk; an ambiguous security result must go to a human gate. If one assessment says low and the other medium, the work is treated as medium and routed to a human gate.
+An unavailable workflow is shown as unknown with its source link; no replacement execution starts in SoFa.
 
 ## Exceptions
 
-None without an explicit recorded risk decision.
+None that makes SoFa an implicit execution authority.

@@ -1,22 +1,22 @@
 ---
 id: BC-EXECUTION
 type: bounded-context
-title: Recoverable execution
+title: Execution observation
 status: draft
 ---
 
 ## Responsibility
 
-Run one authorized work unit through a leased, checkpointed engineering loop and expose explicit interruption and recovery outcomes.
+Observe repository workflow runs, independent runtime outcomes and recovery evidence.
 
 ## Language
 
-Execution runs, stages, leases, checkpoints, attempts, recovery, capabilities, and outcomes.
+Runs, attempts, source revisions, outcomes and observed recovery.
 
 ## Boundaries
 
-This context does not choose global scheduling policy, approve products, merge pull requests, or deploy.
+This context does not execute agents, acquire leases, schedule work or publish effects.
 
 ## External Relationships
 
-Consumes a ready work unit from BC-BACKLOG-TRIAGE, invokes ACT-OPENCODE under policy, and reports evidence to BC-DELIVERY.
+Reads repository workflows and runtime evidence and supplies BC-DELIVERY.

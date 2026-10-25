@@ -1,17 +1,17 @@
 ---
 id: FR-RETENTION-POLICY
 type: functional-requirement
-title: Apply standard retention with project defaults
+title: Expose retention and evidence availability
 status: draft
 derived-from: [BR-RETENTION-STANDARDS, UC-MAINTAIN-RUNTIME]
 uses-terms: [TERM-RETENTION-POLICY, TERM-DELIVERY-EVIDENCE]
-verification: [{scenario: "Given a project with no retention override, SoFa applies the shared default policy and exposes the effective policy."}, {scenario: "Given a project override outside accepted standards, SoFa rejects or reports the invalid policy rather than silently applying it."}]
+verification: [{scenario: "Source observations preserve identity and limitations; stopping SoFa does not stop repository workflows; a read refresh cannot dispatch or publish work."}]
 ---
 
 ## Requirement
 
-The product MUST apply a shared default retention policy when a project has no configured override. Project-specific policies MUST be validated against accepted shared standards, and the effective policy, retention pressure, deletion limitations, and evidence availability MUST be visible to the owner.
+SoFa MUST expose the effective retention policies and evidence availability reported by configured sources. It MAY apply a retention policy to its own observation cache. It MUST NOT delete repository artifacts, agent sessions or runtime state as a side effect of collection, and MUST distinguish expired or unavailable evidence from successful delivery.
 
 ## Rationale
 
-Defaults provide consistent behavior for every project while standards-bound overrides support legitimate differences without making retention an implicit implementation detail.
+The owner supervises work across repositories without making that view a prerequisite for delivery.

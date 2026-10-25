@@ -1,17 +1,17 @@
 ---
 id: FR-RECOVERABLE-EXECUTION
 type: functional-requirement
-title: Execute work with leases and checkpoints
+title: Observe execution and recovery evidence
 status: draft
 derived-from: [UC-EXECUTE-WORK-UNIT, BR-RECOVERABLE-EXECUTION, CON-FACTORY-RUNTIME, CON-TRUSTED-LAN]
 uses-terms: [TERM-WORK-UNIT, TERM-EXECUTION-RUN]
-verification: [{scenario: "Given an eligible low-risk work unit, one Worker acquires a lease, creates a run, invokes OpenCode within policy, and persists ordered checkpoints."}, {scenario: "Given a Worker stops after a checkpoint, a replacement Worker automatically resumes only when policy, fencing, and workspace validation permit it, without duplicate active ownership."}, {scenario: "Given repeated recovery failure reaches the configured retry or time bound, the run blocks for a human decision."}, {scenario: "Given uncertain checkpoint, fencing, workspace, or policy evidence, recovery stops for a human decision and cannot claim success."}]
+verification: [{scenario: "Source observations preserve identity and limitations; stopping SoFa does not stop repository workflows; a read refresh cannot dispatch or publish work."}]
 ---
 
 ## Requirement
 
-The product MUST persist an execution run, lease, fencing token, checkpoint sequence, cancellation outcome, recovery outcome, and source/workspace references. After Worker failure, it MUST support automatic retry or recovery from the latest valid checkpoint when policy and evidence permit, bounded by a configured retry count or time budget. It MUST stop for a human decision when evidence is uncertain or the bound is exhausted. It MUST prevent the unauthenticated application surface from dispatching execution or using privileged capabilities.
+SoFa MUST project execution identity, source revision, workflow stage, timestamps, result, cancellation and recovery evidence from repository workflows and their independent runtimes. It MUST distinguish an observed retry from a verified recovery and expose absent evidence. SoFa MUST NOT acquire execution leases, own checkpoints, supervise workers or publish stage effects. Its availability MUST NOT be required for repository execution or recovery.
 
 ## Rationale
 
-Durability and fencing turn process loss into a visible recovery path rather than silent data loss or duplicate work.
+The owner supervises work across repositories without making that view a prerequisite for delivery.

@@ -1,5 +1,7 @@
 # Presentations end-to-end pilot
 
+Historical runtime plan. [ADR-0006](../architecture/09-architecture-decisions/0006-observe-repository-owned-workflows.md) supersedes SoFa execution ownership; consult the current architecture before using this plan.
+
 Juan selected `juangcarmona/presentations` on 2026-10-24. This document tracks the pilot acceptance boundary and links its recorded evidence. The first milestone is a story reaching triage/refine; the full pilot adds a recoverable implementation, a PR and authorized integration.
 
 ## Verified preparation
