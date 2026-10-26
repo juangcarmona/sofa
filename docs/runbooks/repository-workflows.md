@@ -1,6 +1,6 @@
 # Repository workflows
 
-SoFa uses the published Lighthouse SDLC 0.13.0 adapter, pinned to `12696b948838a4de276de1e4a378a9a44a1d4918`. The router and five workers are generated from that package. Regenerate them through its workflow installer and gh-aw 0.93.2; do not edit generated locks. The previous Copilot adapter and its obsolete triage worker have been removed.
+SoFa uses the Lighthouse SDLC adapter pinned to `85a3befc52689f6b26ead759b3cc48ea6e768bee`, including the owner-reply continuation fix from Lighthouse #121. The npm dependency remains 0.13.0 until the next package release; the router and five workers execute the reviewed source pin. Regenerate them through its workflow installer and gh-aw 0.93.2; do not edit generated locks. The previous Copilot adapter and its obsolete triage worker have been removed.
 
 ## Operator setup
 
@@ -14,7 +14,7 @@ After merging the generated workflows, set the repository Actions variable `LIGH
 
 As the repository owner, apply `refine` to an open issue or dispatch **Lighthouse SDLC router** with its issue number and `stage=refine`. The router verifies the actor before admitting work. The worker reserves the issue with `agent-working`, loads the pinned harness, runs OpenCode, validates the result, publishes it and releases the reservation. Follow **OpenCode progress and result**, the job summary and the run artifacts for progress and evidence.
 
-If the worker returns `needs-info`, answer its questions in a new owner comment. A successful refinement does not authorize later stages. Request `propose` separately. Implementation also needs the repository's reviewed implementation policy and approved proposal; this initialization does not invent either. Integration and review dispatches require the PR number and exact accepted head, with an explicit merge authorization for integration.
+If refinement or proposal is blocked awaiting your decision, answer in a new owner comment. The router acknowledges receipt and resumes that same stage after checking its pending report, current source and prior intent. A blocked proposal may carry `waiting-review`; it does not require another stage label. Passed proposals and implementation PR reviews still require their own explicit decisions. A successful refinement does not authorize later stages. Request `propose` separately. Implementation also needs the repository's reviewed implementation policy and approved proposal; this initialization does not invent either. Integration and review dispatches require the PR number and exact accepted head, with an explicit merge authorization for integration.
 
 Lifecycle `status:*` labels remain separate from stage requests and operational flags. Preserve one canonical lifecycle label. A reservation describes active agent work; waiting for information or review is not a reservation.
 
