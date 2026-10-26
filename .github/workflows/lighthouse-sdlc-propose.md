@@ -44,11 +44,12 @@ steps:
     uses: actions/checkout@v5
     with:
       persist-credentials: false
+      ref: ${{ needs.prepare.outputs.source_revision }}
   - name: Load the pinned harness package
     uses: actions/checkout@v5
     with:
       repository: juangcarmona/lighthouse
-      ref: 85a3befc52689f6b26ead759b3cc48ea6e768bee
+      ref: 2a2046b084a2c8cc0d414a40db1b85b4c2199b21
       path: tools
       persist-credentials: false
   - name: Load the authorized issue context
@@ -85,13 +86,16 @@ jobs:
       actions: read
       contents: read
       issues: write
+      pull-requests: read
+    outputs:
+      source_revision: ${{ steps.prepare.outputs.source_revision }}
     env:
       LIGHTHOUSE_ISSUE: ${{ inputs.issue }}
     steps:
       - uses: actions/checkout@v5
         with:
           repository: juangcarmona/lighthouse
-          ref: 85a3befc52689f6b26ead759b3cc48ea6e768bee
+          ref: 2a2046b084a2c8cc0d414a40db1b85b4c2199b21
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:
@@ -128,7 +132,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: juangcarmona/lighthouse
-          ref: 85a3befc52689f6b26ead759b3cc48ea6e768bee
+          ref: 2a2046b084a2c8cc0d414a40db1b85b4c2199b21
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:
