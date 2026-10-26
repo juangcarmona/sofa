@@ -2,68 +2,67 @@
 
 ## Purpose
 
-Provide an isolated authenticated control boundary that preserves the requesting user's repository authority without granting privilege to the existing observation surface.
+Provide separately authenticated control access from the owner's phone over LAN/VPN while keeping anonymous factory observation non-privileged and repository authorization independent.
 
 ## ADDED Requirements
 
-### Requirement: Isolate privileged controls
-The system SHALL keep the existing observation surface read-only and SHALL expose controls only through a separately authenticated loopback boundary accepted by the owner before implementation. LAN reachability SHALL NOT grant authority.
+### Requirement: Preserve the anonymous observation boundary
+The system SHALL keep anonymous observation read-only and SHALL isolate its routes, sessions and credentials from privileged controls. LAN or VPN reachability SHALL NOT confer control authority.
 
-#### Scenario: Observation remains non-privileged
-- **WHEN** an observation endpoint receives a mutation request or a control-shaped URL
-- **THEN** it rejects the request without dispatch or access to control credentials.
+#### Scenario: Anonymous mutation through observations
+- **WHEN** an anonymous client submits a mutation or control-shaped URL to the observation service
+- **THEN** no dispatch occurs and the service exposes neither control credentials nor a mutation proxy.
 
-#### Scenario: Control boundary is not approved for LAN exposure
-- **WHEN** control configuration requests a non-loopback listener
-- **THEN** startup refuses that configuration and explains that a separate security decision is required.
+### Requirement: Support approved phone access over HTTPS
+The system SHALL support the separately approved control origin over authenticated HTTPS from a real phone on LAN/VPN. It SHALL accept only configured origins and callback destinations. Deployment SHALL remain disabled until the Product Change and independent security boundary are accepted.
+
+#### Scenario: Phone signs in over LAN or VPN
+- **WHEN** the owner opens the accepted HTTPS control origin on a real phone over the configured LAN/VPN route
+- **THEN** sign-in uses reachable issuer and callback URLs, returns to that origin and permits review of a refine request without desktop loopback access.
+
+#### Scenario: Unapproved exposure or host
+- **WHEN** configuration lacks exposure acceptance, uses HTTP for controls or supplies an unapproved host or forwarded origin
+- **THEN** controls fail closed and no mutation becomes available.
 
 ### Requirement: Protect session-bound actions
-The system SHALL require a valid authenticated session and anti-forgery protection for every control mutation, including GitHub connection and logout. It SHALL deny anonymous, expired, unauthorized and cross-site actions before dispatch and SHALL invalidate local access on sign-out.
+Every control mutation SHALL require an authenticated, unexpired session and CSRF protection. Sign-out SHALL invalidate local access. Protocol callbacks SHALL validate their correlation data without allowing arbitrary redirects or application mutation by GET.
 
-#### Scenario: Invalid session or cross-site submission
-- **WHEN** a control POST has no valid session, an expired session, an invalid anti-forgery token or an untrusted origin
-- **THEN** the action is denied and no GitHub mutation occurs.
+#### Scenario: Cross-site or expired submission
+- **WHEN** a mutation has no valid session, an expired session, invalid antiforgery data or an untrusted origin
+- **THEN** it is denied before GitHub mutation, including when sent from a device on the trusted LAN.
 
-#### Scenario: Sign-out and expiry
-- **WHEN** the owner signs out or the server-side session expires
-- **THEN** subsequent control requests require fresh authentication and cannot reuse the previous session's GitHub connection.
+#### Scenario: Invalid callback or signed-out replay
+- **WHEN** callback state or nonce fails, a redirect is unregistered, or a prior session is reused after sign-out
+- **THEN** authentication or control access is rejected without dispatch.
 
-### Requirement: Preserve the actual GitHub actor
-The system SHALL require separately granted user-authorized GitHub access and verify its stable user identity against the configured owner binding for each mutation. OIDC alone SHALL NOT grant GitHub permission. Repository workflows SHALL retain their own actor and capability checks; shared or installation credentials SHALL NOT impersonate the user.
+### Requirement: Preserve actual GitHub authority
+The system SHALL require a separate GitHub user grant and verify its stable user identity against the configured owner binding for each mutation. OIDC authentication alone SHALL NOT grant repository permission. Repository actor and capability checks SHALL remain authoritative, with no shared bot or installation-token fallback.
 
-#### Scenario: Authorized user dispatch
-- **WHEN** the authenticated owner's bound GitHub user has authorized the selected repository action
-- **THEN** submission uses that user's delegated access and the unchanged repository router evaluates the actual user as its actor.
+#### Scenario: Owner dispatches using a separate user grant
+- **WHEN** the signed-in owner's verified GitHub user grant permits the selected action
+- **THEN** the source workflow evaluates the actual user as actor and independently admits or rejects the request.
 
-#### Scenario: Missing grant or identity mismatch
-- **WHEN** OIDC is valid but GitHub access is absent, revoked, insufficient or identifies a different user
-- **THEN** the action is denied without fallback to an operator, bot or installation credential.
+#### Scenario: Valid OIDC without GitHub authority
+- **WHEN** OIDC is valid but the GitHub grant is absent, mismatched, revoked, expired or insufficient
+- **THEN** dispatch is denied without falling back to observation, operator or application credentials.
 
 ### Requirement: Isolate development identity lifecycle
-Local Aspire startup SHALL reproducibly initialize an isolated development realm, client and development accounts. Identity data SHALL survive normal restarts. Reset SHALL be explicit, documented and restricted to development identity data; development identities and secrets SHALL remain separate from production and source control.
+Development startup SHALL reproducibly initialize isolated development identity resources and SHALL preserve identity changes across normal restarts. Reset SHALL require explicit confirmation and affect only development resources. Development identities and secrets SHALL remain isolated from production.
 
-#### Scenario: First startup and normal restart
-- **WHEN** a developer starts the documented Aspire configuration and later restarts it normally
-- **THEN** initial development identities are usable and subsequent startup preserves identity changes without reapplying destructive initialization.
+#### Scenario: Startup restart and explicit reset
+- **WHEN** the documented Aspire environment is started, an account changes, the environment restarts, and the developer later confirms reset
+- **THEN** normal restart preserves the change and only the explicit reset restores the isolated initial identity fixture.
 
-#### Scenario: Explicit development reset
-- **WHEN** a developer confirms the documented development reset
-- **THEN** only the isolated development identity store is reset and its reproducible initialization is restored.
+### Requirement: Use independently operated production identity
+Production SHALL use configured standards-based external OIDC for sign-in, sign-out and session expiry. SoFa SHALL NOT provision, reset or delete the production provider or accounts, store passwords or implement credential recovery. Invalid production configuration SHALL fail closed.
 
-### Requirement: Connect to independently operated production identity
-The system SHALL use standards-based external OIDC with maintained authentication support for sign-in, sign-out and expiry. Production issuer and client settings SHALL be configurable. SoFa SHALL NOT provision, reset or delete the production provider or accounts, or implement password storage or credential recovery.
-
-#### Scenario: External issuer configuration
-- **WHEN** production is configured with an independently operated issuer and registered client
-- **THEN** the same OIDC integration supports authentication without starting development initialization or invoking provider administration.
-
-#### Scenario: Invalid issuer settings
-- **WHEN** production issuer validation or required configuration fails
-- **THEN** controls fail closed without development-account or password-based fallback.
+#### Scenario: External issuer and invalid configuration
+- **WHEN** production is configured with an external issuer or its required settings fail validation
+- **THEN** valid settings use that issuer without development bootstrap or provider administration, and invalid settings deny controls without a development fallback.
 
 ### Requirement: Keep credentials out of observable output
-The system SHALL keep secrets, tokens and authorization headers out of page content, client storage, logs and published evidence. Authentication failures SHALL use sanitized messages. Observational data and receipt exports SHALL NOT contain control credentials.
+The system SHALL keep credentials and tokens out of page content, browser storage, logs, receipts and published evidence. Authentication and provider errors SHALL expose only sanitized information.
 
-#### Scenario: Provider or GitHub error contains sensitive data
-- **WHEN** an authentication or GitHub client failure contains a token or authorization header
-- **THEN** rendered errors, logs and exported test or review evidence contain only sanitized failure information.
+#### Scenario: Sensitive provider error
+- **WHEN** an identity or GitHub response includes sensitive error data
+- **THEN** rendered errors, diagnostic events, exports and acceptance captures omit that data and retain only a safe failure category.
