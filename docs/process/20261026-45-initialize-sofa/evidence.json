@@ -1,0 +1,66 @@
+{
+  "issue": "https://github.com/juangcarmona/sofa/issues/45",
+  "pullRequest": "https://github.com/juangcarmona/sofa/pull/46",
+  "reviewedHead": "74c0094b37a80e5ad771a915b60f1ae34280400e",
+  "merge": "ae846c7faba9b92fcf3ce2bf7e152a3b803050d2",
+  "tests": {
+    "node": 27,
+    "dotnet": 38,
+    "browser": 4
+  },
+  "validatedRefinement": {
+    "status": "passed",
+    "gate": "ready",
+    "envelopeSha256": "dbb80bd6f4bd9708e7c7cf6178b846df517026e90385f06f618a4f6a079bd1b6",
+    "report": "https://github.com/juangcarmona/sofa/issues/47#issuecomment-6410966096",
+    "artifact": "lighthouse-result-47-1"
+  },
+  "workflowRegeneration": "Reinstalled and compiled all five workers; SHA256 comparison unchanged",
+  "independentAudit": "Keyboard focus loss found, fixed and independently rechecked; no remaining blocking code findings",
+  "humanReview": "Not recorded; owner delegated routine delivery in the session",
+  "runs": [
+    {
+      "id": 40287589000,
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40287589000",
+      "head_sha": "74c0094b37a80e5ad771a915b60f1ae34280400e",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T07:43:57Z",
+      "updated_at": "2026-10-26T07:45:56Z"
+    },
+    {
+      "id": 40288811583,
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40288811583",
+      "head_sha": "ae846c7faba9b92fcf3ce2bf7e152a3b803050d2",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T07:55:40Z",
+      "updated_at": "2026-10-26T07:57:42Z"
+    },
+    {
+      "id": 40287921209,
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40287921209",
+      "head_sha": "ae846c7faba9b92fcf3ce2bf7e152a3b803050d2",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T07:47:05Z",
+      "updated_at": "2026-10-26T07:53:09Z"
+    }
+  ],
+  "refinementIssue": {
+    "url": "https://github.com/juangcarmona/sofa/issues/47",
+    "labels": [
+      "enhancement",
+      "status:ready",
+      "ready"
+    ]
+  },
+  "limits": [
+    "Read-only trusted-LAN UI; embedded authenticated controls remain future work",
+    "One active gh-aw runner on the shared host; presentations runner retained stopped",
+    "Observations bounded to 20 runs and first 100 issue records"
+  ],
+  "cancelledInstallAttempt": "https://github.com/juangcarmona/sofa/actions/runs/40287865460",
+  "executorTokens": null,
+  "executorCost": null
+}
