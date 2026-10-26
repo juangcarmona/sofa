@@ -1,10 +1,14 @@
 # Optional GitHub-native stage adapter; source owned by lighthouse-sdlc.
 name: Lighthouse SDLC router
-run-name: "${{ inputs.stage || github.event.label.name || (github.event_name == 'issue_comment' && 'reply') || 'refine' }} #${{ github.event.issue.number || inputs.issue }} · ${{ github.actor }}"
+run-name: "${{ inputs.stage || github.event.label.name || ((github.event.pull_request || github.event.issue.pull_request) && 'proposal review') || (github.event_name == 'issue_comment' && 'reply') || 'refine' }} #${{ github.event.issue.number || github.event.pull_request.number || inputs.issue }} · ${{ github.actor }}"
 on:
   issues:
     types: [labeled]
   issue_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+  pull_request_review_comment:
     types: [created]
   workflow_dispatch:
     inputs:
@@ -33,22 +37,19 @@ on:
         type: boolean
 permissions:
   contents: read
-concurrency:
-  group: lighthouse-issue-${{ github.event.issue.number || inputs.issue }}
-  cancel-in-progress: false
 jobs:
   route:
     if: >-
       vars.LIGHTHOUSE_AUTOMATION_ENABLED == 'true' &&
       github.actor == github.repository_owner &&
-      !github.event.issue.pull_request &&
       (github.event_name == 'workflow_dispatch' ||
        (github.event_name == 'issues' && (github.event.label.name == 'refine' || github.event.label.name == 'propose' || github.event.label.name == 'implement')) ||
-       github.event_name == 'issue_comment')
+       github.event_name == 'issue_comment' || github.event_name == 'pull_request_review' || github.event_name == 'pull_request_review_comment')
     runs-on: ubuntu-24.04
     permissions:
       contents: read
       issues: write
+      pull-requests: write
     outputs:
       run: ${{ steps.route.outputs.run }}
       issue: ${{ steps.route.outputs.issue }}
@@ -57,7 +58,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: juangcarmona/lighthouse
-          ref: 85a3befc52689f6b26ead759b3cc48ea6e768bee
+          ref: 63c64b779ef18959a9c993902a5e5e1225a16947
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:
@@ -69,6 +70,9 @@ jobs:
         run: node src/packages/sdlc/src/issue-actions.mjs route
   refine:
     needs: route
+    concurrency:
+      group: lighthouse-issue-${{ needs.route.outputs.issue }}
+      cancel-in-progress: false
     if: needs.route.outputs.run == 'true' && needs.route.outputs.stage == 'refine'
     permissions:
       actions: read
@@ -79,6 +83,9 @@ jobs:
       issue: ${{ needs.route.outputs.issue }}
   propose:
     needs: route
+    concurrency:
+      group: lighthouse-issue-${{ needs.route.outputs.issue }}
+      cancel-in-progress: false
     if: needs.route.outputs.run == 'true' && needs.route.outputs.stage == 'propose'
     permissions:
       actions: read
@@ -90,6 +97,9 @@ jobs:
       issue: ${{ needs.route.outputs.issue }}
   implement:
     needs: route
+    concurrency:
+      group: lighthouse-issue-${{ needs.route.outputs.issue }}
+      cancel-in-progress: false
     if: needs.route.outputs.run == 'true' && needs.route.outputs.stage == 'implement'
     permissions:
       actions: read
@@ -101,6 +111,9 @@ jobs:
       issue: ${{ needs.route.outputs.issue }}
   integrate:
     needs: route
+    concurrency:
+      group: lighthouse-issue-${{ needs.route.outputs.issue }}
+      cancel-in-progress: false
     if: needs.route.outputs.run == 'true' && needs.route.outputs.stage == 'integrate'
     permissions:
       actions: write
@@ -113,6 +126,9 @@ jobs:
       issue: ${{ needs.route.outputs.issue }}
   review:
     needs: route
+    concurrency:
+      group: lighthouse-issue-${{ needs.route.outputs.issue }}
+      cancel-in-progress: false
     if: needs.route.outputs.run == 'true' && needs.route.outputs.stage == 'review'
     permissions:
       actions: write
