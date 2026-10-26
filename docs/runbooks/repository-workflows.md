@@ -1,6 +1,6 @@
 # Repository workflows
 
-SoFa uses the Lighthouse SDLC adapter pinned to `100775b392b2621bc31efdbd168dfce66a6c846a`, including owner replies and proposal PR feedback from Lighthouse #121 and #122. The npm dependency remains 0.13.0 until the next package release; the router and five workers execute the reviewed source pin. Regenerate them through its workflow installer and gh-aw 0.93.2; do not edit generated locks. The previous Copilot adapter and its obsolete triage worker have been removed.
+SoFa uses the Lighthouse SDLC adapter pinned to `63c64b779ef18959a9c993902a5e5e1225a16947`, including owner replies and proposal PR feedback from Lighthouse #121–#123. The npm dependency remains 0.13.0 until the next package release; the router and five workers execute the reviewed source pin. Regenerate them through its workflow installer and gh-aw 0.93.2; do not edit generated locks. The previous Copilot adapter and its obsolete triage worker have been removed.
 
 ## Operator setup
 
