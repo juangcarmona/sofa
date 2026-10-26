@@ -24,6 +24,22 @@
     "releases.immutable": {
       "value": null,
       "reason": "No validated draft-and-attach release publisher is configured for this repository."
+    },
+    "actions.workflow": {
+      "value": null,
+      "reason": "The owner enabled proposal and implementation delivery. GitHub groups PR creation and review approval; these publishers create PRs and never approve them. Integration requires an owner dispatch for an exact accepted head and verified checks."
     }
+  },
+  "completion": {
+    "publishEvidence": true,
+    "postMergeWorkflows": [
+      "verify.yml"
+    ],
+    "protectionObservations": [
+      {
+        "id": 25811689,
+        "revision": "958e2cada0e7225f46f5b7119b2df20214f3bfaf5f745401e50c3bba55c05578"
+      }
+    ]
   }
 }

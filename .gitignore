@@ -29,3 +29,6 @@ test-results/
 
 # ArcShape local analysis sessions.
 .arcshape/
+
+# Browser evidence is retained by CI, not the application tree.
+test-reports/

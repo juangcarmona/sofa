@@ -12,9 +12,11 @@
     "product:doctor": "prodshape doctor",
     "product:integrity": "prodshape integration update --check",
     "architecture:check": "arcshape validate --links",
-    "verify": "npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check && npm run test:runtime",
+    "verify": "npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check && npm run test:runtime && npm run test:browser",
     "test:runtime": "node scripts/verify-runtime.mjs",
-    "observe": "node src/observation/github.mjs"
+    "observe": "node src/observation/github.mjs",
+    "start": "node src/web/server.mjs",
+    "test:browser": "playwright test"
   },
   "repository": {
     "type": "git",
@@ -32,12 +34,17 @@
   },
   "devDependencies": {
     "@arcshape/cli": "0.1.6",
+    "@axe-core/playwright": "4.14.0",
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
     "@juangcarmona/lighthouse": "0.11.2",
+    "@playwright/test": "1.64.1",
     "@prodshape/cli": "0.23.0",
     "fflate": "0.8.3",
     "husky": "9.1.7",
     "markdownlint-cli2": "0.24.0"
+  },
+  "dependencies": {
+    "@juangcarmona/lighthouse-ui": "0.2.0"
   }
 }

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" data-lh-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SoFa · Software factory</title>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/app.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">Skip to repositories</a>
+  <header class="topbar"><a class="brand" href="/"><span class="mark" aria-hidden="true">S</span>SoFa<span class="brand-note">Software factory</span></a><label class="appearance">Appearance <select id="appearance"><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select></label></header>
+  <main id="workspace" tabindex="-1">
+    <section class="intro"><div><p class="eyebrow">FACTORY OVERVIEW</p><h1>Your work, in one place.</h1><p class="lead">Follow repository activity, find what needs attention, and pick up where work stopped.</p></div><button id="refresh" type="button">Refresh observations</button></section>
+    <p id="connection" role="status" aria-live="polite">Connecting to GitHub…</p>
+    <section class="metrics" aria-label="Observed activity"><div><strong id="repo-count">—</strong><span>Repositories</span></div><div><strong id="active-count">—</strong><span>Active runs</span></div><div><strong id="attention-count">—</strong><span>Attention items</span></div><div><strong id="unknown-count">—</strong><span>Unavailable</span></div></section>
+    <div class="section-heading"><h2>Repositories</h2><span>Source: GitHub</span></div>
+    <div id="repositories" aria-busy="true"><p class="loading">Loading repository observations…</p></div>
+    <aside class="boundary"><strong>Repository workflows own execution.</strong><p>Use “Open workflow actions” to request a stage or review a delivery in GitHub. This observation page cannot start agents or approve changes.</p></aside>
+  </main>
+  <footer>SoFa <span>Observed evidence · Independent repository execution</span></footer>
+</body>
+</html>

@@ -1,5 +1,7 @@
 # Tests
 
+`web.test.mjs` checks the observation server's fixed repository scope, cache, failure handling and read-only HTTP boundary. `browser/` exercises source links, unavailable and stale observations, keyboard navigation, mobile layout and accessibility in both themes. Run `npx playwright install --with-deps chromium` once before `npm run test:browser`; screenshots and reports are written under ignored `test-results/` and `test-reports/` directories and retained by CI.
+
 `SoFa.Runtime.Tests/` checks admission and fencing against PostgreSQL, kernel peer identity, GitHub authority and receipts, bounded processes, validator diagnostics and container isolation. `bridge.test.mjs` and `engine-cleanup.test.mjs` cover receipt cleanup and engine-session cleanup.
 
 `security/` verifies repository secret-scanner integrity and redaction. Run all checks with `npm run verify` at the root; `npm run test:runtime` provisions an isolated PostgreSQL test container when `SOFA_TEST_DATABASE` is absent. These tests do not replace a live issue-to-stage receipt or owner approval for refinement.

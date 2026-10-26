@@ -1,6 +1,7 @@
 name: Verify repository
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
@@ -38,4 +39,16 @@ jobs:
         run: |
           npm run check:branch -- "$BRANCH_NAME"
           npx --no -- commitlint --from "$BASE_SHA" --to "$HEAD_SHA" --verbose
+      - name: Install Chromium for browser checks
+        run: npx --no -- playwright install --with-deps chromium
       - run: npm run verify
+      - name: Retain browser evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sofa-web-evidence
+          path: |
+            test-results/
+            test-reports/
+          if-no-files-found: ignore
+          retention-days: 30
