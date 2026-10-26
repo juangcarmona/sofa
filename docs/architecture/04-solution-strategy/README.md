@@ -6,7 +6,7 @@ description: Fundamental decisions and strategies that shape the architecture.
 
 # 04. Project source facts
 
-The first observer is a read-only Node command using the authenticated GitHub CLI. It requests recent workflow runs and open issues for each selected repository, preserves source URLs and timestamps, and marks collection failures unavailable. It creates no queue and performs no writes. This is a bounded observation slice, not a completed web application or delivery verifier.
+The read-only Node collector now serves both the CLI and a native HTML/CSS/JS web interface. The web server uses Node’s HTTP library and Lighthouse UI tokens, keeping the existing collection adapter and adding no application framework. Repository selection is operator configuration. This delivers observation and source navigation; authenticated embedded workflow controls remain future work.
 
 <!-- pdac:cite id="FR-BACKLOG-PROJECTION" digest="sha256:b98f45997965ba4d187781ca782921eb8c98cb8a9877de2081d26d1e6e5a4d55" -->
 

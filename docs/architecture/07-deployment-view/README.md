@@ -6,7 +6,9 @@ description: Infrastructure and environment mapping for the system.
 
 # 07. Deployment separation
 
-Bastion hosts repository-scoped runners and an operator-owned executor service. The runner reaches the executor over a restricted Unix socket. The executor holds engine authentication and starts a bounded container; it has no GitHub publication token or SoFa database. GitHub credentials remain with the workflow publication step. SoFa runs independently with read access to configured sources. AppHost no longer starts the legacy supervisor or PostgreSQL.
+Bastion hosts the read-only SoFa web process separately from a repository-scoped Actions runner container. The runner launches temporary OpenCode containers through the host Docker socket using operator-owned authentication and image pins. GitHub publication credentials stay in the trusted publication jobs. Only one gh-aw runner is active on this host because gateway startup uses a shared host port; the engine lock alone does not serialize that startup. The previous pilot runner registration and stopped container are retained for recovery.
+
+The web defaults to loopback and may bind a specific trusted-LAN address. Its fixed repository list and GitHub CLI authentication are operator configuration; HTTP clients cannot select arbitrary repositories, run commands or mutate GitHub. No SoFa database or application service participates in workflow execution.
 
 <!-- pdac:cite id="CON-FACTORY-RUNTIME" digest="sha256:3e183bdd765a663d966e19e3c645ee91e36c8e30b14dacc9f4724c670fd21a2d" -->
 
