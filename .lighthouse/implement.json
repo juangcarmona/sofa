@@ -1,0 +1,8 @@
+{
+  "defaults": {
+    "reviewRequired": true,
+    "scope": "Implement only the issue and its acceptance criteria. Preserve SoFa product and architecture authority; owner review and the full host CI suite remain required before integration.",
+    "paths": ["*"],
+    "checks": [["npm", "ci", "--ignore-scripts"], ["env", "CI=true", "npm", "run", "verify:container"]]
+  }
+}
