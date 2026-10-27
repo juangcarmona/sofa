@@ -1,6 +1,10 @@
 import { spawnSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 
+const scope = process.argv.includes('--host') ? 'host' : (process.env.SOFA_RUNTIME_TEST_SCOPE ?? 'all');
+if (!['all', 'container', 'host'].includes(scope)) throw new Error('Unknown runtime test scope');
+if (scope === 'container' && !process.env.SOFA_TEST_DATABASE) throw new Error('Container verification requires host-provisioned SOFA_TEST_DATABASE');
+console.log(`Runtime test scope: ${scope}${scope === 'container' ? ' (Docker engine tests run separately with npm run test:runtime:host)' : ''}`);
 let connection = process.env.SOFA_TEST_DATABASE;
 const name = `sofa-test-${randomUUID()}`;
 function command(cmd, args, options = {}) {
@@ -9,7 +13,7 @@ function command(cmd, args, options = {}) {
   return run.stdout?.trim();
 }
 try {
-  if (!connection) {
+  if (!connection && scope !== 'host') {
     command('docker',['run','-d','--name',name,'-e','POSTGRES_PASSWORD=sofa-test-only','-e','POSTGRES_DB=sofa','-p','127.0.0.1::5432','postgres:17-alpine']);
     let ready = false;
     for (let i=0;i<30;i++) {
@@ -21,5 +25,6 @@ try {
     connection=`Host=127.0.0.1;Port=${port};Database=sofa;Username=postgres;Password=sofa-test-only`;
   }
   command('dotnet',['restore','SoFa.slnx','--locked-mode'],{stdio:'inherit'});
-  command('dotnet',['test','SoFa.slnx','--no-restore'],{stdio:'inherit',env:{...process.env,SOFA_TEST_DATABASE:connection}});
-} finally { if (!process.env.SOFA_TEST_DATABASE) spawnSync('docker',['rm','-f',name],{stdio:'ignore'}); }
+  const filter = scope === 'all' ? [] : ['--filter', `FullyQualifiedName${scope === 'host' ? '~' : '!~'}SoFa.Runtime.Tests.EngineTests`];
+  command('dotnet',['test','SoFa.slnx','--no-restore',...filter],{stdio:'inherit',env:{...process.env,SOFA_TEST_DATABASE:connection}});
+} finally { if (!process.env.SOFA_TEST_DATABASE && scope !== 'host') spawnSync('docker',['rm','-f',name],{stdio:'ignore'}); }
