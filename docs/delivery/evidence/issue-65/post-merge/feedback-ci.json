@@ -3,23 +3,23 @@
   "name": "Verify repository",
   "display_title": "Verify repository",
   "event": "workflow_dispatch",
-  "status": "in_progress",
-  "conclusion": null,
+  "status": "completed",
+  "conclusion": "success",
   "head_sha": "e17e05b5f58315b40b11cd186818a9cf2c8654bd",
   "head_branch": "lighthouse/implement-69-03dd377471f8",
   "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40522957843",
   "created_at": "2026-10-27T14:37:54Z",
-  "updated_at": "2026-10-27T14:37:59Z",
+  "updated_at": "2026-10-27T14:51:34Z",
   "run_attempt": 1,
   "path": ".github/workflows/verify.yml",
   "jobs": [
     {
       "id": 122254717585,
       "name": "verify",
-      "status": "in_progress",
-      "conclusion": null,
+      "status": "completed",
+      "conclusion": "success",
       "started_at": "2026-10-27T14:37:58Z",
-      "completed_at": null,
+      "completed_at": "2026-10-27T14:51:33Z",
       "steps": [
         {
           "name": "Set up job",
@@ -71,51 +71,59 @@
         },
         {
           "name": "Install Chromium for browser checks",
-          "status": "in_progress",
-          "conclusion": null,
+          "status": "completed",
+          "conclusion": "success",
           "number": 7,
           "started_at": "2026-10-27T14:38:19Z",
-          "completed_at": null
+          "completed_at": "2026-10-27T14:49:46Z"
         },
         {
           "name": "Run npm run verify",
-          "status": "pending",
-          "conclusion": null,
+          "status": "completed",
+          "conclusion": "success",
           "number": 8,
-          "started_at": null,
-          "completed_at": null
+          "started_at": "2026-10-27T14:49:46Z",
+          "completed_at": "2026-10-27T14:51:29Z"
         },
         {
           "name": "Retain browser evidence",
-          "status": "pending",
-          "conclusion": null,
+          "status": "completed",
+          "conclusion": "success",
           "number": 9,
-          "started_at": null,
-          "completed_at": null
+          "started_at": "2026-10-27T14:51:29Z",
+          "completed_at": "2026-10-27T14:51:31Z"
         },
         {
           "name": "Post Run actions/setup-dotnet@v5",
-          "status": "pending",
-          "conclusion": null,
+          "status": "completed",
+          "conclusion": "success",
           "number": 16,
-          "started_at": null,
-          "completed_at": null
+          "started_at": "2026-10-27T14:51:31Z",
+          "completed_at": "2026-10-27T14:51:31Z"
         },
         {
           "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
-          "status": "pending",
-          "conclusion": null,
+          "status": "completed",
+          "conclusion": "success",
           "number": 17,
-          "started_at": null,
-          "completed_at": null
+          "started_at": "2026-10-27T14:51:31Z",
+          "completed_at": "2026-10-27T14:51:31Z"
         },
         {
           "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "status": "pending",
-          "conclusion": null,
+          "status": "completed",
+          "conclusion": "success",
           "number": 18,
-          "started_at": null,
-          "completed_at": null
+          "started_at": "2026-10-27T14:51:31Z",
+          "completed_at": "2026-10-27T14:51:31Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-27T14:51:31Z",
+          "completed_at": "2026-10-27T14:51:31Z"
         }
       ],
       "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40522957843/job/122254717585"
