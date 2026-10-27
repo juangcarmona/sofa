@@ -1,0 +1,244 @@
+TAP version 13
+# Subtest: records intent before dispatch and reuses it across router reruns
+ok 1 - records intent before dispatch and reuses it across router reruns
+  ---
+  duration_ms: 5.220832
+  type: 'test'
+  ...
+# Subtest: feedback has one independent worker and dispatch identity across duplicate router events
+ok 2 - feedback has one independent worker and dispatch identity across duplicate router events
+  ---
+  duration_ms: 2.555531
+  type: 'test'
+  ...
+# Subtest: a lost dispatch response leaves recorded uncertainty, never an automatic resend
+ok 3 - a lost dispatch response leaves recorded uncertainty, never an automatic resend
+  ---
+  duration_ms: 0.919906
+  type: 'test'
+  ...
+# Subtest: authenticates the original owner event and binds it to this worker revision
+ok 4 - authenticates the original owner event and binds it to this worker revision
+  ---
+  duration_ms: 1.091413
+  type: 'test'
+  ...
+# Subtest: HTML markers are references, not authority: spoofed, moved and edited receipts fail closed
+ok 5 - HTML markers are references, not authority: spoofed, moved and edited receipts fail closed
+  ---
+  duration_ms: 1.897813
+  type: 'test'
+  ...
+# Subtest: missing or expired origin evidence prevents admission
+ok 6 - missing or expired origin evidence prevents admission
+  ---
+  duration_ms: 0.415969
+  type: 'test'
+  ...
+# Subtest: serialized workers claim once; a duplicate and a rerun cannot start another agent
+ok 7 - serialized workers claim once; a duplicate and a rerun cannot start another agent
+  ---
+  duration_ms: 0.936074
+  type: 'test'
+  ...
+# Subtest: a different request cannot overlap an active implementation, but a finished run can be followed
+ok 8 - a different request cannot overlap an active implementation, but a finished run can be followed
+  ---
+  duration_ms: 0.661397
+  type: 'test'
+  ...
+# Subtest: all installed stages dispatch independently and cannot impersonate a different stage
+ok 9 - all installed stages dispatch independently and cannot impersonate a different stage
+  ---
+  duration_ms: 3.628262
+  type: 'test'
+  ...
+# Subtest: completed-run replay uses fresh observations and requires the owner
+ok 10 - completed-run replay uses fresh observations and requires the owner
+  ---
+  duration_ms: 0.751336
+  type: 'test'
+  ...
+# Subtest: refinement handoff requires an authenticated successful publication and the installed policy
+ok 11 - refinement handoff requires an authenticated successful publication and the installed policy
+  ---
+  duration_ms: 2.733092
+  type: 'test'
+  ...
+# Subtest: duplicate completion events retain the same request ID across router executions
+ok 12 - duplicate completion events retain the same request ID across router executions
+  ---
+  duration_ms: 0.659031
+  type: 'test'
+  ...
+# Subtest: owner PR feedback may queue behind a confirmed worker while uncertain dispatch remains blocked
+ok 13 - owner PR feedback may queue behind a confirmed worker while uncertain dispatch remains blocked
+  ---
+  duration_ms: 0.470991
+  type: 'test'
+  ...
+# Subtest: PR event identity is preserved separately from the trusted dispatchable workflow branch
+ok 14 - PR event identity is preserved separately from the trusted dispatchable workflow branch
+  ---
+  duration_ms: 0.47158
+  type: 'test'
+  ...
+# Subtest: only existing bot proposal branches with intact identity can be updated
+ok 15 - only existing bot proposal branches with intact identity can be updated
+  ---
+  duration_ms: 2.499416
+  type: 'test'
+  ...
+# Subtest: owner feedback is fetched from source and approvals never request revision
+ok 16 - owner feedback is fetched from source and approvals never request revision
+  ---
+  duration_ms: 1.502899
+  type: 'test'
+  ...
+# Subtest: publication updates the same branch non-forcibly and rejects a concurrent writer
+ok 17 - publication updates the same branch non-forcibly and rejects a concurrent writer
+  ---
+  duration_ms: 3.732872
+  type: 'test'
+  ...
+# Subtest: real router maps a PR comment to its source issue and reports approvals without execution
+ok 18 - real router maps a PR comment to its source issue and reports approvals without execution
+  ---
+  duration_ms: 368.408364
+  type: 'test'
+  ...
+# Subtest: completion binds the result to the dispatched run, stage and declared gate
+ok 19 - completion binds the result to the dispatched run, stage and declared gate
+  ---
+  duration_ms: 3.698404
+  type: 'test'
+  ...
+# Subtest: unresolved reports remain structurally valid but cannot complete a worker
+ok 20 - unresolved reports remain structurally valid but cannot complete a worker
+  ---
+  duration_ms: 0.619582
+  type: 'test'
+  ...
+# Subtest: the CLI distinguishes report validation from completion and requires host identity
+ok 21 - the CLI distinguishes report validation from completion and requires host identity
+  ---
+  duration_ms: 981.863598
+  type: 'test'
+  ...
+# Subtest: all bundled routes stop ff before dispatch while individual stages remain available
+ok 22 - all bundled routes stop ff before dispatch while individual stages remain available
+  ---
+  duration_ms: 742.990754
+  type: 'test'
+  ...
+# Subtest: the authored worker shell preserves JSON input, including empty defaults
+ok 23 - the authored worker shell preserves JSON input, including empty defaults
+  ---
+  duration_ms: 21.976923
+  type: 'test'
+  ...
+# Subtest: every installable worker has an accessible diagram and executable source link
+ok 24 - every installable worker has an accessible diagram and executable source link
+  ---
+  duration_ms: 6.769846
+  type: 'test'
+  ...
+# Subtest: recovery separates confirmed safe failure from human decisions, effects and cancellation
+ok 25 - recovery separates confirmed safe failure from human decisions, effects and cancellation
+  ---
+  duration_ms: 4.00383
+  type: 'test'
+  ...
+# Subtest: retry delay and finite budget are enforced with an explicit next decision
+ok 26 - retry delay and finite budget are enforced with an explicit next decision
+  ---
+  duration_ms: 0.742246
+  type: 'test'
+  ...
+# Subtest: maintenance records one retry before sending and never resends a lost response
+ok 27 - maintenance records one retry before sending and never resends a lost response
+  ---
+  duration_ms: 4.1205
+  type: 'test'
+  ...
+# Subtest: retry admission authenticates original authority and rechecks freshness before claiming
+ok 28 - retry admission authenticates original authority and rechecks freshness before claiming
+  ---
+  duration_ms: 12.048095
+  type: 'test'
+  ...
+# Subtest: missing original artifacts and spoofed receipts fail closed
+ok 29 - missing original artifacts and spoofed receipts fail closed
+  ---
+  duration_ms: 0.675162
+  type: 'test'
+  ...
+# Subtest: a newer request supersedes older failures and two linked retries exhaust the budget
+ok 30 - a newer request supersedes older failures and two linked retries exhaust the budget
+  ---
+  duration_ms: 3.342462
+  type: 'test'
+  ...
+# Subtest: maintenance scan selects bounded owner issues and excludes bot reports and PRs
+ok 31 - maintenance scan selects bounded owner issues and excludes bot reports and PRs
+  ---
+  duration_ms: 2.165111
+  type: 'test'
+  ...
+# Subtest: three failures share one report; repeated maintenance does not increase counts or rewrite
+ok 32 - three failures share one report; repeated maintenance does not increase counts or rewrite
+  ---
+  duration_ms: 15.574483
+  type: 'test'
+  ...
+# Subtest: confirmed same-root recovery closes the report; new failure reopens the same issue
+ok 33 - confirmed same-root recovery closes the report; new failure reopens the same issue
+  ---
+  duration_ms: 3.12938
+  type: 'test'
+  ...
+# Subtest: lost create response is reconciled without another POST
+ok 34 - lost create response is reconciled without another POST
+  ---
+  duration_ms: 1.387141
+  type: 'test'
+  ...
+# Subtest: unconfirmed create with no matching issue requires inspection and never resends
+ok 35 - unconfirmed create with no matching issue requires inspection and never resends
+  ---
+  duration_ms: 0.873711
+  type: 'test'
+  ...
+# Subtest: lost index response before create leaves durable uncertainty, not a duplicate report
+ok 36 - lost index response before create leaves durable uncertainty, not a duplicate report
+  ---
+  duration_ms: 0.688552
+  type: 'test'
+  ...
+# Subtest: reports reject spoofed ownership and never publish free text or logs
+ok 37 - reports reject spoofed ownership and never publish free text or logs
+  ---
+  duration_ms: 0.951179
+  type: 'test'
+  ...
+# Subtest: owner index edits and occurrence overflow stop publication visibly
+ok 38 - owner index edits and occurrence overflow stop publication visibly
+  ---
+  duration_ms: 3.777148
+  type: 'test'
+  ...
+# Subtest: manual closure survives a repeated observation; a new occurrence reopens and a lost update is safe
+ok 39 - manual closure survives a repeated observation; a new occurrence reopens and a lost update is safe
+  ---
+  duration_ms: 1.173456
+  type: 'test'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1938.417935

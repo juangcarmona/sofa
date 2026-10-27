@@ -6,6 +6,8 @@ The exact installed CLI version is pinned in `package.json` and `package-lock.js
 
 Workflow installation is separate and opt-in. Foundation upgrades preserve existing workflows; SoFa remains an observer of independently executed repository workflows. The labels and recommended GitHub profile capabilities are already adopted. No `visual-theme` profile is selected.
 
+The workflow source is pinned separately to Lighthouse `57d4e23da2831be5fad0331f1ba82326782943cc`, including the official `apply-review` worker. See the [workflow runbook](runbooks/repository-workflows.md) and [adoption evidence](delivery/evidence/issue-72/README.md). The npm upgrade to CLI 0.11.3 / SDLC 0.14.0 remains pending publication; do not record an unpublished package as installed.
+
 ## ProductShape
 
 `@prodshape/cli@0.23.0` is pinned exactly in `package.json` and `package-lock.json`. Lighthouse records ProductShape `0.23.0` as the adopted authority in `lighthouse.json`; the ProductShape installation remains provider-owned. Refresh managed integrations with `npx prodshape integration update`; check them with `npm run product:integrity` and `npm run product:doctor`.

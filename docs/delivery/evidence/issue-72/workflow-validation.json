@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "/tmp/sofa-actionlint/actionlint",
+      "-shellcheck=",
+      "-config-file",
+      "/tmp/sofa-adoption-72/actionlint.yaml",
+      "-ignore",
+      "unexpected key \"queue\" for \"concurrency\" section",
+      ".github/workflows/lighthouse-sdlc-router.yml"
+    ],
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "/tmp/sofa-actionlint/actionlint",
+      "-shellcheck=",
+      "-config-file",
+      "/tmp/sofa-adoption-72/actionlint.yaml",
+      "-ignore",
+      "unexpected key \"queue\" for \"concurrency\" section",
+      "-ignore",
+      "property \"workflow_(repository|sha|ref|file_path)\" is not defined",
+      "-ignore",
+      "property \"admission-(result|max-ai-credits(-threat-detection|-evals)?)\" is not defined",
+      "-ignore",
+      "property \"start-mcp-gateway\" is not defined",
+      "/srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-apply-review.lock.yml",
+      "/srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-implement.lock.yml",
+      "/srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-integrate.lock.yml",
+      "/srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-propose.lock.yml",
+      "/srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-refine.lock.yml",
+      "/srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-review.lock.yml"
+    ],
+    "exitCode": 0,
+    "output": ""
+  }
+]

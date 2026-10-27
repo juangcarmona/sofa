@@ -1,0 +1,45 @@
+Write /srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-router.yml
+Write /srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-refine.md
+Write /srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/shared/lighthouse-opencode.md
+Write /srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-propose.md
+Write /srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-apply-review.md
+Write /srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-implement.md
+Write /srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-integrate.md
+Write /srv/workspaces/juangcarmona/sofa/lighthouse-014/.github/workflows/lighthouse-sdlc-review.md
+⚠ Action actions/checkout@v5 is outdated; latest available version is v7.0.1.
+  Consider upgrading (update the version tag in your workflow file).
+⚠ Action actions/setup-node@v5 is outdated; latest available version is v7.1.0.
+  Consider upgrading (update the version tag in your workflow file).
+✓ .github/workflows/lighthouse-sdlc-refine.md (70.7 KB)
+✓ Compiled 1 workflow: 1 succeeded, 0 warnings
+⚠ Action actions/checkout@v5 is outdated; latest available version is v7.0.1.
+  Consider upgrading (update the version tag in your workflow file).
+⚠ Action actions/setup-node@v5 is outdated; latest available version is v7.1.0.
+  Consider upgrading (update the version tag in your workflow file).
+✓ .github/workflows/lighthouse-sdlc-propose.md (70.8 KB)
+✓ Compiled 1 workflow: 1 succeeded, 0 warnings
+⚠ Action actions/checkout@v5 is outdated; latest available version is v7.0.1.
+  Consider upgrading (update the version tag in your workflow file).
+⚠ Action actions/setup-node@v5 is outdated; latest available version is v7.1.0.
+  Consider upgrading (update the version tag in your workflow file).
+✓ .github/workflows/lighthouse-sdlc-implement.md (71.6 KB)
+✓ Compiled 1 workflow: 1 succeeded, 0 warnings
+⚠ Action actions/checkout@v5 is outdated; latest available version is v7.0.1.
+  Consider upgrading (update the version tag in your workflow file).
+⚠ Action actions/setup-node@v5 is outdated; latest available version is v7.1.0.
+  Consider upgrading (update the version tag in your workflow file).
+✓ .github/workflows/lighthouse-sdlc-integrate.md (71.7 KB)
+✓ Compiled 1 workflow: 1 succeeded, 0 warnings
+⚠ Action actions/checkout@v5 is outdated; latest available version is v7.0.1.
+  Consider upgrading (update the version tag in your workflow file).
+⚠ Action actions/setup-node@v5 is outdated; latest available version is v7.1.0.
+  Consider upgrading (update the version tag in your workflow file).
+✓ .github/workflows/lighthouse-sdlc-review.md (71.6 KB)
+✓ Compiled 1 workflow: 1 succeeded, 0 warnings
+⚠ Action actions/checkout@v5 is outdated; latest available version is v7.0.1.
+  Consider upgrading (update the version tag in your workflow file).
+⚠ Action actions/setup-node@v5 is outdated; latest available version is v7.1.0.
+  Consider upgrading (update the version tag in your workflow file).
+✓ .github/workflows/lighthouse-sdlc-apply-review.md (71.9 KB)
+✓ Compiled 1 workflow: 1 succeeded, 0 warnings
+Enabled workers: refine, propose, implement, integrate, review, apply-review. Enable LIGHTHOUSE_AUTOMATION_ENABLED only after provisioning and reviewing the runner. Unselected workflows are never installed or deleted implicitly.
