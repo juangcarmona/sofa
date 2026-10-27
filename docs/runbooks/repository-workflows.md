@@ -7,7 +7,7 @@ SoFa uses Lighthouse's repository workflows. GitHub runs the work; the web app o
 1. Add `refine` to an issue. If the agent asks a question, answer in the issue.
 2. When refinement passes, implementation starts. Add `future` to pause it; remove that label to resume.
 3. The agent plans with OpenSpec, writes the code, runs checks and opens a PR containing the plan and implementation.
-4. Comment on the PR to request changes. The agent updates the same branch. Approve the PR when it is ready; the merge still depends on CI and repository rules.
+4. Comment on the PR to request changes. The dedicated `apply-review` worker updates the same PR and branch, retaining the proposal or implementation stage. Approve the PR when it is ready; the merge still depends on CI and repository rules.
 5. After merge and CI, the final review records the report and retrospective.
 
 A separate `propose` request is still available for design work. There is no requirement to merge a proposal before implementation. Existing product decisions and security approvals still apply.
@@ -24,7 +24,9 @@ The current gh-aw gateway uses host port 8080. Only one gateway job may occupy t
 
 Enable `LIGHTHOUSE_AUTOMATION_ENABLED` after installing and checking the workflows. Keep default token permissions read-only. GitHub's setting allowing Actions to create and approve PRs is required for publication; the bot does not approve its own work.
 
-The workflows pin Lighthouse `496562b1deb8b217b231a0d7baad8d10889485b0` and use gh-aw 0.93.2. Update them through the Lighthouse installer. The npm package version and workflow pin are separate until the next release.
+The workflows pin Lighthouse `57d4e23da2831be5fad0331f1ba82326782943cc` and use gh-aw 0.93.2. Update them through the Lighthouse installer. This includes upstream PRs #129, #137 and #144. The npm package version and workflow pin are separate: CLI 0.11.2 / SDLC 0.13.0 remain installed while publication of CLI 0.11.3 / SDLC 0.14.0 awaits the protected release gate.
+
+The installed workers are `refine`, `propose`, `implement`, `integrate`, `review` and `apply-review`. Optional maintenance is not installed; automatic recovery and aggregated maintenance reports remain disabled. GitHub Actions executes work and issues retain receipts and reservations. The [adoption evidence](../delivery/evidence/issue-72/README.md) records validation and the outstanding acceptance gaps.
 
 ## Reproducible application checks
 
@@ -37,8 +39,8 @@ Preflight verifies Node 24, npm, Git, Chromium, OpenCode 2.1.0 and .NET SDK 10.0
 To regenerate the existing workflow set from a verified Lighthouse checkout, first preview and review differences, then apply:
 
 ```sh
-node /path/to/lighthouse/src/packages/sdlc/src/install-workflows.mjs . 496562b1deb8b217b231a0d7baad8d10889485b0 --with-completion --replace-reviewed
-node /path/to/lighthouse/src/packages/sdlc/src/install-workflows.mjs . 496562b1deb8b217b231a0d7baad8d10889485b0 --with-completion --replace-reviewed --apply
+node /path/to/lighthouse/src/packages/sdlc/src/install-workflows.mjs . 57d4e23da2831be5fad0331f1ba82326782943cc --with-completion --replace-reviewed
+node /path/to/lighthouse/src/packages/sdlc/src/install-workflows.mjs . 57d4e23da2831be5fad0331f1ba82326782943cc --with-completion --replace-reviewed --apply
 ```
 
 Commit generated locks with their sources. The host authenticates product revision separately from workflow revision: a manual router dispatch can test this PR's workflow branch, while implementation policy and environment still come from the current default branch. Such a pre-merge run cannot prove activation of an unmerged environment declaration. Use isolated consumer acceptance for the candidate and retain this live-acceptance limitation until post-merge verification.
