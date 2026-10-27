@@ -1,0 +1,86 @@
+{
+  "comments": [
+    {
+      "id": "IC_kwDOVPZSgc8AAAABgAjbfw",
+      "author": {
+        "login": "juangcarmona"
+      },
+      "authorAssociation": "OWNER",
+      "body": "Please revise the added sentence to use the full npm commands `npm run verify:container` and `npm run test:runtime:host`, consistently with the surrounding paragraph. Preserve both exact EngineTests names, the integration prerequisite and all existing text. Update this same PR; do not open another one. Keep the known verification blocker explicit, do not change tooling or checks, and do not merge. This is the bounded feedback exercise for #65.",
+      "createdAt": "2026-10-27T13:25:24Z",
+      "includesCreatedEdit": false,
+      "isMinimized": false,
+      "minimizedReason": "",
+      "reactionGroups": [],
+      "url": "https://github.com/juangcarmona/sofa/pull/68#issuecomment-6443031423",
+      "viewerDidAuthor": true
+    },
+    {
+      "id": "IC_kwDOVPZSgc8AAAABgAjvaw",
+      "author": {
+        "login": "github-actions"
+      },
+      "authorAssociation": "NONE",
+      "body": "Applying review feedback. [Follow progress](https://github.com/juangcarmona/sofa/actions/runs/40511904732).",
+      "createdAt": "2026-10-27T13:25:39Z",
+      "includesCreatedEdit": false,
+      "isMinimized": false,
+      "minimizedReason": "",
+      "reactionGroups": [],
+      "url": "https://github.com/juangcarmona/sofa/pull/68#issuecomment-6443036523",
+      "viewerDidAuthor": false
+    },
+    {
+      "id": "IC_kwDOVPZSgc8AAAABgAqf0w",
+      "author": {
+        "login": "github-actions"
+      },
+      "authorAssociation": "NONE",
+      "body": "Updated the PR with your feedback. [Checks and evidence](https://github.com/juangcarmona/sofa/actions/runs/40511904732).\n\n<!-- lighthouse-review:comment:6443031423:aaba0865b6ae5d437db7ec73505026303a3b29ac89bef9f12d1593ae91d7a58a -->",
+      "createdAt": "2026-10-27T13:30:58Z",
+      "includesCreatedEdit": false,
+      "isMinimized": false,
+      "minimizedReason": "",
+      "reactionGroups": [],
+      "url": "https://github.com/juangcarmona/sofa/pull/68#issuecomment-6443147219",
+      "viewerDidAuthor": false
+    }
+  ],
+  "commits": [
+    {
+      "authoredDate": "2026-10-27T13:24:24Z",
+      "authors": [
+        {
+          "email": "41898282+github-actions[bot]@users.noreply.github.com",
+          "id": "MDM6Qm90NDE4OTgyODI=",
+          "login": "github-actions[bot]",
+          "name": "github-actions[bot]"
+        }
+      ],
+      "committedDate": "2026-10-27T13:24:24Z",
+      "messageBody": "",
+      "messageHeadline": "feat: implement issue #66",
+      "oid": "458d3b0a615c8a400df9ae707bdd862ea8d20c28"
+    },
+    {
+      "authoredDate": "2026-10-27T13:30:53Z",
+      "authors": [
+        {
+          "email": "41898282+github-actions[bot]@users.noreply.github.com",
+          "id": "MDM6Qm90NDE4OTgyODI=",
+          "login": "github-actions[bot]",
+          "name": "github-actions[bot]"
+        }
+      ],
+      "committedDate": "2026-10-27T13:30:53Z",
+      "messageBody": "",
+      "messageHeadline": "feat: implement issue #66",
+      "oid": "6bba7d8766b68eb7be5a9d4fb70fbaaafc8e48ce"
+    }
+  ],
+  "headRefOid": "6bba7d8766b68eb7be5a9d4fb70fbaaafc8e48ce",
+  "isDraft": true,
+  "number": 68,
+  "state": "OPEN",
+  "url": "https://github.com/juangcarmona/sofa/pull/68"
+}

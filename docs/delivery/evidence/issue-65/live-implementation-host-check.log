@@ -1,0 +1,107 @@
+
+> sofa@0.0.0 verify
+> npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check && npm run test:runtime && npm run test:browser
+
+
+> sofa@0.0.0 lint:docs
+> markdownlint-cli2 "**/*.md"
+
+markdownlint-cli2 v0.24.0 (markdownlint v0.42.0)
+Finding: **/*.md !**/node_modules/** !**/bin/** !**/obj/** !.agents/** !.claude/** !.product/**
+Linting: 206 files
+Summary: 0 issues in 0 files
+
+> sofa@0.0.0 test
+> node --test
+
+✔ accepts numbered authored branches and dependency-provider branches (311.108136ms)
+✔ keeps malformed and unnumbered authored branches invalid (624.67438ms)
+✔ a failed admission cannot upload the preceding job receipt (120.035973ms)
+✔ label entry uses the host router and retries return the same durable receipt (267.963929ms)
+✔ session cleanup accepts exact absence but preserves real failures (31.952918ms)
+✔ observation preserves source facts and never dispatches work (2.46742ms)
+✔ unavailable evidence stays unknown and invalid repository input is rejected (0.639632ms)
+✔ review waits remain visible without claiming agent work or including PR records (0.77176ms)
+✔ scanner verifies archive bytes and rejects a changed download (1.47016ms)
+✔ scanner subprocesses receive OS paths but no credentials or scanner overrides (0.658578ms)
+✔ unborn repository still scans the working tree with redaction (0.466495ms)
+✔ all-ref history failure blocks success but still scans the working tree (0.323625ms)
+✔ staged changes are scanned without printing their content (0.281243ms)
+✔ scanner execution errors and unknown history fail closed (0.474621ms)
+✔ real scanner detects an ignored synthetic secret and redacts reports (2365.891598ms)
+✔ corrupted archive is rejected with the underlying ZIP extraction error (12.412999ms)
+✔ official checksum mismatch stops installation before extraction (4.824021ms)
+✔ valid cached binary is version-checked and reused without downloading (5.567358ms)
+✔ incomplete and corrupt previous installs are safely replaced (6.884982ms)
+✔ cached or downloaded wrong-version binaries cannot be accepted (6.243507ms)
+✔ simultaneous installers publish only one verified cache (55.424774ms)
+✔ extraction failure retains process exit and stderr diagnostics (3.254727ms)
+✔ failed installation never runs or reports a successful security scan (3.647803ms)
+✔ a busy installation lock fails closed without deleting another owner (3.431684ms)
+✔ web surface bounds collection, coalesces requests and refreshes expired evidence (93.530189ms)
+✔ web cannot dispatch, select arbitrary repos, traverse files or serve cross-site reads (31.915558ms)
+✔ collection failure is generic, retriable and does not expose credentials (4.275091ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4467.512774
+
+> sofa@0.0.0 security:check
+> node src/tooling/security/check-secrets.mjs
+
+[90m1:23PM[0m [32mINF[0m [1m1 commits scanned.[0m
+[90m1:23PM[0m [32mINF[0m [1mscanned ~1861057 bytes (1.86 MB) in 716ms[0m
+[90m1:23PM[0m [32mINF[0m [1mno leaks found[0m
+[90m1:23PM[0m [32mINF[0m [1mscanned ~1558314 bytes (1.56 MB) in 442ms[0m
+[90m1:23PM[0m [32mINF[0m [1mno leaks found[0m
+Index and working-tree scans passed (including untracked and ignored environment/log files)
+
+> sofa@0.0.0 product:validate
+> prodshape validate
+
+0 error(s), 0 warning(s) across 52 artifact(s)
+
+> sofa@0.0.0 product:integrity
+> prodshape integration update --check
+
+All managed integration files match the installation lock.
+
+> sofa@0.0.0 product:doctor
+> prodshape doctor
+
+ok   configuration: .product/config.yaml valid (or defaults in effect)
+ok   model validation: 0 error(s), 0 warning(s) across 52 artifact(s)
+ok   product structure: docs/product/model present
+ok   authoring templates: 11 authoring template(s) present
+ok   framework version: integrations generated with v0.23.0
+ok   managed files: all managed files match the installation lock
+ok   skill references: all skill references resolve
+ok   openspec integration: OpenSpec workspace detected; integration not installed (informational; run: prodshape integration add openspec)
+ok   generated outputs: .product/generated absent (informational; run: prodshape graph)
+All checks passed.
+
+> sofa@0.0.0 architecture:check
+> arcshape validate --links
+
+Valid arc42 documentation: 12 sections (/workspace/docs/architecture)
+
+> sofa@0.0.0 test:runtime
+> node scripts/verify-runtime.mjs
+
+Runtime test scope: all
+file:///workspace/scripts/verify-runtime.mjs:12
+  if (run.status !== 0) throw new Error(`${cmd} failed: ${run.stderr ?? ''}`);
+                              ^
+
+Error: docker failed:
+    at command (file:///workspace/scripts/verify-runtime.mjs:12:31)
+    at file:///workspace/scripts/verify-runtime.mjs:17:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1

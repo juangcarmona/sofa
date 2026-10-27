@@ -1,0 +1,78 @@
+
+> sofa@0.0.0 verify
+> npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check && npm run test:runtime && npm run test:browser
+
+
+> sofa@0.0.0 lint:docs
+> markdownlint-cli2 "**/*.md"
+
+markdownlint-cli2 v0.24.0 (markdownlint v0.42.0)
+Finding: **/*.md !**/node_modules/** !**/bin/** !**/obj/** !.agents/** !.claude/** !.product/**
+Linting: 206 files
+Summary: 0 issues in 0 files
+
+> sofa@0.0.0 test
+> node --test
+
+✔ accepts numbered authored branches and dependency-provider branches (352.054455ms)
+✔ keeps malformed and unnumbered authored branches invalid (618.220962ms)
+✔ a failed admission cannot upload the preceding job receipt (67.066685ms)
+✔ label entry uses the host router and retries return the same durable receipt (236.717505ms)
+✖ session cleanup accepts exact absence but preserves real failures (1345.825223ms)
+✔ observation preserves source facts and never dispatches work (2.031091ms)
+✔ unavailable evidence stays unknown and invalid repository input is rejected (0.578218ms)
+✔ review waits remain visible without claiming agent work or including PR records (0.726529ms)
+✔ scanner verifies archive bytes and rejects a changed download (1.980296ms)
+✔ scanner subprocesses receive OS paths but no credentials or scanner overrides (0.962324ms)
+✔ unborn repository still scans the working tree with redaction (0.47348ms)
+✔ all-ref history failure blocks success but still scans the working tree (0.294642ms)
+✔ staged changes are scanned without printing their content (0.313821ms)
+✔ scanner execution errors and unknown history fail closed (0.432942ms)
+✖ real scanner detects an ignored synthetic secret and redacts reports (1502.612947ms)
+✔ corrupted archive is rejected with the underlying ZIP extraction error (11.034787ms)
+✔ official checksum mismatch stops installation before extraction (8.673749ms)
+✔ valid cached binary is version-checked and reused without downloading (7.909889ms)
+✔ incomplete and corrupt previous installs are safely replaced (7.49025ms)
+✔ cached or downloaded wrong-version binaries cannot be accepted (6.230634ms)
+✔ simultaneous installers publish only one verified cache (54.781915ms)
+✔ extraction failure retains process exit and stderr diagnostics (3.198232ms)
+✔ failed installation never runs or reports a successful security scan (3.499042ms)
+✔ a busy installation lock fails closed without deleting another owner (3.252367ms)
+✔ web surface bounds collection, coalesces requests and refreshes expired evidence (86.55765ms)
+✔ web cannot dispatch, select arbitrary repos, traverse files or serve cross-site reads (33.529206ms)
+✔ collection failure is generic, retriable and does not expose credentials (5.201001ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 25
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4929.689035
+
+✖ failing tests:
+
+test at tests/engine-cleanup.test.mjs:8:1
+✖ session cleanup accepts exact absence but preserves real failures (1345.825223ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  0 !== 1
+
+      at TestContext.<anonymous> (file:///workspace/tests/engine-cleanup.test.mjs:16:14)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/security/check-secrets.test.mjs:67:1
+✖ real scanner detects an ignored synthetic secret and redacts reports (1502.612947ms)
+  Error: Gitleaks installed binary is not version 8.29.1
+      at installScanner (file:///workspace/src/tooling/security/check-secrets.mjs:122:50)
+      at async TestContext.<anonymous> (file:///workspace/tests/security/check-secrets.test.mjs:70:20)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
