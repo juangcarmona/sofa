@@ -12,9 +12,11 @@ const allowedBranchName =
 const dependencyBranchName =
   /^dependabot\/(?:npm_and_yarn|github_actions)\/[a-zA-Z0-9][a-zA-Z0-9._-]*(?:\/[a-zA-Z0-9][a-zA-Z0-9._-]*)*$/;
 
-if (!allowedBranchName.test(branchName) && !dependencyBranchName.test(branchName)) {
+const lighthouseBranchName = /^lighthouse\/(?:propose|implement)-[1-9]\d*-[a-f0-9]{12}$/;
+
+if (!lighthouseBranchName.test(branchName) && !allowedBranchName.test(branchName) && !dependencyBranchName.test(branchName)) {
   console.error(
-    `Invalid branch name: ${branchName || "(detached HEAD)"}. Use <type>/<issue-number>-<kebab-case-slug>, for example feat/47-export-report, or a supported Dependabot branch.`,
+    `Invalid branch name: ${branchName || "(detached HEAD)"}. Use <type>/<issue-number>-<kebab-case-slug>, for example feat/47-export-report, or a supported automation branch.`,
   );
   process.exitCode = 1;
 }

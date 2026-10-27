@@ -8,6 +8,10 @@ on:
       issue:
         required: true
         type: string
+      auto-implement:
+        required: false
+        type: boolean
+        default: false
   needs: [prepare]
 runs-on: [self-hosted, linux, lighthouse-workflow]
 runs-on-slim: ubuntu-24.04
@@ -48,7 +52,7 @@ steps:
     uses: actions/checkout@v5
     with:
       repository: juangcarmona/lighthouse
-      ref: 63c64b779ef18959a9c993902a5e5e1225a16947
+      ref: a0a946cb74b8c2b5ac2478a9fab689df652d3b9f
       path: tools
       persist-credentials: false
   - name: Load the authorized issue context
@@ -90,7 +94,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: juangcarmona/lighthouse
-          ref: 63c64b779ef18959a9c993902a5e5e1225a16947
+          ref: a0a946cb74b8c2b5ac2478a9fab689df652d3b9f
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:
@@ -126,7 +130,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: juangcarmona/lighthouse
-          ref: 63c64b779ef18959a9c993902a5e5e1225a16947
+          ref: a0a946cb74b8c2b5ac2478a9fab689df652d3b9f
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:
@@ -143,9 +147,11 @@ jobs:
           name: lighthouse-result-${{ inputs.issue }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/lighthouse-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Recheck authority and publish the validated result
+        id: publish
         if: needs.agent.result == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
+          LIGHTHOUSE_AUTO_IMPLEMENT: ${{ inputs.auto-implement }}
         run: node src/packages/sdlc/src/issue-actions.mjs publish
       - name: Release the issue reservation
         if: always()

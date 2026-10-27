@@ -1,6 +1,6 @@
 # Engineering lifecycle
 
-**Project**: SoFa · **Adopted**: 2026-10-19 · **Last amended**: 2026-10-19
+**Project**: SoFa · **Adopted**: 2026-10-19 · **Last amended**: 2026-10-27
 
 ## Definition of Ready
 
@@ -60,7 +60,7 @@ Lane is `deterministic` (an agent or CI settles it), `judgement` (a named role d
 | 7 | Documentation | User-facing, operational and developer documentation updated wherever behaviour changed | both | developer |
 | 8 | Product / spec consistency | ProductShape intent and specifications are updated when behavior changes; product semantics change only through Product Changes | both | developer |
 | 9 | Evidence | CI run linked; test results exist | deterministic | — |
-| 10 | Human review | Self-review against every DoD dimension | judgement | developer |
+| 10 | Human review | Review every DoD dimension on the implementation PR before integration | judgement | developer |
 | 11 | Known limitations | What is deliberately not addressed is stated in the pull request | both | developer |
 
 ### Additional to this project
@@ -81,17 +81,17 @@ The commands that produce the deterministic lane's evidence. `verify-like-ci` de
 | Secret scanning | `npm run security:check` | Gitleaks scans all refs, staged changes, and the working tree with redacted output |
 | CI | GitHub Actions `verify` workflow | Repository verification passes on the proposed commit |
 
-**Note**: This scaffold has no application build or product behavior yet. Add checks when implementation tooling is adopted; do not report absent checks as passing.
+The checks cover the web observer and retained runtime. Required checks must run on the candidate; missing tooling is reported as unavailable.
 
 ## Lifecycle stages and states
 
-How the loop's stages map onto this project's work-item states. GitHub issue state remains separate; one canonical `status:*` label records lifecycle status.
+The GitHub workflow moves from refinement into planning and implementation, then PR review, integration and final review. Planning stays in the implementation branch; a proposal-only PR is optional. These are the shared stages mapped onto this project's work-item states. GitHub issue state remains separate; one canonical `status:*` label records lifecycle status.
 
 | Stage | State on entry | State on exit | Transition | Fired by |
 | --- | --- | --- | --- | --- |
 | `refine` | `status:backlog` | `status:ready` | Set Ready after the gate passes | `refine` |
-| `propose` (`/plan` alias) | `status:ready` | `status:proposed` | Set after the plan passes review | `propose` |
-| `implement` | `status:proposed` | `status:in-progress` → `status:in-review` | Set in-progress on entry; set in-review when Done passes and the PR is ready | `implement` |
+| `propose` (`/plan` alias) | `status:ready` | `status:proposed` | Prepare the plan inside implementation, or request design-only work | Implementation worker or `propose` |
+| `implement` | `status:ready` or `status:proposed` | `status:in-progress` → `status:in-review` | Set in-progress on entry; set in-review when Done passes and the PR is ready | `implement` |
 | `integrate` | `status:in-review` | `status:done`, issue closed | Merge the linked PR; verify issue closure, then set done | `integrate` |
 | `review` | `status:done` | `status:done` | Create the per-item retrospective; no lifecycle transition | `review` |
 
@@ -122,7 +122,7 @@ Fields a transition's screen requires. GitHub Issues has no transition screens; 
 
 Use the shared lifecycle labels `status:backlog`, `status:ready`, `status:proposed`, `status:in-progress`, `status:in-review`, and `status:done`. Keep type and other metadata labels independent. `blocked` and `owner-review` are optional overlays. New issues start at `status:backlog`.
 
-Post-merge retrospectives use one file per item at `docs/reviews/issue-<number>.md`. The baseline date is 2026-10-19; earlier merges are historical and excluded from review debt. A separate cross-item process ledger is not used.
+The GitHub workflow retains reports and retrospectives on the protected `process/retrospectives` branch and links them from the issue and PR. Older local reviews remain historical evidence.
 
 ## Fast Forward
 
@@ -141,11 +141,11 @@ Invoke `/agentic-sdlc:ff <work-item-id>` in Claude Code or `ff <work-item-id>` i
 
 ## Branch and commit conventions
 
-Create issue-linked branches as `<type>/<issue-number>-<kebab-case-slug>`, for example `feat/47-export-report` or `fix/183-session-resume`. Allowed types are `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `build`, `ci`, `perf`, and `revert`. Do not use a tool or agent name as a branch prefix.
+Create issue-linked branches as `<type>/<issue-number>-<kebab-case-slug>`, for example `feat/47-export-report` or `fix/183-session-resume`. Allowed types are `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `build`, `ci`, `perf`, and `revert`. The Lighthouse publisher owns its `lighthouse/implement-<issue>-<run>` and `lighthouse/propose-<issue>-<run>` branches; manual work uses the conventions above.
 
 Use Conventional Commit messages in the form `<type>(<optional-scope>): <description>`. Husky runs commitlint for each commit and validates the branch before push. CI repeats both checks for pull requests because local hooks can be bypassed. Pull requests must link their issue with `Closes #<number>` in the body.
 
-The `verify` CI check reports violations. It is not a merge gate until GitHub requires that check in the repository's ruleset; this repository currently cannot expose branch protection settings through its GitHub plan.
+The adopted GitHub profile requires `verify` on `main`. The publisher checks the effective repository rules before merging; a successful agent result does not override them.
 
 ## Work in progress
 
