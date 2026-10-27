@@ -5,3 +5,5 @@
 `SoFa.Runtime.Tests/` checks admission and fencing against PostgreSQL, kernel peer identity, GitHub authority and receipts, bounded processes, validator diagnostics and container isolation. `bridge.test.mjs` and `engine-cleanup.test.mjs` cover receipt cleanup and engine-session cleanup.
 
 `security/` verifies repository secret-scanner integrity and redaction. Run all checks with `npm run verify` at the root; `npm run test:runtime` provisions an isolated PostgreSQL test container when `SOFA_TEST_DATABASE` is absent. These tests do not replace a live issue-to-stage receipt or owner approval for refinement.
+
+For an isolated .NET container with host-provisioned `SOFA_TEST_DATABASE`, run `npm run verify:container`. It runs the complete application verification, including PostgreSQL and browser tests, and names the excluded Docker engine suite. Run that suite on a trusted Docker host with `npm run test:runtime:host`. Both suites are required for container acceptance; a container pass alone is not full verification. `npm run verify` and CI continue to run every test by default.

@@ -1,7 +1,7 @@
 {
   "name": "sofa",
   "version": "0.0.0",
-  "description": "SoFa \u2014 my software factory.",
+  "description": "SoFa — my software factory.",
   "scripts": {
     "prepare": "husky",
     "test": "node --test",
@@ -16,7 +16,9 @@
     "test:runtime": "node scripts/verify-runtime.mjs",
     "observe": "node src/observation/github.mjs",
     "start": "node src/web/server.mjs",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "verify:container": "node scripts/verify-container.mjs",
+    "test:runtime:host": "node scripts/verify-runtime.mjs --host"
   },
   "repository": {
     "type": "git",
