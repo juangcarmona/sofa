@@ -14,6 +14,7 @@ See `proposal.md` for motivation. The final paragraph of `tests/README.md` alrea
 
 - Append one sentence to the existing container-verification paragraph rather than rewrite it. This preserves author-owned wording and commands while keeping related guidance together.
 - Use the exact `EngineTests.EngineCannotWriteSourceOrSeePublisherCredentialOrDockerSocket` and `EngineTests.CancellationRemovesTheRunningContainer` names from source.
+- For PR #70 feedback, make the separate host suite (`npm run test:runtime:host`) and full suite (`npm run verify`) explicit within that same added sentence; retain the full CI prerequisite.
 - Use OpenSpec's documentation-only opt-out instead of adding a spec: observable system behavior is unchanged.
 - Check the addition against the original guide and test declarations without adding a permanent test or dependency. Run the prescribed container and OpenSpec checks and retain logs outside source.
 
