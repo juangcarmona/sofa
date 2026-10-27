@@ -1,0 +1,158 @@
+{
+  "id": 40523221648,
+  "name": "integrate #69 \u00b7 request 6444893477",
+  "display_title": "integrate #69 \u00b7 request 6444893477",
+  "event": "workflow_dispatch",
+  "status": "completed",
+  "conclusion": "failure",
+  "head_sha": "232dbc8f2bdc61f6f52297d419ab9aee3ea3de7f",
+  "head_branch": "main",
+  "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40523221648",
+  "created_at": "2026-10-27T14:39:32Z",
+  "updated_at": "2026-10-27T14:39:51Z",
+  "run_attempt": 1,
+  "path": ".github/workflows/lighthouse-sdlc-integrate.lock.yml",
+  "jobs": [
+    {
+      "id": 122255669339,
+      "name": "Verify accepted commit, checks and evidence protection",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-10-27T14:39:37Z",
+      "completed_at": "2026-10-27T14:39:50Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:39:37Z",
+          "completed_at": "2026-10-27T14:39:38Z"
+        },
+        {
+          "name": "Configure GH_HOST for enterprise compatibility",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:39:38Z",
+          "completed_at": "2026-10-27T14:39:38Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-27T14:39:38Z",
+          "completed_at": "2026-10-27T14:39:39Z"
+        },
+        {
+          "name": "Run actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:39:39Z",
+          "completed_at": "2026-10-27T14:39:40Z"
+        },
+        {
+          "name": "Collect verified owner intent and reserve the issue",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 5,
+          "started_at": "2026-10-27T14:39:40Z",
+          "completed_at": "2026-10-27T14:39:47Z"
+        },
+        {
+          "name": "Preserve the execution request",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-27T14:39:47Z",
+          "completed_at": "2026-10-27T14:39:47Z"
+        },
+        {
+          "name": "Release reservation if preparation failed",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-27T14:39:47Z",
+          "completed_at": "2026-10-27T14:39:48Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-10-27T14:39:48Z",
+          "completed_at": "2026-10-27T14:39:48Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-27T14:39:48Z",
+          "completed_at": "2026-10-27T14:39:48Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-27T14:39:48Z",
+          "completed_at": "2026-10-27T14:39:48Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40523221648/job/122255669339"
+    },
+    {
+      "id": 122255827840,
+      "name": "activation",
+      "status": "completed",
+      "conclusion": "skipped",
+      "started_at": "2026-10-27T14:39:50Z",
+      "completed_at": "2026-10-27T14:39:50Z",
+      "steps": [],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40523221648/job/122255827840"
+    },
+    {
+      "id": 122255828217,
+      "name": "pre_activation",
+      "status": "completed",
+      "conclusion": "skipped",
+      "started_at": "2026-10-27T14:39:50Z",
+      "completed_at": "2026-10-27T14:39:50Z",
+      "steps": [],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40523221648/job/122255828217"
+    },
+    {
+      "id": 122255829914,
+      "name": "Validate, publish and release",
+      "status": "completed",
+      "conclusion": "skipped",
+      "started_at": "2026-10-27T14:39:51Z",
+      "completed_at": "2026-10-27T14:39:50Z",
+      "steps": [],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40523221648/job/122255829914"
+    },
+    {
+      "id": 122255829998,
+      "name": "agent",
+      "status": "completed",
+      "conclusion": "skipped",
+      "started_at": "2026-10-27T14:39:51Z",
+      "completed_at": "2026-10-27T14:39:50Z",
+      "steps": [],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40523221648/job/122255829998"
+    },
+    {
+      "id": 122255830985,
+      "name": "conclusion",
+      "status": "completed",
+      "conclusion": "skipped",
+      "started_at": "2026-10-27T14:39:51Z",
+      "completed_at": "2026-10-27T14:39:50Z",
+      "steps": [],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40523221648/job/122255830985"
+    }
+  ]
+}

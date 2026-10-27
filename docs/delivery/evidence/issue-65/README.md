@@ -2,6 +2,8 @@
 
 Evidence collected on 2026-10-27 (UTC). Retained text logs normalize trailing whitespace and terminal color escapes; original Actions artifacts remain linked. This record separates deterministic verification, live workflow observations and owner acceptance.
 
+The owner subsequently merged PR 67. See the [post-merge acceptance record](post-merge/README.md) for the fresh native-event exercise; the observations below retain their original pre-merge context.
+
 ## Reviewed revisions and authority
 
 - SoFa PR [64](https://github.com/juangcarmona/sofa/pull/64) was independently reviewed at `45e66243219e51395cf85f3ef63429c72233fa2a`, checked locally and against both successful GitHub checks, then merged with the owner's explicit authorization as `ea2599a1d10c6c0850590aaa6f1ee560aa175ca4`. Issue 63 is closed with `status:done`.

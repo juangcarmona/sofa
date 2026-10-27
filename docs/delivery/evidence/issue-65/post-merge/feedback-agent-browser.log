@@ -1,0 +1,13 @@
+
+> sofa@0.0.0 test:browser
+> playwright test --output=/output/evidence/browser-results --reporter=list,html
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 tests/browser/observation.spec.mjs:8:40 › dark: evidence, safe links, keyboard, mobile and accessibility (4.2s)
+  ✓  2 tests/browser/observation.spec.mjs:8:40 › light: evidence, safe links, keyboard, mobile and accessibility (3.8s)
+  ✓  3 tests/browser/observation.spec.mjs:32:1 › empty evidence is not a claim of delivery success (1.2s)
+  ✓  4 tests/browser/observation.spec.mjs:39:1 › background refresh preserves keyboard focus and handles a removed issue (1.6s)
+
+  4 passed (12.6s)

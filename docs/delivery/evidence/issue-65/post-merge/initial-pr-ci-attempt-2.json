@@ -1,0 +1,132 @@
+{
+  "id": 40521347685,
+  "name": "Verify repository",
+  "display_title": "Verify native Lighthouse delivery after adoption with a host-test documentation fixture",
+  "event": "pull_request",
+  "status": "completed",
+  "conclusion": "success",
+  "head_sha": "5aa8fdc21f65fa7709e3f5655d879f87dbfe5ed6",
+  "head_branch": "lighthouse/implement-69-03dd377471f8",
+  "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40521347685",
+  "created_at": "2026-10-27T14:27:55Z",
+  "updated_at": "2026-10-27T14:37:21Z",
+  "run_attempt": 2,
+  "path": ".github/workflows/verify.yml",
+  "jobs": [
+    {
+      "id": 122253297010,
+      "name": "verify",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-27T14:35:32Z",
+      "completed_at": "2026-10-27T14:37:21Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:35:32Z",
+          "completed_at": "2026-10-27T14:35:33Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:35:33Z",
+          "completed_at": "2026-10-27T14:35:35Z"
+        },
+        {
+          "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-27T14:35:35Z",
+          "completed_at": "2026-10-27T14:35:37Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:35:37Z",
+          "completed_at": "2026-10-27T14:35:44Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-27T14:35:44Z",
+          "completed_at": "2026-10-27T14:36:01Z"
+        },
+        {
+          "name": "Check branch and commit conventions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-27T14:36:01Z",
+          "completed_at": "2026-10-27T14:36:02Z"
+        },
+        {
+          "name": "Install Chromium for browser checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-27T14:36:02Z",
+          "completed_at": "2026-10-27T14:36:22Z"
+        },
+        {
+          "name": "Run npm run verify",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-27T14:36:22Z",
+          "completed_at": "2026-10-27T14:37:18Z"
+        },
+        {
+          "name": "Retain browser evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-27T14:37:18Z",
+          "completed_at": "2026-10-27T14:37:19Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-27T14:37:19Z",
+          "completed_at": "2026-10-27T14:37:19Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-27T14:37:19Z",
+          "completed_at": "2026-10-27T14:37:19Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-27T14:37:19Z",
+          "completed_at": "2026-10-27T14:37:19Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-27T14:37:19Z",
+          "completed_at": "2026-10-27T14:37:19Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40521347685/job/122253297010"
+    }
+  ]
+}

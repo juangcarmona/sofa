@@ -1,0 +1,21 @@
+{
+  "number": 69,
+  "html_url": "https://github.com/juangcarmona/sofa/issues/69",
+  "state": "closed",
+  "state_reason": "not_planned",
+  "closed_at": "2026-10-27T14:42:46Z",
+  "labels": [
+    {
+      "id": 12750464298,
+      "node_id": "LA_kwDOVPZSgc8AAAAC9_ylKg",
+      "url": "https://api.github.com/repos/juangcarmona/sofa/labels/documentation",
+      "name": "documentation",
+      "color": "0075ca",
+      "default": true,
+      "description": "Improvements or additions to documentation",
+      "archived_at": null,
+      "archived_by": null
+    }
+  ],
+  "body": "## Intent\nPost-merge acceptance fixture for adoption #65 / merged PR #67, following the closed pre-merge fixture #66. Add one short sentence to tests/README.md naming the two host-only EngineTests and explaining that container verification alone cannot authorize integration. Preserve existing commands and wording otherwise.\n\n## Acceptance Criteria\n- The added sentence names both Docker engine tests and requires the separate host suite and full CI before integration.\n- Preserve all commands, tests, dependencies, workflow, policy, harness, product and architecture behavior.\n- Create the small required OpenSpec planning artifacts and one implementation PR; report actual checks and unmet gates accurately.\n- Native refinement completion starts one independent implementation worker; implementation and same-PR feedback use the declared dotnet/PostgreSQL environment. Receipts must preserve source links, evaluation outcomes and reservation release.\n\n## Scope\nDocumentation only, for the SoFa maintainer. Dependencies: #64 and #67 are merged. Accepted ADR-0006 and existing ProductShape scope remain unchanged. Security: no Docker socket inside the workload, no relaxed checks or tooling repairs. Performance and accessibility: N/A for one documentation sentence. No product or architecture decision is requested.\n\n## Operational acceptance fixture\nThe owner already authorized the bounded refinement \u2192 implementation \u2192 PR, feedback and integration-control exercise in #65. This fresh fixture verifies the post-merge native path that the earlier experiment could not prove. Do not merge this PR or claim human acceptance. The coordinating operator will give feedback, inspect integration controls with merge=false and close the test PR without merging. A green workflow is not a passed assessment; reviewRequired remains true. Preserve the candidate and report blockers if any check is unavailable or fails.\n\n## Fixture closure\nPR #70 was closed without merge after a passed refinement, implementation and same-PR feedback with passing independent dotnet/PostgreSQL checks, duplicate-receipt rejection, stale-head and draft integration guards. The implementation assessments remain blocked and no human acceptance is claimed. Automatic refinement continuation was not observed before official after_run recovery; canonical lifecycle labels remained stale. The publisher could not start feedback-head CI; the operator explicitly dispatched [full verification](https://github.com/juangcarmona/sofa/actions/runs/40522957843), whose current outcome must be checked separately. Reservations were released and temporary containers/networks removed. This closes the experiment, not delivered product work. Post-merge evidence follows adoption #65.\n"
+}

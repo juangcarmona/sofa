@@ -1,0 +1,65 @@
+
+> sofa@0.0.0 verify:container
+> node scripts/verify-container.mjs
+
+
+> sofa@0.0.0 verify
+> npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run architecture:check && npm run test:runtime && npm run test:browser
+
+
+> sofa@0.0.0 lint:docs
+> markdownlint-cli2 "**/*.md"
+
+markdownlint-cli2 v0.24.0 (markdownlint v0.42.0)
+Finding: **/*.md !**/node_modules/** !**/bin/** !**/obj/** !.agents/** !.claude/** !.product/**
+Linting: 207 files
+Summary: 0 issues in 0 files
+
+> sofa@0.0.0 test
+> node --test
+
+✔ accepts numbered authored branches and dependency-provider branches (353.905563ms)
+✔ keeps malformed and unnumbered authored branches invalid (596.70495ms)
+✔ a failed admission cannot upload the preceding job receipt (105.130893ms)
+✔ label entry uses the host router and retries return the same durable receipt (241.393291ms)
+✔ session cleanup accepts exact absence but preserves real failures (22.33946ms)
+✔ observation preserves source facts and never dispatches work (1.934654ms)
+✔ unavailable evidence stays unknown and invalid repository input is rejected (0.550155ms)
+✔ review waits remain visible without claiming agent work or including PR records (0.71798ms)
+✔ scanner verifies archive bytes and rejects a changed download (4.544332ms)
+✔ scanner subprocesses receive OS paths but no credentials or scanner overrides (1.501058ms)
+✔ unborn repository still scans the working tree with redaction (0.530772ms)
+✔ all-ref history failure blocks success but still scans the working tree (0.337825ms)
+✔ staged changes are scanned without printing their content (0.326902ms)
+✔ scanner execution errors and unknown history fail closed (0.700466ms)
+✖ real scanner detects an ignored synthetic secret and redacts reports (1926.650338ms)
+✔ corrupted archive is rejected with the underlying ZIP extraction error (9.110794ms)
+✔ official checksum mismatch stops installation before extraction (3.690719ms)
+✔ valid cached binary is version-checked and reused without downloading (4.424216ms)
+✔ incomplete and corrupt previous installs are safely replaced (5.274296ms)
+✔ cached or downloaded wrong-version binaries cannot be accepted (4.252377ms)
+✔ simultaneous installers publish only one verified cache (55.492944ms)
+✔ extraction failure retains process exit and stderr diagnostics (3.770351ms)
+✔ failed installation never runs or reports a successful security scan (3.59176ms)
+✔ a busy installation lock fails closed without deleting another owner (3.62684ms)
+✔ web surface bounds collection, coalesces requests and refreshes expired evidence (89.010408ms)
+✔ web cannot dispatch, select arbitrary repos, traverse files or serve cross-site reads (33.604221ms)
+✔ collection failure is generic, retriable and does not expose credentials (4.679318ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 26
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4058.399129
+
+✖ failing tests:
+
+test at tests/security/check-secrets.test.mjs:67:1
+✖ real scanner detects an ignored synthetic secret and redacts reports (1926.650338ms)
+  Error: Gitleaks installed binary is not version 8.29.1
+      at installScanner (file:///workspace/src/tooling/security/check-secrets.mjs:122:50)
+      at async TestContext.<anonymous> (file:///workspace/tests/security/check-secrets.test.mjs:70:20)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)

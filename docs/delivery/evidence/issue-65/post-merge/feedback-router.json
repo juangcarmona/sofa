@@ -1,0 +1,167 @@
+{
+  "id": 40521460657,
+  "name": "PR review #70 \u00b7 juangcarmona",
+  "display_title": "PR review #70 \u00b7 juangcarmona",
+  "event": "issue_comment",
+  "status": "completed",
+  "conclusion": "success",
+  "head_sha": "232dbc8f2bdc61f6f52297d419ab9aee3ea3de7f",
+  "head_branch": "main",
+  "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40521460657",
+  "created_at": "2026-10-27T14:28:38Z",
+  "updated_at": "2026-10-27T14:29:17Z",
+  "run_attempt": 1,
+  "path": ".github/workflows/lighthouse-sdlc-router.yml",
+  "jobs": [
+    {
+      "id": 122249382404,
+      "name": "route",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-27T14:28:43Z",
+      "completed_at": "2026-10-27T14:28:54Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:28:44Z",
+          "completed_at": "2026-10-27T14:28:45Z"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:28:45Z",
+          "completed_at": "2026-10-27T14:28:46Z"
+        },
+        {
+          "name": "Run actions/setup-node@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-27T14:28:46Z",
+          "completed_at": "2026-10-27T14:28:46Z"
+        },
+        {
+          "name": "Route the authorized event",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:28:46Z",
+          "completed_at": "2026-10-27T14:28:51Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-27T14:28:51Z",
+          "completed_at": "2026-10-27T14:28:51Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-27T14:28:51Z",
+          "completed_at": "2026-10-27T14:28:51Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-27T14:28:51Z",
+          "completed_at": "2026-10-27T14:28:52Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40521460657/job/122249382404"
+    },
+    {
+      "id": 122249529083,
+      "name": "\ud83d\udce5 Dispatch selected stage",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-27T14:28:57Z",
+      "completed_at": "2026-10-27T14:29:16Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:28:58Z",
+          "completed_at": "2026-10-27T14:28:59Z"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:28:59Z",
+          "completed_at": "2026-10-27T14:29:00Z"
+        },
+        {
+          "name": "Run actions/setup-node@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-27T14:29:00Z",
+          "completed_at": "2026-10-27T14:29:05Z"
+        },
+        {
+          "name": "Record the authorized request",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:29:05Z",
+          "completed_at": "2026-10-27T14:29:11Z"
+        },
+        {
+          "name": "Preserve the request before dispatch",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-27T14:29:11Z",
+          "completed_at": "2026-10-27T14:29:12Z"
+        },
+        {
+          "name": "Dispatch the independent stage",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-27T14:29:12Z",
+          "completed_at": "2026-10-27T14:29:13Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-27T14:29:13Z",
+          "completed_at": "2026-10-27T14:29:14Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-27T14:29:14Z",
+          "completed_at": "2026-10-27T14:29:14Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-27T14:29:14Z",
+          "completed_at": "2026-10-27T14:29:14Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40521460657/job/122249529083"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "number": 70,
+  "html_url": "https://github.com/juangcarmona/sofa/pull/70",
+  "state": "open",
+  "draft": true,
+  "merged": false,
+  "head": {
+    "ref": "lighthouse/implement-69-03dd377471f8",
+    "sha": "5aa8fdc21f65fa7709e3f5655d879f87dbfe5ed6"
+  },
+  "base": {
+    "ref": "main",
+    "sha": "232dbc8f2bdc61f6f52297d419ab9aee3ea3de7f"
+  },
+  "created_at": "2026-10-27T14:27:52Z",
+  "updated_at": "2026-10-27T14:28:35Z",
+  "body": "Added the single test-guide sentence and its OpenSpec plan, preserving existing wording and commands. Plan validation, source lint, 36 runtime tests, ProductShape and architecture checks passed. Verification remains blocked by a Gitleaks version mismatch, Chromium crashes, missing host-CI evidence and required owner review. Please review the preserved draft and exercise the fixture controls without merging.\n\nHost checks:\n- `npm ci --ignore-scripts`: exit 0\n- `env CI=true npm run verify:container`: exit 0\n- `npx --yes --package=@fission-ai/openspec@1.15.0 openspec validate issue-69-proposal --strict --no-interactive`: exit 0\n\nCloses #69. Planning artifacts and implementation are reviewed together in this PR.\n\n[Checks, screenshots and retrospective](https://github.com/juangcarmona/sofa/actions/runs/40519941706). Comment here to request changes, or approve when ready.\n\n<!-- lighthouse-implementation:03dd377471f89ce7f98086cb8fec8da980557a5196ff6471c05dd8adc122ff00 -->"
+}
