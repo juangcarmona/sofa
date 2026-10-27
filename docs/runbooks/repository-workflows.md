@@ -22,7 +22,7 @@ The current gh-aw gateway uses host port 8080. On Bastion, keep only one gateway
 
 Enable `LIGHTHOUSE_AUTOMATION_ENABLED` after installing and checking the workflows. Keep default token permissions read-only. GitHub's setting allowing Actions to create and approve PRs is required for publication; the bot does not approve its own work.
 
-The workflows pin Lighthouse `9f869b550537312fd8e50d6bbb2f385a5cebe98e` and use gh-aw 0.93.2. Update them through the Lighthouse installer. The npm package version and workflow pin are separate until the next release.
+The workflows pin Lighthouse `2b7b1a1500ecd56283c666b5ba2f32b9547e8334` and use gh-aw 0.93.2. Update them through the Lighthouse installer. The npm package version and workflow pin are separate until the next release.
 
 ## Recovery
 
