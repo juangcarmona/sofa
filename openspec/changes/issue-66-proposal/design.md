@@ -13,6 +13,7 @@ See `proposal.md` for motivation. The existing README explains the container and
 ## Decisions
 
 - Append the sentence to the existing verification paragraph rather than restructure it, preserving every original byte and command.
+- For PR #68 feedback, expand only the two abbreviated commands in that added sentence to their full `npm run` forms, consistent with the surrounding paragraph. Keep both exact EngineTests names and the integration prerequisite intact.
 - Use the explicit documentation-only specification opt-out rather than invent a behavioral requirement. No spec delta is appropriate.
 - Validate content with a targeted assertion and the required repository checks; no new test files or visual screenshots are warranted for this Markdown-only clarification.
 

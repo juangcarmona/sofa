@@ -8,6 +8,7 @@ The container verification guidance does not name the two excluded Docker engine
 
 - Add one sentence to `tests/README.md` naming both host-only EngineTests and stating that container verification alone does not authorize integration before the host suite and complete CI suite pass.
 - Preserve all existing wording, commands and behavior.
+- Apply PR #68 feedback by spelling out `npm run verify:container` and `npm run test:runtime:host` in the added sentence, without changing either EngineTests name or the integration prerequisite.
 
 ## Capabilities
 
