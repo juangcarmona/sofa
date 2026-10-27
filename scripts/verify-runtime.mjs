@@ -24,7 +24,8 @@ try {
     const port = command('docker',['port',name,'5432/tcp']).split(':').at(-1);
     connection=`Host=127.0.0.1;Port=${port};Database=sofa;Username=postgres;Password=sofa-test-only`;
   }
-  command('dotnet',['restore','SoFa.slnx','--locked-mode'],{stdio:'inherit'});
+  const buildServers = scope === 'container' ? ['--disable-build-servers'] : [];
+  command('dotnet',['restore','SoFa.slnx','--locked-mode',...buildServers],{stdio:'inherit'});
   const filter = scope === 'all' ? [] : ['--filter', `FullyQualifiedName${scope === 'host' ? '~' : '!~'}SoFa.Runtime.Tests.EngineTests`];
-  command('dotnet',['test','SoFa.slnx','--no-restore',...filter],{stdio:'inherit',env:{...process.env,SOFA_TEST_DATABASE:connection}});
+  command('dotnet',['test','SoFa.slnx','--no-restore',...filter,...buildServers],{stdio:'inherit',env:{...process.env,SOFA_TEST_DATABASE:connection}});
 } finally { if (!process.env.SOFA_TEST_DATABASE && scope !== 'host') spawnSync('docker',['rm','-f',name],{stdio:'ignore'}); }
