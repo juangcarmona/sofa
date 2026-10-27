@@ -27,7 +27,7 @@
     },
     "actions.workflow": {
       "value": null,
-      "reason": "The owner enabled proposal and implementation delivery. GitHub groups PR creation and review approval; these publishers create PRs and never approve them. Integration requires an owner dispatch for an exact accepted head and verified checks."
+      "reason": "Actions publishes bot PRs. The owner reviews them; Lighthouse verifies the approved commit and required checks before merge."
     }
   },
   "completion": {
