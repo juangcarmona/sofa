@@ -1,0 +1,18 @@
+{
+  "unchanged": true,
+  "files": {
+    ".github/workflows/lighthouse-sdlc-implement.lock.yml": "b509d5d8bde6c91a62670595c0ba7e0a04062178c616e807605fd8e3dddc5ba7",
+    ".github/workflows/lighthouse-sdlc-implement.md": "e6bf0486ad9db5d088bbe36c111257a6b07e5cc833f7cba42a45e7ba057d587b",
+    ".github/workflows/lighthouse-sdlc-integrate.lock.yml": "887ed7a739377dd7f83e2f9d403d9d26315d128710532e847fc030e231938731",
+    ".github/workflows/lighthouse-sdlc-integrate.md": "e09c4715f67cf5a57389635b5d63fdfdf47c5b0294f24d3d057a87db410f060a",
+    ".github/workflows/lighthouse-sdlc-propose.lock.yml": "b051d6eed41d9b6dbae5219f663d7abb4cbb38d084cb177e44e8a34a85f6f2aa",
+    ".github/workflows/lighthouse-sdlc-propose.md": "2e9459d1f766a08675be2b8e842c58f816619e5ea6a927e0724c65023ed59019",
+    ".github/workflows/lighthouse-sdlc-refine.lock.yml": "7c40f664fb78b8d4ad7ebeb7fbc20de810d1fbd2e86705e838348cb7efbff592",
+    ".github/workflows/lighthouse-sdlc-refine.md": "b0ba98b7ab60c282a0441df59f1330e050c3516e6cc5b5c59507263236b10738",
+    ".github/workflows/lighthouse-sdlc-review.lock.yml": "99ea9e321d0bec4bf3db64ee913c371b9a5c15381eb66a9e733a1bbae5c1690c",
+    ".github/workflows/lighthouse-sdlc-review.md": "94195e6b041fbd54dc05d6c600adcbc8086b8915e01aa1c6a673cfab9893773b",
+    ".github/workflows/lighthouse-sdlc-router.yml": "db0576582c83211f7944810f7f515681688034014ae0113f4866cb918ed61648",
+    ".github/workflows/shared/lighthouse-opencode.md": "109f5dfd01c7431cda9c9b5b59b66f4bb71b0b2a5e2e21d4f15cbcd23b6ff4a6",
+    ".github/aw/actions-lock.json": "a1fb860da1a7e6faa32b32c1ced8dc03455c6563a5774402132434b375167c64"
+  }
+}

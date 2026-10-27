@@ -1,0 +1,14 @@
+{
+  "environment": {
+    "profile": "dotnet",
+    "image": "sha256:9706b4e2d73acf34a1ee339145296442dcbd81178d16f0b09f2808b29f436372",
+    "services": [
+      {
+        "type": "postgresql",
+        "image": "sha256:858bb5e98eed02eb8cafbcdc007f9a65d1b613972028944a8ec2133ccaf80d27"
+      }
+    ]
+  },
+  "prerequisites": "passed",
+  "cleanup": true
+}

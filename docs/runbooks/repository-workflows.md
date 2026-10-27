@@ -12,17 +12,36 @@ SoFa uses Lighthouse's repository workflows. GitHub runs the work; the web app o
 
 A separate `propose` request is still available for design work. There is no requirement to merge a proposal before implementation. Existing product decisions and security approvals still apply.
 
+The router decides and dispatches; each stage has its own Actions execution. Issue receipts show the last observed phase with an icon and source links. Follow Actions for live status. A successful workflow can publish a blocked assessment; inspect the stage outcome before treating a gate as passed.
+
 `agent-working` means an execution is active. `needs-info` means an answer is needed. `waiting-review` means there is a PR or a decision to review. Follow the run linked by the bot for logs, screenshots and checks.
 
 ## Operator setup
 
 Register a repository-specific Linux runner with the `lighthouse-workflow` label. Provide Docker and `LIGHTHOUSE_ENGINE_CONFIG` pointing to the private engine configuration. Keep credentials outside the repository and web app. The implementation image must support the repository's checks, including .NET and the runtime tests.
 
-The current gh-aw gateway uses host port 8080. On Bastion, keep only one gateway-capable runner active at a time. Confirm it is idle before switching repositories; the engine lock does not cover gateway startup.
+The current gh-aw gateway uses host port 8080. Only one gateway job may occupy the host at a time. Bastion runner job hooks hold a shared host lock for the entire job; the engine lock alone does not cover gateway startup. Confirm this hook is active on every gateway-capable runner before running them together.
 
 Enable `LIGHTHOUSE_AUTOMATION_ENABLED` after installing and checking the workflows. Keep default token permissions read-only. GitHub's setting allowing Actions to create and approve PRs is required for publication; the bot does not approve its own work.
 
-The workflows pin Lighthouse `a0a946cb74b8c2b5ac2478a9fab689df652d3b9f` and use gh-aw 0.93.2. Update them through the Lighthouse installer. The npm package version and workflow pin are separate until the next release.
+The workflows pin Lighthouse `496562b1deb8b217b231a0d7baad8d10889485b0` and use gh-aw 0.93.2. Update them through the Lighthouse installer. The npm package version and workflow pin are separate until the next release.
+
+## Reproducible application checks
+
+`.lighthouse/environment.json` selects the official `dotnet` profile with disposable PostgreSQL 17. `.lighthouse/implement.json` installs locked npm dependencies and runs `verify:container` with CI browser settings. Candidate acceptance remains subject to owner review. The full `verify` CI suite and `test:runtime:host` retain the two Docker engine tests; container verification alone is insufficient for integration.
+
+The operator configuration must map `environments.dotnet.image` and `environments.dotnet.postgresImage` to installed immutable image IDs from the official builder receipt. Keep the existing read-only image, legacy implementation image, provider volume, UID, model and lock. Use Lighthouse's pinned `src/examples/opencode-engine/build-environments.mjs` and its `ENVIRONMENTS.md` procedure when rebuilding. Never pass a host Docker socket into an agent or validation container.
+
+Preflight verifies Node 24, npm, Git, Chromium, OpenCode 2.1.0 and .NET SDK 10.0.100. The host creates separate temporary databases and networks for agent work and independent checks, waits for PostgreSQL readiness and removes them afterward. PostgreSQL is test infrastructure, not an orchestration database. After cancellation, confirm both workload and database containers and their networks disappeared before considering cleanup complete.
+
+To regenerate the existing workflow set from a verified Lighthouse checkout, first preview and review differences, then apply:
+
+```sh
+node /path/to/lighthouse/src/packages/sdlc/src/install-workflows.mjs . 496562b1deb8b217b231a0d7baad8d10889485b0 --with-completion --replace-reviewed
+node /path/to/lighthouse/src/packages/sdlc/src/install-workflows.mjs . 496562b1deb8b217b231a0d7baad8d10889485b0 --with-completion --replace-reviewed --apply
+```
+
+Commit generated locks with their sources. The host authenticates product revision separately from workflow revision: a manual router dispatch can test this PR's workflow branch, while implementation policy and environment still come from the current default branch. Such a pre-merge run cannot prove activation of an unmerged environment declaration. Use isolated consumer acceptance for the candidate and retain this live-acceptance limitation until post-merge verification.
 
 ## Recovery
 
