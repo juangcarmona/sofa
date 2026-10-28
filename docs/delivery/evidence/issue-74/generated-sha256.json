@@ -1,0 +1,22 @@
+{
+  ".github/ISSUE_TEMPLATE/change-request.yml": "74db41ccc04f17f064c56aa6919742d582bc489bb6a90f8ae5a5a4e88d1aceff",
+  ".github/aw/actions-lock.json": "a1fb860da1a7e6faa32b32c1ced8dc03455c6563a5774402132434b375167c64",
+  ".github/workflows/lighthouse-sdlc-apply-review.lock.yml": "29fb1d7f8cdec90839990c701ad6096d9c474e8d6111a0ef814273994522aa45",
+  ".github/workflows/lighthouse-sdlc-apply-review.md": "e0d073af4732acf3979cbefc910d195870d00e2ed0b3a4f0c0884e87830ff32d",
+  ".github/workflows/lighthouse-sdlc-implement.lock.yml": "1b1ba33d4ea071eabc92bf1787272fa8d092f944d9a1aa7f90fc5d9e470c99b3",
+  ".github/workflows/lighthouse-sdlc-implement.md": "b5334e47270e3f189211c8d0b096c9b77ca3419df3ec4229fa524b7b78d5f91e",
+  ".github/workflows/lighthouse-sdlc-integrate.lock.yml": "a408adfb4de39d26837b625dca0ad9499b7791aabf61c0314dca5ba99254bca8",
+  ".github/workflows/lighthouse-sdlc-integrate.md": "ddf8c8e9c065a76b81038eeafff337752c461ecae24921ac635054d2c7289cf1",
+  ".github/workflows/lighthouse-sdlc-propose.lock.yml": "7ce8ada8f46bd787ded19db3a969d38db49c4b6906b150c950d48059d7cb6fd4",
+  ".github/workflows/lighthouse-sdlc-propose.md": "7e8c7151cdbae57fdf2ff79ad17c9e8b784862009abb6fcfd7f3ca116196004b",
+  ".github/workflows/lighthouse-sdlc-refine.lock.yml": "3f1ead1718469064039718ebe800352d90783bb73b0b9b7acef33993eacc4dbd",
+  ".github/workflows/lighthouse-sdlc-refine.md": "6eab4301ba2952be31faafefd33697ef27ed1baa65948d9ba86c3a112a67a4d4",
+  ".github/workflows/lighthouse-sdlc-review.lock.yml": "1e71ca6f11fec9c4ca184d004987e16e036dd49f57a2bf82ebd885ab2836ab77",
+  ".github/workflows/lighthouse-sdlc-review.md": "a50503cda3644a70c21e768199d58e8c55d9d0b14a0f620b18b16ff679956a31",
+  ".github/workflows/lighthouse-sdlc-router.yml": "1f3bb7528ef1b1c97c683444a96a20f7e9a8e7e4af67c51afb3dae7bb73f3372",
+  ".github/workflows/lighthouse-sdlc-triage.lock.yml": "55d804eb0ee59665f0478983388197fba34c7de19c1da4a604ce2fab66ecfca4",
+  ".github/workflows/lighthouse-sdlc-triage.md": "05e69bdf4acba0cb76dcad6a0edc8518f82469bf84bff4ef64ae1c863f03b1a4",
+  ".github/workflows/lighthouse.yml": "fa29fc3cff29b3d23ac39b3a6e76587d66717384e54858ddc1143c6f696983f2",
+  ".github/workflows/shared/lighthouse-opencode.md": "109f5dfd01c7431cda9c9b5b59b66f4bb71b0b2a5e2e21d4f15cbcd23b6ff4a6",
+  ".github/workflows/verify.yml": "a9d3b7454b9bc5237128ca9e7fafb159619ff42aee3a117004aa9e5cf25a69c9"
+}

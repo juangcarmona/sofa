@@ -1,0 +1,165 @@
+{
+  "source": {
+    "package": {
+      "name": "@juangcarmona/lighthouse",
+      "version": "0.11.2"
+    },
+    "baseline": "0.1.0",
+    "capabilities": {
+      "harness": "1",
+      "sdlc": "1"
+    },
+    "adoption": {
+      "labels": {
+        "id": "labels",
+        "status": "adopted",
+        "selection": "selected-by-default",
+        "provider": "github",
+        "version": "1",
+        "catalogVersion": "0.5.0",
+        "nextAction": null,
+        "recordPath": ".lighthouse/reconciliation/labels.json"
+      },
+      "github-profile": {
+        "id": "github-profile",
+        "status": "adopted",
+        "selection": "opt-in",
+        "provider": "github",
+        "version": "1",
+        "catalogVersion": "0.5.0",
+        "nextAction": null
+      }
+    },
+    "projections": {
+      "harness": "1",
+      "sdlc": "1"
+    },
+    "lastAppliedMigration": "upgrade-0.11.2"
+  },
+  "target": {
+    "package": {
+      "name": "@juangcarmona/lighthouse",
+      "version": "0.11.4"
+    },
+    "baseline": "0.1.0",
+    "capabilities": {
+      "harness": "1",
+      "sdlc": "1"
+    },
+    "adoption": {
+      "labels": {
+        "id": "labels",
+        "status": "adopted",
+        "selection": "selected-by-default",
+        "provider": "github",
+        "version": "1",
+        "catalogVersion": "0.5.0",
+        "nextAction": null,
+        "recordPath": ".lighthouse/reconciliation/labels.json"
+      },
+      "github-profile": {
+        "id": "github-profile",
+        "status": "adopted",
+        "selection": "opt-in",
+        "provider": "github",
+        "version": "1",
+        "catalogVersion": "0.5.0",
+        "nextAction": null
+      }
+    },
+    "projections": {
+      "harness": "1",
+      "sdlc": "1"
+    }
+  },
+  "scopes": [
+    "harness",
+    "sdlc"
+  ],
+  "prerequisites": [
+    {
+      "status": "passed",
+      "message": "Ownership metadata is readable."
+    }
+  ],
+  "changes": [
+    {
+      "path": "LIGHTHOUSE.md",
+      "scope": "harness",
+      "classification": "adoptable",
+      "action": "update"
+    },
+    {
+      "path": "scripts/lighthouse-guard.mjs",
+      "scope": "harness",
+      "classification": "unchanged",
+      "action": "keep"
+    },
+    {
+      "path": ".husky/commit-msg",
+      "scope": "harness",
+      "classification": "unchanged",
+      "action": "keep"
+    },
+    {
+      "path": ".husky/pre-push",
+      "scope": "harness",
+      "classification": "unchanged",
+      "action": "keep"
+    },
+    {
+      "path": ".github/workflows/lighthouse.yml",
+      "scope": "harness",
+      "classification": "unchanged",
+      "action": "keep"
+    },
+    {
+      "path": ".agents/skills/lighthouse-init/SKILL.md",
+      "scope": "harness",
+      "classification": "unchanged",
+      "action": "keep"
+    },
+    {
+      "path": ".lighthouse/sdlc.json",
+      "scope": "sdlc",
+      "classification": "adoptable",
+      "action": "update"
+    },
+    {
+      "path": ".lighthouse/commands.json",
+      "scope": "sdlc",
+      "classification": "adoptable",
+      "action": "update"
+    }
+  ],
+  "verification": [
+    "lighthouse verify"
+  ],
+  "recovery": "Restore the pre-update commit or rerun lighthouse upgrade after resolving the reported ownership conflict.",
+  "adoption": {
+    "status": "complete",
+    "capabilities": {
+      "labels": {
+        "id": "labels",
+        "status": "adopted",
+        "selection": "selected-by-default",
+        "provider": "github",
+        "version": "1",
+        "catalogVersion": "0.5.0",
+        "nextAction": null,
+        "recordPath": ".lighthouse/reconciliation/labels.json"
+      },
+      "github-profile": {
+        "id": "github-profile",
+        "status": "adopted",
+        "selection": "opt-in",
+        "provider": "github",
+        "version": "1",
+        "catalogVersion": "0.5.0",
+        "nextAction": null
+      }
+    },
+    "externalWrites": "none"
+  },
+  "problems": []
+}
