@@ -2,11 +2,11 @@
 
 ## Lighthouse
 
-The exact installed CLI version is pinned in `package.json` and `package-lock.json`; `lighthouse.json` selects the SDLC package. Preview updates with `npx lighthouse upgrade --scope all`, then apply reviewed changes and run `npx lighthouse verify --format json`. `.lighthouse/upgrade.json` tracks managed-file ownership. The current adoption uses CLI 0.11.4 and SDLC 0.15.0.
+The exact installed CLI version is pinned in `package.json` and `package-lock.json`; `lighthouse.json` selects the SDLC package. Preview updates with `npx lighthouse upgrade --scope all`, then apply reviewed changes and run `npx lighthouse verify --format json`. `.lighthouse/upgrade.json` tracks managed-file ownership. The current adoption uses CLI 0.11.6 and SDLC 0.15.2.
 
 Workflow installation is separate and opt-in. Foundation upgrades preserve existing workflows; SoFa remains an observer of independently executed repository workflows. The labels and recommended GitHub profile capabilities are already adopted. No `visual-theme` profile is selected.
 
-The workflow source is pinned to Lighthouse `ffa7e92613ad55989eb16133b1df26d2b7072603`, including official triage, feedback correction and PR-state reconciliation. CLI 0.11.4 and SDLC 0.15.0 are published and locked locally. See the [workflow runbook](runbooks/repository-workflows.md) and [adoption evidence](delivery/evidence/issue-74/README.md). Optional maintenance, model profiles and delegated execution remain unconfigured.
+The workflow source is pinned to Lighthouse `cee9f62f8161771ea16366c6360b82e0efad045c`, including official triage, feedback correction and PR-state reconciliation. CLI 0.11.6 and SDLC 0.15.2 are published and locked locally. See the [workflow runbook](runbooks/repository-workflows.md) and [adoption evidence](delivery/evidence/issue-74/README.md). Optional maintenance, model profiles and delegated execution remain unconfigured.
 
 ## ProductShape
 
