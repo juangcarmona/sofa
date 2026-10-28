@@ -1,18 +1,15 @@
 # transition-work-item: GitHub Issues
 
-The lifecycle state is not GitHub's `state`. Under the shared defaults it is exactly one `status:*` label; ordinary adoption records the verified mapping if the repository uses another store.
+Lighthouse owns issue actions, stage results, gates and workflow-state labels. SoFa does not model transitions with `status:*` labels.
 
-## Labels
+For an owner-requested stage, reread the issue and its current Lighthouse evidence, verify the requested action is eligible under the installed Lighthouse contract, and add exactly one request label:
 
 ```bash
-# Read the current state labels first and validate the configured transition
-gh issue view <number> --json labels --jq '.labels[].name | select(startswith("status:"))'
-
-# Only then apply the transition
-gh issue edit <number> --remove-label "status:<from>" --add-label "status:<to>"
+gh issue view <number> --json state,labels,comments
+gh issue edit <number> --add-label "<owner-requested-stage>"
 ```
 
-Read and validate the current state immediately before applying the label change. If the issue has moved, carries zero or multiple current state labels, or the requested transition is not allowed by `docs/engineering-lifecycle.md`, report the mismatch and stop. Remove the old status label and add the new one in the same call. Reread the issue and verify exactly one `status:*` label remains.
+Supported request labels are defined by the installed Lighthouse router. Do not add a request label for a stage that Lighthouse already dispatched, remove Lighthouse result or reservation labels, or infer a passed gate from a green workflow check. Verify the router receipt and authenticated stage result after dispatch.
 
 ## Projects single-select
 
@@ -25,4 +22,4 @@ All four identifiers are per-project and are resolved during adoption.
 
 ## Closing
 
-Closing an issue is a separate act from reaching a terminal lifecycle state. Do both only where the project's mapping says the terminal state means closed.
+Integration and issue closure follow Lighthouse's completion contract and explicit owner merge decision. GitHub's open/closed state is authoritative; do not add a replacement `status:done` label.
