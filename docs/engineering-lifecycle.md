@@ -30,16 +30,17 @@ No additional dimensions. The reference dimensions are sufficient for this proje
 
 ## GitHub issue classification
 
-GitHub labels carry two independent facts:
+Lighthouse owns workflow labels, stage transitions and gate results. SoFa does not define a parallel lifecycle label family. The installed Lighthouse SDLC contract and its generated router are authoritative.
 
 | Label family | Allowed values | Meaning |
 | --- | --- | --- |
-| Work type | `bug`, `enhancement`, `documentation` | What kind of work the issue describes |
-| Lifecycle | `status:backlog`, `status:ready`, `status:proposed`, `status:in-progress`, `status:in-review`, `status:done` | Where the issue is in SoFa's delivery lifecycle |
+| Work type | `bug`, `enhancement`, `documentation` | Optional classification of the work |
+| Lighthouse request | `triage`, `refine`, `propose`, `implement` | Owner-added request labels consumed by the installed Lighthouse router |
+| Lighthouse state/evidence | Labels declared by the installed catalog, including `triaged`, `ready`, `needs-info`, `waiting-review`, reservations and PR projections | Current Lighthouse result and execution evidence; Lighthouse owns the meanings and transitions |
 
-An open issue has exactly one canonical `status:*` label. Work type is optional until classification is clear; do not invent a type to satisfy a transition. These labels do not replace GitHub's independent open/closed state, and labels such as `duplicate`, `good first issue`, and `help wanted` remain separate metadata. `blocked` and `owner-review` are optional overlays and never replace lifecycle status.
+Do not add or maintain `status:*` labels. An issue waiting in the backlog has no active Lighthouse request label; GitHub open/closed state remains authoritative for whether the issue is open. Do not invent a Lighthouse request label to imitate a status. Labels such as `duplicate`, `good first issue`, and `help wanted` remain separate metadata.
 
-When creating an issue, validate the required Ready dimensions below (mark inapplicable dimensions `N/A` with a reason), check for likely duplicates using the title and distinctive terms, set `status:backlog`, and request no more than one existing work-type label.
+When creating an issue, validate the required Ready dimensions below (mark inapplicable dimensions `N/A` with a reason), check for likely duplicates using the title and distinctive terms, and add no more than one existing work-type label. Add a Lighthouse request label separately when the owner requests that stage.
 
 ## Definition of Done
 
@@ -83,19 +84,20 @@ The commands that produce the deterministic lane's evidence. `verify-like-ci` de
 
 The checks cover the web observer and retained runtime. Required checks must run on the candidate; missing tooling is reported as unavailable.
 
-## Lifecycle stages and states
+## Lighthouse stages and gates
 
-The GitHub workflow moves from refinement into planning and implementation, then PR review, integration and final review. Planning stays in the implementation branch; a proposal-only PR is optional. These are the shared stages mapped onto this project's work-item states. GitHub issue state remains separate; one canonical `status:*` label records lifecycle status.
+The installed Lighthouse contract defines stages, request labels, gates, worker behavior and evidence. This table records only how SoFa uses that contract; it does not redefine stages or introduce another status system.
 
-| Stage | State on entry | State on exit | Transition | Fired by |
-| --- | --- | --- | --- | --- |
-| `refine` | `status:backlog` | `status:ready` | Set Ready after the gate passes | `refine` |
-| `propose` (`/plan` alias) | `status:ready` | `status:proposed` | Prepare the plan inside implementation, or request design-only work | Implementation worker or `propose` |
-| `implement` | `status:ready` or `status:proposed` | `status:in-progress` → `status:in-review` | Set in-progress on entry; set in-review when Done passes and the PR is ready | `implement` |
-| `integrate` | `status:in-review` | `status:done`, issue closed | Merge the linked PR; verify issue closure, then set done | `integrate` |
-| `review` | `status:done` | `status:done` | Create the per-item retrospective; no lifecycle transition | `review` |
+| Lighthouse stage | Request | Lighthouse result / effect | Owner boundary |
+| --- | --- | --- | --- |
+| `triage` | Owner adds `triage` | Lighthouse publishes `triaged` on a passed gate | Owner decides whether to request refinement |
+| `refine` | Owner adds `refine` | Lighthouse publishes `ready` on a passed gate, or `needs-info` when blocked | A passed gate does not approve a proposal or merge |
+| `propose` | Owner adds `propose` after readiness | Lighthouse publishes proposal evidence and `waiting-review` | Owner reviews the proposal; it does not authorize implementation |
+| `implement` | Owner adds `implement`, or Lighthouse's configured continuation requests it | Lighthouse publishes the implementation PR and its `pr-draft` / `pr-ready` projection | Owner retains PR acceptance and merge decisions |
+| `integrate` | Lighthouse completion workflow and explicit owner merge decision | GitHub records the merge and closes a linked issue when requested | The merge decision remains explicit |
+| `review` | Lighthouse completion workflow after integration | Lighthouse records the retrospective result | No SoFa lifecycle label transition |
 
-The transition skill reads this table before each write. It rereads the issue immediately before writing and stops if GitHub open/closed state or lifecycle labels changed. After the one-operation label swap it rereads and verifies exactly one `status:*` label remains and that unrelated labels were preserved. An enabled `/ff` invocation authorizes routine transitions without per-write confirmation; other human-only transitions still stop.
+The `transition-work-item` capability follows the Lighthouse request and result contract. It must not swap `status:*` labels or infer a gate from a label name alone. An enabled `/ff` invocation authorizes only routine writes permitted by Lighthouse; owner decisions and required approvals remain explicit.
 
 Pull requests are not work items for this lifecycle transition workflow. The issue API exposes an issue-shaped record for a pull request; the skill must inspect the `pull_request` field and refuse it. Reopen, block, and deprioritise remain human-only decisions and are never performed by the transition skill. If a work item is closed, that GitHub state is reported independently from its lifecycle label.
 
@@ -109,18 +111,18 @@ Pull requests are not work items for this lifecycle transition workflow. The iss
 
 ## Work item fields
 
-Fields a transition's screen requires. GitHub Issues has no transition screens; the lifecycle state is carried as a `status:<state>` label.
+Fields required to create or update a GitHub issue. Lighthouse owns its stage inputs, gate results and evidence envelope.
 
 | Field | Identifier | Required by | Notes |
 | --- | --- | --- | --- |
-| Lifecycle state | one canonical `status:*` label | every transition | Exactly one on each open issue; replace the old status in the same update |
+| Lighthouse request/result | Lighthouse-declared action labels and authenticated stage evidence | Lighthouse stages | Do not introduce a parallel SoFa status label |
 | Work type | one of `bug`, `enhancement`, `documentation` | issue creation / classification | Optional; at most one, and independent of lifecycle |
 | Acceptance criteria | `## Acceptance Criteria` section in issue body | `/refine` (Ready gate) | Markdown heading in the issue body |
 | Work item link | `Closes #<number>` in PR body | `/implement` | Placed in the PR body, not the title |
 
-## Label conventions
+## Label and WIP conventions
 
-Use the shared lifecycle labels `status:backlog`, `status:ready`, `status:proposed`, `status:in-progress`, `status:in-review`, and `status:done`. Keep type and other metadata labels independent. `blocked` and `owner-review` are optional overlays. New issues start at `status:backlog`.
+Use the labels declared by the installed Lighthouse catalog for stage requests, state, reservation and PR projection. Keep work-type and other metadata labels independent. Do not recreate Lighthouse semantics with `status:*` labels. New issues start open without a lifecycle label; the owner adds a Lighthouse request label to start a stage.
 
 The GitHub workflow retains reports and retrospectives on the protected `process/retrospectives` branch and links them from the issue and PR. Older local reviews remain historical evidence.
 
@@ -149,7 +151,7 @@ The adopted GitHub profile requires `verify` on `main`. The publisher checks the
 
 ## Work in progress
 
-**WIP cap**: 3 · **Query used at pickup**: `gh issue list --label "status:in-progress" --state open` + `gh issue list --label "status:in-review" --state open` · **Sprint commitment**: Not used · **Board**: GitHub Issues with `status:` labels; no separate board is part of this scaffold. Column limits are not set by any tool; the WIP cap is enforced by the `wip-query` role at pickup.
+**WIP cap**: 3 · **Query used at pickup**: count distinct open issues with Lighthouse `implement`, `pr-draft`, or `pr-ready` labels · **Sprint commitment**: Not used · **Board**: GitHub Issues; no separate board is part of this scaffold. Column limits are not set by any tool; the WIP cap is enforced by the `wip-query` role using current Lighthouse implementation requests and PR projections.
 
 ## Roles
 
@@ -191,3 +193,4 @@ The `review` capability proposes changes to this file from delivery evidence. Ev
 | Date | Section | Change | Why |
 | --- | --- | --- | --- |
 | 2026-10-19 | All | Initial adoption of the shared lifecycle | Align SoFa with the Agentic SDLC practices used across the other repositories |
+| 2026-10-28 | Issue labels, stages, gates and WIP | Use the installed Lighthouse SDLC contract as the workflow authority; remove the parallel `status:*` convention | Lighthouse 0.15.0 supplies request labels, gates, state evidence, reservations and PR projections |
