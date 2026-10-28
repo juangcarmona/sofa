@@ -5,7 +5,7 @@
 - Baseline: `0.1.0`
 - Product: `sofa`
 - Profiles: none
-- SDLC package: `@juangcarmona/lighthouse-sdlc@0.15.0`
+- SDLC package: `@juangcarmona/lighthouse-sdlc@0.15.2`
 - ProductShape: 0.23.0
 - ArcShape: 0.1.6
 - Public site: `enabled`
@@ -19,6 +19,8 @@ ProductShape is the adopted authority for product intent and Product Changes. Ar
 The repository keeps source code in `src/`, documentation in `docs/`, infrastructure in `infra/` and repository automation in `scripts/`. A project may record a narrow, owned exception, but an initializer never overwrites an existing project file.
 
 The selected SDLC package owns lifecycle skills, commands, meta-commands, routes and gates. The `.lighthouse/` control plane records the selected package, command aliases and host adapters without storing agent runtime data. Use `lighthouse aliases --format json` or `.lighthouse/commands.json` to discover canonical and short agent commands.
+
+For delivery, labels or GitHub workflows, read [the installed SDLC delivery guide](node_modules/@juangcarmona/lighthouse-sdlc/README.md) first. Confirm the installed package version, workflow source pin and current branch before describing deployed behavior.
 
 The Lighthouse documentation site is enabled; publication requires successful ProductShape and ArcShape validation. This route publishes product and architecture documentation. Application deployment follows the repository's own delivery policy.
 

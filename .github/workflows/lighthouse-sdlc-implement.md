@@ -1,6 +1,6 @@
 ---
 # Owned by lighthouse-sdlc. Regenerate the lock with gh aw v0.93.2.
-name: Lighthouse SDLC implement
+name: implement
 description: Plan and implement an authorized issue in an isolated workspace and deliver a reviewable PR.
 run-name: "implement #${{ inputs.issue }} · request ${{ inputs.dispatch-request }}"
 concurrency:
@@ -67,7 +67,7 @@ steps:
     uses: actions/checkout@v5
     with:
       repository: juangcarmona/lighthouse
-      ref: ffa7e92613ad55989eb16133b1df26d2b7072603
+      ref: cee9f62f8161771ea16366c6360b82e0efad045c
       path: tools
       persist-credentials: false
   - name: Load the authorized issue context
@@ -123,7 +123,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: juangcarmona/lighthouse
-          ref: ffa7e92613ad55989eb16133b1df26d2b7072603
+          ref: cee9f62f8161771ea16366c6360b82e0efad045c
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:
@@ -162,7 +162,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: juangcarmona/lighthouse
-          ref: ffa7e92613ad55989eb16133b1df26d2b7072603
+          ref: cee9f62f8161771ea16366c6360b82e0efad045c
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:

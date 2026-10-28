@@ -6,7 +6,7 @@
   "packages": [
     {
       "name": "@juangcarmona/lighthouse",
-      "version": "0.11.4",
+      "version": "0.11.6",
       "contractVersion": 1,
       "aliases": [
         {
@@ -18,7 +18,7 @@
     },
     {
       "name": "@juangcarmona/lighthouse-sdlc",
-      "version": "0.15.0",
+      "version": "0.15.2",
       "contractVersion": 1,
       "aliases": [
         {
@@ -80,77 +80,77 @@
       "canonical": "/lighthouse:init",
       "asset": "skills/init/SKILL.md",
       "owner": "@juangcarmona/lighthouse",
-      "packageVersion": "0.11.4"
+      "packageVersion": "0.11.6"
     },
     {
       "alias": "/lh:control",
       "canonical": "/lighthouse:control-plane",
       "asset": "commands/control-plane.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     },
     {
       "alias": "/lh:gh-decompose",
       "canonical": "/lighthouse:github-decompose",
       "asset": "commands/github-decompose.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     },
     {
       "alias": "/lh:gh-triage",
       "canonical": "/lighthouse:github-triage",
       "asset": "commands/github-triage.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     },
     {
       "alias": "/lh:result",
       "canonical": "/lighthouse:stage-result",
       "asset": "commands/stage-result.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     },
     {
       "alias": "/lh:e2e",
       "canonical": "/lighthouse:browser-e2e",
       "asset": "commands/browser-e2e.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     },
     {
       "alias": "/lh:caps",
       "canonical": "/lighthouse:capabilities",
       "asset": "commands/capabilities.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     },
     {
       "alias": "/lh:labels",
       "canonical": "/lighthouse:reconcile-labels",
       "asset": "commands/reconcile-labels.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     },
     {
       "alias": "/lh:gh-labels",
       "canonical": "/lighthouse:github-labels",
       "asset": "commands/github-labels.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     },
     {
       "alias": "/lh:mem",
       "canonical": "/lighthouse:memory",
       "asset": "commands/memory.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     },
     {
       "alias": "/lh:impl",
       "canonical": "/lighthouse:implement",
       "asset": "commands/implement.md",
       "owner": "@juangcarmona/lighthouse-sdlc",
-      "packageVersion": "0.15.0"
+      "packageVersion": "0.15.2"
     }
   ]
 }

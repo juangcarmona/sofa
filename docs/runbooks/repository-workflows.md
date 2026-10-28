@@ -26,7 +26,7 @@ The current gh-aw gateway uses host port 8080. Only one gateway job may occupy t
 
 Enable `LIGHTHOUSE_AUTOMATION_ENABLED` after installing and checking the workflows. Keep default token permissions read-only. GitHub's setting allowing Actions to create and approve PRs is required for publication; the bot does not approve its own work.
 
-The workflows pin Lighthouse `ffa7e92613ad55989eb16133b1df26d2b7072603` and use gh-aw 0.93.2. Update them through the Lighthouse installer. The installed packages are CLI 0.11.4 and SDLC 0.15.0. Workflow and npm revisions are recorded independently.
+The workflows pin Lighthouse `cee9f62f8161771ea16366c6360b82e0efad045c` and use gh-aw 0.93.2. Update them through the Lighthouse installer. The installed packages are CLI 0.11.6 and SDLC 0.15.2. Workflow and npm revisions are recorded independently.
 
 The installed workers are `triage`, `refine`, `propose`, `implement`, `integrate`, `review` and `apply-review`. Optional maintenance is not installed; automatic retry recovery and aggregated maintenance reports remain disabled. GitHub Actions executes work and issues retain receipts and reservations. The [adoption evidence](../delivery/evidence/issue-74/README.md) records validation and live-acceptance limits.
 
@@ -45,8 +45,8 @@ Preflight verifies Node 24, npm, Git, Chromium, OpenCode 2.1.0 and .NET SDK 10.0
 To regenerate the existing workflow set from a verified Lighthouse checkout, first preview and review differences, then apply:
 
 ```sh
-node node_modules/@juangcarmona/lighthouse-sdlc/src/install-workflows.mjs . ffa7e92613ad55989eb16133b1df26d2b7072603 --with-completion --replace-reviewed
-node node_modules/@juangcarmona/lighthouse-sdlc/src/install-workflows.mjs . ffa7e92613ad55989eb16133b1df26d2b7072603 --with-completion --replace-reviewed --apply
+node node_modules/@juangcarmona/lighthouse-sdlc/src/install-workflows.mjs . cee9f62f8161771ea16366c6360b82e0efad045c --with-completion --replace-reviewed
+node node_modules/@juangcarmona/lighthouse-sdlc/src/install-workflows.mjs . cee9f62f8161771ea16366c6360b82e0efad045c --with-completion --replace-reviewed --apply
 ```
 
 Commit generated locks with their sources. The host authenticates product revision separately from workflow revision: a manual router dispatch can test this PR's workflow branch, while implementation policy and environment still come from the current default branch. Such a pre-merge run cannot prove activation of an unmerged environment declaration. Use isolated consumer acceptance for the candidate and retain this live-acceptance limitation until post-merge verification.
