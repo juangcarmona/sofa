@@ -11,156 +11,30 @@
     "provider": "github",
     "repo": "juangcarmona/sofa"
   },
-  "desiredHash": "92411d84cd4b137e3cd897fa4f04f4e984ebc8fba7f0460f7e1b20932fbba895",
-  "observedHash": "5d83ae956a59bc38fb0a11a2f4360c7d4b4bdf1053dbab9ee4593d9a36cd97c3",
-  "targetHash": "5d83ae956a59bc38fb0a11a2f4360c7d4b4bdf1053dbab9ee4593d9a36cd97c3",
+  "desiredHash": "7061aee08f4f5ca95c9a631a755eb1a7ba7275b5d1a784d42134dcee6dff095d",
+  "observedHash": "150fdb3f2e1aba4902e56e33a73f119188a2bc82dddd29aad64caa8f5bf1d136",
+  "targetHash": "150fdb3f2e1aba4902e56e33a73f119188a2bc82dddd29aad64caa8f5bf1d136",
   "operations": [
     {
       "type": "create-label",
       "kind": "create",
-      "name": "blast-radius-high",
-      "color": "0F766E",
-      "description": "Large affected surface."
+      "name": "pr-draft",
+      "color": "8B949E",
+      "description": "The linked implementation PR is a draft."
     },
     {
       "type": "create-label",
       "kind": "create",
-      "name": "blast-radius-low",
-      "color": "C7F0E8",
-      "description": "Small affected surface."
+      "name": "pr-ready",
+      "color": "238636",
+      "description": "The linked implementation PR is ready for human review."
     },
     {
       "type": "create-label",
       "kind": "create",
-      "name": "blast-radius-medium",
+      "name": "triaged",
       "color": "4FB3A4",
-      "description": "Medium affected surface."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "impact-high",
-      "color": "6E40C9",
-      "description": "High impact."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "impact-low",
-      "color": "E9D5FF",
-      "description": "Low impact."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "impact-medium",
-      "color": "A371F7",
-      "description": "Medium impact."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "implement",
-      "color": "1F6FEB",
-      "description": "Work item is being implemented."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "refine",
-      "color": "4DA3FF",
-      "description": "Work item is being refined."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "review",
-      "color": "A371F7",
-      "description": "Work item is awaiting review."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "risk-high",
-      "color": "CF222E",
-      "description": "High delivery risk."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "risk-low",
-      "color": "FFEBE9",
-      "description": "Low delivery risk."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "risk-medium",
-      "color": "F0883E",
-      "description": "Medium delivery risk."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "size-l",
-      "color": "4DA3FF",
-      "description": "Large work item."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "size-m",
-      "color": "80C2FF",
-      "description": "Medium work item."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "size-s",
-      "color": "BFE3FF",
-      "description": "Small work item."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "size-xl",
-      "color": "1F6FEB",
-      "description": "Extra-large work item."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "triage",
-      "color": "8B949E",
-      "description": "Work item is being assessed."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "urgency-asap",
-      "color": "D29922",
-      "description": "High urgency."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "urgency-normal",
-      "color": "8B949E",
-      "description": "Normal urgency."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "urgency-now",
-      "color": "CF222E",
-      "description": "Immediate urgency."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "wip",
-      "color": "D29922",
-      "description": "Work item is actively in progress."
+      "description": "Owner-admitted triage passed; the owner decides whether to refine."
     }
   ],
   "operationPolicy": {

@@ -10,9 +10,13 @@ on:
     types: [submitted]
   pull_request_review_comment:
     types: [created]
+  pull_request:
+    types: [ready_for_review, converted_to_draft, closed, reopened]
   workflow_run:
     workflows: ["*"]
     types: [completed]
+  schedule:
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       issue:
@@ -24,7 +28,7 @@ on:
         required: true
         default: refine
         type: choice
-        options: [refine, propose, implement, integrate, review]
+        options: [triage, refine, propose, implement, integrate, review]
       after_run:
         description: Recheck a completed execution through the same continuation rules
         required: false
@@ -45,16 +49,45 @@ on:
 permissions:
   contents: read
 env:
-  LIGHTHOUSE_ENABLED_STAGES: refine,propose,implement,integrate,review
+  LIGHTHOUSE_ENABLED_STAGES: triage,refine,propose,implement,integrate,review
   LIGHTHOUSE_AUTO_IMPLEMENT: true
   LIGHTHOUSE_COMPLETION_ENABLED: true
 jobs:
+  pr-state:
+    if: >-
+      vars.LIGHTHOUSE_AUTOMATION_ENABLED == 'true' &&
+      (github.event_name == 'workflow_run' || github.event_name == 'schedule' ||
+       (github.event_name == 'pull_request' && github.actor == github.repository_owner))
+    concurrency:
+      group: lighthouse-pr-state-${{ github.event.pull_request.number || github.event.workflow_run.head_sha || 'scheduled' }}
+      cancel-in-progress: false
+      queue: max
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          repository: juangcarmona/lighthouse
+          ref: ffa7e92613ad55989eb16133b1df26d2b7072603
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Project implementation PR state
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node src/packages/sdlc/src/pr-state-actions.mjs
   route:
     if: >-
       vars.LIGHTHOUSE_AUTOMATION_ENABLED == 'true' &&
-      (github.actor == github.repository_owner || github.event_name == 'workflow_run') &&
+      (github.actor == github.repository_owner || github.event_name == 'workflow_run' ||
+       (github.event_name == 'workflow_dispatch' && github.actor == 'github-actions[bot]' && inputs.stage == 'implement' && inputs.after_run != '')) &&
       (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run' ||
-       (github.event_name == 'issues' && (github.event.label.name == 'refine' || github.event.label.name == 'propose' || github.event.label.name == 'implement' || (github.event.action == 'unlabeled' && github.event.label.name == 'future'))) ||
+        (github.event_name == 'issues' && (github.event.label.name == 'triage' || github.event.label.name == 'refine' || github.event.label.name == 'propose' || github.event.label.name == 'implement' || (github.event.action == 'unlabeled' && github.event.label.name == 'future'))) ||
        github.event_name == 'issue_comment' || github.event_name == 'pull_request_review' || github.event_name == 'pull_request_review_comment')
     runs-on: ubuntu-24.04
     permissions:
@@ -70,7 +103,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: juangcarmona/lighthouse
-          ref: 57d4e23da2831be5fad0331f1ba82326782943cc
+          ref: ffa7e92613ad55989eb16133b1df26d2b7072603
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:
@@ -102,7 +135,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: juangcarmona/lighthouse
-          ref: 57d4e23da2831be5fad0331f1ba82326782943cc
+          ref: ffa7e92613ad55989eb16133b1df26d2b7072603
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:

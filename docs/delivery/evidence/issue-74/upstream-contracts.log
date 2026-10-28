@@ -1,0 +1,502 @@
+TAP version 13
+# Subtest: completion authorization binds an owner dispatch to a full head; merge is opt-in
+ok 1 - completion authorization binds an owner dispatch to a full head; merge is opt-in
+  ---
+  duration_ms: 2.727018
+  type: 'test'
+  ...
+# Subtest: freshness rejects changed code, base, intent, policy, review and scope
+ok 2 - freshness rejects changed code, base, intent, policy, review and scope
+  ---
+  duration_ms: 1.482129
+  type: 'test'
+  ...
+# Subtest: required checks fail closed for absent, pending and failed evidence
+ok 3 - required checks fail closed for absent, pending and failed evidence
+  ---
+  duration_ms: 0.292382
+  type: 'test'
+  ...
+# Subtest: the host accepts authenticated current checks, not an unrelated maintenance failure
+ok 4 - the host accepts authenticated current checks, not an unrelated maintenance failure
+  ---
+  duration_ms: 0.723199
+  type: 'test'
+  ...
+# Subtest: live rules must enforce configured checks and merge queues fail closed
+ok 5 - live rules must enforce configured checks and merge queues fail closed
+  ---
+  duration_ms: 0.871275
+  type: 'test'
+  ...
+# Subtest: merge rechecks evidence immediately, binds head and reconciles lost responses without retrying
+ok 6 - merge rechecks evidence immediately, binds head and reconciles lost responses without retrying
+  ---
+  duration_ms: 0.756575
+  type: 'test'
+  ...
+# Subtest: an unconfirmed merge failure is not retried or reported successful
+ok 7 - an unconfirmed merge failure is not retried or reported successful
+  ---
+  duration_ms: 0.424317
+  type: 'test'
+  ...
+# Subtest: post-merge verification rejects mismatched runs and dispatches only at the merged tip
+ok 8 - post-merge verification rejects mismatched runs and dispatches only at the merged tip
+  ---
+  duration_ms: 0.566035
+  type: 'test'
+  ...
+# Subtest: evidence protection rejects missing rules, inactive protection and bypass actors
+ok 9 - evidence protection rejects missing rules, inactive protection and bypass actors
+  ---
+  duration_ms: 0.867924
+  type: 'test'
+  ...
+# Subtest: publication rejects path escapes, credential-shaped payloads and unbounded data
+ok 10 - publication rejects path escapes, credential-shaped payloads and unbounded data
+  ---
+  duration_ms: 2.504469
+  type: 'test'
+  ...
+# Subtest: retained report indexes the exact record bytes and keeps source and evidence identities separate
+ok 11 - retained report indexes the exact record bytes and keeps source and evidence identities separate
+  ---
+  duration_ms: 2.252063
+  type: 'test'
+  ...
+# Subtest: concurrent evidence updates preserve other files; exact duplicates do not write
+ok 12 - concurrent evidence updates preserve other files; exact duplicates do not write
+  ---
+  duration_ms: 2.78663
+  type: 'test'
+  ...
+# Subtest: uncertain evidence writes reconcile the confirmed bundle without duplicate commits
+ok 13 - uncertain evidence writes reconcile the confirmed bundle without duplicate commits
+  ---
+  duration_ms: 0.718761
+  type: 'test'
+  ...
+# Subtest: publisher refuses a symlink index and calls the live authority check before writing
+ok 14 - publisher refuses a symlink index and calls the live authority check before writing
+  ---
+  duration_ms: 0.660624
+  type: 'test'
+  ...
+# Subtest: completion opt-in has a bounded workflow allowlist
+ok 15 - completion opt-in has a bounded workflow allowlist
+  ---
+  duration_ms: 1.994109
+  type: 'test'
+  ...
+# Subtest: an owner-observed unchanged ruleset can be checked when GitHub redacts bypass actors
+ok 16 - an owner-observed unchanged ruleset can be checked when GitHub redacts bypass actors
+  ---
+  duration_ms: 0.776855
+  type: 'test'
+  ...
+# Subtest: protection observations require owner visibility and a stable provider timestamp
+ok 17 - protection observations require owner visibility and a stable provider timestamp
+  ---
+  duration_ms: 1.860459
+  type: 'test'
+  ...
+# Subtest: finalization declares future host effects instead of requiring final labels before review
+ok 18 - finalization declares future host effects instead of requiring final labels before review
+  ---
+  duration_ms: 0.459064
+  type: 'test'
+  ...
+# Subtest: pending checks remain unavailable with an explicit pending state, not failed
+ok 19 - pending checks remain unavailable with an explicit pending state, not failed
+  ---
+  duration_ms: 0.313734
+  type: 'test'
+  ...
+# Subtest: additional check observations can support review without silently changing required policy
+ok 20 - additional check observations can support review without silently changing required policy
+  ---
+  duration_ms: 0.782446
+  type: 'test'
+  ...
+# Subtest: current completion jobs cannot become external acceptance evidence or erase required gates
+ok 21 - current completion jobs cannot become external acceptance evidence or erase required gates
+  ---
+  duration_ms: 0.712984
+  type: 'test'
+  ...
+# Subtest: review receives hashed retained integration authorization and a permanent report
+ok 22 - review receives hashed retained integration authorization and a permanent report
+  ---
+  duration_ms: 5.392224
+  type: 'test'
+  ...
+# Subtest: review rejects tampered artifacts, links, uncertain source runs and wrong authorization
+ok 23 - review rejects tampered artifacts, links, uncertain source runs and wrong authorization
+  ---
+  duration_ms: 6.920416
+  type: 'test'
+  ...
+# Subtest: native owner approval authorizes only the current bot implementation head
+ok 24 - native owner approval authorizes only the current bot implementation head
+  ---
+  duration_ms: 1.418797
+  type: 'test'
+  ...
+# Subtest: retained native approval is verified against the original owner review
+ok 25 - retained native approval is verified against the original owner review
+  ---
+  duration_ms: 1.245178
+  type: 'test'
+  ...
+# Subtest: retained independent integration binds the original owner merge decision without expiring artifacts
+ok 26 - retained independent integration binds the original owner merge decision without expiring artifacts
+  ---
+  duration_ms: 3.558804
+  type: 'test'
+  ...
+# Subtest: records intent before dispatch and reuses it across router reruns
+ok 27 - records intent before dispatch and reuses it across router reruns
+  ---
+  duration_ms: 5.380212
+  type: 'test'
+  ...
+# Subtest: feedback has one independent worker and dispatch identity across duplicate router events
+ok 28 - feedback has one independent worker and dispatch identity across duplicate router events
+  ---
+  duration_ms: 2.794597
+  type: 'test'
+  ...
+# Subtest: a lost dispatch response leaves recorded uncertainty, never an automatic resend
+ok 29 - a lost dispatch response leaves recorded uncertainty, never an automatic resend
+  ---
+  duration_ms: 0.967376
+  type: 'test'
+  ...
+# Subtest: authenticates the original owner event and binds it to this worker revision
+ok 30 - authenticates the original owner event and binds it to this worker revision
+  ---
+  duration_ms: 2.292773
+  type: 'test'
+  ...
+# Subtest: HTML markers are references, not authority: spoofed, moved and edited receipts fail closed
+ok 31 - HTML markers are references, not authority: spoofed, moved and edited receipts fail closed
+  ---
+  duration_ms: 0.521701
+  type: 'test'
+  ...
+# Subtest: missing or expired origin evidence prevents admission
+ok 32 - missing or expired origin evidence prevents admission
+  ---
+  duration_ms: 0.40561
+  type: 'test'
+  ...
+# Subtest: serialized workers claim once; a duplicate and a rerun cannot start another agent
+ok 33 - serialized workers claim once; a duplicate and a rerun cannot start another agent
+  ---
+  duration_ms: 1.05157
+  type: 'test'
+  ...
+# Subtest: a different request cannot overlap an active implementation, but a finished run can be followed
+ok 34 - a different request cannot overlap an active implementation, but a finished run can be followed
+  ---
+  duration_ms: 0.744447
+  type: 'test'
+  ...
+# Subtest: all installed stages dispatch independently and cannot impersonate a different stage
+ok 35 - all installed stages dispatch independently and cannot impersonate a different stage
+  ---
+  duration_ms: 4.176058
+  type: 'test'
+  ...
+# Subtest: completed-run replay uses fresh observations and requires the owner
+ok 36 - completed-run replay uses fresh observations and requires the owner
+  ---
+  duration_ms: 0.815946
+  type: 'test'
+  ...
+# Subtest: refinement handoff requires an authenticated successful publication and the installed policy
+ok 37 - refinement handoff requires an authenticated successful publication and the installed policy
+  ---
+  duration_ms: 6.037284
+  type: 'test'
+  ...
+# Subtest: bot wake-up waits for refinement completion and rejects other callers and stages
+ok 38 - bot wake-up waits for refinement completion and rejects other callers and stages
+  ---
+  duration_ms: 0.990577
+  type: 'test'
+  ...
+# Subtest: bot router artifacts cannot authorize arbitrary stages or fabricate refinement authority
+ok 39 - bot router artifacts cannot authorize arbitrary stages or fabricate refinement authority
+  ---
+  duration_ms: 0.957791
+  type: 'test'
+  ...
+# Subtest: duplicate completion events retain the same request ID across router executions
+ok 40 - duplicate completion events retain the same request ID across router executions
+  ---
+  duration_ms: 0.574031
+  type: 'test'
+  ...
+# Subtest: owner PR feedback may queue behind a confirmed worker while uncertain dispatch remains blocked
+ok 41 - owner PR feedback may queue behind a confirmed worker while uncertain dispatch remains blocked
+  ---
+  duration_ms: 0.398063
+  type: 'test'
+  ...
+# Subtest: PR event identity is preserved separately from the trusted dispatchable workflow branch
+ok 42 - PR event identity is preserved separately from the trusted dispatchable workflow branch
+  ---
+  duration_ms: 0.427165
+  type: 'test'
+  ...
+# Subtest: two workers select independent model and reasoning with explicit provenance
+ok 43 - two workers select independent model and reasoning with explicit provenance
+  ---
+  duration_ms: 3.756501
+  type: 'test'
+  ...
+# Subtest: inherited constructor worker assignments fall through to the project default
+ok 44 - inherited constructor worker assignments fall through to the project default
+  ---
+  duration_ms: 0.240426
+  type: 'test'
+  ...
+# Subtest: operator field overrides and worker selection have documented precedence
+ok 45 - operator field overrides and worker selection have documented precedence
+  ---
+  duration_ms: 0.57509
+  type: 'test'
+  ...
+# Subtest: legacy is byte-for-byte and project declarations cannot override an unopted operator
+ok 46 - legacy is byte-for-byte and project declarations cannot override an unopted operator
+  ---
+  duration_ms: 0.698069
+  type: 'test'
+  ...
+# Subtest: invalid settings and unsupported transport or billing knobs are rejected
+ok 47 - invalid settings and unsupported transport or billing knobs are rejected
+  ---
+  duration_ms: 1.031438
+  type: 'test'
+  ...
+# Subtest: unavailable models, effort or tools fail without any fallback
+ok 48 - unavailable models, effort or tools fail without any fallback
+  ---
+  duration_ms: 0.424625
+  type: 'test'
+  ...
+# Subtest: max effort is accepted only when the operator declares support
+ok 49 - max effort is accepted only when the operator declares support
+  ---
+  duration_ms: 0.40767
+  type: 'test'
+  ...
+# Subtest: fast never implies premium processing or proven provider access and unknown is not zero
+ok 50 - fast never implies premium processing or proven provider access and unknown is not zero
+  ---
+  duration_ms: 0.323448
+  type: 'test'
+  ...
+# Subtest: a complete draft becomes reviewable only after required CI passes
+ok 51 - a complete draft becomes reviewable only after required CI passes
+  ---
+  duration_ms: 5.791739
+  type: 'test'
+  ...
+# Subtest: manual readiness of an incomplete or stale-head candidate returns to draft
+ok 52 - manual readiness of an incomplete or stale-head candidate returns to draft
+  ---
+  duration_ms: 0.701476
+  type: 'test'
+  ...
+# Subtest: a passing candidate stays draft until CI passes, and a foreign PR is rejected
+ok 53 - a passing candidate stays draft until CI passes, and a foreign PR is rejected
+  ---
+  duration_ms: 1.15728
+  type: 'test'
+  ...
+# Subtest: a running correction keeps the PR draft until its reservation is released
+ok 54 - a running correction keeps the PR draft until its reservation is released
+  ---
+  duration_ms: 0.606342
+  type: 'test'
+  ...
+# Subtest: scheduled reconciliation selects only bot implementation PRs
+ok 55 - scheduled reconciliation selects only bot implementation PRs
+  ---
+  duration_ms: 0.465311
+  type: 'test'
+  ...
+# Subtest: CI callback accepts only the current configured repository run
+ok 56 - CI callback accepts only the current configured repository run
+  ---
+  duration_ms: 0.375085
+  type: 'test'
+  ...
+# Subtest: a child retains host budgets while narrowing its deadline and cannot replace other limits
+ok 57 - a child retains host budgets while narrowing its deadline and cannot replace other limits
+  ---
+  duration_ms: 7.131624
+  type: 'test'
+  ...
+# Subtest: disjoint tasks run in bounded waves and dependants wait for wave verification
+ok 58 - disjoint tasks run in bounded waves and dependants wait for wave verification
+  ---
+  duration_ms: 24.783583
+  type: 'test'
+  ...
+# Subtest: same-file and directory conflicts serialize, and the configured limit holds
+ok 59 - same-file and directory conflicts serialize, and the configured limit holds
+  ---
+  duration_ms: 3.800161
+  type: 'test'
+  ...
+# Subtest: execution and verification failures block dependants transitively while independent work continues
+ok 60 - execution and verification failures block dependants transitively while independent work continues
+  ---
+  duration_ms: 2.636575
+  type: 'test'
+  ...
+# Subtest: invalid dependency graphs, scopes, profiles and permissions launch nothing
+ok 61 - invalid dependency graphs, scopes, profiles and permissions launch nothing
+  ---
+  duration_ms: 2.688624
+  type: 'test'
+  ...
+# Subtest: cancellation and deadlines stop scheduling and signal the host
+ok 62 - cancellation and deadlines stop scheduling and signal the host
+  ---
+  duration_ms: 1004.170085
+  type: 'test'
+  ...
+# Subtest: only existing bot proposal branches with intact identity can be updated
+ok 63 - only existing bot proposal branches with intact identity can be updated
+  ---
+  duration_ms: 2.48829
+  type: 'test'
+  ...
+# Subtest: owner feedback is fetched from source and approvals never request revision
+ok 64 - owner feedback is fetched from source and approvals never request revision
+  ---
+  duration_ms: 1.505834
+  type: 'test'
+  ...
+# Subtest: publication updates the same branch non-forcibly and rejects a concurrent writer
+ok 65 - publication updates the same branch non-forcibly and rejects a concurrent writer
+  ---
+  duration_ms: 3.67594
+  type: 'test'
+  ...
+# Subtest: real router maps a PR comment to its source issue and reports approvals without execution
+ok 66 - real router maps a PR comment to its source issue and reports approvals without execution
+  ---
+  duration_ms: 319.150984
+  type: 'test'
+  ...
+# Subtest: approved numeric points require independent explanations, confidence and uncertainty
+ok 67 - approved numeric points require independent explanations, confidence and uncertainty
+  ---
+  duration_ms: 3.592422
+  type: 'test'
+  ...
+# Subtest: native completion preserves exact words and rejects unsupported inferences or blocking questions
+ok 68 - native completion preserves exact words and rejects unsupported inferences or blocking questions
+  ---
+  duration_ms: 1.774672
+  type: 'test'
+  ...
+# Subtest: refinement rechecks and retains a supplied initial estimate, even when unchanged
+ok 69 - refinement rechecks and retains a supplied initial estimate, even when unchanged
+  ---
+  duration_ms: 0.625572
+  type: 'test'
+  ...
+# Subtest: external requests need owner admission and a triaged issue before later stages
+ok 70 - external requests need owner admission and a triaged issue before later stages
+  ---
+  duration_ms: 0.618252
+  type: 'test'
+  ...
+# Subtest: only matching owner replies resume blocked triage and never start refinement
+ok 71 - only matching owner replies resume blocked triage and never start refinement
+  ---
+  duration_ms: 0.668472
+  type: 'test'
+  ...
+# Subtest: a triaged label alone cannot start refinement of an external request
+ok 72 - a triaged label alone cannot start refinement of an external request
+  ---
+  duration_ms: 206.166732
+  type: 'test'
+  ...
+# Subtest: packaged public form asks only for problem and desired result
+ok 73 - packaged public form asks only for problem and desired result
+  ---
+  duration_ms: 12.00644
+  type: 'test'
+  ...
+# Subtest: the published triage result label is declared for adopters
+ok 74 - the published triage result label is declared for adopters
+  ---
+  duration_ms: 1.110025
+  type: 'test'
+  ...
+# Subtest: installer preview includes triage, preserves existing form and writes nothing
+ok 75 - installer preview includes triage, preserves existing form and writes nothing
+  ---
+  duration_ms: 141.853845
+  type: 'test'
+  ...
+# Subtest: native triage source reuses authenticated dispatch and never requests continuation
+ok 76 - native triage source reuses authenticated dispatch and never requests continuation
+  ---
+  duration_ms: 4.041235
+  type: 'test'
+  ...
+# Subtest: external issue preparation and publication retain intent and stop at triaged
+ok 77 - external issue preparation and publication retain intent and stop at triaged
+  ---
+  duration_ms: 496.517583
+  type: 'test'
+  ...
+# Subtest: completion binds the result to the dispatched run, stage and declared gate
+ok 78 - completion binds the result to the dispatched run, stage and declared gate
+  ---
+  duration_ms: 3.833256
+  type: 'test'
+  ...
+# Subtest: unresolved reports remain structurally valid but cannot complete a worker
+ok 79 - unresolved reports remain structurally valid but cannot complete a worker
+  ---
+  duration_ms: 0.641363
+  type: 'test'
+  ...
+# Subtest: the CLI distinguishes report validation from completion and requires host identity
+ok 80 - the CLI distinguishes report validation from completion and requires host identity
+  ---
+  duration_ms: 939.676463
+  type: 'test'
+  ...
+# Subtest: all bundled routes stop ff before dispatch while individual stages remain available
+ok 81 - all bundled routes stop ff before dispatch while individual stages remain available
+  ---
+  duration_ms: 782.4078
+  type: 'test'
+  ...
+# Subtest: the authored worker shell preserves JSON input, including empty defaults
+ok 82 - the authored worker shell preserves JSON input, including empty defaults
+  ---
+  duration_ms: 23.642451
+  type: 'test'
+  ...
+1..82
+# tests 82
+# suites 0
+# pass 82
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1961.407361

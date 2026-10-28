@@ -2,6 +2,8 @@
 
 SoFa uses Lighthouse's repository workflows. GitHub runs the work; the web app observes it.
 
+The change-request issue form collects an initial request. The owner can add `triage` for classification and an explained relative estimate, then request `refine` when appropriate. A submitted form does not itself authorize execution.
+
 ## Use the workflow
 
 1. Add `refine` to an issue. If the agent asks a question, answer in the issue.
@@ -24,9 +26,13 @@ The current gh-aw gateway uses host port 8080. Only one gateway job may occupy t
 
 Enable `LIGHTHOUSE_AUTOMATION_ENABLED` after installing and checking the workflows. Keep default token permissions read-only. GitHub's setting allowing Actions to create and approve PRs is required for publication; the bot does not approve its own work.
 
-The workflows pin Lighthouse `57d4e23da2831be5fad0331f1ba82326782943cc` and use gh-aw 0.93.2. Update them through the Lighthouse installer. This includes upstream PRs #129, #137 and #144. The npm package version and workflow pin are separate: CLI 0.11.2 / SDLC 0.13.0 remain installed while publication of CLI 0.11.3 / SDLC 0.14.0 awaits the protected release gate.
+The workflows pin Lighthouse `ffa7e92613ad55989eb16133b1df26d2b7072603` and use gh-aw 0.93.2. Update them through the Lighthouse installer. The installed packages are CLI 0.11.4 and SDLC 0.15.0. Workflow and npm revisions are recorded independently.
 
-The installed workers are `refine`, `propose`, `implement`, `integrate`, `review` and `apply-review`. Optional maintenance is not installed; automatic recovery and aggregated maintenance reports remain disabled. GitHub Actions executes work and issues retain receipts and reservations. The [adoption evidence](../delivery/evidence/issue-72/README.md) records validation and the outstanding acceptance gaps.
+The installed workers are `triage`, `refine`, `propose`, `implement`, `integrate`, `review` and `apply-review`. Optional maintenance is not installed; automatic retry recovery and aggregated maintenance reports remain disabled. GitHub Actions executes work and issues retain receipts and reservations. The [adoption evidence](../delivery/evidence/issue-74/README.md) records validation and live-acceptance limits.
+
+The router projects implementation PR state after supported events and on a five-minute GitHub Actions schedule, gated by `LIGHTHOUSE_AUTOMATION_ENABLED`. It rechecks bounded candidates and required evidence, including when GitHub suppresses a chained completion event. This reconciliation can return a PR to draft or make a fully checked candidate ready; it does not approve or merge it. Issues show `pr-draft` or `pr-ready` and stay open until post-merge review. This PR-state projection is separate from the optional maintenance workflow and does not establish reconciliation of every canonical `status:*` label.
+
+After publishing refinement, the worker explicitly requests verified implementation continuation through the router. The existing `future` pause and duplicate-dispatch controls still apply. No model profile or delegation executor is enabled by this adoption; the existing operator-selected model and authentication remain authoritative.
 
 ## Reproducible application checks
 
@@ -39,8 +45,8 @@ Preflight verifies Node 24, npm, Git, Chromium, OpenCode 2.1.0 and .NET SDK 10.0
 To regenerate the existing workflow set from a verified Lighthouse checkout, first preview and review differences, then apply:
 
 ```sh
-node /path/to/lighthouse/src/packages/sdlc/src/install-workflows.mjs . 57d4e23da2831be5fad0331f1ba82326782943cc --with-completion --replace-reviewed
-node /path/to/lighthouse/src/packages/sdlc/src/install-workflows.mjs . 57d4e23da2831be5fad0331f1ba82326782943cc --with-completion --replace-reviewed --apply
+node node_modules/@juangcarmona/lighthouse-sdlc/src/install-workflows.mjs . ffa7e92613ad55989eb16133b1df26d2b7072603 --with-completion --replace-reviewed
+node node_modules/@juangcarmona/lighthouse-sdlc/src/install-workflows.mjs . ffa7e92613ad55989eb16133b1df26d2b7072603 --with-completion --replace-reviewed --apply
 ```
 
 Commit generated locks with their sources. The host authenticates product revision separately from workflow revision: a manual router dispatch can test this PR's workflow branch, while implementation policy and environment still come from the current default branch. Such a pre-merge run cannot prove activation of an unmerged environment declaration. Use isolated consumer acceptance for the candidate and retain this live-acceptance limitation until post-merge verification.
