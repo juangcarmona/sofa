@@ -1,0 +1,74 @@
+
+> sofa@0.0.0 test:browser
+> playwright test
+
+
+Running 4 tests using 1 worker
+
+  ✘  1 tests/browser/observation.spec.mjs:8:40 › dark: evidence, safe links, keyboard, mobile and accessibility (814ms)
+  ✘  2 tests/browser/observation.spec.mjs:8:40 › light: evidence, safe links, keyboard, mobile and accessibility (843ms)
+  ✘  3 tests/browser/observation.spec.mjs:32:1 › empty evidence is not a claim of delivery success (843ms)
+  ✘  4 tests/browser/observation.spec.mjs:39:1 › background refresh preserves keyboard focus and handles a removed issue (938ms)
+
+
+  1) tests/browser/observation.spec.mjs:8:40 › dark: evidence, safe links, keyboard, mobile and accessibility
+
+    Error: browserContext.newPage: Target crashed
+
+    Error Context: test-results/observation-dark-evidence--ee9f6-rd-mobile-and-accessibility/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/observation-dark-evidence--ee9f6-rd-mobile-and-accessibility/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/observation-dark-evidence--ee9f6-rd-mobile-and-accessibility/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/browser/observation.spec.mjs:8:40 › light: evidence, safe links, keyboard, mobile and accessibility
+
+    Error: browserContext.newPage: Target crashed
+
+    Error Context: test-results/observation-light-evidence-29014-rd-mobile-and-accessibility/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/observation-light-evidence-29014-rd-mobile-and-accessibility/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/observation-light-evidence-29014-rd-mobile-and-accessibility/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests/browser/observation.spec.mjs:32:1 › empty evidence is not a claim of delivery success ───
+
+    Error: browserContext.newPage: Target crashed
+
+    Error Context: test-results/observation-empty-evidence-2ebb0-a-claim-of-delivery-success/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/observation-empty-evidence-2ebb0-a-claim-of-delivery-success/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/observation-empty-evidence-2ebb0-a-claim-of-delivery-success/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests/browser/observation.spec.mjs:39:1 › background refresh preserves keyboard focus and handles a removed issue
+
+    Error: browserContext.newPage: Target crashed
+
+    Error Context: test-results/observation-background-ref-0f56d-and-handles-a-removed-issue/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/observation-background-ref-0f56d-and-handles-a-removed-issue/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/observation-background-ref-0f56d-and-handles-a-removed-issue/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    tests/browser/observation.spec.mjs:8:40 › dark: evidence, safe links, keyboard, mobile and accessibility
+    tests/browser/observation.spec.mjs:8:40 › light: evidence, safe links, keyboard, mobile and accessibility
+    tests/browser/observation.spec.mjs:32:1 › empty evidence is not a claim of delivery success ────
+    tests/browser/observation.spec.mjs:39:1 › background refresh preserves keyboard focus and handles a removed issue

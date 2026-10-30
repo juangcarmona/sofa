@@ -1,0 +1,52 @@
+{
+  "number": 69,
+  "html_url": "https://github.com/juangcarmona/sofa/issues/69",
+  "state": "open",
+  "labels": [
+    {
+      "id": 12750464298,
+      "node_id": "LA_kwDOVPZSgc8AAAAC9_ylKg",
+      "url": "https://api.github.com/repos/juangcarmona/sofa/labels/documentation",
+      "name": "documentation",
+      "color": "0075ca",
+      "default": true,
+      "description": "Improvements or additions to documentation",
+      "archived_at": null,
+      "archived_by": null
+    },
+    {
+      "id": 12752021890,
+      "node_id": "LA_kwDOVPZSgc8AAAAC-BRpgg",
+      "url": "https://api.github.com/repos/juangcarmona/sofa/labels/status:backlog",
+      "name": "status:backlog",
+      "color": "1D76DB",
+      "default": false,
+      "description": "Shared SDLC lifecycle: backlog",
+      "archived_at": null,
+      "archived_by": null
+    },
+    {
+      "id": 12838390494,
+      "node_id": "LA_kwDOVPZSgc8AAAAC_TpK3g",
+      "url": "https://api.github.com/repos/juangcarmona/sofa/labels/ready",
+      "name": "ready",
+      "color": "238636",
+      "default": false,
+      "description": "Refinement passed; this does not authorize implementation or merge.",
+      "archived_at": null,
+      "archived_by": null
+    },
+    {
+      "id": 12838390810,
+      "node_id": "LA_kwDOVPZSgc8AAAAC_TpMGg",
+      "url": "https://api.github.com/repos/juangcarmona/sofa/labels/waiting-review",
+      "name": "waiting-review",
+      "color": "D29922",
+      "default": false,
+      "description": "Published work awaits review or a decision; no active reservation.",
+      "archived_at": null,
+      "archived_by": null
+    }
+  ],
+  "updated_at": "2026-10-27T14:27:59Z"
+}

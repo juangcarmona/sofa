@@ -1,0 +1,58 @@
+[
+  {
+    "id": 6444222216,
+    "html_url": "https://github.com/juangcarmona/sofa/issues/69#issuecomment-6444222216",
+    "body": "\u2705 Completed \u00b7 refine\n\n[Execution](https://github.com/juangcarmona/sofa/actions/runs/40518750390). Open the execution for its current status and result.\n\n[Router request](https://github.com/juangcarmona/sofa/actions/runs/40518685400)\n\n<!-- lighthouse-dispatch:{\"schemaVersion\":1,\"stage\":\"refine\",\"status\":\"completed\",\"id\":\"a6ccfffb7ad108746083a53722ba0ad55109538fd37e7f3fa15a8566515877dd\",\"digest\":\"5db98b67a2c3424c5183feb04403543b9b82bf6e378d7a80917abe6a72d810f5\",\"routerRunId\":\"40518685400\",\"routerAttempt\":1,\"workerRunId\":\"40518750390\"} -->",
+    "created_at": "2026-10-27T14:11:27Z",
+    "updated_at": "2026-10-27T14:15:28Z"
+  },
+  {
+    "id": 6444322152,
+    "html_url": "https://github.com/juangcarmona/sofa/issues/69#issuecomment-6444322152",
+    "body": "## \u2705 Completed \u00b7 refine\n\nThe issue is sufficiently defined for planning: add one sentence naming both host-only Docker tests and requiring the separate host suite and full CI before integration, while preserving existing text and behavior. No refinement blocker remains. Native continuation, feedback, actual test results and integration controls still need to be demonstrated; this assessment approves no implementation or merge. Next, continue through the authorized independent worker, keeping owner review required and the fixture PR unmerged.\n\nRefinement complete. Implementation is next; use `future` to pause it.\n\n[Follow progress](https://github.com/juangcarmona/sofa/actions/runs/40518750390)\n\n<details><summary>Execution details</summary>\n\nOutcome: passed\n\n[Workflow run](https://github.com/juangcarmona/sofa/actions/runs/40518750390) \u00b7 source `232dbc8f2bdc61f6f52297d419ab9aee3ea3de7f`\n\n<!-- lighthouse-actions:438f84ef69eb1e5726bc57f5f9a3ae048081378ad86d86233769b69b6ce808ee -->\n<!-- lighthouse-stage:refine:passed -->\n</details>",
+    "created_at": "2026-10-27T14:15:23Z",
+    "updated_at": "2026-10-27T14:15:23Z"
+  },
+  {
+    "id": 6444413020,
+    "html_url": "https://github.com/juangcarmona/sofa/issues/69#issuecomment-6444413020",
+    "body": "\u23f8\ufe0f Waiting for your response \u00b7 implement\n\n[Execution](https://github.com/juangcarmona/sofa/actions/runs/40519941706). Open the execution for its current status and result.\n\n[Router request](https://github.com/juangcarmona/sofa/actions/runs/40519851066)\n\n<!-- lighthouse-dispatch:{\"schemaVersion\":1,\"stage\":\"implement\",\"status\":\"waiting\",\"eventRunId\":\"40518750390\",\"id\":\"a0060a81e0eeca0341b388a812eee7cc726b05a132b25c3f885af0bee5d148af\",\"digest\":\"55bdabd108d286bc17fc9e62490afca0b7cbad19cd86d758df8e3f78400181d7\",\"routerRunId\":\"40519851066\",\"routerAttempt\":1,\"workerRunId\":\"40519941706\"} -->",
+    "created_at": "2026-10-27T14:18:55Z",
+    "updated_at": "2026-10-27T14:27:58Z"
+  },
+  {
+    "id": 6444625585,
+    "html_url": "https://github.com/juangcarmona/sofa/issues/69#issuecomment-6444625585",
+    "body": "## \u23f8\ufe0f Waiting for your response \u00b7 implement\n\nAdded the single test-guide sentence and its OpenSpec plan, preserving existing wording and commands. Plan validation, source lint, 36 runtime tests, ProductShape and architecture checks passed. Verification remains blocked by a Gitleaks version mismatch, Chromium crashes, missing host-CI evidence and required owner review. Please review the preserved draft and exercise the fixture controls without merging.\n\n[Review the implementation draft](https://github.com/juangcarmona/sofa/pull/70). Human acceptance and merge remain separate decisions.\n\n[Follow progress](https://github.com/juangcarmona/sofa/actions/runs/40519941706)\n\n<details><summary>Execution details</summary>\n\nOutcome: blocked\n\n[Workflow run](https://github.com/juangcarmona/sofa/actions/runs/40519941706) \u00b7 source `232dbc8f2bdc61f6f52297d419ab9aee3ea3de7f`\n\n<!-- lighthouse-actions:03dd377471f89ce7f98086cb8fec8da980557a5196ff6471c05dd8adc122ff00 -->\n<!-- lighthouse-stage:implement:blocked -->\n</details>",
+    "created_at": "2026-10-27T14:27:55Z",
+    "updated_at": "2026-10-27T14:27:55Z"
+  },
+  {
+    "id": 6444654689,
+    "html_url": "https://github.com/juangcarmona/sofa/issues/69#issuecomment-6444654689",
+    "body": "\u23f8\ufe0f Waiting for your response \u00b7 implement\n\n[Execution](https://github.com/juangcarmona/sofa/actions/runs/40521552820). Open the execution for its current status and result.\n\n[Router request](https://github.com/juangcarmona/sofa/actions/runs/40521460657)\n\n<!-- lighthouse-dispatch:{\"schemaVersion\":1,\"stage\":\"implement\",\"status\":\"waiting\",\"id\":\"ec59b40b76d3735652b3907fc74b8f56a5447096af1e977da24708bcfbb4004a\",\"digest\":\"bd59b1e1624ddad90ea38995a90604b9bc3c0252b26f0adcb6ebd1d1490f7187\",\"routerRunId\":\"40521460657\",\"routerAttempt\":1,\"workerRunId\":\"40521552820\"} -->",
+    "created_at": "2026-10-27T14:29:10Z",
+    "updated_at": "2026-10-27T14:37:23Z"
+  },
+  {
+    "id": 6444842988,
+    "html_url": "https://github.com/juangcarmona/sofa/issues/69#issuecomment-6444842988",
+    "body": "## \u23f8\ufe0f Waiting for your response \u00b7 implement\n\nUpdated the added sentence to name `npm run test:runtime:host` and `npm run verify`, preserving both test names and all other guide wording. Planning artifacts remain included. Local runtime and browser tests passed, but container verification and security scanning failed on a Gitleaks version mismatch. Independent host checks and owner review remain pending. Please review the candidate and outstanding checks; do not merge this fixture.\n\nThe PR was saved, but CI could not start. See the run for details.\n\n[Review the implementation draft](https://github.com/juangcarmona/sofa/pull/70). Human acceptance and merge remain separate decisions.\n\n[Follow progress](https://github.com/juangcarmona/sofa/actions/runs/40521552820)\n\n<details><summary>Execution details</summary>\n\nOutcome: blocked\n\n[Workflow run](https://github.com/juangcarmona/sofa/actions/runs/40521552820) \u00b7 source `5aa8fdc21f65fa7709e3f5655d879f87dbfe5ed6`\n\n<!-- lighthouse-actions:f153e3232527d09e0444a0cae763046b761690150c871419b05d97a4ebd6457f -->\n<!-- lighthouse-stage:implement:blocked -->\n</details>",
+    "created_at": "2026-10-27T14:37:20Z",
+    "updated_at": "2026-10-27T14:37:20Z"
+  },
+  {
+    "id": 6444864996,
+    "html_url": "https://github.com/juangcarmona/sofa/issues/69#issuecomment-6444864996",
+    "body": "\u274c Failed or cancelled \u00b7 integrate\n\n[Execution](https://github.com/juangcarmona/sofa/actions/runs/40523027983). Open the execution for its current status and result.\n\n[Router request](https://github.com/juangcarmona/sofa/actions/runs/40522965499)\n\n<!-- lighthouse-dispatch:{\"schemaVersion\":1,\"stage\":\"integrate\",\"status\":\"failed\",\"id\":\"708e9f3226f0effa4de94eed9fb008d361f3583665d68a40dc4808e4251568c0\",\"digest\":\"950273c0cd078a9633689daf4a4baa1743e8883ef7e3bf3511da63f084628575\",\"routerRunId\":\"40522965499\",\"routerAttempt\":1,\"workerRunId\":\"40523027983\"} -->",
+    "created_at": "2026-10-27T14:38:16Z",
+    "updated_at": "2026-10-27T14:38:36Z"
+  },
+  {
+    "id": 6444893477,
+    "html_url": "https://github.com/juangcarmona/sofa/issues/69#issuecomment-6444893477",
+    "body": "\u274c Failed or cancelled \u00b7 integrate\n\n[Execution](https://github.com/juangcarmona/sofa/actions/runs/40523221648). Open the execution for its current status and result.\n\n[Router request](https://github.com/juangcarmona/sofa/actions/runs/40523120543)\n\n<!-- lighthouse-dispatch:{\"schemaVersion\":1,\"stage\":\"integrate\",\"status\":\"failed\",\"id\":\"c2af540c4859d19256c7e3fc2cdc1d1fb23a5e0571a73529eb30a9c1cc19d296\",\"digest\":\"c1250cab0d0f927d3dc32dfcc5f5718a8c4a28cb19da68590ab3a3410e4cd103\",\"routerRunId\":\"40523120543\",\"routerAttempt\":1,\"workerRunId\":\"40523221648\"} -->",
+    "created_at": "2026-10-27T14:39:30Z",
+    "updated_at": "2026-10-27T14:39:48Z"
+  }
+]

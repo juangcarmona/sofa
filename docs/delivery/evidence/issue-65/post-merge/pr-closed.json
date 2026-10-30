@@ -1,0 +1,13 @@
+{
+  "number": 70,
+  "html_url": "https://github.com/juangcarmona/sofa/pull/70",
+  "state": "closed",
+  "draft": true,
+  "merged": false,
+  "merged_at": null,
+  "closed_at": "2026-10-27T14:42:41Z",
+  "head": {
+    "ref": "lighthouse/implement-69-03dd377471f8",
+    "sha": "e17e05b5f58315b40b11cd186818a9cf2c8654bd"
+  }
+}

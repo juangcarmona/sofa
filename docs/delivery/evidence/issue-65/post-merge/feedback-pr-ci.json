@@ -1,0 +1,16 @@
+{
+  "id": 40522876517,
+  "name": "Verify repository",
+  "display_title": "Verify native Lighthouse delivery after adoption with a host-test documentation fixture",
+  "event": "pull_request",
+  "status": "completed",
+  "conclusion": "action_required",
+  "head_sha": "e17e05b5f58315b40b11cd186818a9cf2c8654bd",
+  "head_branch": "lighthouse/implement-69-03dd377471f8",
+  "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40522876517",
+  "created_at": "2026-10-27T14:37:23Z",
+  "updated_at": "2026-10-27T14:37:23Z",
+  "run_attempt": 1,
+  "path": ".github/workflows/verify.yml",
+  "jobs": []
+}

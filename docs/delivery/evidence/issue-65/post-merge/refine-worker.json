@@ -1,0 +1,995 @@
+{
+  "id": 40518750390,
+  "name": "refine #69 \u00b7 request 6444222216",
+  "display_title": "refine #69 \u00b7 request 6444222216",
+  "event": "workflow_dispatch",
+  "status": "completed",
+  "conclusion": "success",
+  "head_sha": "232dbc8f2bdc61f6f52297d419ab9aee3ea3de7f",
+  "head_branch": "main",
+  "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40518750390",
+  "created_at": "2026-10-27T14:11:31Z",
+  "updated_at": "2026-10-27T14:15:58Z",
+  "run_attempt": 1,
+  "path": ".github/workflows/lighthouse-sdlc-refine.lock.yml",
+  "jobs": [
+    {
+      "id": 122239561997,
+      "name": "Authorize and reserve issue",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-27T14:11:36Z",
+      "completed_at": "2026-10-27T14:11:48Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:11:37Z",
+          "completed_at": "2026-10-27T14:11:38Z"
+        },
+        {
+          "name": "Configure GH_HOST for enterprise compatibility",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:11:38Z",
+          "completed_at": "2026-10-27T14:11:38Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-27T14:11:38Z",
+          "completed_at": "2026-10-27T14:11:39Z"
+        },
+        {
+          "name": "Run actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:11:39Z",
+          "completed_at": "2026-10-27T14:11:40Z"
+        },
+        {
+          "name": "Collect verified owner intent and reserve the issue",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-27T14:11:40Z",
+          "completed_at": "2026-10-27T14:11:44Z"
+        },
+        {
+          "name": "Preserve the execution request",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-27T14:11:44Z",
+          "completed_at": "2026-10-27T14:11:45Z"
+        },
+        {
+          "name": "Release reservation if preparation failed",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-27T14:11:45Z",
+          "completed_at": "2026-10-27T14:11:45Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-27T14:11:45Z",
+          "completed_at": "2026-10-27T14:11:46Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-27T14:11:46Z",
+          "completed_at": "2026-10-27T14:11:46Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-27T14:11:46Z",
+          "completed_at": "2026-10-27T14:11:46Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40518750390/job/122239561997"
+    },
+    {
+      "id": 122239721606,
+      "name": "pre_activation",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-27T14:11:51Z",
+      "completed_at": "2026-10-27T14:11:59Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:11:52Z",
+          "completed_at": "2026-10-27T14:11:54Z"
+        },
+        {
+          "name": "Setup Scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:11:54Z",
+          "completed_at": "2026-10-27T14:11:57Z"
+        },
+        {
+          "name": "Post Setup Scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:11:57Z",
+          "completed_at": "2026-10-27T14:11:57Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-27T14:11:57Z",
+          "completed_at": "2026-10-27T14:11:57Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40518750390/job/122239721606"
+    },
+    {
+      "id": 122239834788,
+      "name": "activation",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-27T14:12:02Z",
+      "completed_at": "2026-10-27T14:12:18Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:12:03Z",
+          "completed_at": "2026-10-27T14:12:06Z"
+        },
+        {
+          "name": "Setup Scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:12:06Z",
+          "completed_at": "2026-10-27T14:12:08Z"
+        },
+        {
+          "name": "Mask OTLP telemetry headers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-27T14:12:08Z",
+          "completed_at": "2026-10-27T14:12:08Z"
+        },
+        {
+          "name": "Generate agentic run info",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:12:08Z",
+          "completed_at": "2026-10-27T14:12:09Z"
+        },
+        {
+          "name": "Enforce strict mode policy",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 5,
+          "started_at": "2026-10-27T14:12:09Z",
+          "completed_at": "2026-10-27T14:12:09Z"
+        },
+        {
+          "name": "Restore daily AIC scan observations",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-27T14:12:09Z",
+          "completed_at": "2026-10-27T14:12:09Z"
+        },
+        {
+          "name": "Check daily workflow token guardrail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-27T14:12:09Z",
+          "completed_at": "2026-10-27T14:12:09Z"
+        },
+        {
+          "name": "Publish daily AIC scan observations",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-27T14:12:09Z",
+          "completed_at": "2026-10-27T14:12:09Z"
+        },
+        {
+          "name": "Check for OAuth tokens",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-27T14:12:09Z",
+          "completed_at": "2026-10-27T14:12:09Z"
+        },
+        {
+          "name": "Checkout .github and .agents folders",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-27T14:12:09Z",
+          "completed_at": "2026-10-27T14:12:10Z"
+        },
+        {
+          "name": "Save agent config folders for base branch restoration",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-27T14:12:10Z",
+          "completed_at": "2026-10-27T14:12:10Z"
+        },
+        {
+          "name": "Check workflow lock file",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-27T14:12:10Z",
+          "completed_at": "2026-10-27T14:12:12Z"
+        },
+        {
+          "name": "Check compile-agentic version",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-27T14:12:12Z",
+          "completed_at": "2026-10-27T14:12:12Z"
+        },
+        {
+          "name": "Log runtime features",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 14,
+          "started_at": "2026-10-27T14:12:12Z",
+          "completed_at": "2026-10-27T14:12:12Z"
+        },
+        {
+          "name": "Create prompt with built-in context",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-27T14:12:12Z",
+          "completed_at": "2026-10-27T14:12:12Z"
+        },
+        {
+          "name": "Interpolate variables and render templates",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-27T14:12:12Z",
+          "completed_at": "2026-10-27T14:12:12Z"
+        },
+        {
+          "name": "Substitute placeholders",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-27T14:12:12Z",
+          "completed_at": "2026-10-27T14:12:12Z"
+        },
+        {
+          "name": "Validate prompt placeholders",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-27T14:12:12Z",
+          "completed_at": "2026-10-27T14:12:12Z"
+        },
+        {
+          "name": "Print prompt",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-27T14:12:12Z",
+          "completed_at": "2026-10-27T14:12:12Z"
+        },
+        {
+          "name": "Inventory installed skills",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-27T14:12:12Z",
+          "completed_at": "2026-10-27T14:12:12Z"
+        },
+        {
+          "name": "Upload info artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-27T14:12:12Z",
+          "completed_at": "2026-10-27T14:12:14Z"
+        },
+        {
+          "name": "Stage prompt files for artifact upload",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-10-27T14:12:14Z",
+          "completed_at": "2026-10-27T14:12:14Z"
+        },
+        {
+          "name": "Upload activation artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-10-27T14:12:14Z",
+          "completed_at": "2026-10-27T14:12:15Z"
+        },
+        {
+          "name": "Post Checkout .github and .agents folders",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 45,
+          "started_at": "2026-10-27T14:12:15Z",
+          "completed_at": "2026-10-27T14:12:15Z"
+        },
+        {
+          "name": "Post Setup Scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 46,
+          "started_at": "2026-10-27T14:12:15Z",
+          "completed_at": "2026-10-27T14:12:15Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 47,
+          "started_at": "2026-10-27T14:12:15Z",
+          "completed_at": "2026-10-27T14:12:15Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40518750390/job/122239834788"
+    },
+    {
+      "id": 122240036292,
+      "name": "agent",
+      "status": "in_progress",
+      "conclusion": "success",
+      "started_at": "2026-10-27T14:12:21Z",
+      "completed_at": "2026-10-27T14:15:10Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:12:23Z",
+          "completed_at": "2026-10-27T14:12:29Z"
+        },
+        {
+          "name": "Set up runner",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:12:29Z",
+          "completed_at": "2026-10-27T14:12:30Z"
+        },
+        {
+          "name": "Setup Scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-27T14:12:30Z",
+          "completed_at": "2026-10-27T14:12:36Z"
+        },
+        {
+          "name": "Set runtime paths",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:12:36Z",
+          "completed_at": "2026-10-27T14:12:36Z"
+        },
+        {
+          "name": "Mask OTLP telemetry headers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-27T14:12:36Z",
+          "completed_at": "2026-10-27T14:12:36Z"
+        },
+        {
+          "name": "Check OTLP telemetry configuration",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-27T14:12:36Z",
+          "completed_at": "2026-10-27T14:12:36Z"
+        },
+        {
+          "name": "Initialize agent execution evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-27T14:12:36Z",
+          "completed_at": "2026-10-27T14:12:36Z"
+        },
+        {
+          "name": "Create gh-aw temp directory",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-27T14:12:36Z",
+          "completed_at": "2026-10-27T14:12:36Z"
+        },
+        {
+          "name": "Configure gh CLI for GitHub Enterprise",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-27T14:12:36Z",
+          "completed_at": "2026-10-27T14:12:36Z"
+        },
+        {
+          "name": "Download activation artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-27T14:12:36Z",
+          "completed_at": "2026-10-27T14:12:38Z"
+        },
+        {
+          "name": "Check out the authorized product revision",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-27T14:12:38Z",
+          "completed_at": "2026-10-27T14:12:41Z"
+        },
+        {
+          "name": "Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-27T14:12:41Z",
+          "completed_at": "2026-10-27T14:12:42Z"
+        },
+        {
+          "name": "Load the pinned harness package",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-27T14:12:42Z",
+          "completed_at": "2026-10-27T14:12:44Z"
+        },
+        {
+          "name": "Load the authorized issue context",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-27T14:12:44Z",
+          "completed_at": "2026-10-27T14:12:46Z"
+        },
+        {
+          "name": "Configure Git credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-27T14:12:46Z",
+          "completed_at": "2026-10-27T14:12:46Z"
+        },
+        {
+          "name": "Restore inline sub-agents from activation artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-27T14:12:46Z",
+          "completed_at": "2026-10-27T14:12:46Z"
+        },
+        {
+          "name": "Restore inline skills from activation artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-27T14:12:46Z",
+          "completed_at": "2026-10-27T14:12:46Z"
+        },
+        {
+          "name": "Download container images",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-27T14:12:46Z",
+          "completed_at": "2026-10-27T14:12:48Z"
+        },
+        {
+          "name": "Prepare Safe Outputs Directories",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-27T14:12:48Z",
+          "completed_at": "2026-10-27T14:12:48Z"
+        },
+        {
+          "name": "Generate Safe Outputs Config",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-27T14:12:48Z",
+          "completed_at": "2026-10-27T14:12:48Z"
+        },
+        {
+          "name": "Generate Safe Outputs Tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-27T14:12:48Z",
+          "completed_at": "2026-10-27T14:12:48Z"
+        },
+        {
+          "name": "Start MCP Gateway",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-10-27T14:12:48Z",
+          "completed_at": "2026-10-27T14:12:54Z"
+        },
+        {
+          "name": "Mount MCP servers as CLIs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-10-27T14:12:54Z",
+          "completed_at": "2026-10-27T14:12:54Z"
+        },
+        {
+          "name": "Clean credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-10-27T14:12:54Z",
+          "completed_at": "2026-10-27T14:12:54Z"
+        },
+        {
+          "name": "Audit pre-agent workspace",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-27T14:12:54Z",
+          "completed_at": "2026-10-27T14:12:54Z"
+        },
+        {
+          "name": "Write OpenCode log parser script",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-27T14:12:54Z",
+          "completed_at": "2026-10-27T14:12:54Z"
+        },
+        {
+          "name": "OpenCode progress and result",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-27T14:12:54Z",
+          "completed_at": "2026-10-27T14:14:53Z"
+        },
+        {
+          "name": "Configure Git credentials",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-10-27T14:14:53Z",
+          "completed_at": "2026-10-27T14:14:54Z"
+        },
+        {
+          "name": "Stop MCP Gateway",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-10-27T14:14:54Z",
+          "completed_at": "2026-10-27T14:14:54Z"
+        },
+        {
+          "name": "Redact secrets in logs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30,
+          "started_at": "2026-10-27T14:14:54Z",
+          "completed_at": "2026-10-27T14:14:54Z"
+        },
+        {
+          "name": "Append agent step summary",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31,
+          "started_at": "2026-10-27T14:14:54Z",
+          "completed_at": "2026-10-27T14:14:54Z"
+        },
+        {
+          "name": "Copy Safe Outputs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-27T14:14:54Z",
+          "completed_at": "2026-10-27T14:14:54Z"
+        },
+        {
+          "name": "Ingest agent output",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-27T14:14:54Z",
+          "completed_at": "2026-10-27T14:14:54Z"
+        },
+        {
+          "name": "Parse agent logs for step summary",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-10-27T14:14:54Z",
+          "completed_at": "2026-10-27T14:14:55Z"
+        },
+        {
+          "name": "Parse MCP Gateway logs for step summary",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-10-27T14:14:55Z",
+          "completed_at": "2026-10-27T14:14:55Z"
+        },
+        {
+          "name": "Generate observability summary",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-10-27T14:14:55Z",
+          "completed_at": "2026-10-27T14:14:55Z"
+        },
+        {
+          "name": "Write agent output placeholder if missing",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-10-27T14:14:55Z",
+          "completed_at": "2026-10-27T14:14:55Z"
+        },
+        {
+          "name": "Validate the Lighthouse result",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-10-27T14:14:55Z",
+          "completed_at": "2026-10-27T14:14:55Z"
+        },
+        {
+          "name": "Preserve the result and runtime receipt",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-10-27T14:14:55Z",
+          "completed_at": "2026-10-27T14:14:57Z"
+        },
+        {
+          "name": "Preserve OpenCode diagnostic events",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 40,
+          "started_at": "2026-10-27T14:14:57Z",
+          "completed_at": "2026-10-27T14:15:00Z"
+        },
+        {
+          "name": "Upload agent output fallback artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 41,
+          "started_at": "2026-10-27T14:15:00Z",
+          "completed_at": "2026-10-27T14:15:02Z"
+        },
+        {
+          "name": "Upload agent artifacts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 42,
+          "started_at": "2026-10-27T14:15:02Z",
+          "completed_at": "2026-10-27T14:15:04Z"
+        },
+        {
+          "name": "Post Load the pinned harness package",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 81,
+          "started_at": "2026-10-27T14:15:04Z",
+          "completed_at": "2026-10-27T14:15:05Z"
+        },
+        {
+          "name": "Post Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 82,
+          "started_at": "2026-10-27T14:15:05Z",
+          "completed_at": "2026-10-27T14:15:05Z"
+        },
+        {
+          "name": "Post Check out the authorized product revision",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 83,
+          "started_at": "2026-10-27T14:15:05Z",
+          "completed_at": "2026-10-27T14:15:05Z"
+        },
+        {
+          "name": "Post Setup Scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 84,
+          "started_at": "2026-10-27T14:15:05Z",
+          "completed_at": "2026-10-27T14:15:05Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 85,
+          "started_at": "2026-10-27T14:15:05Z",
+          "completed_at": "2026-10-27T14:15:05Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40518750390/job/122240036292"
+    },
+    {
+      "id": 122241814099,
+      "name": "Validate, publish and release",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-27T14:15:13Z",
+      "completed_at": "2026-10-27T14:15:33Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:15:14Z",
+          "completed_at": "2026-10-27T14:15:16Z"
+        },
+        {
+          "name": "Configure GH_HOST for enterprise compatibility",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:15:16Z",
+          "completed_at": "2026-10-27T14:15:16Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-27T14:15:16Z",
+          "completed_at": "2026-10-27T14:15:17Z"
+        },
+        {
+          "name": "Run actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:15:17Z",
+          "completed_at": "2026-10-27T14:15:18Z"
+        },
+        {
+          "name": "Load the execution request",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-27T14:15:18Z",
+          "completed_at": "2026-10-27T14:15:19Z"
+        },
+        {
+          "name": "Load the candidate result",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-27T14:15:19Z",
+          "completed_at": "2026-10-27T14:15:20Z"
+        },
+        {
+          "name": "Require an executed agent",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-27T14:15:20Z",
+          "completed_at": "2026-10-27T14:15:20Z"
+        },
+        {
+          "name": "Recheck authority and publish the validated result",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-27T14:15:20Z",
+          "completed_at": "2026-10-27T14:15:27Z"
+        },
+        {
+          "name": "Release the issue reservation",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-27T14:15:27Z",
+          "completed_at": "2026-10-27T14:15:30Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-27T14:15:30Z",
+          "completed_at": "2026-10-27T14:15:30Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-27T14:15:30Z",
+          "completed_at": "2026-10-27T14:15:30Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-27T14:15:30Z",
+          "completed_at": "2026-10-27T14:15:30Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40518750390/job/122241814099"
+    },
+    {
+      "id": 122242051264,
+      "name": "conclusion",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-27T14:15:39Z",
+      "completed_at": "2026-10-27T14:15:57Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-27T14:15:40Z",
+          "completed_at": "2026-10-27T14:15:43Z"
+        },
+        {
+          "name": "Setup Scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-27T14:15:43Z",
+          "completed_at": "2026-10-27T14:15:46Z"
+        },
+        {
+          "name": "Download agent output artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-27T14:15:46Z",
+          "completed_at": "2026-10-27T14:15:48Z"
+        },
+        {
+          "name": "Setup agent output environment variable",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-27T14:15:48Z",
+          "completed_at": "2026-10-27T14:15:49Z"
+        },
+        {
+          "name": "Download Safe Outputs Items Manifest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-27T14:15:49Z",
+          "completed_at": "2026-10-27T14:15:49Z"
+        },
+        {
+          "name": "Process no-op messages",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-27T14:15:49Z",
+          "completed_at": "2026-10-27T14:15:49Z"
+        },
+        {
+          "name": "Handle agent failure",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-27T14:15:49Z",
+          "completed_at": "2026-10-27T14:15:50Z"
+        },
+        {
+          "name": "Report failed jobs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-27T14:15:50Z",
+          "completed_at": "2026-10-27T14:15:50Z"
+        },
+        {
+          "name": "Collect usage artifact files",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-27T14:15:50Z",
+          "completed_at": "2026-10-27T14:15:50Z"
+        },
+        {
+          "name": "Generate usage activity summary and unified session",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-27T14:15:50Z",
+          "completed_at": "2026-10-27T14:15:51Z"
+        },
+        {
+          "name": "Upload usage artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-27T14:15:51Z",
+          "completed_at": "2026-10-27T14:15:53Z"
+        },
+        {
+          "name": "Wait before retrying usage artifact upload",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 12,
+          "started_at": "2026-10-27T14:15:53Z",
+          "completed_at": "2026-10-27T14:15:53Z"
+        },
+        {
+          "name": "Retry upload usage artifact",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-10-27T14:15:53Z",
+          "completed_at": "2026-10-27T14:15:53Z"
+        },
+        {
+          "name": "Post Setup Scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-27T14:15:53Z",
+          "completed_at": "2026-10-27T14:15:53Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-27T14:15:53Z",
+          "completed_at": "2026-10-27T14:15:53Z"
+        }
+      ],
+      "html_url": "https://github.com/juangcarmona/sofa/actions/runs/40518750390/job/122242051264"
+    }
+  ]
+}

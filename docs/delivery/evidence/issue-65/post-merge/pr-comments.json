@@ -1,0 +1,23 @@
+[
+  {
+    "id": 6444641276,
+    "html_url": "https://github.com/juangcarmona/sofa/pull/70#issuecomment-6444641276",
+    "body": "For this authorized acceptance fixture, please update the existing PR: in the newly added sentence, spell out `npm run test:runtime:host` and `npm run verify` as the required host/full-suite commands. Keep both EngineTests names and all pre-existing wording unchanged. Preserve the small documentation scope and existing planning artifacts. Report your actual check results separately from the independent host checks; keep owner review pending and do not merge.",
+    "created_at": "2026-10-27T14:28:35Z",
+    "updated_at": "2026-10-27T14:28:35Z"
+  },
+  {
+    "id": 6444646869,
+    "html_url": "https://github.com/juangcarmona/sofa/pull/70#issuecomment-6444646869",
+    "body": "Applying review feedback. [Follow progress](https://github.com/juangcarmona/sofa/actions/runs/40521460657).",
+    "created_at": "2026-10-27T14:28:50Z",
+    "updated_at": "2026-10-27T14:28:50Z"
+  },
+  {
+    "id": 6444842744,
+    "html_url": "https://github.com/juangcarmona/sofa/pull/70#issuecomment-6444842744",
+    "body": "Updated the PR with your feedback. [Checks and evidence](https://github.com/juangcarmona/sofa/actions/runs/40521552820).\n\n<!-- lighthouse-review:comment:6444641276:0ff77c6d5721709956ae0cf75e71585f2fec288b087d483f26f464857a9f3b61 -->",
+    "created_at": "2026-10-27T14:37:19Z",
+    "updated_at": "2026-10-27T14:37:19Z"
+  }
+]
