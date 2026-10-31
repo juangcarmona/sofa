@@ -6,7 +6,7 @@ status: draft
 quality-attribute: recoverability
 applies-to: [UC-EXECUTE-WORK-UNIT, UC-MAINTAIN-RUNTIME]
 uses-terms: [TERM-EXECUTION-RUN]
-verification: [{scenario: "Given an interrupted run and a new Worker, the new Worker can identify the latest valid checkpoint and fencing token, while the old Worker cannot publish after lease loss."}]
+verification: [{scenario: "Given a SoFa restart during source-owned execution, the owner reconnects to the same source run and sees its outcome or an explicit evidence gap without another execution being requested."}]
 ---
 
 ## Requirement
