@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "runId": "c6b56b06-a796-4aea-abe9-29e613a67894",
+  "workItem": "juangcarmona/sofa#49",
+  "branch": "main (proposal branch pending)",
+  "startingCommit": "2a5610d390bd2acbbdc702ad43dd65cfe30c4ca5",
+  "startedAt": "2026-10-31T01:02:56Z",
+  "executorModel": "gpt-6.1-terra",
+  "reviewerModel": "gpt-6-astra",
+  "maxCorrectionRounds": 3,
+  "status": "blocked",
+  "stages": [
+    {
+      "name": "refine",
+      "startedAt": "2026-10-31T01:03:40Z",
+      "endedAt": "2026-10-31T01:08:04Z",
+      "inputCommit": "2a5610d390bd2acbbdc702ad43dd65cfe30c4ca5",
+      "outputCommit": null,
+      "result": "blocked",
+      "evidence": [
+        "https://github.com/juangcarmona/sofa/actions/runs/41153445104",
+        "https://github.com/juangcarmona/sofa/actions/runs/41153474276",
+        "https://github.com/juangcarmona/sofa/issues/49#issuecomment-6536906830",
+        "lighthouse-envelope.json",
+        "lighthouse-runtime.json"
+      ],
+      "nativeStageRuntimeModel": "openai/gpt-6.1-sol",
+      "nativeStageRuntimeStatus": "passed",
+      "nativeStageProviderModelStatus": "unverified",
+      "publicationStatus": "failed",
+      "publicationFailure": "The publisher refused to ingest output because the agent step exited 1: EACCES: permission denied, unlink '/home/juan/.local/share/lighthouse-runtime/runner-sofa/_work/_temp/lighthouse-engine-t2WcCC/output/execution/engine.json'. The safe-output envelope remains available as a workflow artifact; the issue result comment was not published. Lighthouse 0.15.2 at harness revision cee9f62 lacked ownership restoration; merged Lighthouse PR #200 adds it on main but is not in the current npm package.",
+      "reservationReleased": true,
+      "readyGate": "blocked",
+      "readyGateNextAction": "Owner reviews the recovered Product Change and proposed ADRs in SoFa draft PR #82, then activates the Lighthouse 0.16.0 upgrade in PR #81 and requests a fresh refinement. The previous failed run has no trusted blocked report for comment continuation."
+    }
+  ],
+  "reviews": [],
+  "corrections": [
+    {
+      "gate": "local evidence validation",
+      "round": 1,
+      "requestedChanges": [
+        "Replace a bare issue URL that failed Markdown lint with a Markdown link."
+      ],
+      "resultingCommit": null,
+      "rerunOutcomes": {
+        "npmRunVerify": "passed"
+      }
+    }
+  ],
+  "stopReason": "The refine envelope returned a blocked Ready gate because its supplied main checkout lacked CHG-AUTHENTICATED-OPERATIONS-001 and proposed ADR-0007/0008. A later audit found these as uncommitted drafts in local docs/48-product-operations; draft SoFa PR #82 now publishes copies for review without accepting them. The envelope also could not assess OIDC guidance from the worker checkout; the installed CLI package 0.11.6 contains that guide. Engine cleanup exited 1 (EACCES unlinking output/execution/engine.json), so no trusted blocked report was published and an issue reply cannot resume this run. The run used Lighthouse SDLC 0.15.2 at cee9f62, which lacked receipt ownership restoration. Lighthouse CLI 0.12.0 and SDLC 0.16.0 have since been published and are prepared in SoFa PR #81; a host Docker probe confirms the cleanup works with the current image/UID mapping. Reservation release succeeded. Resume requires review and activation of PRs #81 and #82, then a new refine request. Proposal, implementation and integration were not run.",
+  "pullRequest": null,
+  "links": [
+    "https://github.com/juangcarmona/sofa/issues/49",
+    "https://github.com/juangcarmona/sofa/blob/main/docs/engineering-lifecycle.md",
+    "https://github.com/juangcarmona/sofa/pull/81",
+    "https://github.com/juangcarmona/sofa/pull/82"
+  ],
+  "repositoryVerification": {
+    "command": "npm run verify",
+      "completedAt": "2026-10-31T05:47:17Z",
+    "status": "passed",
+    "summary": "Markdown lint 209 files; Node 27/27; Gitleaks no leaks; ProductShape validate/integrity/doctor passed; ArcShape 12 sections passed; .NET runtime 38/38; browser 4/4."
+  },
+  "findings": [
+    {
+      "kind": "traceability-gap",
+      "detail": "Issue #49 references CHG-AUTHENTICATED-OPERATIONS-001 and proposed ADR-0007/0008 paths that are absent from starting main; accepted ProductShape FR-AUTHORIZED-ENTRY and ADR-0006 remain present. A later audit found the drafts as uncommitted files in local docs/48-product-operations and copied them unchanged into draft PR #82. No product or architecture decision is inferred."
+    },
+    {
+      "kind": "blocked-ready-gate",
+      "detail": "Lighthouse produced a validated evidence artifact with status=blocked and gate=ready. Missing: proposed product overlay or explicit replacement. Unavailable: proposed ADR-0007/0008/local architecture and versioned OIDC guidance. No readiness or approval is inferred."
+    },
+    {
+      "kind": "runtime-publication-failure",
+      "detail": "The OpenCode process itself reported execution status=passed, but cleanup failed with EACCES unlinking engine.json. The execution directory is owned by UID/GID 20003 with mode 755, so the host cleanup process cannot unlink the container-owned file. The publisher then failed its Require an executed agent guard and did not publish the envelope. The issue retains the refine request label and a failed execution receipt; agent-working was removed and the reservation was released."
+    },
+    {
+      "kind": "lighthouse-guidance-evidence-correction",
+      "detail": "The envelope marks versioned OIDC guidance unavailable because assets/profiles/identity.md was absent from its supplied checkout. The adopted package is @juangcarmona/lighthouse 0.11.6 from registry.npmjs.org with lockfile integrity sha512-Ufec3zufJsC1NddrMJH/l+QAqBSpE9VIiF6X7bM6Kn3J/NyI9YnusshEhtioXkIgb2SzOnRE7+5NkCEeIFUWCg==; its installed assets/profiles/identity.md exists (SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb). The upstream main guide is https://github.com/juangcarmona/lighthouse/blob/3100a67bab69cdfe0ffd3b457e843d5c0e477ce4/src/packages/cli/assets/profiles/identity.md. This narrows the envelope finding to the Lighthouse worker checkout not including the installed CLI package path; it is not a missing SoFa dependency."
+    },
+    {
+      "kind": "lighthouse-cleanup-version-skew",
+      "detail": "The failed worker used @juangcarmona/lighthouse-sdlc 0.15.2 at harness revision cee9f62f8161771ea16366c6360b82e0efad045c, which removes its temporary tree without reclaiming ownership of the UID 20003 execution receipt directory. Merged Lighthouse PR #200 / commit 106d118 adds ownership restoration. npm now publishes CLI 0.12.0 and SDLC 0.16.0; SoFa PR #81 adopts that release. A local probe using the current pinned engine image changed the receipt tree back to runner UID 1000 and confirmed host Docker cleanup works."
+    }
+  ]
+}
