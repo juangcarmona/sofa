@@ -8,7 +8,7 @@
   "executorModel": "gpt-6.1-terra",
   "reviewerModel": "gpt-6-astra",
   "maxCorrectionRounds": 3,
-  "status": "running",
+  "status": "blocked",
   "followUp": {
     "observedAt": "2026-10-31",
     "lighthouseUpgrade": "SoFa PR #81 merged at 3ff107978412818bff2a85993516493f71d23296; main contains CLI 0.12.0 and SDLC 0.16.0. No fresh refine worker run has yet verified end-to-end publication.",
@@ -62,6 +62,23 @@
         "https://github.com/juangcarmona/sofa/actions/runs/41188212887",
         "https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541654459"
       ]
+    },
+    {
+      "name": "propose",
+      "startedAt": "2026-10-31T09:25:06Z",
+      "endedAt": "2026-10-31T09:33:54Z",
+      "inputCommit": "824131a785d4edd97adbe84850d5c9a26756a0d4",
+      "outputCommit": null,
+      "result": "blocked",
+      "gate": "planned",
+      "publicationStatus": "published",
+      "reservationReleased": true,
+      "nativeStageRuntimeModel": "openai/gpt-6.1-sol",
+      "evidence": [
+        "https://github.com/juangcarmona/sofa/actions/runs/41188590922",
+        "https://github.com/juangcarmona/sofa/actions/runs/41188613274",
+        "https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541743353"
+      ]
     }
   ],
   "reviews": [],
@@ -78,7 +95,7 @@
       }
     }
   ],
-  "stopReason": null,
+  "stopReason": "Propose returned blocked at the planned gate: the worker could not access the installed Lighthouse identity guide and requested exact compatibility pins. The owner can reply to the published blocker.",
   "pullRequest": null,
   "links": [
     "https://github.com/juangcarmona/sofa/issues/49",
@@ -118,6 +135,7 @@
     "proposeRouter": "https://github.com/juangcarmona/sofa/actions/runs/41188590922",
     "proposeRun": "https://github.com/juangcarmona/sofa/actions/runs/41188613274",
     "implementationHold": "future",
-    "architectureDecisions": "ADR-0007 and ADR-0008 remain Proposed."
+    "architectureDecisions": "ADR-0007 and ADR-0008 remain Proposed.",
+    "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified."
   }
 }
