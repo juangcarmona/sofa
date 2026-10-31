@@ -1,7 +1,7 @@
 ---
 id: ADR-0007
 title: Use an external identity provider
-status: Proposed
+status: Accepted
 date: "2026-10-26"
 deciders: [Juan García Carmona]
 ---
@@ -14,6 +14,8 @@ deciders: [Juan García Carmona]
 The accepted product model requires authenticated access and a separate GitHub authorization. Identity must remain independent of repository execution.
 
 ## Decision
+
+Accepted by Juan García Carmona on 2026-10-31.
 
 Use an external Keycloak instance for authentication. SoFa manages its own application sessions and separately obtains GitHub user authorization. Compose an independent Keycloak instance for development.
 

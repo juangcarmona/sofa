@@ -4,7 +4,7 @@
 
 See proposal.md for motivation and the three capability specifications for behavior. The current Node server serves fixed GET/HEAD assets and `/api/observations`, uses operator `gh` authentication and has no identity session. AppHost is empty; its project targets .NET 10 with Aspire 13.6.1. Existing tests cover bounded repository collection, cache coalescing, safe errors and a non-mutating observer.
 
-ProductShape's applied CHG-AUTHENTICATED-OPERATIONS-001 and canonical access/security/mobile rules authorize this slice. Some model frontmatter still says `draft`; the host-supplied accepted product record and applied change are the authority evidence, not an inferred promotion of every file. ADR-0006 is Accepted; ADR-0007/0008 and the corresponding application views are Proposed. This document is a reviewable implementation candidate, not an ADR acceptance or current-runtime claim.
+ProductShape's applied CHG-AUTHENTICATED-OPERATIONS-001 and canonical access/security/mobile rules authorize this slice. Some model frontmatter still says `draft`; the host-supplied accepted product record and applied change are the authority evidence, not an inferred promotion of every file. ADR-0006 is Accepted; Juan accepted ADR-0007 on 2026-10-31, recorded in this PR pending merge. ADR-0008 and the corresponding application views remain Proposed. This document is a reviewable implementation candidate, not a current-runtime claim.
 
 ## Goals / Non-Goals
 
@@ -84,7 +84,7 @@ Apply no-store to protected content, restrictive CSP with only the required same
 
 After explicit owner approval only: add the new workspace and tests, compose it with isolated Keycloak, then switch the documented supported Aspire entrypoint to the authenticated successor. Do not launch both public surfaces. Keep Node collector and observer tests clearly identified as legacy compatibility coverage until intentionally retired; adjust browser tests to target the new protected entrypoint and retain authenticated source presentation coverage.
 
-Rollback stops the new development workspace and discards process-local sessions/connections. It must not silently restore anonymous network access or change repository execution. A separately invoked historical observer remains non-privileged and is not an authenticated fallback. No source mutation or execution migration is required. Update canonical architecture views and ADR-0007 using their owning skills after the owner's decision, clearly separating implemented facts from proposed work. ADR-0008 is not a prerequisite.
+Rollback stops the new development workspace and discards process-local sessions/connections. It must not silently restore anonymous network access or change repository execution. A separately invoked historical observer remains non-privileged and is not an authenticated fallback. No source mutation or execution migration is required. Update canonical architecture views using their owning skill as implementation progresses, clearly separating implemented facts from proposed work. ADR-0008 is not a prerequisite.
 
 ## Verification and evidence plan
 

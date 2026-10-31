@@ -193,8 +193,17 @@
     "proposeRouter": "https://github.com/juangcarmona/sofa/actions/runs/41188590922",
     "proposeRun": "https://github.com/juangcarmona/sofa/actions/runs/41189371172",
     "implementationHold": "future",
-    "architectureDecisions": "ADR-0007 and ADR-0008 remain Proposed.",
+    "architectureDecisions": "ADR-0007 accepted by owner on 2026-10-31, recorded in PR #84 pending merge; ADR-0008 remains Proposed.",
     "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified.",
-    "review": "Independent reviewer approved the proposal at 06a0e6b; recheck required on final head after formatting and evidence correction."
-  }
+    "review": "Independent review of earlier head passed; recheck required for the ADR-0007 acceptance commit."
+  },
+  "ownerDecisions": [
+    {
+      "decision": "Accept ADR-0007: external Keycloak, independent development provider and separate GitHub authorization.",
+      "owner": "Juan García Carmona",
+      "date": "2026-10-31",
+      "evidence": "Owner explicitly approved ADR-0007 in the current conversation; recorded in PR #84 pending merge.",
+      "scope": "Does not approve ADR-0008, the proposed application framework, session policy or implementation."
+    }
+  ]
 }

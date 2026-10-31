@@ -5,7 +5,7 @@ All tasks are future work. The candidate is `planned`, not approved implementati
 ## 1. Confirm authority and shared contract
 
 - [ ] 1.1 Record the adopted Lighthouse 0.12.0 identity guide revision/hash against the verified owner answer and check its installed copy when dependencies are available; verify a review matrix covers external identity, isolated development provider, code/PKCE, server sessions, issuer/subject, separate GitHub authorization and real-provider evidence (AC6).
-- [ ] 1.2 Obtain Juan's explicit decision on this framework, MFA/session/revocation policy and development storage lifetime, and resolve ADR-0007 through `arcshape-adr` without accepting ADR-0008 by implication; verify linked owner decisions and explicit release of the implementation hold before any implementation.
+- [ ] 1.2 Record Juan's acceptance of ADR-0007 through `arcshape-adr` (accepted on 2026-10-31 in this PR, pending merge). Obtain his separate explicit decision on this framework, MFA/session/revocation policy and development storage lifetime; verify linked owner decisions and explicit release of the implementation hold before any implementation. ADR-0008 remains Proposed.
 
 ## 2. Compose isolated identity and application
 

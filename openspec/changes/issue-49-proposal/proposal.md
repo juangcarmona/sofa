@@ -30,6 +30,6 @@ Add a proposed `src/SoFa.Web` ASP.NET Core application and focused .NET tests. C
 
 Use the existing .NET 10 / Aspire 13.6.1 baseline, OIDC middleware 10.0.14 and the owner-supplied Keycloak 26.8.1 digest. No execution database, supervisor, command journal, command dispatch or new scheduler is introduced. Development sessions and source connections are deliberately process-local and lost on restart. Production identity provisioning and durable secret recovery belong to #58.
 
-Product basis: UC-ACCESS-FACTORY, FR-AUTHORIZED-ENTRY, QR-EXECUTION-SECURITY, QR-MOBILE-OPERATIONS, BR-LAN-PRIVILEGE-BOUNDARY and CON-TRUSTED-LAN under `docs/product/model/`, as applied by CHG-AUTHENTICATED-OPERATIONS-001. Preserve accepted ADR-0006. ADR-0007/0008 remain Proposed; this candidate does not accept either.
+Product basis: UC-ACCESS-FACTORY, FR-AUTHORIZED-ENTRY, QR-EXECUTION-SECURITY, QR-MOBILE-OPERATIONS, BR-LAN-PRIVILEGE-BOUNDARY and CON-TRUSTED-LAN under `docs/product/model/`, as applied by CHG-AUTHENTICATED-OPERATIONS-001. Preserve accepted ADR-0006. Juan accepted ADR-0007 on 2026-10-31; its status is recorded in this PR pending merge. ADR-0008 remains Proposed.
 
 Issue: <https://github.com/juangcarmona/sofa/issues/49>. The `planned` assessment means a complete candidate for Juan's review, not implementation permission. The `future` hold remains in force.
