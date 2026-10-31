@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "runId": "c6b56b06-a796-4aea-abe9-29e613a67894",
   "workItem": "juangcarmona/sofa#49",
-  "branch": "main (proposal branch pending)",
+  "branch": "lighthouse/propose-49-2de94e5eefdb",
   "startingCommit": "2a5610d390bd2acbbdc702ad43dd65cfe30c4ca5",
   "startedAt": "2026-10-31T01:02:56Z",
   "executorModel": "gpt-6.1-terra",
@@ -79,6 +79,24 @@
         "https://github.com/juangcarmona/sofa/actions/runs/41188613274",
         "https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541743353"
       ]
+    },
+    {
+      "name": "propose",
+      "startedAt": "2026-10-31T09:36:14Z",
+      "endedAt": "2026-10-31T09:45:33Z",
+      "inputCommit": "824131a785d4edd97adbe84850d5c9a26756a0d4",
+      "outputCommit": "ef10b390542432fcdffdb6858904628b44910672",
+      "result": "passed",
+      "gate": "planned",
+      "publicationStatus": "published",
+      "reservationReleased": true,
+      "nativeStageRuntimeModel": "openai/gpt-6.1-sol",
+      "evidence": [
+        "https://github.com/juangcarmona/sofa/actions/runs/41189344149",
+        "https://github.com/juangcarmona/sofa/actions/runs/41189371172",
+        "https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541845604",
+        "https://github.com/juangcarmona/sofa/pull/84"
+      ]
     }
   ],
   "reviews": [],
@@ -107,12 +125,12 @@
         "https://github.com/juangcarmona/sofa/actions/runs/41189371172"
       ],
       "rerunOutcomes": {
-        "propose": "running"
+        "propose": "passed"
       }
     }
   ],
   "stopReason": null,
-  "pullRequest": null,
+  "pullRequest": "https://github.com/juangcarmona/sofa/pull/84",
   "links": [
     "https://github.com/juangcarmona/sofa/issues/49",
     "https://github.com/juangcarmona/sofa/blob/main/docs/engineering-lifecycle.md",
@@ -149,9 +167,10 @@
   ],
   "continuation": {
     "proposeRouter": "https://github.com/juangcarmona/sofa/actions/runs/41188590922",
-    "proposeRun": "https://github.com/juangcarmona/sofa/actions/runs/41188613274",
+    "proposeRun": "https://github.com/juangcarmona/sofa/actions/runs/41189371172",
     "implementationHold": "future",
     "architectureDecisions": "ADR-0007 and ADR-0008 remain Proposed.",
-    "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified."
+    "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified.",
+    "review": "Independent review pending; no architecture or implementation approval inferred."
   }
 }
