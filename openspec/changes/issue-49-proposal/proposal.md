@@ -32,4 +32,4 @@ Use the existing .NET 10 / Aspire 13.6.1 baseline, OIDC middleware 10.0.14 and t
 
 Product basis: UC-ACCESS-FACTORY, FR-AUTHORIZED-ENTRY, QR-EXECUTION-SECURITY, QR-MOBILE-OPERATIONS, BR-LAN-PRIVILEGE-BOUNDARY and CON-TRUSTED-LAN under `docs/product/model/`, as applied by CHG-AUTHENTICATED-OPERATIONS-001. Preserve accepted ADR-0006. ADR-0007/0008 remain Proposed; this candidate does not accept either.
 
-Issue: https://github.com/juangcarmona/sofa/issues/49. The `planned` assessment means a complete candidate for Juan's review, not implementation permission. The `future` hold remains in force.
+Issue: <https://github.com/juangcarmona/sofa/issues/49>. The `planned` assessment means a complete candidate for Juan's review, not implementation permission. The `future` hold remains in force.

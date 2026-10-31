@@ -99,7 +99,19 @@
       ]
     }
   ],
-  "reviews": [],
+  "reviews": [
+    {
+      "kind": "independent-proposal-review",
+      "model": "gpt-6-astra",
+      "reviewedCommit": "06a0e6b33c3b07ba28d9c8ec141fedc44625c6e8",
+      "decision": "approve",
+      "findings": [
+        "Proposal covers the product, Lighthouse and independent-execution boundaries; owner decisions remain for framework, sessions and ADR-0007.",
+        "Historical FF summary contained stale present-tense statements; corrected in the following commit."
+      ],
+      "finalHeadReview": "pending"
+    }
+  ],
   "corrections": [
     {
       "gate": "local evidence validation",
@@ -126,6 +138,18 @@
       ],
       "rerunOutcomes": {
         "propose": "passed"
+      }
+    },
+    {
+      "gate": "proposal CI and evidence",
+      "round": 1,
+      "requestedChanges": [
+        "Repair Markdown lint errors in generated OpenSpec files and make historical FF summary explicitly historical."
+      ],
+      "resultingCommit": null,
+      "rerunOutcomes": {
+        "openspecStrict": "passed",
+        "npmRunVerify": "passed"
       }
     }
   ],
@@ -171,6 +195,6 @@
     "implementationHold": "future",
     "architectureDecisions": "ADR-0007 and ADR-0008 remain Proposed.",
     "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified.",
-    "review": "Independent review pending; no architecture or implementation approval inferred."
+    "review": "Independent reviewer approved the proposal at 06a0e6b; recheck required on final head after formatting and evidence correction."
   }
 }
