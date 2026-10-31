@@ -109,7 +109,7 @@
         "Proposal covers the product, Lighthouse and independent-execution boundaries; owner decisions remain for framework, sessions and ADR-0007.",
         "Historical FF summary contained stale present-tense statements; corrected in the following commit."
       ],
-      "finalHeadReview": "pending"
+      "finalHeadReview": "passed separately at 3c1732b81424bdf47330c3504bf6e0f77bff083f"
     },
     {
       "kind": "independent-final-proposal-review",
@@ -205,6 +205,12 @@
     "implementationHold": "future",
     "architectureDecisions": "ADR-0007 and ADR-0008 remain Proposed.",
     "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified.",
-    "review": "Independent reviewer approved final proposal head 3c1732b81424bdf47330c3504bf6e0f77bff083f; owner decisions remain."
+    "review": "Independent reviewer approved final proposal head 3c1732b81424bdf47330c3504bf6e0f77bff083f; owner decisions remain.",
+    "ci": {
+      "commit": "3c1732b81424bdf47330c3504bf6e0f77bff083f",
+      "verify": "https://github.com/juangcarmona/sofa/actions/runs/41190192144",
+      "foundation": "https://github.com/juangcarmona/sofa/actions/runs/41190192061",
+      "result": "passed"
+    }
   }
 }
