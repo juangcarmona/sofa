@@ -22,7 +22,7 @@ The router decides and dispatches; each stage has its own Actions execution. Iss
 
 Register a repository-specific Linux runner with the `lighthouse-workflow` label. Provide Docker and `LIGHTHOUSE_ENGINE_CONFIG` pointing to the private engine configuration. Keep credentials outside the repository and web app. The implementation image must support the repository's checks, including .NET and the runtime tests.
 
-The current gh-aw gateway uses host port 8080. Only one gateway job may occupy the host at a time. Bastion runner job hooks hold a shared host lock for the entire job; the engine lock alone does not cover gateway startup. Confirm this hook is active on every gateway-capable runner before running them together.
+The current gh-aw gateway uses host port 8080. Only one gateway job may occupy the host at a time. [development host] runner job hooks hold a shared host lock for the entire job; the engine lock alone does not cover gateway startup. Confirm this hook is active on every gateway-capable runner before running them together.
 
 Enable `LIGHTHOUSE_AUTOMATION_ENABLED` after installing and checking the workflows. Keep default token permissions read-only. GitHub's setting allowing Actions to create and approve PRs is required for publication; the bot does not approve its own work.
 

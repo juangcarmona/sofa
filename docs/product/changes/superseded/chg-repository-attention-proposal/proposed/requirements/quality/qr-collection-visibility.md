@@ -11,7 +11,7 @@ verification: [{"scenario": "Given a refresh with one inaccessible repository, J
 
 ## Requirement
 
-The product MUST make each refresh and its per-repository outcomes, duration, and failures observable in the Aspire environment selected by CON-BASTION. It MUST keep credentials and authorization headers out of the attention list and telemetry.
+The product MUST make each refresh and its per-repository outcomes, duration, and failures observable in the Aspire environment selected by CON-EXECUTION-HOST. It MUST keep credentials and authorization headers out of the attention list and telemetry.
 
 ## Measurement
 

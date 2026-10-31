@@ -1,14 +1,14 @@
 ---
-id: "CON-BASTION"
+id: "CON-EXECUTION-HOST"
 type: "constraint"
-title: "Operate personally on Bastion with Aspire"
+title: "Operate personally on [development host] with Aspire"
 status: "draft"
 applies-to: ["BC-REPOSITORY-ATTENTION"]
 ---
 
 ## Constraint
 
-The first slice MUST run on Juan’s Ubuntu 26 Bastion machine with Aspire orchestration and operational telemetry available through the Aspire environment. It serves Juan personally and does not require a commercial hosted service or a new identity platform.
+The first slice MUST run on the operator’s execution host with Aspire orchestration and operational telemetry available through the Aspire environment. It serves Juan personally and does not require a commercial hosted service or a new identity platform.
 
 ## Rationale
 

@@ -4,7 +4,7 @@ Historical runtime plan. [ADR-0006](../architecture/09-architecture-decisions/00
 
 **Assessment date:** 2026-10-23. **Mode:** S1 Lighthouse 0.7.0 adoption branch; ProductShape and ArcShape content were preserved, and the branch was updated from the cleaned `main`.
 
-This is a historical adoption report. Its statements that the ArcShape sections were empty describe the pre-alignment state. Issue #11 subsequently authored the reviewed target in the canonical twelve sections and recorded the Lighthouse/SoFa/Bastion boundary in ADR-0001; the runtime itself remains unimplemented.
+This is a historical adoption report. Its statements that the ArcShape sections were empty describe the pre-alignment state. Issue #11 subsequently authored the reviewed target in the canonical twelve sections and recorded the Lighthouse/SoFa/[development host] boundary in ADR-0001; the runtime itself remains unimplemented.
 
 ## Current update: Lighthouse 0.9.0
 

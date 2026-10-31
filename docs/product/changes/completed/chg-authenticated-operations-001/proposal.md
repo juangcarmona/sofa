@@ -1,3 +1,5 @@
+
+<!-- Infrastructure host names are redacted in this historical record. -->
 # Authenticated factory operations interview
 
 This is the working memory for `CHG-AUTHENTICATED-OPERATIONS-001`. Its semantic delta lives in [change.md](change.md) and the complete artifacts in `proposed/`; the accepted model remains untouched. Resume this same change. Product approval, apply and merge acceptance are separate actions.
@@ -43,7 +45,7 @@ Resolved effect: ACT-IDENTITY-PROVIDER and UC-ACCESS-FACTORY use an external aut
 
 ### Q3: Provider for the first SoFa deployment
 
-The question offered Entra ID in the owner-managed jgcarmona tenant versus a home-hosted provider. The recommendation was Entra ID to avoid adding an identity deployment to Bastion.
+The question offered Entra ID in the owner-managed jgcarmona tenant versus a home-hosted provider. The recommendation was Entra ID to avoid adding an identity deployment to [development host].
 
 Exact answer:
 
@@ -53,7 +55,7 @@ Historical effect: Entra ID was selected for the first deployment, then explicit
 
 ### Q4: Reopen provider choice and examine the operating model
 
-The owner redirected the interview before answering the active-execution comment question. Exact response:
+The owner redirected the interview before answering the active-execution comment question. Owner response (host names redacted where applicable):
 
 > Pues mira, estoy discutiendo sobre esto en otra conversación, ¿vale? Sobre Lighthouse, sobre cuál es el estándar. Realmente creo que Entra, para una organización donde ya hay cosas Microsoft, guay. Pero, sin embargo, Keycloak te da muchísima versatilidad, te permite social login, ¿vale? Lo puedes alojar tú, puedes tener un único Keycloak para toda tu organización o toda tu familia, o puedes tener un Keycloak por aplicación o por sistema. Entonces, ¿qué me merece la pena tener en Sofa? Pues no lo tengo claro. Realmente creo que tiene sentido. A ver, en este caso, porque es para mí, tienen sentido los dos, tiene sentido Entra y tiene sentido Keycloak. El tema de Keycloak es, si yo quisiera acceder desde fuera de mi red local, tendría que exponer los dos servicios, tipo reverse proxy, etcétera. Cosa que no debería ser mucho problema, ¿vale? pero ya hay que protegerlo, configurarlo, mantenerlo, irme a mi VPS, en fin, todo eso. Vamos a dar una vuelta, no tomemos esta decisión así a la ligera, ¿vale?
 
@@ -65,19 +67,19 @@ Assessment to discuss: a provider interoperability contract and the selected dep
 
 Evidence: [Keycloak administration and identity brokering](https://www.keycloak.org/docs/latest/server_admin/index.html), [production configuration](https://www.keycloak.org/server/configuration-production), [reverse proxy boundaries](https://www.keycloak.org/server/reverseproxy), and [Entra redirect URI requirements](https://learn.microsoft.com/entra/identity-platform/reply-url). Network conclusions are deployment inferences, not tested SoFa configurations.
 
-### Q5: Select shared Keycloak on Bastion
+### Q5: Select shared Keycloak on [development host]
 
 The owner supplied the following direction:
 
-> Para SoFa, concretaría la dirección en **Keycloak compartido en Bastion para iniciar sesión**, más una conexión autorizada con GitHub para actuar en tu nombre. La integración con GitHub sigue siendo independiente del login.
+> Para SoFa, concretaría la dirección en **Keycloak compartido en [development host] para iniciar sesión**, más una conexión autorizada con GitHub para actuar en tu nombre. La integración con GitHub sigue siendo independiente del login.
 
-Resolved effect: select shared Keycloak on Bastion for SoFa sign-in, with an independent authorized GitHub connection for source actions. This supersedes the initial Entra selection and the parked provider choice. No deployment, application registration or accepted architecture change is implied. Shared identity does not admit every household user to SoFa; the configured owner boundary remains unchanged. The original LAN/VPN delivery requirement still applies; this answer does not request public access or answer the previous VPN question.
+Resolved effect: select shared Keycloak on [development host] for SoFa sign-in, with an independent authorized GitHub connection for source actions. This supersedes the initial Entra selection and the parked provider choice. No deployment, application registration or accepted architecture change is implied. Shared identity does not admit every household user to SoFa; the configured owner boundary remains unchanged. The original LAN/VPN delivery requirement still applies; this answer does not request public access or answer the previous VPN question.
 
 Graph check: ACT-IDENTITY-PROVIDER and UC-ACCESS-FACTORY already require external identity, so their provider-neutral semantics remain valid. BR-WORK-AUTHORIZATION and FR-AUTHORIZED-ENTRY retain independent GitHub authority. CON-TRUSTED-LAN and QR-MOBILE-OPERATIONS retain LAN/VPN coverage. Placement, protocol integration and recovery belong to the upcoming ArcShape proposal, not new product artifacts.
 
 ### Q6: Active-work comments and infrastructure recovery
 
-Exact response:
+Owner response (host names redacted where applicable):
 
 > OK...
 >
@@ -85,25 +87,25 @@ Exact response:
 
 The opening OK is recorded as assent to the immediately preceding recommendation: allow ordinary comments during active execution, with a warning when source policy can invalidate pending results. It does not authorize deployment. The owner also requests a concrete infrastructure and secret-recovery proposal. FR-ISSUE-CONVERSATION now makes the warning explicit; provider-neutral access and shared source authority remain unchanged.
 
-Read-only inspection found an existing private infra.homelab repository and Bastion stack/data/secret conventions. The active runner mounts the host Docker socket, so host-secret isolation needs explicit remediation before shared identity use. The technical proposal is owned by Proposed ADR-0007; it is not accepted architecture or an implemented infrastructure service. Password-manager choice, off-host backup destination and recovery objectives remain unverified.
+Read-only inspection found an existing private infrastructure repository and [development host] stack/data/secret conventions. The active runner mounts the host Docker socket, so host-secret isolation needs explicit remediation before shared identity use. The technical proposal is owned by Proposed ADR-0007; it is not accepted architecture or an implemented infrastructure service. Password-manager choice, off-host backup destination and recovery objectives remain unverified.
 
 ### Q7: Separate production identity from development
 
-Exact response:
+Owner response (host names redacted where applicable):
 
-> Keycloak lo podemos poner en otra máquina, en node-home, por ejemplo... Digamos que node-home es producción y bastion es desarrollo
+> Keycloak lo podemos poner en otra máquina, en [production host], por ejemplo... Digamos que [production host] es producción y [development host] es desarrollo
 
-Resolved direction: use node-home as the proposed production identity host and Bastion for development and repository execution. This updates Q5's initial Bastion placement while preserving shared Keycloak and independent GitHub authority. It is a topology direction, not evidence of deployment, available capacity or verified connectivity. Proposed ADR-0007 is revised in place because it has not been accepted.
+Resolved direction: use [production host] as the proposed production identity host and [development host] for development and repository execution. This updates Q5's initial [development host] placement while preserving shared Keycloak and independent GitHub authority. It is a topology direction, not evidence of deployment, available capacity or verified connectivity. Proposed ADR-0007 is revised in place because it has not been accepted.
 
-The same-host runner VM is no longer a prerequisite for protecting Keycloak on node-home. Instead, verify that Bastion runners have no production host administration, Docker API, filesystem or backup credentials. Runner hardening remains separate infrastructure work. The production SoFa service is recommended for node-home too, so real GitHub tokens and production sessions do not reside on the development host; this is a proposed consequence to review, not an observed deployment. Development uses separate test identity and source credentials. Secret custody and off-host recovery remain unresolved and independent of either host.
+The same-host runner VM is no longer a prerequisite for protecting Keycloak on [production host]. Instead, verify that [development host] runners have no production host administration, Docker API, filesystem or backup credentials. Runner hardening remains separate infrastructure work. The production SoFa service is recommended for [production host] too, so real GitHub tokens and production sessions do not reside on the development host; this is a proposed consequence to review, not an observed deployment. Development uses separate test identity and source credentials. Secret custody and off-host recovery remain unresolved and independent of either host.
 
 ### Q8: Close identity direction and complete the whole product proposal
 
-Exact response:
+Owner response (host names redacted where applicable):
 
-> Vale, y a ti te digo, hemos tenido una larga conversación sobre este tema, la decisión ya está tomada. Vamos a tener un Keycloak en Node Home, aún no sé cómo ni dónde, pero eso es indiferente, en producción, ¿vale? Durante el desarrollo lo que voy a hacer es que vamos a tener un contenedor dentro de la solución Aspire que me permite ir desarrollando y probando funcionalidad en desarrollo y poco más. Luego te he dado en el primer prompt de esta misma conversación un montón de funcionalidades y de ejemplos de funcionalidades que quiero que tenga el producto. Me has dicho lo primero: ¿qué hacemos con la autenticación? Vale, ya le hemos dado una vuelta, ¿y todo lo demás qué? Hay que seguir. Hay que documentar, hay que especificar y hay que dejar listo, ¿vale?
+> Vale, y a ti te digo, hemos tenido una larga conversación sobre este tema, la decisión ya está tomada. Vamos a tener un Keycloak en [production host], aún no sé cómo ni dónde, pero eso es indiferente, en producción, ¿vale? Durante el desarrollo lo que voy a hacer es que vamos a tener un contenedor dentro de la solución Aspire que me permite ir desarrollando y probando funcionalidad en desarrollo y poco más. Luego te he dado en el primer prompt de esta misma conversación un montón de funcionalidades y de ejemplos de funcionalidades que quiero que tenga el producto. Me has dicho lo primero: ¿qué hacemos con la autenticación? Vale, ya le hemos dado una vuelta, ¿y todo lo demás qué? Hay que seguir. Hay que documentar, hay que especificar y hay que dejar listo, ¿vale?
 
-Resolved direction: production Keycloak on node-home; development Keycloak in a container composed by the existing Aspire solution. Provider and development mode are closed decisions. Infrastructure sizing, secret custody and production installation remain delivery details, not blockers to product shaping. No implementation or complete Product Change acceptance is inferred.
+Resolved direction: production Keycloak on [production host]; development Keycloak in a container composed by the existing Aspire solution. Provider and development mode are closed decisions. Infrastructure sizing, secret custody and production installation remain delivery details, not blockers to product shaping. No implementation or complete Product Change acceptance is inferred.
 
 The sitting now covers the original whole-product request. New proposed artifacts elaborate its stated capabilities: daily factory journey, repository discovery, intervention handling, project views, explainable health/configuration signals and idea promotion. ACT-FACTORY-OWNER is reused; ACT-ENGINEER and ACT-REQUESTER keep existing boundaries. No new multi-user, terminal, file-browser, scheduler or score requirement is introduced. Reference screenshots supply experience cues only, not data or policy. Full-product direction does not expand the first operational delivery.
 
@@ -122,7 +124,7 @@ The CLI's impact output is structural reachability, not a semantic instruction. 
 | FR-AUTHORIZED-ENTRY, FR-WORK-UNIT-SHAPING | Both currently permit optional future controls; the requested journey requires supported Refine/Propose operations. | Affected: make explicit interaction required and source-authorized. |
 | BR-WORK-AUTHORIZATION | Governs intake, shaping and execution; authorizes a future authenticated adapter through the source route. | Checked and unchanged: its authority ownership remains valid. The new command rule makes interaction semantics explicit. |
 | BC-EXECUTION, BC-DELIVERY, BC-RUNTIME-OPERATIONS, FR-RECOVERABLE-EXECUTION | Structural neighbors of the LAN constraint describe independent source execution and evidence. | Checked and unchanged: identity and UI commands do not move execution ownership into SoFa. |
-| BR-CAPACITY-DEFAULTS, BR-SCHEDULER-SAFETY, CON-FACTORY-RUNTIME | Govern source capacity, scheduling and optional SoFa availability. | Checked and unchanged: Bastion and repository controls retain enforcement. |
+| BR-CAPACITY-DEFAULTS, BR-SCHEDULER-SAFETY, CON-FACTORY-RUNTIME | Govern source capacity, scheduling and optional SoFa availability. | Checked and unchanged: [development host] and repository controls retain enforcement. |
 | UC-SHAPE-WORK-UNIT | A matching answer may resume a pending question within its grant. | Checked and unchanged: an explicit reply-and-continue action can realize this; ordinary comments must remain distinct. |
 | JRN-ENGINEERING-EXECUTION, FR-DELIVERY-EVIDENCE | Describe the complete delivery journey, beyond the first operating slice. | Checked and unchanged: retain full-product direction; do not require complete delivery verification to ship the first command journey. |
 | ACT-FACTORY-OWNER, ACT-ENGINEER, ACT-REQUESTER | Existing roles separate personal operation and repository authority. | Checked and unchanged: first deployment admits the configured owner; no new multi-user administration. |
@@ -141,7 +143,7 @@ The owner still reviews the complete Product Change and proposed ADRs. Session a
 
 Keep product semantics in this change. Use ArcShape for the provider/session/source-account architecture after product direction is resolved; keep proposed realization visibly separate from current architecture. Use #47 and #48 as delivery records and add owner-specific shared-contract dependencies only after inspecting existing Lighthouse issues to avoid duplicates. Preserve triage → refine → propose → implement → integrate → review and all human gates.
 
-This sitting has resolved authentication coverage and external-provider use. Shared Keycloak remains selected, now directed to node-home for production, with Bastion serving development and a separate authorized GitHub connection. The complete change remains draft, with the questions above unresolved. Nothing has been applied, approved, committed, merged or deployed by this interview.
+This sitting has resolved authentication coverage and external-provider use. Shared Keycloak remains selected, now directed to [production host] for production, with [development host] serving development and a separate authorized GitHub connection. The complete change remains draft, with the questions above unresolved. Nothing has been applied, approved, committed, merged or deployed by this interview.
 
 ## Delivery handover
 
