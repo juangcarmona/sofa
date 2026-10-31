@@ -8,6 +8,10 @@
 - Correction rounds: at most 3 per gate
 - Issue: [SoFa #49](https://github.com/juangcarmona/sofa/issues/49)
 
+## Owner decision — .NET and Aspire
+
+On 2026-10-31 Juan selected .NET and Aspire for SoFa. ADR-0009 records that decision in this PR, and the official Lighthouse `dotnet-backend` profile is selected with its managed guidance installed. SoFa's current AppHost is empty and `verify:dotnet` is not yet configured; profile selection does not demonstrate application implementation or profile compliance. GitHub workflows continue to own repository delivery. Session policy and implementation remain separate owner decisions.
+
 ## Owner decision — ADR-0007
 
 On 2026-10-31 Juan explicitly accepted ADR-0007: external Keycloak authentication, a separate development provider and independent GitHub authorization. This PR records that accepted decision and updates its index; it takes effect on the default branch when merged. ADR-0008 remains Proposed. The application framework, session policy and implementation are separate decisions, and `future` remains in place.

@@ -3,7 +3,9 @@
   "schemaVersion": 1,
   "baseline": "0.1.0",
   "product": "sofa",
-  "profiles": [],
+  "profiles": [
+    "dotnet-backend"
+  ],
   "integrations": {
     "productShape": "0.23.0",
     "arcShape": "0.1.6"
@@ -39,5 +41,11 @@
       "commits": "conventional",
       "branchPattern": "^(feat|fix|docs|refactor|test|chore|build|ci|perf|revert)/[1-9]\\d*-[a-z0-9]+(?:-[a-z0-9]+)*$"
     }
+  },
+  "application": {
+    "shape": "full-stack",
+    "stacks": [
+      "dotnet"
+    ]
   }
 }

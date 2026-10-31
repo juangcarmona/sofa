@@ -5,7 +5,9 @@ All tasks are future work. The candidate is `planned`, not approved implementati
 ## 1. Confirm authority and shared contract
 
 - [ ] 1.1 Record the adopted Lighthouse 0.12.0 identity guide revision/hash against the verified owner answer and check its installed copy when dependencies are available; verify a review matrix covers external identity, isolated development provider, code/PKCE, server sessions, issuer/subject, separate GitHub authorization and real-provider evidence (AC6).
-- [ ] 1.2 Record Juan's acceptance of ADR-0007 through `arcshape-adr` (accepted on 2026-10-31 in this PR, pending merge). Obtain his separate explicit decision on this framework, MFA/session/revocation policy and development storage lifetime; verify linked owner decisions and explicit release of the implementation hold before any implementation. ADR-0008 remains Proposed.
+- [ ] 1.2 Record Juan's acceptance of ADR-0007 through `arcshape-adr` (accepted on 2026-10-31 in this PR, pending merge). Record his acceptance of the .NET/Aspire application direction in ADR-0009. Obtain his separate explicit decision on MFA/session/revocation policy and development storage lifetime; verify linked owner decisions and explicit release of the implementation hold before any implementation. ADR-0008 remains Proposed.
+
+- [ ] 1.3 Assess the existing application against the selected Lighthouse `dotnet-backend` profile. Adopt its relevant pinned analyzers and CQRS guidance without overwriting SoFa; implement real `npm run verify:dotnet` and applicable .NET tests, connect them to CI, and record any justified differences. The official creator is only for an empty target, not this existing repository. Profile selection alone is not implementation evidence.
 
 ## 2. Compose isolated identity and application
 

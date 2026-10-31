@@ -195,7 +195,14 @@
     "implementationHold": "future",
     "architectureDecisions": "ADR-0007 accepted by owner on 2026-10-31, recorded in PR #84 pending merge; ADR-0008 remains Proposed.",
     "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified.",
-    "review": "Independent review of earlier head passed; recheck required for the ADR-0007 acceptance commit."
+    "review": "Owner accepted .NET and Aspire; the profile is selected and guidance installed. Implementation, profile-specific checks, session policy and new independent review remain pending.",
+    "dotnetProfile": {
+      "id": "dotnet-backend",
+      "selection": "configured with official Lighthouse 0.12.0 upgrade; pending PR merge",
+      "projectionVerification": "passed in an isolated staged-tree snapshot",
+      "requiredStaticCheck": "unavailable: npm run verify:dotnet is not configured; implementation must add and run real checks",
+      "runtime": "AppHost currently composes no application resources"
+    }
   },
   "ownerDecisions": [
     {
@@ -204,6 +211,13 @@
       "date": "2026-10-31",
       "evidence": "Owner explicitly approved ADR-0007 in the current conversation; recorded in PR #84 pending merge.",
       "scope": "Does not approve ADR-0008, the proposed application framework, session policy or implementation."
+    },
+    {
+      "decision": "Use ASP.NET Core and Aspire for SoFa and follow the Lighthouse .NET backend profile.",
+      "owner": "Juan García Carmona",
+      "date": "2026-10-31",
+      "evidence": "Owner explicitly selected .NET and Aspire for SoFa in the current conversation; ADR-0009 records the decision in PR #84 pending merge.",
+      "scope": "Does not approve the session policy, implementation or merge."
     }
   ]
 }

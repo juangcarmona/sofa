@@ -16,11 +16,13 @@ ProductShape's applied CHG-AUTHENTICATED-OPERATIONS-001 and canonical access/sec
 
 ### 1. One ASP.NET Core workspace boundary
 
+Juan accepted the .NET and Aspire application direction on 2026-10-31; [ADR-0009](../../../docs/architecture/09-architecture-decisions/0009-dotnet-and-aspire.md) records the decision in this PR pending merge. The `dotnet-backend` profile is selected, but its runtime and specific verification checks still need implementation.
+
 Propose `src/SoFa.Web` on .NET 10, serving the existing observation assets plus a small server-rendered account shell and JSON routes. Use framework cookie/OIDC middleware and an authorization fallback policy, with explicit anonymous exceptions only for a data-free landing/sign-in page, static assets, protocol callbacks and minimal liveness. APIs return 401/403 rather than HTML redirects; access-denied responses contain no operational data. Authentication runs before observation retrieval or any cache lookup.
 
 Use a small server-side GitHub HTTP adapter to produce the existing observation JSON contract from the connected user. Preserve configured repositories, source identities/times, bounded collection, unavailable/stale explanations and safe rendering. Scope caches by owner session, GitHub user ID, repository and connection generation; disconnect, source rejection and logout invalidate them. Keep the existing Node collector/CLI as separate legacy tooling, never as a credential fallback. AppHost starts no legacy anonymous HTTP listener.
 
-Alternatives: extending Node with another OIDC stack avoids a server migration but adds an identity stack outside the owner-tested middleware baseline; a reverse-proxy security perimeter leaves two route/configuration boundaries and risks exposing the old listener. A full SPA adds token/browser complexity without a requirement. The proposed migration is a larger adapter change but keeps identity, tokens and route authorization together.
+Alternatives: extending Node with another OIDC stack avoids a server migration but requires adopting and assessing a separate identity stack; a reverse-proxy security perimeter leaves two route/configuration boundaries and risks exposing the old listener. A full SPA adds token/browser complexity without a requirement. The proposed migration is a larger adapter change but keeps identity, tokens and route authorization together.
 
 ### 2. Pin the development integration without claiming interoperability
 
@@ -97,4 +99,4 @@ Rollback stops the new development workspace and discards process-local sessions
 
 ## Review boundary and setup values
 
-There is no unresolved design choice hidden in the task list. Juan may accept or request changes to the candidate framework, MFA/session values and ephemeral development storage before implementation; none is accepted here. Operator-selected DNS names/ports, certificates, exact configured subject, development GitHub App registration and designated test repository can be supplied later without changing these contracts or slices. Never request credentials in a public issue or proposal. Production credential storage and provider provisioning remain separately unresolved under #58, not claims of this proposal.
+There is no unresolved design choice hidden in the task list. Juan accepted the .NET/Aspire direction; he may accept or request changes to the candidate MFA/session values and ephemeral development storage before implementation. Operator-selected DNS names/ports, certificates, exact configured subject, development GitHub App registration and designated test repository can be supplied later without changing these contracts or slices. Never request credentials in a public issue or proposal. Production credential storage and provider provisioning remain separately unresolved under #58, not claims of this proposal.
