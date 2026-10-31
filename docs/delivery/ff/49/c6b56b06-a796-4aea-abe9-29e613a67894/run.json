@@ -216,9 +216,9 @@
     "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified.",
     "review": "Independent review approved ADR-0007 acceptance at db1c2087a17003cd4e9719da67dfc617d26c5e21; framework and session decisions remain.",
     "ci": {
-      "commit": "3c1732b81424bdf47330c3504bf6e0f77bff083f",
-      "verify": "https://github.com/juangcarmona/sofa/actions/runs/41190192144",
-      "foundation": "https://github.com/juangcarmona/sofa/actions/runs/41190192061",
+      "commit": "db1c2087a17003cd4e9719da67dfc617d26c5e21",
+      "verify": "https://github.com/juangcarmona/sofa/actions/runs/41192504886",
+      "foundation": "https://github.com/juangcarmona/sofa/actions/runs/41192504956",
       "result": "passed"
     }
   },

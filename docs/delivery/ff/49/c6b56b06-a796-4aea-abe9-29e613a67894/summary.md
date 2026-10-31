@@ -10,7 +10,7 @@
 
 ## Owner decision — ADR-0007
 
-On 2026-10-31 Juan explicitly accepted ADR-0007: external Keycloak authentication, a separate development provider and independent GitHub authorization. [PR #84](https://github.com/juangcarmona/sofa/pull/84) records the accepted decision and its index entry, pending merge. Independent reviewer `gpt-6-astra` approved that change at `db1c2087a17003cd4e9719da67dfc617d26c5e21`. ADR-0008 remains Proposed. The application framework, session policy and implementation are separate decisions; `future` remains in place.
+On 2026-10-31 Juan explicitly accepted ADR-0007: external Keycloak authentication, a separate development provider and independent GitHub authorization. [PR #84](https://github.com/juangcarmona/sofa/pull/84) records the accepted decision and its index entry, pending merge. Independent reviewer `gpt-6-astra` approved that change at `db1c2087a17003cd4e9719da67dfc617d26c5e21`; OpenSpec strict validation, local `npm run verify` and both GitHub checks passed. ADR-0008 remains Proposed. The application framework, session policy and implementation are separate decisions; `future` remains in place.
 
 ## Resumed refinement — 2026-10-31
 
