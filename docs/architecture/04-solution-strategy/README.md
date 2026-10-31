@@ -14,7 +14,7 @@ See [ADR-0006](../09-architecture-decisions/0006-observe-repository-owned-workfl
 
 ## Proposed extension strategy
 
-Extend the existing web application with a server-side authenticated boundary and reusable query/command adapters. Retain its observation collector where correct; replace bounded attention-only reads for issue discovery and detail. Aspire composes the web process, development Keycloak and required development storage without restarting the retired supervisor. No frontend rewrite is required to establish the journey.
+Extend the web application with a server-side authenticated boundary and reusable query/command adapters. [ADR-0009](../09-architecture-decisions/0009-dotnet-and-aspire.md) selects .NET and Aspire; migrate the existing observer behavior to the .NET boundary and retain its presentation where suitable. Replace bounded attention-only reads for issue discovery and detail. Aspire composes the web process, development Keycloak and required development storage without restarting the retired supervisor. No frontend rewrite is required to establish the journey.
 
 Use one same-origin backend for sessions, GitHub connection, current eligibility checks, mutation submission and read models. The browser receives sanitized view data and opaque request identifiers, never source tokens. Reuse a maintained OIDC implementation rather than implementing token validation. Authentication details follow ADR-0007; [ADR-0008](../09-architecture-decisions/0008-source-correlated-issue-commands.md) proposes command durability and correlation.
 

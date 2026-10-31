@@ -4,7 +4,7 @@
 
 - Baseline: `0.1.0`
 - Product: `sofa`
-- Profiles: none
+- Profiles: `dotnet-backend`
 - SDLC package: `@juangcarmona/lighthouse-sdlc@0.16.0`
 - ProductShape: 0.23.0
 - ArcShape: 0.1.6

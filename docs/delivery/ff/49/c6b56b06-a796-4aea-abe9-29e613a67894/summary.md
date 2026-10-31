@@ -1,6 +1,6 @@
 # Fast Forward run — SoFa #49
 
-- Status: blocked
+- Status: running; plan reviewed, final-head recheck pending
 - Started: 2026-10-31T01:02:56Z
 - Starting commit: `2a5610d390bd2acbbdc702ad43dd65cfe30c4ca5`
 - Executor: `gpt-6.1-terra`
@@ -8,9 +8,31 @@
 - Correction rounds: at most 3 per gate
 - Issue: [SoFa #49](https://github.com/juangcarmona/sofa/issues/49)
 
-## Follow-up — 2026-10-31
+## Owner decision — .NET and Aspire
 
-[SoFa PR #81](https://github.com/juangcarmona/sofa/pull/81) merged at `3ff107978412818bff2a85993516493f71d23296`. `main` now contains Lighthouse CLI 0.12.0, SDLC 0.16.0 and the regenerated official workflows. This clears the version-skew prerequisite described below; the host Docker cleanup probe was successful, but no fresh `refine` run has yet demonstrated end-to-end publication on the new version. Issue #49 remains open with `refine` and without `agent-working`; its only refine worker run is the failed run recorded below. PR #82 is open with green checks and no recorded review decision. Juan still needs to accept or correct the proposed Product Change and ADR-0007/0008. A green workflow does not make those proposals accepted or pass the Ready gate. Once their disposition is recorded and the needed references are available to the worker, request a fresh refinement.
+On 2026-10-31 Juan selected .NET and Aspire for SoFa. ADR-0009 records that decision in this PR, and the official Lighthouse `dotnet-backend` profile is selected with its managed guidance installed. SoFa's current AppHost is empty and `verify:dotnet` is not yet configured; profile selection does not demonstrate application implementation or profile compliance. GitHub workflows continue to own repository delivery. Session policy and implementation remain separate owner decisions.
+
+## Owner decision — ADR-0007
+
+On 2026-10-31 Juan explicitly accepted ADR-0007: external Keycloak authentication, a separate development provider and independent GitHub authorization. This PR records that accepted decision and updates its index; it takes effect on the default branch when merged. ADR-0008 remains Proposed. The application framework, session policy and implementation are separate decisions, and `future` remains in place.
+
+## Resumed refinement — 2026-10-31
+
+The owner requested continuation after PR #83. The [new refinement run](https://github.com/juangcarmona/sofa/actions/runs/41188212887) evaluated source `824131a785d4edd97adbe84850d5c9a26756a0d4`, published a [passed Ready result](https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541654459), and released its reservation. At that point `future` held automatic implementation while both ADRs were Proposed. The first [proposal run](https://github.com/juangcarmona/sofa/actions/runs/41188613274) was requested once; its blocked result and successful continuation are recorded below. This evidence does not approve the proposed architecture or implementation.
+
+## Proposal — blocked, compatibility evidence collected
+
+The [proposal run](https://github.com/juangcarmona/sofa/actions/runs/41188613274) completed successfully as a workflow but [published a blocked planned gate](https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541743353). It could not access the package identity guide in its checkout and asked for exact dependency pins. It released its reservation and retained the `future` implementation hold.
+
+The exact adopted Lighthouse 0.12.0 package contains the guide, SHA-256 `fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb`. A disposable Keycloak 26.8.1 container published OIDC discovery with PKCE S256, and an ASP.NET Core OIDC 10.0.14 project compiled against .NET 10. These probes do not demonstrate a complete sign-in or approve the proposed architecture. The [owner reply](https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541763350) supplies the sources and candidates; [the resumed proposal](https://github.com/juangcarmona/sofa/actions/runs/41189371172) passed as correction round 1 and published [PR #84](https://github.com/juangcarmona/sofa/pull/84). Independent review and owner decisions remain outstanding.
+
+## Independent review and verification
+
+The independent `gpt-6-astra` reviewer approved the proposal at `06a0e6b33c3b07ba28d9c8ec141fedc44625c6e8`, subject to owner decisions on the proposed architecture and session policy. The reviewer found stale present-tense wording in this historical record. Repository CI also failed Markdown lint on the generated OpenSpec files. Both issues were corrected; the OpenSpec content is unchanged apart from whitespace and link formatting. `openspec validate issue-49-proposal --strict` and `npm run verify` passed locally. The independent reviewer must recheck the final PR head; neither approval nor green checks authorize implementation.
+
+## Earlier follow-up after PR #81 — 2026-10-31
+
+[SoFa PR #81](https://github.com/juangcarmona/sofa/pull/81) merged at `3ff107978412818bff2a85993516493f71d23296`. `main` now contains Lighthouse CLI 0.12.0, SDLC 0.16.0 and the regenerated official workflows. At that point the host Docker cleanup probe was successful, but no fresh `refine` run had demonstrated end-to-end publication on the new version. Issue #49 was open with `refine` and without `agent-working`; PR #82 awaited a product decision. Subsequent events are recorded above and below. A green workflow does not itself accept a proposal or pass a gate.
 
 Later on 2026-10-31, Juan explicitly accepted the Product Change and requested that PR #82 be merged. `prodshape change apply CHG-AUTHENTICATED-OPERATIONS-001` added 19 and modified 9 accepted product artifacts on the PR branch, then archived the change as applied. ADR-0007/0008 remain Proposed; their architectural decisions were not explicitly accepted. The accepted model and changed architecture citations validate. A fresh `refine` is still needed after the product baseline reaches `main`; the old blocked result is unchanged.
 
