@@ -25,13 +25,13 @@ GitHub evidence is reachable or its limitation is explicit.
 ## Main Flow
 
 1. SoFa captures a new idea or reads configured GitHub projects and issues.
-2. If the candidate is an idea, Juan promotes it to or links it with a GitHub issue before normal backlog processing.
+2. If the candidate is an idea, Juan explores its outcome and scope, selects a repository, inspects potentially related issues and reviews the proposed issue before explicitly creating or linking it. SoFa preserves the confirmed issue identity before normal backlog processing.
 3. SoFa reconciles GitHub source identities and records priority, status, dependencies, and evidence time.
 4. The Lighthouse intake result selects continuation under the effective policy, requests information, refers a decision to an engineer, or rejects the request with a reason. Direct engineer entry is admitted separately and does not require this triage run.
 
 ## Alternative Flows
 
-Access, pagination, or mapping failures remain visible and do not create a false empty backlog.
+Access, pagination, or mapping failures remain visible and do not create a false empty backlog. An uncertain issue creation is reconciled before retry; exploration and promotion do not implicitly request execution.
 
 ## Failure Conditions
 

@@ -11,7 +11,7 @@ tags: [identity, keycloak, infrastructure, recovery]
 
 ## Context
 
-The owner selected shared Keycloak for SoFa sign-in and a separate authorized GitHub connection for repository actions. The initial Bastion placement was revised by the owner: node-home is production and Bastion is development. This proposed record now targets node-home for production identity. The active Product Change remains draft. This record proposes technical realization of that direction; it does not approve the product delta, deployment or current architecture changes. ADR-0006 remains applicable.
+The owner selected shared Keycloak for SoFa sign-in and a separate authorized GitHub connection for repository actions. The initial Bastion placement was revised by the owner: node-home is production and Bastion is development. This proposed record now targets node-home for production identity. The [Product Change](../../product/changes/completed/chg-authenticated-operations-001/change.md) is applied. This ADR proposes technical realization of the accepted product direction; it does not approve deployment or current architecture changes. ADR-0006 remains applicable.
 
 Read-only evidence on 2026-10-26:
 
@@ -80,7 +80,7 @@ Provider placement and the Aspire development container are owner-supplied decis
 
 ## References
 
-- [Draft product direction and interview](../../product/changes/active/chg-authenticated-operations-001/proposal.md)
+- [Product direction and interview](../../product/changes/completed/chg-authenticated-operations-001/proposal.md)
 - [Operational issue story](https://github.com/juangcarmona/sofa/issues/48)
 - [Existing private infrastructure repository](https://github.com/juangcarmona/infra.homelab)
 - [Independent repository execution](0006-observe-repository-owned-workflows.md)

@@ -2,7 +2,7 @@
 id: CHG-AUTHENTICATED-OPERATIONS-001
 type: product-change
 title: Operate and understand the software factory from one workspace
-status: draft
+status: applied
 base-revision: 'ae846c7faba9b92fcf3ce2bf7e152a3b803050d2'
 operations:
   add:

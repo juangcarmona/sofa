@@ -15,6 +15,13 @@
     "workItem": "SoFa #49 remains open with refine, without agent-working, and without a Ready result.",
     "nextAction": "Owner accepts or corrects the proposed Product Change and ADR-0007/0008 in PR #82. After their disposition is recorded and the references are available to the worker, request a fresh refine run."
   },
+  "productAcceptance": {
+    "observedAt": "2026-10-31",
+    "decision": "Owner explicitly accepted CHG-AUTHENTICATED-OPERATIONS-001 and requested merge of PR #82.",
+    "application": "ProductShape applied the change on the PR branch: 19 accepted artifacts added, 9 modified; change archived as applied.",
+    "architectureDecisionStatus": "ADR-0007 and ADR-0008 remain Proposed, pending separate explicit acceptance.",
+    "nextAction": "Merge PR #82 after final checks, then request a fresh refine for issue #49."
+  },
   "stages": [
     {
       "name": "refine",

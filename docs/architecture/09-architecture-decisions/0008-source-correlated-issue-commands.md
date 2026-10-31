@@ -11,7 +11,7 @@ tags: [commands, github, correlation, recovery]
 
 ## Context
 
-The owner requires issue context, Refine/Propose, safe comments and visible outcomes from SoFa. The [Product Change](../../product/changes/active/chg-authenticated-operations-001/change.md) remains draft. Existing ADR-0006 keeps execution in repository workflows. The current read-only Node server and empty Aspire AppHost do not implement this boundary.
+The owner requires issue context, Refine/Propose, safe comments and visible outcomes from SoFa. The [Product Change](../../product/changes/completed/chg-authenticated-operations-001/change.md) is applied. Existing ADR-0006 keeps execution in repository workflows. The current read-only Node server and empty Aspire AppHost do not implement this boundary.
 
 Issue #47 has a passed refinement and a blocked proposal report; its scope and evidence are preserved. The installed router has no client request identifier and owner comments on needs-info may resume refinement. These are gaps to close in shared contracts, not reasons to create a second SoFa policy.
 
