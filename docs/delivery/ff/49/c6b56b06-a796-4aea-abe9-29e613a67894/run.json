@@ -28,7 +28,7 @@
       "nativeStageRuntimeStatus": "passed",
       "nativeStageProviderModelStatus": "unverified",
       "publicationStatus": "failed",
-      "publicationFailure": "The publisher refused to ingest output because the agent step exited 1: EACCES: permission denied, unlink '/home/juan/.local/share/lighthouse-runtime/runner-sofa/_work/_temp/lighthouse-engine-t2WcCC/output/execution/engine.json'. The safe-output envelope remains available as a workflow artifact; the issue result comment was not published. Lighthouse 0.15.2 at harness revision cee9f62 lacked ownership restoration; merged Lighthouse PR #200 adds it on main but is not in the current npm package.",
+      "publicationFailure": "The publisher refused to ingest output because the agent step exited 1: EACCES: permission denied, unlink '/home/juan/.local/share/lighthouse-runtime/runner-sofa/_work/_temp/lighthouse-engine-t2WcCC/output/execution/engine.json'. The safe-output envelope remains available as a workflow artifact; the issue result comment was not published. Lighthouse 0.15.2 at harness revision cee9f62 lacked ownership restoration; merged Lighthouse PR #200 and the later published SDLC 0.16.0 include the fix, prepared for SoFa in PR #81.",
       "reservationReleased": true,
       "readyGate": "blocked",
       "readyGateNextAction": "Owner reviews the recovered Product Change and proposed ADRs in SoFa draft PR #82, then activates the Lighthouse 0.16.0 upgrade in PR #81 and requests a fresh refinement. The previous failed run has no trusted blocked report for comment continuation."
