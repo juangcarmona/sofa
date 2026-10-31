@@ -1,12 +1,16 @@
 # Fast Forward run — SoFa #49
 
-- Status: blocked
+- Status: running; resumed after the original blocked run
 - Started: 2026-10-31T01:02:56Z
 - Starting commit: `2a5610d390bd2acbbdc702ad43dd65cfe30c4ca5`
 - Executor: `gpt-6.1-terra`
 - Independent reviewer selected for a future review: `gpt-6-astra`
 - Correction rounds: at most 3 per gate
 - Issue: [SoFa #49](https://github.com/juangcarmona/sofa/issues/49)
+
+## Resumed refinement — 2026-10-31
+
+The owner requested continuation after PR #83. The [new refinement run](https://github.com/juangcarmona/sofa/actions/runs/41188212887) evaluated source `824131a785d4edd97adbe84850d5c9a26756a0d4`, published a [passed Ready result](https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541654459), and released its reservation. The `future` label holds automatic implementation while ADR-0007 and ADR-0008 remain Proposed. The [proposal run](https://github.com/juangcarmona/sofa/actions/runs/41188613274) was requested once and is in progress. This evidence does not approve the proposed architecture or implementation.
 
 ## Follow-up — 2026-10-31
 
