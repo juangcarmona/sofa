@@ -8,9 +8,13 @@
 - Correction rounds: at most 3 per gate
 - Issue: [SoFa #49](https://github.com/juangcarmona/sofa/issues/49)
 
+## Follow-up — 2026-10-31
+
+[SoFa PR #81](https://github.com/juangcarmona/sofa/pull/81) merged at `3ff107978412818bff2a85993516493f71d23296`. `main` now contains Lighthouse CLI 0.12.0, SDLC 0.16.0 and the regenerated official workflows. This clears the version-skew prerequisite described below; the host Docker cleanup probe was successful, but no fresh `refine` run has yet demonstrated end-to-end publication on the new version. Issue #49 remains open with `refine` and without `agent-working`; its only refine worker run is the failed run recorded below. PR #82 is open with green checks and no recorded review decision. Juan still needs to accept or correct the proposed Product Change and ADR-0007/0008. A green workflow does not make those proposals accepted or pass the Ready gate. Once their disposition is recorded and the needed references are available to the worker, request a fresh refinement.
+
 ## Initial finding
 
-The issue references active Product Change `CHG-AUTHENTICATED-OPERATIONS-001` and proposed ADR-0007/0008 paths that are absent from this starting `main`. The accepted baseline contains `FR-AUTHORIZED-ENTRY` and ADR-0006, which allow an authenticated adapter to submit explicit actions through GitHub while keeping SoFa out of execution authority. Product scope and architectural decisions remain human-owned. A later local-worktree audit found the complete draft change and both proposed ADRs as uncommitted files in `docs/48-product-operations`; the initial search of Git refs had missed them. They are now copied unchanged into [draft PR #82](https://github.com/juangcarmona/sofa/pull/82) for review, with the original dirty worktree preserved.
+The issue references active Product Change `CHG-AUTHENTICATED-OPERATIONS-001` and proposed ADR-0007/0008 paths that are absent from this starting `main`. The accepted baseline contains `FR-AUTHORIZED-ENTRY` and ADR-0006, which allow an authenticated adapter to submit explicit actions through GitHub while keeping SoFa out of execution authority. Product scope and architectural decisions remain human-owned. A later local-worktree audit found the complete draft change and both proposed ADRs as uncommitted files in `docs/48-product-operations`; the initial search of Git refs had missed them. They are now copied unchanged into [PR #82](https://github.com/juangcarmona/sofa/pull/82) for review, with the original dirty worktree preserved.
 
 ## Stage evidence
 

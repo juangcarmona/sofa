@@ -9,6 +9,12 @@
   "reviewerModel": "gpt-6-astra",
   "maxCorrectionRounds": 3,
   "status": "blocked",
+  "followUp": {
+    "observedAt": "2026-10-31",
+    "lighthouseUpgrade": "SoFa PR #81 merged at 3ff107978412818bff2a85993516493f71d23296; main contains CLI 0.12.0 and SDLC 0.16.0. No fresh refine worker run has yet verified end-to-end publication.",
+    "workItem": "SoFa #49 remains open with refine, without agent-working, and without a Ready result.",
+    "nextAction": "Owner accepts or corrects the proposed Product Change and ADR-0007/0008 in PR #82. After their disposition is recorded and the references are available to the worker, request a fresh refine run."
+  },
   "stages": [
     {
       "name": "refine",
