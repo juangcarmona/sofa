@@ -14,6 +14,6 @@ See [ADR-0006](../09-architecture-decisions/0006-observe-repository-owned-workfl
 
 ## Proposed control boundary
 
-The accepted ProductShape model replaces the loopback-only planning limit with authenticated LAN/VPN access. Write routes still require an approved architecture and implementation; the current anonymous observer gains no write privilege by configuration drift. The owner selected production Keycloak on node-home and a development Keycloak container inside Aspire. Production provisioning details do not block specification or local development.
+The accepted ProductShape model replaces the loopback-only planning limit with authenticated LAN/VPN access. Write routes still require an approved architecture and implementation; the current anonymous observer gains no write privilege by configuration drift. The proposed architecture uses an external production identity provider and a separate development instance. Production provisioning details do not block specification or local development.
 
 The six stages remain triage → refine → propose → implement → integrate → review. Identity, explicit command, reservation, source execution, human gate and published result stay separate. Neither Aspire nor a durable application journal becomes a scheduler. No mandatory terminal, file browser, composite score or public Internet exposure is introduced.

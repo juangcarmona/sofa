@@ -4,7 +4,7 @@ Historical runtime plan. [ADR-0006](../architecture/09-architecture-decisions/00
 
 The reconciled direction was accepted by Juan on 2026-10-24 and revised the same day to distinguish requester intake, engineer entry and per-run autonomy. Supervised triage/refine is implemented; the two-entry runtime and complete delivery loop remain pending.
 
-The first consumer is `juangcarmona/presentations`, selected by Juan on 2026-10-24. The objective is an observable path from a GitHub story through triage/refine to a verified PR and an explicitly authorized integration, with execution on Bastion. Start with one supervised execution; expand autonomy only after the failure paths work.
+The first consumer is `juangcarmona/presentations`, selected by Juan on 2026-10-24. The objective is an observable path from a GitHub story through triage/refine to a verified PR and an explicitly authorized integration, with execution on [development host]. Start with one supervised execution; expand autonomy only after the failure paths work.
 
 ## Sources of truth
 
@@ -50,7 +50,7 @@ The operator may pause admission and cancel a run. Raising capacity or replacing
 
 The reviewed [Platform documentation](https://platform.plainconcepts.dev/docs/how-we-work), [presentation](https://platform.ckgrafico.com/) and local Foundations, agent-harness, agentic-workflows and project-health sources support four useful mechanisms: deterministic event routing, shared installed instructions, validated outward effects and measured delivery. The presentation is explanatory; code and tests establish implemented behavior. Its four repositories need not become four repositories here: Lighthouse covers the reusable baseline/harness/workflow contract and SoFa covers personal operation and evidence consumption.
 
-Retain bounded clarification, one event/one route, one PR per scoped change, explicit merge decisions and unknown metrics. Adapt organization-level runner infrastructure to repository registrations on Bastion. Keep provider selection separate from GitHub transport. Do not copy workflow policies, source files or provenance into Lighthouse.
+Retain bounded clarification, one event/one route, one PR per scoped change, explicit merge decisions and unknown metrics. Adapt organization-level runner infrastructure to repository registrations on [development host]. Keep provider selection separate from GitHub transport. Do not copy workflow policies, source files or provenance into Lighthouse.
 
 Reference checkout revisions inspected: Foundations `ca8e414`, agent-harness `c491ef6`, agentic-workflows `7fd80c5` and project-health `75d57a8`. The engine path was traced through the reusable refine worker, shared OpenCode setup and compilation script; routing and staged-effect validation were checked in their executable actions. These revisions are comparison evidence, not dependencies of SoFa.
 

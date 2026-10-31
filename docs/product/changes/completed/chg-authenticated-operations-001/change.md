@@ -38,6 +38,8 @@ operations:
   remove: []
 ---
 
+<!-- Infrastructure host names are redacted in this historical record. -->
+
 ## Problem
 
 The factory definition permits future authenticated controls but does not define an end-to-end operational issue journey. The existing control constraint defaults to loopback only, which prevents the owner from operating from a phone on LAN or VPN. A source comment may currently resume refinement, while an ordinary conversation contribution must not unexpectedly request execution. Authentication, command intent, execution evidence and human decisions need explicit product boundaries.
@@ -60,15 +62,15 @@ After comparing DomusMind's local identity module with external providers, the o
 
 Asked to choose the managed jgcarmona tenant or a home-hosted provider, the owner initially answered: “Entra ID de jgcarmona (recomendado)”. The owner subsequently reopened that choice: “Vamos a dar una vuelta, no tomemos esta decisión así a la ligera, ¿vale?” The complete response is preserved in proposal.md. This reopening is historical; the subsequent explicit direction below resolves provider selection. Provider registration and protocol realization belong in architecture and deployment configuration; no credentials are part of the product model.
 
-The owner subsequently selected: “Para SoFa, concretaría la dirección en Keycloak compartido en Bastion para iniciar sesión, más una conexión autorizada con GitHub para actuar en tu nombre. La integración con GitHub sigue siendo independiente del login.” This initially chose shared Keycloak on Bastion and preserves independent GitHub authority; the later placement direction below replaces the host choice. The original LAN/VPN scope and configured owner access remain; shared identity does not expand SoFa to household administration.
+The owner subsequently selected: “Para SoFa, concretaría la dirección en Keycloak compartido en [development host] para iniciar sesión, más una conexión autorizada con GitHub para actuar en tu nombre. La integración con GitHub sigue siendo independiente del login.” This initially chose shared Keycloak on [development host] and preserves independent GitHub authority; the later placement direction below replaces the host choice. The original LAN/VPN scope and configured owner access remain; shared identity does not expand SoFa to household administration.
 
 The owner answered “OK...” to allowing ordinary comments during active work with a warning about possible source-side invalidation, then requested a concrete infrastructure and secret-recovery proposal. The full response is preserved in proposal.md. This resolves the comment choice; it does not accept the forthcoming infrastructure proposal.
 
-The owner then refined placement: “Keycloak lo podemos poner en otra máquina, en node-home, por ejemplo... Digamos que node-home es producción y bastion es desarrollo”. This directs production identity to node-home and development to Bastion; the deployment realization is proposed in ADR-0007. Shared identity and source authority semantics remain unchanged.
+The owner then refined placement: “Keycloak lo podemos poner en otra máquina, en [production host], por ejemplo... Digamos que [production host] es producción y [development host] es desarrollo”. This directs production identity to [production host] and development to [development host]; the deployment realization is proposed in ADR-0007. Shared identity and source authority semantics remain unchanged.
 
 These answers resolve specific decisions. They do not approve the complete Product Change or accept an implementation by implication.
 
-The owner explicitly closed identity direction and requested completion of the whole product on 2026-10-26: production Keycloak on node-home and a development container inside Aspire. The complete answer is preserved in proposal.md. The original request grounds the daily operations, project, health and idea capabilities; these are now proposed rather than deferred as an undefined future product.
+The owner explicitly closed identity direction and requested completion of the whole product on 2026-10-26: production Keycloak on [production host] and a development container inside Aspire. The complete answer is preserved in proposal.md. The original request grounds the daily operations, project, health and idea capabilities; these are now proposed rather than deferred as an undefined future product.
 
 ## Affected Product Areas
 

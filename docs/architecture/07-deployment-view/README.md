@@ -6,7 +6,7 @@ description: Infrastructure and environment mapping for the system.
 
 # 07. Deployment separation
 
-Bastion hosts the read-only SoFa web process separately from a repository-scoped Actions runner container. The runner launches temporary OpenCode containers through the host Docker socket using operator-owned authentication and image pins. GitHub publication credentials stay in the trusted publication jobs. Only one gh-aw runner is active on this host because gateway startup uses a shared host port; the engine lock alone does not serialize that startup. The previous pilot runner registration and stopped container are retained for recovery.
+The read-only SoFa process and the repository runner are independently operated. GitHub publication credentials remain in trusted publication jobs. Runner configuration and deployment details belong to operational configuration.
 
 The web defaults to loopback and may bind a specific trusted-LAN address. Its fixed repository list and GitHub CLI authentication are operator configuration; HTTP clients cannot select arbitrary repositories, run commands or mutate GitHub. No SoFa database or application service participates in workflow execution.
 
@@ -18,11 +18,11 @@ See [ADR-0006](../09-architecture-decisions/0006-observe-repository-owned-workfl
 
 | Building block | Development | Production direction |
 | --- | --- | --- |
-| SoFa web and application store | Existing Aspire solution on Bastion | Recommend node-home; final service packaging is delivery work |
-| Keycloak | Dedicated container inside Aspire, test realm/accounts and stable development endpoints | Shared service on node-home, configured externally |
+| SoFa web and application store | Existing Aspire solution | Final service packaging is delivery work |
+| Keycloak | Dedicated container inside Aspire, test realm/accounts and stable development endpoints | Shared service configured externally |
 | Source credentials | Explicit test repository authorization, separate callbacks and secrets | Owner-authorized GitHub connection in protected SoFa storage |
-| Agent execution | Independent Bastion runner/runtime | Remains workflow-operated on Bastion; not a SoFa process |
+| Agent execution | Independent runner/runtime | Workflow-operated; not a SoFa process |
 
-The source AppHost currently builds an empty application; adding the development Keycloak resource is future implementation. Pin an integration compatible with the installed Aspire version and seed only non-secret test configuration. Development must work without node-home connectivity. Mobile acceptance needs browser-reachable HTTPS endpoints for both the application and its selected issuer; a loopback callback on the phone is not a Bastion callback.
+The source AppHost currently builds an empty application; adding the development Keycloak resource is future implementation. Pin an integration compatible with the installed Aspire version and seed only non-secret test configuration. Development must work without production identity connectivity. Browser clients need reachable HTTPS endpoints for both the application and its selected issuer.
 
-Infrastructure owns production sizing, TLS/DNS, protected storage, backup and restoration in infra.homelab. These are release-readiness tasks, not prerequisites to writing the product or developing against local Keycloak. [ADR-0007](../09-architecture-decisions/0007-shared-identity-custody-and-recovery.md) retains the proposed custody and environment separation.
+Infrastructure owns production sizing, TLS/DNS, protected storage, backup and restoration in its own operational documentation. These are release-readiness tasks, not prerequisites to writing the product or developing against local Keycloak. [ADR-0007](../09-architecture-decisions/0007-shared-identity-custody-and-recovery.md) retains the proposed custody and environment separation.

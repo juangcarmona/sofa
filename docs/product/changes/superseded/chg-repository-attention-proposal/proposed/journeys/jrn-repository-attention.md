@@ -13,7 +13,7 @@ Juan identifies actionable repository conditions and opens their evidence withou
 
 ## Entry Conditions
 
-Juan wants to check his initial five repositories from Bastion.
+Juan wants to check his initial five repositories from [development host].
 
 ## Journey Narrative
 

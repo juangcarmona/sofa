@@ -14,6 +14,8 @@
 
 Later on 2026-10-31, Juan explicitly accepted the Product Change and requested that PR #82 be merged. `prodshape change apply CHG-AUTHENTICATED-OPERATIONS-001` added 19 and modified 9 accepted product artifacts on the PR branch, then archived the change as applied. ADR-0007/0008 remain Proposed; their architectural decisions were not explicitly accepted. The accepted model and changed architecture citations validate. A fresh `refine` is still needed after the product baseline reaches `main`; the old blocked result is unchanged.
 
+The retained Lighthouse envelope redacts an infrastructure host name; the linked Actions run is the source of the original artifact.
+
 ## Initial finding
 
 The issue references active Product Change `CHG-AUTHENTICATED-OPERATIONS-001` and proposed ADR-0007/0008 paths that are absent from this starting `main`. The accepted baseline contains `FR-AUTHORIZED-ENTRY` and ADR-0006, which allow an authenticated adapter to submit explicit actions through GitHub while keeping SoFa out of execution authority. Product scope and architectural decisions remain human-owned. A later local-worktree audit found the complete draft change and both proposed ADRs as uncommitted files in `docs/48-product-operations`; the initial search of Git refs had missed them. They are now copied unchanged into [PR #82](https://github.com/juangcarmona/sofa/pull/82) for review, with the original dirty worktree preserved.

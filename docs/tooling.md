@@ -18,7 +18,7 @@ The accepted ProductShape model contains the Software Factory definition. Produc
 
 `@arcshape/cli@0.1.6` is pinned exactly in the package manifest and lockfile. Lighthouse records ArcShape `0.1.6` as the adopted authority in `lighthouse.json`; ArcShape owns the twelve arc42 sections and its generated architecture skills and commands. Validate the structure with `npm run architecture:check` and update it through `npx arcshape`.
 
-The twelve-section architecture structure now contains the reviewed Software Factory target, including the Lighthouse/SoFa/Bastion boundary and ADR-0001. It describes the target and current evidence; it does not prove that a runtime is installed. Continue to update the sections through ArcShape's ownership and do not replace unknown implementation facts with assumptions.
+The twelve-section architecture structure now contains the reviewed Software Factory target, including the Lighthouse/SoFa/[development host] boundary and ADR-0001. It describes the target and current evidence; it does not prove that a runtime is installed. Continue to update the sections through ArcShape's ownership and do not replace unknown implementation facts with assumptions.
 
 ## Agentic SDLC and shared skills
 

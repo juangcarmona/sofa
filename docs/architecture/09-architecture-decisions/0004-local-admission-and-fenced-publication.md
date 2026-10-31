@@ -13,7 +13,7 @@ Superseded by [ADR-0006](0006-observe-repository-owned-workflows.md) after the o
 
 ## Context
 
-Accepted ADRs assign repository delivery to Lighthouse and runtime operation to SoFa on one Bastion. Repository-scoped runners are required for the personal account, but runner labels do not invoke SoFa or enforce capacity. PostgreSQL fencing protects database writes only; an old worker holding a GitHub token could still push after losing its lease.
+Accepted ADRs assign repository delivery to Lighthouse and runtime operation to SoFa on one execution host. Repository-scoped runners are required for the personal account, but runner labels do not invoke SoFa or enforce capacity. PostgreSQL fencing protects database writes only; an old worker holding a GitHub token could still push after losing its lease.
 
 The user selected `presentations`, locally adopting Lighthouse 0.9.0, for the first end-to-end pilot. OpenCode remains the baseline engine. The user permits direct Codex as an alternative, but no alternate engine is needed to settle the interface or build two adapters now.
 
@@ -31,7 +31,7 @@ Keep OpenCode installed and authenticated persistently, but create a separate ex
 
 ## Consequences
 
-- Bastion needs no public callback or network-exposed execution API for the first pilot.
+- The execution host needs no public callback or network-exposed execution API for the first pilot.
 - One shared supervisor enforces capacity across repository registrations while Lighthouse remains the lifecycle authority.
 - Stale workers cannot publish directly because they have no publication credential. Uncertain remote effects can block recovery until reconciled.
 - Distinct OS identities, workspace isolation and credential injection require deployment work; multiple directories under one user are not equivalent isolation.
@@ -47,9 +47,9 @@ Keep OpenCode installed and authenticated persistently, but create a separate ex
 
 ## References
 
-- [ADR-0001](0001-lighthouse-delivery-workflow-sofa-bastion-runtime.md)
-- [ADR-0002](0002-bounded-parallel-execution-on-bastion.md)
-- [ADR-0003](0003-bastion-opencode-codex-authentication.md)
+- [ADR-0001](0001-lighthouse-delivery-workflow-sofa-runtime.md)
+- [ADR-0002](0002-bounded-parallel-execution.md)
+- [ADR-0003](0003-opencode-codex-authentication.md)
 - [Runtime interactions](../06-runtime-view/README.md)
 - [Pilot acceptance](../../roadmap/first-pilot.md)
 - [Recoverable execution](../../product/model/requirements/functional/fr-recoverable-execution.md)

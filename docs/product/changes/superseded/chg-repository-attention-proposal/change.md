@@ -4,7 +4,7 @@ type: "product-change"
 title: "Identify repository work requiring Juan’s attention (historical proposal)"
 status: "superseded"
 base-revision: "23223e5ded1e124b9133f5087adac47ac967745e"
-operations: {"add": ["ACT-JUAN", "ACT-GITHUB", "BC-REPOSITORY-ATTENTION", "TERM-ATTENTION-ITEM", "BR-OBSERVE-ONLY", "BR-EVIDENCED-ATTENTION", "UC-REFRESH-ATTENTION", "UC-REVIEW-ATTENTION", "JRN-REPOSITORY-ATTENTION", "CON-BASTION", "FR-ATTENTION-COLLECTION", "FR-ATTENTION-REVIEW", "QR-COLLECTION-VISIBILITY"], "modify": [], "remove": []}
+operations: {"add": ["ACT-JUAN", "ACT-GITHUB", "BC-REPOSITORY-ATTENTION", "TERM-ATTENTION-ITEM", "BR-OBSERVE-ONLY", "BR-EVIDENCED-ATTENTION", "UC-REFRESH-ATTENTION", "UC-REVIEW-ATTENTION", "JRN-REPOSITORY-ATTENTION", "CON-EXECUTION-HOST", "FR-ATTENTION-COLLECTION", "FR-ATTENTION-REVIEW", "QR-COLLECTION-VISIBILITY"], "modify": [], "remove": []}
 ---
 
 ## Problem
@@ -13,7 +13,7 @@ Juan must visit repositories and their CI results separately to discover failed 
 
 ## Intended Product Outcome
 
-Juan can refresh a small attention list for ArcShape, ProductShape, DomusMind, Raccord, and SoFa on Bastion, understand its evidence and collection gaps, and follow source links to act. This is a personal monitoring slice of his software factory.
+Juan can refresh a small attention list for ArcShape, ProductShape, DomusMind, Raccord, and SoFa on [development host], understand its evidence and collection gaps, and follow source links to act. This is a personal monitoring slice of his software factory.
 
 ## Rationale
 
