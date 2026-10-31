@@ -4,37 +4,23 @@
     "id": "labels",
     "provider": "github",
     "selection": "selected-by-default",
-    "version": "1"
+    "version": "2"
   },
   "catalogVersion": "0.5.0",
   "provider": {
     "provider": "github",
     "repo": "juangcarmona/sofa"
   },
-  "desiredHash": "7061aee08f4f5ca95c9a631a755eb1a7ba7275b5d1a784d42134dcee6dff095d",
-  "observedHash": "150fdb3f2e1aba4902e56e33a73f119188a2bc82dddd29aad64caa8f5bf1d136",
-  "targetHash": "150fdb3f2e1aba4902e56e33a73f119188a2bc82dddd29aad64caa8f5bf1d136",
+  "desiredHash": "108629bb928a12c842d346f996661da24ce58cd4eec4a3402e0b300e46ab9bb4",
+  "observedHash": "6b99081ec7d72d9542f6c9b28452ff9941b5197f59f211b9280310a71b93ea55",
+  "targetHash": "6b99081ec7d72d9542f6c9b28452ff9941b5197f59f211b9280310a71b93ea55",
   "operations": [
     {
       "type": "create-label",
       "kind": "create",
-      "name": "pr-draft",
+      "name": "future",
       "color": "8B949E",
-      "description": "The linked implementation PR is a draft."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "pr-ready",
-      "color": "238636",
-      "description": "The linked implementation PR is ready for human review."
-    },
-    {
-      "type": "create-label",
-      "kind": "create",
-      "name": "triaged",
-      "color": "4FB3A4",
-      "description": "Owner-admitted triage passed; the owner decides whether to refine."
+      "description": "Pause implementation; triage, refinement and proposal remain available."
     }
   ],
   "operationPolicy": {
@@ -49,7 +35,15 @@
       "ambiguous"
     ]
   },
-  "blockedOperations": [],
+  "blockedOperations": [
+    "modify",
+    "modify",
+    "modify",
+    "modify",
+    "modify",
+    "modify",
+    "modify"
+  ],
   "conflicts": [],
   "status": "adopted",
   "verified": true

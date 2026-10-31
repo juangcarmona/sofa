@@ -5,7 +5,7 @@
     "id": "labels",
     "provider": "github",
     "selection": "selected-by-default",
-    "version": "1"
+    "version": "2"
   },
   "catalogVersion": "0.5.0",
   "operationPolicy": {
@@ -30,39 +30,100 @@
       {
         "id": "labels",
         "provider": "github",
-        "version": "1",
+        "version": "2",
         "adapter": "github-labels",
         "catalogVersion": "0.5.0",
         "configuration": {
           "roles": [
             "state",
             "command",
-            "classification"
+            "classification",
+            "overlay"
           ],
           "labels": [
             {
               "name": "triage",
-              "role": "state",
+              "role": "command",
               "color": "8B949E",
-              "description": "Work item is being assessed."
+              "description": "Owner request to assess this issue; publication stops at triaged."
             },
             {
               "name": "refine",
-              "role": "state",
+              "role": "command",
               "color": "4DA3FF",
-              "description": "Work item is being refined."
+              "description": "Owner request to refine; installed policy may continue to implementation."
             },
             {
               "name": "implement",
-              "role": "state",
+              "role": "command",
               "color": "1F6FEB",
-              "description": "Work item is being implemented."
+              "description": "Owner request to plan and implement this issue in one PR."
+            },
+            {
+              "name": "propose",
+              "role": "command",
+              "color": "A371F7",
+              "description": "Owner request for a separate proposal PR from current refinement evidence."
+            },
+            {
+              "name": "future",
+              "role": "overlay",
+              "color": "8B949E",
+              "description": "Pause implementation; triage, refinement and proposal remain available."
+            },
+            {
+              "name": "waiting-review",
+              "role": "state",
+              "color": "D29922",
+              "description": "Inspect the result or PR for feedback or a pending decision."
             },
             {
               "name": "wip",
               "role": "state",
               "color": "D29922",
               "description": "Work item is actively in progress."
+            },
+            {
+              "name": "agent-working",
+              "role": "overlay",
+              "color": "D29922",
+              "description": "An agent holds the host reservation; wait before editing."
+            },
+            {
+              "name": "human-working",
+              "role": "overlay",
+              "color": "A371F7",
+              "description": "Human reservation: agents must stop and release their work."
+            },
+            {
+              "name": "ready",
+              "role": "state",
+              "color": "238636",
+              "description": "Refinement passed; continuation depends on installed policy and future. Never authorizes merge."
+            },
+            {
+              "name": "pr-draft",
+              "role": "state",
+              "color": "8B949E",
+              "description": "The linked implementation PR is a draft."
+            },
+            {
+              "name": "pr-ready",
+              "role": "state",
+              "color": "238636",
+              "description": "The linked implementation PR is ready for human review."
+            },
+            {
+              "name": "triaged",
+              "role": "state",
+              "color": "4FB3A4",
+              "description": "Owner-admitted triage passed; the owner decides whether to refine."
+            },
+            {
+              "name": "needs-info",
+              "role": "state",
+              "color": "D876E3",
+              "description": "Triage or refinement needs information; the owner answers the reported question."
             },
             {
               "name": "review",
@@ -199,15 +260,10 @@
               "description": "Large affected surface."
             }
           ],
-          "transitions": [
-            {
-              "from": "triage",
-              "to": "refine"
-            }
-          ],
+          "transitions": [],
           "transitionPolicy": {
             "mode": "declared-only",
-            "description": "Only transitions declared by the adopter are legal; the catalog supplies the initial triage-to-refine example."
+            "description": "Declare state transitions for the generic triage CLI explicitly. Native Actions requests and results follow the authenticated adapter; command labels are not state transitions."
           }
         }
       }
@@ -221,16 +277,26 @@
     "capability": {
       "id": "labels",
       "provider": "github",
-      "version": "1"
+      "version": "2"
     },
-    "desiredHash": "92411d84cd4b137e3cd897fa4f04f4e984ebc8fba7f0460f7e1b20932fbba895",
-    "observedHash": "5d83ae956a59bc38fb0a11a2f4360c7d4b4bdf1053dbab9ee4593d9a36cd97c3",
-    "targetHash": "5d83ae956a59bc38fb0a11a2f4360c7d4b4bdf1053dbab9ee4593d9a36cd97c3",
+    "desiredHash": "108629bb928a12c842d346f996661da24ce58cd4eec4a3402e0b300e46ab9bb4",
+    "observedHash": "80c8f253dd400aab5b3f2d944a9d63991c8e532f5559d5b613572c60547a7632",
+    "targetHash": "6b99081ec7d72d9542f6c9b28452ff9941b5197f59f211b9280310a71b93ea55",
     "target": [
       {
         "name": "accessibility",
         "color": "F143AB",
         "description": "Barrier affecting people with disabilities"
+      },
+      {
+        "name": "agent-working",
+        "color": "D29922",
+        "description": "An agent holds the host reservation; wait before editing."
+      },
+      {
+        "name": "agentic-workflows",
+        "color": "EDEDED",
+        "description": null
       },
       {
         "name": "blast-radius-high",
@@ -253,6 +319,11 @@
         "description": "Something isn't working"
       },
       {
+        "name": "dependencies",
+        "color": "0366D6",
+        "description": "Pull requests that update a dependency file"
+      },
+      {
         "name": "documentation",
         "color": "0075CA",
         "description": "Improvements or additions to documentation"
@@ -268,6 +339,11 @@
         "description": "New feature or request"
       },
       {
+        "name": "future",
+        "color": "8B949E",
+        "description": "Pause implementation; triage, refinement and proposal remain available."
+      },
+      {
         "name": "good first issue",
         "color": "7057FF",
         "description": "Good for newcomers"
@@ -276,6 +352,11 @@
         "name": "help wanted",
         "color": "008672",
         "description": "Extra attention is needed"
+      },
+      {
+        "name": "human-working",
+        "color": "A371F7",
+        "description": "Human reservation: agents must stop and release their work."
       },
       {
         "name": "impact-high",
@@ -298,14 +379,49 @@
         "description": "Work item is being implemented."
       },
       {
+        "name": "integrate",
+        "color": "A371F7",
+        "description": "Integration stage request; exact head and explicit merge authorization required."
+      },
+      {
         "name": "invalid",
         "color": "E4E669",
         "description": "This doesn't seem right"
       },
       {
+        "name": "javascript",
+        "color": "168700",
+        "description": "Pull requests that update javascript code"
+      },
+      {
+        "name": "needs-info",
+        "color": "D876E3",
+        "description": "Refinement needs information or a decision; inspect its report."
+      },
+      {
+        "name": "pr-draft",
+        "color": "8B949E",
+        "description": "The linked implementation PR is a draft."
+      },
+      {
+        "name": "pr-ready",
+        "color": "238636",
+        "description": "The linked implementation PR is ready for human review."
+      },
+      {
+        "name": "propose",
+        "color": "4DA3FF",
+        "description": "Owner request for a proposal; does not authorize implementation."
+      },
+      {
         "name": "question",
         "color": "D876E3",
         "description": "Further information is requested"
+      },
+      {
+        "name": "ready",
+        "color": "238636",
+        "description": "Refinement passed; this does not authorize implementation or merge."
       },
       {
         "name": "refine",
@@ -353,39 +469,14 @@
         "description": "Extra-large work item."
       },
       {
-        "name": "status:backlog",
-        "color": "1D76DB",
-        "description": "Shared SDLC lifecycle: backlog"
-      },
-      {
-        "name": "status:done",
-        "color": "1D76DB",
-        "description": "Shared SDLC lifecycle: done"
-      },
-      {
-        "name": "status:in-progress",
-        "color": "1D76DB",
-        "description": "Shared SDLC lifecycle: in-progress"
-      },
-      {
-        "name": "status:in-review",
-        "color": "1D76DB",
-        "description": "Shared SDLC lifecycle: in-review"
-      },
-      {
-        "name": "status:proposed",
-        "color": "1D76DB",
-        "description": "Shared SDLC lifecycle: proposed"
-      },
-      {
-        "name": "status:ready",
-        "color": "1D76DB",
-        "description": "Shared SDLC lifecycle: ready"
-      },
-      {
         "name": "triage",
         "color": "8B949E",
         "description": "Work item is being assessed."
+      },
+      {
+        "name": "triaged",
+        "color": "4FB3A4",
+        "description": "Owner-admitted triage passed; the owner decides whether to refine."
       },
       {
         "name": "urgency-asap",
@@ -403,6 +494,11 @@
         "description": "Immediate urgency."
       },
       {
+        "name": "waiting-review",
+        "color": "D29922",
+        "description": "Published work awaits review or a decision; no active reservation."
+      },
+      {
         "name": "wip",
         "color": "D29922",
         "description": "Work item is actively in progress."
@@ -414,9 +510,9 @@
       }
     ],
     "drift": {
-      "status": "none",
-      "expectedHash": "5d83ae956a59bc38fb0a11a2f4360c7d4b4bdf1053dbab9ee4593d9a36cd97c3",
-      "observedHash": "5d83ae956a59bc38fb0a11a2f4360c7d4b4bdf1053dbab9ee4593d9a36cd97c3"
+      "status": "drift",
+      "expectedHash": "150fdb3f2e1aba4902e56e33a73f119188a2bc82dddd29aad64caa8f5bf1d136",
+      "observedHash": "80c8f253dd400aab5b3f2d944a9d63991c8e532f5559d5b613572c60547a7632"
     },
     "operationPolicy": {
       "allowed": [
@@ -430,7 +526,15 @@
         "ambiguous"
       ]
     },
-    "blockedOperations": [],
+    "blockedOperations": [
+      "modify",
+      "modify",
+      "modify",
+      "modify",
+      "modify",
+      "modify",
+      "modify"
+    ],
     "changes": [
       {
         "name": "accessibility",
@@ -440,6 +544,33 @@
           "name": "accessibility",
           "color": "F143AB",
           "description": "Barrier affecting people with disabilities"
+        }
+      },
+      {
+        "name": "agent-working",
+        "status": "unchanged",
+        "operation": "preserve",
+        "blockedOperations": [],
+        "existing": {
+          "name": "agent-working",
+          "color": "D29922",
+          "description": "An agent holds the host reservation; wait before editing."
+        },
+        "desired": {
+          "name": "agent-working",
+          "color": "D29922",
+          "description": "An agent holds the host reservation; wait before editing.",
+          "role": "overlay"
+        }
+      },
+      {
+        "name": "agentic-workflows",
+        "status": "preserved",
+        "operation": "preserve",
+        "existing": {
+          "name": "agentic-workflows",
+          "color": "EDEDED",
+          "description": null
         }
       },
       {
@@ -510,6 +641,16 @@
         }
       },
       {
+        "name": "dependencies",
+        "status": "preserved",
+        "operation": "preserve",
+        "existing": {
+          "name": "dependencies",
+          "color": "0366D6",
+          "description": "Pull requests that update a dependency file"
+        }
+      },
+      {
         "name": "documentation",
         "status": "preserved",
         "operation": "preserve",
@@ -540,6 +681,17 @@
         }
       },
       {
+        "name": "future",
+        "status": "missing",
+        "operation": "create",
+        "desired": {
+          "name": "future",
+          "color": "8B949E",
+          "description": "Pause implementation; triage, refinement and proposal remain available.",
+          "role": "overlay"
+        }
+      },
+      {
         "name": "good first issue",
         "status": "preserved",
         "operation": "preserve",
@@ -557,6 +709,23 @@
           "name": "help wanted",
           "color": "008672",
           "description": "Extra attention is needed"
+        }
+      },
+      {
+        "name": "human-working",
+        "status": "unchanged",
+        "operation": "preserve",
+        "blockedOperations": [],
+        "existing": {
+          "name": "human-working",
+          "color": "A371F7",
+          "description": "Human reservation: agents must stop and release their work."
+        },
+        "desired": {
+          "name": "human-working",
+          "color": "A371F7",
+          "description": "Human reservation: agents must stop and release their work.",
+          "role": "overlay"
         }
       },
       {
@@ -618,9 +787,11 @@
       },
       {
         "name": "implement",
-        "status": "unchanged",
+        "status": "customized",
         "operation": "preserve",
-        "blockedOperations": [],
+        "blockedOperations": [
+          "modify"
+        ],
         "existing": {
           "name": "implement",
           "color": "1F6FEB",
@@ -629,8 +800,18 @@
         "desired": {
           "name": "implement",
           "color": "1F6FEB",
-          "description": "Work item is being implemented.",
-          "role": "state"
+          "description": "Owner request to plan and implement this issue in one PR.",
+          "role": "command"
+        }
+      },
+      {
+        "name": "integrate",
+        "status": "preserved",
+        "operation": "preserve",
+        "existing": {
+          "name": "integrate",
+          "color": "A371F7",
+          "description": "Integration stage request; exact head and explicit merge authorization required."
         }
       },
       {
@@ -644,6 +825,88 @@
         }
       },
       {
+        "name": "javascript",
+        "status": "preserved",
+        "operation": "preserve",
+        "existing": {
+          "name": "javascript",
+          "color": "168700",
+          "description": "Pull requests that update javascript code"
+        }
+      },
+      {
+        "name": "needs-info",
+        "status": "customized",
+        "operation": "preserve",
+        "blockedOperations": [
+          "modify"
+        ],
+        "existing": {
+          "name": "needs-info",
+          "color": "D876E3",
+          "description": "Refinement needs information or a decision; inspect its report."
+        },
+        "desired": {
+          "name": "needs-info",
+          "color": "D876E3",
+          "description": "Triage or refinement needs information; the owner answers the reported question.",
+          "role": "state"
+        }
+      },
+      {
+        "name": "pr-draft",
+        "status": "unchanged",
+        "operation": "preserve",
+        "blockedOperations": [],
+        "existing": {
+          "name": "pr-draft",
+          "color": "8B949E",
+          "description": "The linked implementation PR is a draft."
+        },
+        "desired": {
+          "name": "pr-draft",
+          "color": "8B949E",
+          "description": "The linked implementation PR is a draft.",
+          "role": "state"
+        }
+      },
+      {
+        "name": "pr-ready",
+        "status": "unchanged",
+        "operation": "preserve",
+        "blockedOperations": [],
+        "existing": {
+          "name": "pr-ready",
+          "color": "238636",
+          "description": "The linked implementation PR is ready for human review."
+        },
+        "desired": {
+          "name": "pr-ready",
+          "color": "238636",
+          "description": "The linked implementation PR is ready for human review.",
+          "role": "state"
+        }
+      },
+      {
+        "name": "propose",
+        "status": "customized",
+        "operation": "preserve",
+        "blockedOperations": [
+          "modify"
+        ],
+        "existing": {
+          "name": "propose",
+          "color": "4DA3FF",
+          "description": "Owner request for a proposal; does not authorize implementation."
+        },
+        "desired": {
+          "name": "propose",
+          "color": "A371F7",
+          "description": "Owner request for a separate proposal PR from current refinement evidence.",
+          "role": "command"
+        }
+      },
+      {
         "name": "question",
         "status": "preserved",
         "operation": "preserve",
@@ -654,10 +917,31 @@
         }
       },
       {
-        "name": "refine",
-        "status": "unchanged",
+        "name": "ready",
+        "status": "customized",
         "operation": "preserve",
-        "blockedOperations": [],
+        "blockedOperations": [
+          "modify"
+        ],
+        "existing": {
+          "name": "ready",
+          "color": "238636",
+          "description": "Refinement passed; this does not authorize implementation or merge."
+        },
+        "desired": {
+          "name": "ready",
+          "color": "238636",
+          "description": "Refinement passed; continuation depends on installed policy and future. Never authorizes merge.",
+          "role": "state"
+        }
+      },
+      {
+        "name": "refine",
+        "status": "customized",
+        "operation": "preserve",
+        "blockedOperations": [
+          "modify"
+        ],
         "existing": {
           "name": "refine",
           "color": "4DA3FF",
@@ -666,8 +950,8 @@
         "desired": {
           "name": "refine",
           "color": "4DA3FF",
-          "description": "Work item is being refined.",
-          "role": "state"
+          "description": "Owner request to refine; installed policy may continue to implementation.",
+          "role": "command"
         }
       },
       {
@@ -821,70 +1105,12 @@
         }
       },
       {
-        "name": "status:backlog",
-        "status": "preserved",
-        "operation": "preserve",
-        "existing": {
-          "name": "status:backlog",
-          "color": "1D76DB",
-          "description": "Shared SDLC lifecycle: backlog"
-        }
-      },
-      {
-        "name": "status:done",
-        "status": "preserved",
-        "operation": "preserve",
-        "existing": {
-          "name": "status:done",
-          "color": "1D76DB",
-          "description": "Shared SDLC lifecycle: done"
-        }
-      },
-      {
-        "name": "status:in-progress",
-        "status": "preserved",
-        "operation": "preserve",
-        "existing": {
-          "name": "status:in-progress",
-          "color": "1D76DB",
-          "description": "Shared SDLC lifecycle: in-progress"
-        }
-      },
-      {
-        "name": "status:in-review",
-        "status": "preserved",
-        "operation": "preserve",
-        "existing": {
-          "name": "status:in-review",
-          "color": "1D76DB",
-          "description": "Shared SDLC lifecycle: in-review"
-        }
-      },
-      {
-        "name": "status:proposed",
-        "status": "preserved",
-        "operation": "preserve",
-        "existing": {
-          "name": "status:proposed",
-          "color": "1D76DB",
-          "description": "Shared SDLC lifecycle: proposed"
-        }
-      },
-      {
-        "name": "status:ready",
-        "status": "preserved",
-        "operation": "preserve",
-        "existing": {
-          "name": "status:ready",
-          "color": "1D76DB",
-          "description": "Shared SDLC lifecycle: ready"
-        }
-      },
-      {
         "name": "triage",
-        "status": "unchanged",
+        "status": "customized",
         "operation": "preserve",
-        "blockedOperations": [],
+        "blockedOperations": [
+          "modify"
+        ],
         "existing": {
           "name": "triage",
           "color": "8B949E",
@@ -893,7 +1119,24 @@
         "desired": {
           "name": "triage",
           "color": "8B949E",
-          "description": "Work item is being assessed.",
+          "description": "Owner request to assess this issue; publication stops at triaged.",
+          "role": "command"
+        }
+      },
+      {
+        "name": "triaged",
+        "status": "unchanged",
+        "operation": "preserve",
+        "blockedOperations": [],
+        "existing": {
+          "name": "triaged",
+          "color": "4FB3A4",
+          "description": "Owner-admitted triage passed; the owner decides whether to refine."
+        },
+        "desired": {
+          "name": "triaged",
+          "color": "4FB3A4",
+          "description": "Owner-admitted triage passed; the owner decides whether to refine.",
           "role": "state"
         }
       },
@@ -955,6 +1198,25 @@
         }
       },
       {
+        "name": "waiting-review",
+        "status": "customized",
+        "operation": "preserve",
+        "blockedOperations": [
+          "modify"
+        ],
+        "existing": {
+          "name": "waiting-review",
+          "color": "D29922",
+          "description": "Published work awaits review or a decision; no active reservation."
+        },
+        "desired": {
+          "name": "waiting-review",
+          "color": "D29922",
+          "description": "Inspect the result or PR for feedback or a pending decision.",
+          "role": "state"
+        }
+      },
+      {
         "name": "wip",
         "status": "unchanged",
         "operation": "preserve",
@@ -982,26 +1244,50 @@
         }
       }
     ],
-    "operations": [],
+    "operations": [
+      {
+        "type": "create-label",
+        "kind": "create",
+        "name": "future",
+        "color": "8B949E",
+        "description": "Pause implementation; triage, refinement and proposal remain available."
+      }
+    ],
     "errors": [],
     "record": {
       "schemaVersion": 1,
       "capability": {
         "id": "labels",
         "provider": "github",
-        "version": "1"
+        "version": "2"
       },
-      "desiredHash": "92411d84cd4b137e3cd897fa4f04f4e984ebc8fba7f0460f7e1b20932fbba895",
-      "observedHash": "5d83ae956a59bc38fb0a11a2f4360c7d4b4bdf1053dbab9ee4593d9a36cd97c3",
-      "targetHash": "5d83ae956a59bc38fb0a11a2f4360c7d4b4bdf1053dbab9ee4593d9a36cd97c3",
-      "operations": [],
-      "blockedOperations": [],
+      "desiredHash": "108629bb928a12c842d346f996661da24ce58cd4eec4a3402e0b300e46ab9bb4",
+      "observedHash": "6b99081ec7d72d9542f6c9b28452ff9941b5197f59f211b9280310a71b93ea55",
+      "targetHash": "6b99081ec7d72d9542f6c9b28452ff9941b5197f59f211b9280310a71b93ea55",
+      "operations": [
+        {
+          "type": "create-label",
+          "kind": "create",
+          "name": "future",
+          "color": "8B949E",
+          "description": "Pause implementation; triage, refinement and proposal remain available."
+        }
+      ],
+      "blockedOperations": [
+        "modify",
+        "modify",
+        "modify",
+        "modify",
+        "modify",
+        "modify",
+        "modify"
+      ],
       "verified": false
     }
   },
   "authorization": {
     "required": true,
-    "planHash": "75301405d29e1634a0b614917d449ef57e22942121526ef852fbf79743e89047"
+    "planHash": "fb1c054f2f63969e46a8cbea1241ddce5900252f56c5bce8c0107ff51f02f823"
   },
   "nextAction": "lighthouse capabilities apply --plan-file .lighthouse/reconciliation/labels.plan.json --authorize <plan-hash>"
 }

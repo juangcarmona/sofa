@@ -5,7 +5,7 @@
 - Baseline: `0.1.0`
 - Product: `sofa`
 - Profiles: none
-- SDLC package: `@juangcarmona/lighthouse-sdlc@0.15.2`
+- SDLC package: `@juangcarmona/lighthouse-sdlc@0.16.0`
 - ProductShape: 0.23.0
 - ArcShape: 0.1.6
 - Public site: `enabled`
