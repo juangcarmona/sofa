@@ -1,6 +1,6 @@
 # Fast Forward run — SoFa #49
 
-- Status: blocked at proposal; evidence gathered for continuation
+- Status: running; proposal resumed after the first correction
 - Started: 2026-10-31T01:02:56Z
 - Starting commit: `2a5610d390bd2acbbdc702ad43dd65cfe30c4ca5`
 - Executor: `gpt-6.1-terra`
@@ -16,7 +16,7 @@ The owner requested continuation after PR #83. The [new refinement run](https://
 
 The [proposal run](https://github.com/juangcarmona/sofa/actions/runs/41188613274) completed successfully as a workflow but [published a blocked planned gate](https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541743353). It could not access the package identity guide in its checkout and asked for exact dependency pins. It released its reservation and retained the `future` implementation hold.
 
-The exact adopted Lighthouse 0.12.0 package contains the guide, SHA-256 `fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb`. A disposable Keycloak 26.8.1 container published OIDC discovery with PKCE S256, and an ASP.NET Core OIDC 10.0.14 project compiled against .NET 10. These probes do not demonstrate a complete sign-in or approve the proposed architecture.
+The exact adopted Lighthouse 0.12.0 package contains the guide, SHA-256 `fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb`. A disposable Keycloak 26.8.1 container published OIDC discovery with PKCE S256, and an ASP.NET Core OIDC 10.0.14 project compiled against .NET 10. These probes do not demonstrate a complete sign-in or approve the proposed architecture. The [owner reply](https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541763350) supplies the sources and candidates; [the resumed proposal](https://github.com/juangcarmona/sofa/actions/runs/41189371172) is running as correction round 1.
 
 ## Follow-up — 2026-10-31
 
