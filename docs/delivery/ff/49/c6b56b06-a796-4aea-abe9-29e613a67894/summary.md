@@ -8,9 +8,13 @@
 - Correction rounds: at most 3 per gate
 - Issue: [SoFa #49](https://github.com/juangcarmona/sofa/issues/49)
 
+## Owner decision — ADR-0007
+
+On 2026-10-31 Juan explicitly accepted ADR-0007: external Keycloak authentication, a separate development provider and independent GitHub authorization. [PR #84](https://github.com/juangcarmona/sofa/pull/84) records the accepted decision and its index entry, pending merge. Independent reviewer `gpt-6-astra` approved that change at `db1c2087a17003cd4e9719da67dfc617d26c5e21`. ADR-0008 remains Proposed. The application framework, session policy and implementation are separate decisions; `future` remains in place.
+
 ## Resumed refinement — 2026-10-31
 
-The owner requested continuation after PR #83. The [new refinement run](https://github.com/juangcarmona/sofa/actions/runs/41188212887) evaluated source `824131a785d4edd97adbe84850d5c9a26756a0d4`, published a [passed Ready result](https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541654459), and released its reservation. The `future` label holds automatic implementation while ADR-0007 and ADR-0008 remain Proposed. The first [proposal run](https://github.com/juangcarmona/sofa/actions/runs/41188613274) was requested once; its blocked result and successful continuation are recorded below. This evidence does not approve the proposed architecture or implementation.
+The owner requested continuation after PR #83. The [new refinement run](https://github.com/juangcarmona/sofa/actions/runs/41188212887) evaluated source `824131a785d4edd97adbe84850d5c9a26756a0d4`, published a [passed Ready result](https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541654459), and released its reservation. At that point `future` held automatic implementation while both ADRs were Proposed. The first [proposal run](https://github.com/juangcarmona/sofa/actions/runs/41188613274) was requested once; its blocked result and successful continuation are recorded below. This evidence does not approve the proposed architecture or implementation.
 
 ## Proposal — blocked, compatibility evidence collected
 

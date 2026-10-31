@@ -120,6 +120,15 @@
         "Formatting changes preserve OpenSpec semantics and historical evidence wording is corrected.",
         "Owner decisions remain on architecture, sessions and implementation."
       ]
+    },
+    {
+      "kind": "independent-adr-acceptance-review",
+      "model": "gpt-6-astra",
+      "reviewedCommit": "db1c2087a17003cd4e9719da67dfc617d26c5e21",
+      "decision": "approve",
+      "findings": [
+        "ADR-0007 approval is accurately scoped; ADR-0008, framework, sessions and implementation remain separate."
+      ]
     }
   ],
   "corrections": [
@@ -163,7 +172,7 @@
       }
     }
   ],
-  "stopReason": "The reviewed proposal requires owner decisions on ADR-0007, the proposed application architecture and session/security policy, and explicit authorization before lifting the future implementation hold.",
+  "stopReason": "Owner accepted ADR-0007; framework, MFA/session policy, development storage lifetime and explicit implementation authorization remain separate decisions.",
   "pullRequest": "https://github.com/juangcarmona/sofa/pull/84",
   "links": [
     "https://github.com/juangcarmona/sofa/issues/49",
@@ -203,14 +212,23 @@
     "proposeRouter": "https://github.com/juangcarmona/sofa/actions/runs/41188590922",
     "proposeRun": "https://github.com/juangcarmona/sofa/actions/runs/41189371172",
     "implementationHold": "future",
-    "architectureDecisions": "ADR-0007 and ADR-0008 remain Proposed.",
+    "architectureDecisions": "ADR-0007 accepted by owner on 2026-10-31, recorded in PR #84 pending merge; ADR-0008 remains Proposed.",
     "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified.",
-    "review": "Independent reviewer approved final proposal head 3c1732b81424bdf47330c3504bf6e0f77bff083f; owner decisions remain.",
+    "review": "Independent review approved ADR-0007 acceptance at db1c2087a17003cd4e9719da67dfc617d26c5e21; framework and session decisions remain.",
     "ci": {
       "commit": "3c1732b81424bdf47330c3504bf6e0f77bff083f",
       "verify": "https://github.com/juangcarmona/sofa/actions/runs/41190192144",
       "foundation": "https://github.com/juangcarmona/sofa/actions/runs/41190192061",
       "result": "passed"
     }
-  }
+  },
+  "ownerDecisions": [
+    {
+      "decision": "Accept ADR-0007: external Keycloak, independent development provider and separate GitHub authorization.",
+      "owner": "Juan García Carmona",
+      "date": "2026-10-31",
+      "evidence": "Owner explicitly approved ADR-0007 in the current conversation; recorded in PR #84 pending merge.",
+      "scope": "Does not approve ADR-0008, the proposed application framework, session policy or implementation."
+    }
+  ]
 }
