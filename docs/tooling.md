@@ -2,11 +2,11 @@
 
 ## Lighthouse
 
-The exact installed CLI version is pinned in `package.json` and `package-lock.json`; `lighthouse.json` selects the SDLC package. Preview updates with `npx lighthouse upgrade --scope all`, then apply reviewed changes and run `npx lighthouse verify --format json`. `.lighthouse/upgrade.json` tracks managed-file ownership. The current adoption uses CLI 0.11.6 and SDLC 0.15.2.
+The exact installed CLI version is pinned in `package.json` and `package-lock.json`; `lighthouse.json` selects the SDLC package. Preview updates with `npx lighthouse upgrade --scope all`, then apply reviewed changes and run `npx lighthouse verify --format json`. `.lighthouse/upgrade.json` tracks managed-file ownership. The current adoption uses CLI 0.12.0 and SDLC 0.16.0.
 
 Workflow installation is separate and opt-in. Foundation upgrades preserve existing workflows; SoFa remains an observer of independently executed repository workflows. The labels and recommended GitHub profile capabilities are already adopted. No `visual-theme` profile is selected.
 
-The workflow source is pinned to Lighthouse `cee9f62f8161771ea16366c6360b82e0efad045c`, including official triage, feedback correction and PR-state reconciliation. CLI 0.11.6 and SDLC 0.15.2 are published and locked locally. See the [workflow runbook](runbooks/repository-workflows.md) and [adoption evidence](delivery/evidence/issue-74/README.md). Optional maintenance, model profiles and delegated execution remain unconfigured.
+The workflow source is pinned to Lighthouse `806223d06302628d25791e42e35b609ca6e1d32c`, including official triage, feedback correction, PR-state reconciliation and the engine receipt cleanup fix from Lighthouse PR #200. CLI 0.12.0 and SDLC 0.16.0 are published and locked locally. The labels capability is adopted at version 2, preserving SoFa's existing label customizations. See the [workflow runbook](runbooks/repository-workflows.md) and [earlier adoption evidence](delivery/evidence/issue-74/README.md). Optional maintenance, product-change and unattended workers, model profiles and delegated execution remain unconfigured.
 
 ## ProductShape
 
