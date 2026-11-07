@@ -1,0 +1,34 @@
+{
+  "head": "ad4aea0e8ef66acbc86daf8257e9e8087cf37573",
+  "verdict": "request-changes",
+  "findings": [
+    {
+      "file": "openspec/changes/issue-50-proposal/design.md",
+      "line": 11,
+      "title": "Conversation paging has no overall read bound",
+      "consequence": "The design limits each response to 100 records but does not cap pages, total records, or total bytes fetched. A very large or adversarial conversation can therefore cause unbounded source and application work, despite the accepted requirement for explicit collection bounds; the UI also lacks a defined point at which it must report a bounded partial collection.",
+      "fix": "Specify an overall pagination/byte budget in addition to the per-page limit, how callers continue or stop at that budget, and the explicit partial-coverage state shown when the budget prevents reaching the source's end. Preserve load-more for subsequent bounded reads."
+    },
+    {
+      "file": "openspec/changes/issue-50-proposal/design.md",
+      "line": 17,
+      "title": "Artifact safety limits are named but not bounded in the plan",
+      "consequence": "Compressed size, uncompressed size, and member count are listed as limits without defining their maximums or where they are enforced. Implementations could choose ineffective limits or buffer oversized artifacts before checking them, defeating the accepted requirement to bound fetched artifact sizes and types.",
+      "fix": "Define explicit maximum compressed and expanded bytes, member count, and allowed member types, and require enforcement before buffering/reading content. State how each rejected or truncated artifact is surfaced as unavailable/limited evidence."
+    }
+  ],
+  "dimensions": {
+    "accepted_intent_and_scope": "The plan preserves issue 50's read-only scope, ordinary issues, safe rendering, source evidence separation, and explicit exclusion of commands; no product-definition change is proposed.",
+    "source_and_lifecycle_contract": "The plan directs implementation to the adopted Lighthouse contract and shared lifecycle and prohibits policy forks or recency-based correlation.",
+    "authority_and_isolation": "The plan requires verified repository/user authority, no global issue cache, and removal of prior data on authority loss/account change.",
+    "verification_and_gates": "Tests and later source-consent, connected-user acceptance, current-head CI, and independent Done review are identified as implementation gates, not asserted complete by this plan.",
+    "bounds_and_artifact_safety": "Needs changes: per-page conversation size is specified but no overall pagination budget; artifact size/type limits are not quantified or tied to pre-read enforcement."
+  },
+  "kind": "plan",
+  "issue": 50,
+  "requestedModel": "openai/gpt-6-luna",
+  "requestedEffort": "high",
+  "reviewedAt": "2026-11-07T15:14:10.827Z",
+  "sourceReadOnly": true,
+  "requestPath": "/tmp/sofa-review-50-plan-ad4aea0e8e-c42a5547/context.json"
+}

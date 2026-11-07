@@ -1,0 +1,21 @@
+{
+  "head": "c9b2d6434db4bad3c61cd09931beab251e602ff1",
+  "verdict": "accept",
+  "findings": [],
+  "dimensions": {
+    "accepted_intent_and_scope": "Pass: preserves read-only issue context and ordinary issue access; excludes command, journal, scheduler, and production scope. #49 remains dependency context, not a review target.",
+    "source_and_lifecycle_contract": "Pass: adopts Lighthouse source evidence and shared lifecycle without a policy fork; separates lifecycle result from workflow status and requires exact result/run/revision/attempt association rather than recency.",
+    "bounds_and_artifact_safety": "Pass: hard conversation page, record, text, request, and response limits stop further fetches at caps and expose bounded partial coverage; artifact byte/member/type limits and bounded streaming/rejection behavior are specified.",
+    "authority_and_isolation": "Pass: gates reads on configured repository and effective user authority; isolates issue cache and removes prior data on authority/account loss while retaining stale data only for transient failures.",
+    "evidence_and_presentation": "Pass: missing, expired, inaccessible, malformed, spoofed, unsupported, and incomplete evidence remains explicit; specifies safe Markdown and keyboard/phone accessibility.",
+    "readiness_and_later_gates": "Pass: readiness and owner authorization are recorded; actual connected-user/source consent and final current-head CI remain later gates, not claimed complete. Existing #49 and separate production boundary are respected.",
+    "shared_lifecycle": "Pass: follows the adopted shared lifecycle, Done dimensions, and integration gate; does not introduce SoFa-specific lifecycle policy."
+  },
+  "kind": "plan",
+  "issue": 50,
+  "requestedModel": "openai/gpt-6-luna",
+  "requestedEffort": "high",
+  "reviewedAt": "2026-11-07T15:17:32.962Z",
+  "sourceReadOnly": true,
+  "requestPath": "/tmp/sofa-review-50-plan-c9b2d6434d-a49a07b0/context.json"
+}

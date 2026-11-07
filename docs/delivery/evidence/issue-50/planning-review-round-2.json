@@ -1,0 +1,30 @@
+{
+  "head": "d40e642e7443163d017d4ec6d39d90026d241ea3",
+  "verdict": "request-changes",
+  "findings": [
+    {
+      "file": "openspec/changes/issue-50-proposal/design.md",
+      "line": 11,
+      "title": "Conversation bounds do not define a stop at the collection cap",
+      "consequence": "The design caps retained pages/comments/text, but does not say that load-more stops issuing source requests when the 10-page/1,000-comment or 8 MiB limit is reached. A caller can continue fetching and discarding pages, so the stated retained-view limit does not bound cumulative source and application work or define reliable cursor/partial-coverage behavior at the cap.",
+      "fix": "Define the pagination budget as a hard per-view/source-read cap, including the response bytes fetched, and stop requesting pages when any cap is reached. Specify how the cursor and explicit partial-coverage state are exposed at that point; if continuation is supported, make it a separately bounded read rather than silently fetching and discarding pages."
+    }
+  ],
+  "dimensions": {
+    "accepted_intent_and_scope": "The plan retains ordinary issue read-only context and the original acceptance, without command, journal, or scheduler scope.",
+    "readiness_and_authority": "Readiness evidence records owner authorization and the original acceptance; this review does not treat implementation or source consent as complete.",
+    "source_and_lifecycle_contract": "The design adopts the Lighthouse wire contract and shared lifecycle, avoids a policy fork, and requires exact run/revision/attempt correlation rather than recency.",
+    "authority_and_isolation": "The plan gates reads on configured-repository/user authority, separates transient stale data from authority loss, and removes prior data on loss or identity change.",
+    "evidence_and_artifact_safety": "Malformed, unsupported, expired, oversized, inaccessible, spoofed, and incomplete evidence is represented explicitly; artifact byte/member/type limits and bounded stream handling are specified.",
+    "conversation_bounds": "Needs changes: retained-view bounds exist, but no hard stop prevents further page fetches after those caps.",
+    "presentation_and_accessibility": "Safe Markdown, keyboard access, narrow phone layout, long-conversation and unavailable-evidence checks are planned.",
+    "gates_and_dependencies": "Real connected-user/source acceptance, final current-head CI, independent Done review, and the #49 dependency gate remain later gates; production is separate."
+  },
+  "kind": "plan",
+  "issue": 50,
+  "requestedModel": "openai/gpt-6-luna",
+  "requestedEffort": "high",
+  "reviewedAt": "2026-11-07T15:15:46.168Z",
+  "sourceReadOnly": true,
+  "requestPath": "/tmp/sofa-review-50-plan-d40e642e74-bd9de799/context.json"
+}
