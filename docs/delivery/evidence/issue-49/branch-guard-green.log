@@ -1,0 +1,11 @@
+✔ accepts numbered authored branches and dependency-provider branches (299.858565ms)
+✔ keeps malformed and unnumbered authored branches invalid (630.588693ms)
+✔ generated foundation guard and manifest admit the established automation branches (662.954539ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1653.248507

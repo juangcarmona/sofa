@@ -2,8 +2,13 @@
   <Folder Name="/src/">
     <Project Path="src/SoFa.AppHost/SoFa.AppHost.csproj" />
     <Project Path="src/SoFa.Runtime/SoFa.Runtime.csproj" />
+    <Project Path="src/SoFa.Web/SoFa.Web.csproj" />
+    <Project Path="src/SoFa.Modules.Workspace/SoFa.Modules.Workspace.csproj" />
+    <Project Path="src/dotnet/Lighthouse.Cqrs/Lighthouse.Cqrs.csproj" />
+    <Project Path="src/dotnet/Lighthouse.Analyzers/Lighthouse.Analyzers.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/SoFa.Runtime.Tests/SoFa.Runtime.Tests.csproj" />
+    <Project Path="tests/SoFa.Web.Tests/SoFa.Web.Tests.csproj" />
   </Folder>
 </Solution>

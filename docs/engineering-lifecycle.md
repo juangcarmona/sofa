@@ -80,6 +80,8 @@ The commands that produce the deterministic lane's evidence. `verify-like-ci` de
 | Managed integrations | `npm run product:integrity` and `npm run product:doctor` | ProductShape-managed files match the checked-in configuration |
 | Delivery specifications | `npm run spec:validate` and `npm run product:citations` | OpenSpec validates current specs/changes; ProductShape verifies document scope and product citations |
 | Architecture docs | `npm run architecture:check` | ArcShape validates all twelve arc42 sections |
+| .NET application profile | `npm run verify:dotnet` through root verification | Locked Release build, format/module checks, real LH1001/LH1002 rejection and provisioned solution tests |
+| Development identity provider | Host CI `npm run verify:identity:host` | Actual isolated Keycloak/TLS/MFA/refresh/revocation/outage and account UI evidence; actual source consent/device proof remains explicit |
 | Secret scanning | `npm run security:check` | Gitleaks scans all refs, staged changes, and the working tree with redacted output |
 | CI | GitHub Actions `verify` workflow | Repository verification passes on the proposed commit |
 

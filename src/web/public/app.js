@@ -115,6 +115,19 @@ async function refresh() {
   busy = true; $('refresh').disabled = true; $('repositories').setAttribute('aria-busy', 'true');
   try {
     const response = await fetch('/api/observations', { signal: AbortSignal.timeout(35000) });
+    if ([401, 403, 409].includes(response.status)) {
+      const heldFocus = $('repositories').contains(document.activeElement);
+      snapshot = undefined;
+      $('repository-filter').replaceChildren(Object.assign(node('option', 'All repositories'), { value: '' }));
+      for (const id of ['repo-count', 'active-count', 'attention-count', 'unknown-count']) $(id).textContent = '—';
+      $('count-scope').textContent = 'No authorized observation is available.';
+      $('connection').textContent = response.status === 409 ? 'Connect or verify your GitHub account to view observations.'
+        : response.status === 401 ? 'Your owner session has ended. Sign in again to view observations.' : 'Access to this workspace is denied.';
+      const account = node('a', 'Open account'); account.href = '/workspace';
+      $('repositories').replaceChildren(account);
+      if (heldFocus) account.focus({ preventScroll: true });
+      return;
+    }
     if (!response.ok) throw Error();
     const data = await response.json();
     if (!Array.isArray(data.repositories) || data.repositories.some(r => typeof r.repository !== 'string' || (r.availability === 'available' && (!Array.isArray(r.runs) || !Array.isArray(r.attention))))) throw Error();
@@ -130,5 +143,9 @@ async function refresh() {
 $('refresh').addEventListener('click', refresh);
 $('repository-filter').addEventListener('change', () => { if (snapshot) render(snapshot); });
 $('appearance').addEventListener('change', event => { document.documentElement.dataset.lhTheme = event.target.value; });
+if (location.pathname === '/workspace/operations') {
+  const account = node('a', 'Account'); account.href = '/workspace';
+  document.querySelector('.topbar').append(account);
+}
 refresh();
 setInterval(() => { if (!document.hidden) refresh(); }, 30000);

@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "startedAt": "2026-11-07T14:21:40.690Z",
+  "completedAt": "2026-11-07T14:33:11.362Z",
+  "proofs": {
+    "wrongTotpDenied": true,
+    "passwordOnlyDenied": true,
+    "csrfRejected": true,
+    "localLogout": true,
+    "freshMfaDespiteProviderSso": true,
+    "keyboardNavigation": true,
+    "accountAccessibility": true,
+    "sourceUiFixtures": true,
+    "trustedHttps": true,
+    "browserStorageEmpty": true,
+    "opaqueSecureCookie": true,
+    "wrongOwnerDenied": true,
+    "pollingDoesNotRenew": true,
+    "onlineRefresh": true,
+    "providerRevocationDenied": true,
+    "localLogoutDuringOutage": true,
+    "outageDenied": true
+  },
+  "provider": "Keycloak 26.8.1",
+  "syntheticAccounts": true,
+  "physicalPhone": false,
+  "githubUserConsentVerified": false,
+  "scope": "Actual pinned development provider and source UI fixtures through the Release Aspire composition; not complete issue-49 acceptance.",
+  "command": "npm run verify:identity:host",
+  "retainedArtifacts": "GitHub Actions test-results/identity screenshots and summary receipt; local source UI fixtures are not actual GitHub consent.",
+  "imageDigest": "sha256:a78d6b79572168cb25886b80a8b5b8d4ed4390743e3eecb810538683e209dd6b"
+}

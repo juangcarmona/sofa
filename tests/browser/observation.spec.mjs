@@ -205,6 +205,23 @@ test('initial refresh failure does not fabricate observations', async ({ page })
   await expect(page.locator('#active-count')).toHaveText('—');
 });
 
+for (const status of [401, 403, 409]) test(`authority loss ${status} clears previous source data and filter counts`, async ({ page }) => {
+  let allowed = true;
+  await page.route('**/api/observations', route => route.fulfill(allowed ? { json: payload } : { status }));
+  await page.goto('/');
+  const issue = page.getByRole('link', { name: '#45 Initialize the factory view' });
+  await expect(issue).toBeVisible();
+  await issue.focus();
+  allowed = false;
+  await page.evaluate(() => document.getElementById('refresh').click());
+  await expect(issue).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Open account' })).toBeFocused();
+  await expect(page.locator('#active-count')).toHaveText('—');
+  await expect(page.locator('#attention-count')).toHaveText('—');
+  await expect(page.locator('#repository-filter option')).toHaveCount(1);
+  await expect(page.getByText('No authorized observation is available.')).toBeVisible();
+});
+
 test('empty evidence is not a claim of delivery success', async ({ page }) => {
   await page.route('**/api/observations', route => route.fulfill({ json: { repositories: [{ ...payload.repositories[0], runs: [], attention: [] }] } }));
   await page.goto('/');

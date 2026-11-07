@@ -1,0 +1,64 @@
+{
+  "scope": "Implemented development workspace checkpoint; issue49 is not Done and remains a draft.",
+  "verifiedAt": "2026-11-07T15:31:44.430743+00:00",
+  "checks": [
+    {
+      "command": "DOTNET_PROCESSOR_COUNT=2 MSBUILDDISABLENODEREUSE=1 CI=true npm run verify",
+      "exitCode": 0,
+      "nodeTests": 38,
+      "dotnetTests": 94,
+      "ownerSourceAndCompositionTests": 56,
+      "legacyBrowserTests": 15,
+      "warningsAsErrors": true,
+      "realCompilerRejection": [
+        "LH1001",
+        "LH1002"
+      ]
+    },
+    {
+      "command": "npm run verify:identity:host",
+      "exitCode": 0,
+      "receipt": "provider-verification.json",
+      "sourceUiFixtures": true,
+      "physicalPhone": false,
+      "githubUserConsentVerified": false
+    },
+    {
+      "command": "prodshape citations verify docs/architecture --format json",
+      "current": 19,
+      "stale": 0,
+      "tampered": 0,
+      "unresolved": 0
+    }
+  ],
+  "runtime": "The supported launcher builds and directly executes the exact Release AppHost. Development composes workspace plus pinned provider and SDK tooling; external configuration composes no provider. No execution runtime/database or anonymous Node listener is composed.",
+  "securityDependency": {
+    "advisory": "GHSA-gg6h-894w-4m9c",
+    "package": "re2js",
+    "previous": "2.8.6",
+    "selected": "2.8.7",
+    "constraint": "Version-specific markdownlint override; remove when upstream updates its exact pin.",
+    "auditHigh": 0,
+    "auditCritical": 0,
+    "remainingLow": 7,
+    "remainingLowScope": "Existing documentation-tool dependencies; not claimed resolved."
+  },
+  "regressions": [
+    "Malformed provider expires_in returns unavailable rather than throwing.",
+    "Local CSRF logout remains available during provider outage.",
+    "Account-reference rotation transfers the latest provider refresh token atomically.",
+    "Real Chromium form redirects require exact trusted authentication origins in CSP.",
+    "Keycloak basic scope supplies the required sub/auth_time claims; application validation remains strict.",
+    "Static assets assert real bodies and MIME types, preventing the discarded Task<IResult> route overload.",
+    "An expired framework nonce is denied with a valid synthetic code/signature; navigation failures expose only data-free recovery links.",
+    "Logout destroys the authenticated server record even when its cookie reference rotates between authentication and the route; independently copied ClaimsIdentity instances preserve the old reference. The focused regression failed with 401 before the guard fix and passes with 302 and server authority revoked.",
+    "Private provider files owned by UID20003 fail with the image default UID1000 and start successfully with nonroot UID20003/image group0. Generated setup records the actual nonroot private-file owner; no world-readable permissions are added.",
+    "Project-pinned Aspire CLI13.6.1 prepares its bundle with matching isolated ASPIRE_HOME and --install-path, and builds with explicit AspireCliBundlePath. The implicit global/DNX route and mismatched extraction-home failure are no longer build prerequisites."
+  ],
+  "openAcceptance": [
+    "Actual development GitHub App user consent, designated-repository permission/revocation evidence.",
+    "Physical-phone trusted reachability, MFA, source connection and logout.",
+    "Final current-head hosted CI and independent Done review; production remains separate.",
+    "Exact isolated SDK-image parity verification is not included in this receipt."
+  ]
+}

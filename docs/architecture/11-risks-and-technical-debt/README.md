@@ -6,16 +6,18 @@ description: Known risks, technical debt, and their planned responses.
 
 # 11. Remaining limitations
 
-The current observer reads only the latest twenty runs and the first hundred open issue records per repository. It is not a complete audit and does not verify artifact contents. The read-only web UI and periodic browser refresh are implemented; authenticated controls remain future work. The installed router admits the owner and supports Refine, Propose, Implement, Integrate and Review entry under stage-specific evidence and gate checks. Runner loss may leave a reservation requiring operator reconciliation. Legacy execution code remains opt-in for rollback and must not regain product authority.
+The current observer reads only the latest twenty runs and the first hundred open issue records per repository. It is not a complete audit and does not verify artifact contents. The authenticated development boundary and source-read adapters are implemented; full issue context and source command controls remain future work. The installed router admits the owner and supports Refine, Propose, Implement, Integrate and Review entry under stage-specific evidence and gate checks. Runner loss may leave a reservation requiring operator reconciliation. Legacy execution code remains opt-in for rollback and must not regain product authority.
 
 <!-- pdac:cite id="FR-DELIVERY-EVIDENCE" digest="sha256:5a56ea8e0030730dfdf0d8fd51027c45c2e6ddd65393b6d7726c85c27e543074" -->
 
 See [ADR-0006](../09-architecture-decisions/0006-observe-repository-owned-workflows.md) for the accepted boundary and superseded design.
 
-## Proposed delivery risks and owners
+## Delivery risks and owners
 
 | Risk | Owning work |
 | --- | --- |
+| Real GitHub consent and physical-phone behavior are not established by fixtures | Complete the actual source/device matrix before claiming delivery acceptance |
+| Process-memory development state is lost on restart | Fresh identity login and source relinking; production persistence/custody remain release work |
 | Source dispatch receipt received versus response lost | Command journal plus Lighthouse correlation/deduplication contract; no time-based matching |
 | Ordinary comments may resume needs-info or invalidate task digest | Lighthouse explicit intent contract; UI pre-submit effect explanation |
 | Installed contract differs from source/latest documentation | Pin and test the adopted package; incompatibility is explicit |

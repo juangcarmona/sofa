@@ -1,0 +1,28 @@
+.account-panel {
+  max-width:56rem;
+  margin:2rem auto;
+  padding:clamp(1rem,4vw,2.5rem);
+  background:var(--lh-surface);
+  border:1px solid var(--lh-border);
+  border-radius:var(--lh-radius-control);
+  overflow-wrap:anywhere}
+.account-panel form {
+  display:inline-block;
+  margin:.5rem .75rem .5rem 0}
+.account-panel ul {
+  padding-left:1.4rem}
+.account-panel li {
+  margin-block:.75rem}
+.topbar nav {
+  display:flex;
+  gap:1.5rem;
+  flex-wrap:wrap}
+.topbar nav a,.topbar .brand,.account-panel a {
+  display:inline-flex;
+  align-items:center;
+  min-height:44px}
+@media (max-width:600px) {
+  .account-panel {
+    margin:1rem}
+  .account-panel form,.account-panel button {
+    width:100%}}

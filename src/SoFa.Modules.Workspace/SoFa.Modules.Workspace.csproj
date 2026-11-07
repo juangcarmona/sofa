@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>JuanGCarmona.SoFa.Modules.Workspace</AssemblyName>
+    <RootNamespace>JuanGCarmona.SoFa.Modules.Workspace</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LighthouseModule>true</LighthouseModule>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.14" />
+    <ProjectReference Include="../dotnet/Lighthouse.Cqrs/Lighthouse.Cqrs.csproj" />
+    <ProjectReference Include="../dotnet/Lighthouse.Analyzers/Lighthouse.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <CompilerVisibleProperty Include="LighthouseModule" />
+    <InternalsVisibleTo Include="SoFa.Web.Tests" />
+  </ItemGroup>
+</Project>

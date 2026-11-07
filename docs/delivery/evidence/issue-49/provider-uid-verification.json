@@ -1,0 +1,23 @@
+{
+  "observedAt": "2026-11-07T15:31:44.431178+00:00",
+  "privateMode": "directories0700 / files0600",
+  "syntheticPrivateFileOwner": 20003,
+  "checks": [
+    {
+      "selectedUser": "image default1000:0",
+      "privateFileOwner": 20003,
+      "healthy": false,
+      "permissionDenied": false
+    },
+    {
+      "selectedUser": "20003:0",
+      "privateFileOwner": 20003,
+      "healthy": true,
+      "permissionDenied": false
+    }
+  ],
+  "hostedFailure": "https://github.com/juangcarmona/sofa/actions/runs/42384567717",
+  "hostedFailureBoundary": "Real provider startup failed; initial public logs did not identify a stage. No hosted success is claimed by the synthetic UID reproduction.",
+  "guard": "Actual host CI retains only a fixed stage/error-type failure receipt; the provider startup gate remains required.",
+  "processGap": "Existing host CI already caught the UID portability error before integration. No shared lifecycle gate change is warranted; preserve that gate and make its safe failure stage observable."
+}

@@ -1,0 +1,31 @@
+{
+  "scope": "Reconciled49 plan; no identity runtime implemented",
+  "base": "677bfcb0e120da81fa87ccf17a5ae01d95a04cbd",
+  "checks": [
+    {
+      "command": "DOTNET_PROCESSOR_COUNT=2 MSBUILDDISABLENODEREUSE=1 CI=true npm run verify",
+      "exitCode": 0,
+      "nodeTests": 36,
+      "dotnetTests": 38,
+      "browserTests": 12
+    },
+    {
+      "command": "lighthouse verify --format json",
+      "exitCode": 0
+    },
+    {
+      "command": "node scripts/lighthouse-guard.mjs verify",
+      "exitCode": 0
+    }
+  ],
+  "citations": {
+    "boundDocuments": 8,
+    "current": 59,
+    "unclassified": 0
+  },
+  "limitations": [
+    "Actual Keycloak/GitHub user/physical-phone acceptance remains required.",
+    "No production authorization.",
+    "Branch guard now reflects already accepted manual/publisher/dependency branch conventions; generated through official upgrade."
+  ]
+}

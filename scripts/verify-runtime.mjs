@@ -2,6 +2,7 @@ import { spawnSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 
 const scope = process.argv.includes('--host') ? 'host' : (process.env.SOFA_RUNTIME_TEST_SCOPE ?? 'all');
+const profile = process.argv.includes('--profile');
 if (!['all', 'container', 'host'].includes(scope)) throw new Error('Unknown runtime test scope');
 if (scope === 'container' && !process.env.SOFA_TEST_DATABASE) throw new Error('Container verification requires host-provisioned SOFA_TEST_DATABASE');
 console.log(`Runtime test scope: ${scope}${scope === 'container' ? ' (Docker engine tests run separately with npm run test:runtime:host)' : ''}`);
@@ -26,6 +27,7 @@ try {
   }
   const buildServers = scope === 'container' ? ['--disable-build-servers'] : [];
   command('dotnet',['restore','SoFa.slnx','--locked-mode',...buildServers],{stdio:'inherit'});
+  if (profile) command(process.execPath, ['scripts/check-dotnet-profile.mjs'], { stdio: 'inherit' });
   const filter = scope === 'all' ? [] : ['--filter', `FullyQualifiedName${scope === 'host' ? '~' : '!~'}SoFa.Runtime.Tests.EngineTests`];
-  command('dotnet',['test','SoFa.slnx','--no-restore',...filter,...buildServers],{stdio:'inherit',env:{...process.env,SOFA_TEST_DATABASE:connection}});
+  command('dotnet',['test','SoFa.slnx','--no-restore',...(profile ? ['--no-build', '-c', 'Release'] : []),...filter,...buildServers],{stdio:'inherit',env:{...process.env,SOFA_TEST_DATABASE:connection}});
 } finally { if (!process.env.SOFA_TEST_DATABASE && scope !== 'host') spawnSync('docker',['rm','-f',name],{stdio:'ignore'}); }

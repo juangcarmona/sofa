@@ -25,9 +25,19 @@ See [ADR-0006](../09-architecture-decisions/0006-observe-repository-owned-workfl
 
 These facts coexist and are not flattened into one progress label. A successfully completed workflow can still carry a blocked stage result. A waiting-review label does not prove an active reservation or accepted proposal.
 
-## Proposed identity and session handling
+## Implemented identity and source-authority mechanisms
 
-Use OIDC authorization-code flow with PKCE, issuer/audience/state/nonce checks through a standard library, server-managed sessions, Secure/HttpOnly cookies and CSRF protection on mutations. Match the permitted owner using stable issuer/subject, not email alone. GitHub linking is a separate authenticated ceremony, with an actor-preserving user authorization. Scope credentials to configured repositories and required operations. Expired/revoked source authority disables dependent writes; logout invalidates the application session. Production timeout/assurance policy is an explicit delivery decision, not an invented product constant.
+ASP.NET cookie/OIDC middleware validates code/S256 transactions, issuer, audience, state and nonce. Owner admission additionally requires the exact configured issuer/subject, the development assurance policy and fresh authentication time. The browser cookie protects an opaque server reference; provider/source tokens remain in bounded process-memory records. Process restart invalidates all local authority and requires fresh linking.
+
+The authorized development policy uses fifteen-minute idle and four-hour original-authentication limits, with five-minute online provider revalidation. Polling cannot renew idle time; explicit validated navigation/interaction can, within the absolute cap. Reference rotation and provider refresh are atomic with respect to the stored credentials and cannot move the original limits. These are development implementation choices under the reviewed proposal, not production policy constants.
+
+<!-- pdac:cite id="QR-EXECUTION-SECURITY" digest="sha256:9f39dd08a392db995a75f26c9a30ed4d4ec43f73ad0ccafbdfaa3d0eabc1528a" -->
+
+Identity-provider admission and GitHub acting-account authority are separate. The source adapter verifies numeric user identity and intersects repository/user permission with app installation grants before protected reads or cache reuse. Connection generation and session ownership scope observations. Incomplete permission enumeration is unavailable authority, never a sufficient grant. Source tokens have no operator CLI or installation-token fallback.
+
+<!-- pdac:cite id="BR-LAN-PRIVILEGE-BOUNDARY" digest="sha256:318c7d8d4d3b2e27109e24628f99dd1825494fa9858dc13410032d73650f1cc8" -->
+
+CSRF protects local authentication/connection POSTs. Exact HTTPS host validation, no-store responses and restrictive CSP apply to the application boundary. CSP permits only self and the configured authentication redirect origins for form navigation. Hosting/authentication diagnostics do not log callback queries or credentials; provider-test artifacts contain safe post-callback screenshots and summary receipts rather than HARs or browser call logs. See the [identity implementation](../../../src/SoFa.Modules.Workspace/Identity/) and [boundary tests](../../../tests/SoFa.Web.Tests/OwnerBoundaryTests.cs).
 
 ## Proposed observation semantics
 

@@ -4,26 +4,21 @@ arc42-section: "05"
 description: The static decomposition of the system into building blocks.
 ---
 
-# 05. Responsibilities
+# 05. Implemented application blocks
 
-The observation adapter under `src/observation/` collects GitHub evidence. `src/web/server.mjs` serves fixed assets and a read-only snapshot endpoint with a shared, coalesced 15-second cache. `src/web/public/` renders source timestamps, unavailable evidence, attention labels and recent runs using text nodes and repository-scoped GitHub links. Repository routers and workers execute independently; the retired runtime remains disabled.
+| Building block | Responsibility | Source |
+| --- | --- | --- |
+| Web entrypoint | HTTPS application, safe hosting/logging and module composition | [SoFa.Web](../../../src/SoFa.Web/Program.cs) |
+| Workspace module | Protected account/observation routes, owner admission, process-local sessions and explicit GitHub connection | [Module entrypoint](../../../src/SoFa.Modules.Workspace/WorkspaceModule.cs) |
+| Source query adapters | Effective user/app permission checks, bounded/coalesced observations and account-status projection | [Source adapters](../../../src/SoFa.Modules.Workspace/Source/) |
+| Browser presentation | Source-keyed observations, account states and removal of data after authority loss | [Browser assets](../../../src/web/public/) |
+| Development composition | Workspace plus isolated identity container; external mode omits the provider | [AppHost composition](../../../src/SoFa.AppHost/WorkspaceComposition.cs) |
+| Historical observation CLI | Explicit operator-authorized GitHub reads outside the web application | [Legacy collector](../../../src/observation/github.mjs) |
+
+The workspace module is an application library, not an independently deployed service. Its query handlers are internal and sealed; compiler checks enforce module boundaries. Session/source mechanisms have one canonical explanation in [section 08](../08-crosscutting-concepts/README.md). The AppHost does not reference or start the retained execution runtime.
 
 <!-- pdac:cite id="BC-EXECUTION" digest="sha256:a12712bab0b780d1a2132400bed82c4cca7c3ceeb187911dde55366d6581821e" -->
 
-See [ADR-0006](../09-architecture-decisions/0006-observe-repository-owned-workflows.md) for the accepted boundary and superseded design.
+## Target blocks not yet implemented
 
-## Proposed application blocks
-
-These are logical modules of one application, not new services. They are not present in the current code.
-
-| Block | Responsibility | Key boundary |
-| --- | --- | --- |
-| Workspace UI | Issue detail, action explanation, progress; later inbox/project/health/ideas | Does not evaluate independent policy or hold tokens |
-| Session and GitHub connection | OIDC session, allowed owner, explicit GitHub linking and revalidation | Provider subject differs from source actor; no email-based implicit linking |
-| Issue/query adapter | Paginated issues/conversations, evidence and capability snapshots | Cache keyed by authorized source scope; missing data stays missing |
-| Command adapter | Validate intent, recheck source, persist receipt and submit explicit mutation | Delegates eligibility/admission to shared/source authority |
-| Receipt reconciler | Match exact source identifiers, reconcile uncertain responses and refresh progress | Observes admitted requests; never schedules or automatically resubmits work |
-| Application store | Sessions, protected connections, command journal; later idea drafts and observations | No execution leases, worker queue or checkpoints |
-| Signal projection | Versioned inputs and calculations, comparable history and coverage | Lighthouse/source semantics; no implicit score policy |
-
-The command store belongs to SoFa availability and recovery only. A repository admitted run never reads it to execute.
+Full paginated issue/conversation context, source capability/receipt adapters, a durable application command journal and signal projections remain target work. A future receipt reconciler observes exact source acknowledgments and does not schedule or automatically resubmit work. [ADR-0008](../09-architecture-decisions/0008-source-correlated-issue-commands.md) owns the proposed durability decision.

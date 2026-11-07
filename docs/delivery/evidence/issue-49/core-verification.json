@@ -1,0 +1,33 @@
+{
+  "scope": "Partial identity/session foundations; not completion of49",
+  "checks": [
+    {
+      "command": "DOTNET_PROCESSOR_COUNT=2 MSBUILDDISABLENODEREUSE=1 CI=true npm run verify",
+      "exitCode": 0,
+      "nodeTests": 36,
+      "dotnetTests": 50,
+      "browserTests": 12
+    },
+    {
+      "command": "dotnet test tests/SoFa.Web.Tests/SoFa.Web.Tests.csproj --disable-build-servers",
+      "exitCode": 0,
+      "tests": 12,
+      "warningsAsErrors": true
+    }
+  ],
+  "implemented": [
+    "exactissuer/subject and freshMFA admission",
+    "missing/duplicate/malformedclaim denial",
+    "opaque server ticket references",
+    "15minute idle/fourhour absolute limits; pollingdoesnotrenew",
+    "bounded session capacity, safe renewal, logoutcredential removal",
+    "explicitprofile/repositoryconfig validation and credential-safe errors/serialization"
+  ],
+  "notImplemented": [
+    "HTTP/OIDC callback/middleware boundary",
+    "provider refresh/revocation integration",
+    "GitHub user authorization and permission adapter",
+    "Aspire/Keycloak composition and actualprovider/source/physicalphone evidence",
+    "CQRS usecases and standaloneprofile rejection rehearsal"
+  ]
+}

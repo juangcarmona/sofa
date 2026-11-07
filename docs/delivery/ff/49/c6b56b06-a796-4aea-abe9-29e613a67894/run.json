@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "runId": "c6b56b06-a796-4aea-abe9-29e613a67894",
   "workItem": "juangcarmona/sofa#49",
-  "branch": "main (proposal branch pending)",
+  "branch": "lighthouse/propose-49-2de94e5eefdb",
   "startingCommit": "2a5610d390bd2acbbdc702ad43dd65cfe30c4ca5",
   "startedAt": "2026-10-31T01:02:56Z",
   "executorModel": "gpt-6.1-terra",
   "reviewerModel": "gpt-6-astra",
   "maxCorrectionRounds": 3,
-  "status": "blocked",
+  "status": "running",
   "followUp": {
     "observedAt": "2026-10-31",
     "lighthouseUpgrade": "SoFa PR #81 merged at 3ff107978412818bff2a85993516493f71d23296; main contains CLI 0.12.0 and SDLC 0.16.0. No fresh refine worker run has yet verified end-to-end publication.",
@@ -45,9 +45,73 @@
       "reservationReleased": true,
       "readyGate": "blocked",
       "readyGateNextAction": "Owner reviews the recovered Product Change and proposed ADRs in SoFa draft PR #82, then activates the Lighthouse 0.16.0 upgrade in PR #81 and requests a fresh refinement. The previous failed run has no trusted blocked report for comment continuation."
+    },
+    {
+      "name": "refine",
+      "startedAt": "2026-10-31T09:19:18Z",
+      "endedAt": "2026-10-31T09:24:24Z",
+      "inputCommit": "824131a785d4edd97adbe84850d5c9a26756a0d4",
+      "outputCommit": null,
+      "result": "passed",
+      "readyGate": "passed",
+      "publicationStatus": "published",
+      "reservationReleased": true,
+      "nativeStageRuntimeModel": "openai/gpt-6.1-sol",
+      "evidence": [
+        "https://github.com/juangcarmona/sofa/actions/runs/41188188656",
+        "https://github.com/juangcarmona/sofa/actions/runs/41188212887",
+        "https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541654459"
+      ]
+    },
+    {
+      "name": "propose",
+      "startedAt": "2026-10-31T09:25:06Z",
+      "endedAt": "2026-10-31T09:33:54Z",
+      "inputCommit": "824131a785d4edd97adbe84850d5c9a26756a0d4",
+      "outputCommit": null,
+      "result": "blocked",
+      "gate": "planned",
+      "publicationStatus": "published",
+      "reservationReleased": true,
+      "nativeStageRuntimeModel": "openai/gpt-6.1-sol",
+      "evidence": [
+        "https://github.com/juangcarmona/sofa/actions/runs/41188590922",
+        "https://github.com/juangcarmona/sofa/actions/runs/41188613274",
+        "https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541743353"
+      ]
+    },
+    {
+      "name": "propose",
+      "startedAt": "2026-10-31T09:36:14Z",
+      "endedAt": "2026-10-31T09:45:33Z",
+      "inputCommit": "824131a785d4edd97adbe84850d5c9a26756a0d4",
+      "outputCommit": "ef10b390542432fcdffdb6858904628b44910672",
+      "result": "passed",
+      "gate": "planned",
+      "publicationStatus": "published",
+      "reservationReleased": true,
+      "nativeStageRuntimeModel": "openai/gpt-6.1-sol",
+      "evidence": [
+        "https://github.com/juangcarmona/sofa/actions/runs/41189344149",
+        "https://github.com/juangcarmona/sofa/actions/runs/41189371172",
+        "https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541845604",
+        "https://github.com/juangcarmona/sofa/pull/84"
+      ]
     }
   ],
-  "reviews": [],
+  "reviews": [
+    {
+      "kind": "independent-proposal-review",
+      "model": "gpt-6-astra",
+      "reviewedCommit": "06a0e6b33c3b07ba28d9c8ec141fedc44625c6e8",
+      "decision": "approve",
+      "findings": [
+        "Proposal covers the product, Lighthouse and independent-execution boundaries; owner decisions remain for framework, sessions and ADR-0007.",
+        "Historical FF summary contained stale present-tense statements; corrected in the following commit."
+      ],
+      "finalHeadReview": "pending"
+    }
+  ],
   "corrections": [
     {
       "gate": "local evidence validation",
@@ -59,10 +123,38 @@
       "rerunOutcomes": {
         "npmRunVerify": "passed"
       }
+    },
+    {
+      "gate": "planned",
+      "round": 1,
+      "requestedChanges": [
+        "Provide the adopted identity guide and candidate compatible version pins with evidence."
+      ],
+      "resultingCommit": null,
+      "evidence": [
+        "https://github.com/juangcarmona/sofa/issues/49#issuecomment-6541763350",
+        "https://github.com/juangcarmona/sofa/actions/runs/41189344149",
+        "https://github.com/juangcarmona/sofa/actions/runs/41189371172"
+      ],
+      "rerunOutcomes": {
+        "propose": "passed"
+      }
+    },
+    {
+      "gate": "proposal CI and evidence",
+      "round": 1,
+      "requestedChanges": [
+        "Repair Markdown lint errors in generated OpenSpec files and make historical FF summary explicitly historical."
+      ],
+      "resultingCommit": null,
+      "rerunOutcomes": {
+        "openspecStrict": "passed",
+        "npmRunVerify": "passed"
+      }
     }
   ],
-  "stopReason": "The refine envelope returned a blocked Ready gate because its supplied main checkout lacked CHG-AUTHENTICATED-OPERATIONS-001 and proposed ADR-0007/0008. A later audit found these as uncommitted drafts in local docs/48-product-operations; draft SoFa PR #82 now publishes copies for review without accepting them. The envelope also could not assess OIDC guidance from the worker checkout; the installed CLI package 0.11.6 contains that guide. Engine cleanup exited 1 (EACCES unlinking output/execution/engine.json), so no trusted blocked report was published and an issue reply cannot resume this run. The run used Lighthouse SDLC 0.15.2 at cee9f62, which lacked receipt ownership restoration. Lighthouse CLI 0.12.0 and SDLC 0.16.0 have since been published and are prepared in SoFa PR #81; a host Docker probe confirms the cleanup works with the current image/UID mapping. Reservation release succeeded. Resume requires review and activation of PRs #81 and #82, then a new refine request. Proposal, implementation and integration were not run.",
-  "pullRequest": null,
+  "stopReason": null,
+  "pullRequest": "https://github.com/juangcarmona/sofa/pull/84",
   "links": [
     "https://github.com/juangcarmona/sofa/issues/49",
     "https://github.com/juangcarmona/sofa/blob/main/docs/engineering-lifecycle.md",
@@ -71,7 +163,7 @@
   ],
   "repositoryVerification": {
     "command": "npm run verify",
-      "completedAt": "2026-10-31T05:47:17Z",
+    "completedAt": "2026-10-31T05:47:17Z",
     "status": "passed",
     "summary": "Markdown lint 209 files; Node 27/27; Gitleaks no leaks; ProductShape validate/integrity/doctor passed; ArcShape 12 sections passed; .NET runtime 38/38; browser 4/4."
   },
@@ -95,6 +187,37 @@
     {
       "kind": "lighthouse-cleanup-version-skew",
       "detail": "The failed worker used @juangcarmona/lighthouse-sdlc 0.15.2 at harness revision cee9f62f8161771ea16366c6360b82e0efad045c, which removes its temporary tree without reclaiming ownership of the UID 20003 execution receipt directory. Merged Lighthouse PR #200 / commit 106d118 adds ownership restoration. npm now publishes CLI 0.12.0 and SDLC 0.16.0; SoFa PR #81 adopts that release. A local probe using the current pinned engine image changed the receipt tree back to runner UID 1000 and confirmed host Docker cleanup works."
+    }
+  ],
+  "continuation": {
+    "proposeRouter": "https://github.com/juangcarmona/sofa/actions/runs/41188590922",
+    "proposeRun": "https://github.com/juangcarmona/sofa/actions/runs/41189371172",
+    "implementationHold": "future",
+    "architectureDecisions": "ADR-0007 accepted by owner on 2026-10-31, recorded in PR #84 pending merge; ADR-0008 remains Proposed.",
+    "compatibilityEvidence": "Lighthouse 0.12.0 identity guide SHA-256 fa3d111def4ddd98da5e9795f3e019f9a9e33c9f7c94f9d4c100fc98935adabb; Keycloak 26.8.1 image discovery returned PKCE S256; ASP.NET Core OIDC 10.0.14 built with .NET 10. Full real-provider sign-in remains unverified.",
+    "review": "Owner accepted .NET and Aspire; the profile is selected and guidance installed. Implementation, profile-specific checks, session policy and new independent review remain pending.",
+    "dotnetProfile": {
+      "id": "dotnet-backend",
+      "selection": "configured with official Lighthouse 0.12.0 upgrade; pending PR merge",
+      "projectionVerification": "passed in an isolated staged-tree snapshot",
+      "requiredStaticCheck": "unavailable: npm run verify:dotnet is not configured; implementation must add and run real checks",
+      "runtime": "AppHost currently composes no application resources"
+    }
+  },
+  "ownerDecisions": [
+    {
+      "decision": "Accept ADR-0007: external Keycloak, independent development provider and separate GitHub authorization.",
+      "owner": "Juan García Carmona",
+      "date": "2026-10-31",
+      "evidence": "Owner explicitly approved ADR-0007 in the current conversation; recorded in PR #84 pending merge.",
+      "scope": "Does not approve ADR-0008, the proposed application framework, session policy or implementation."
+    },
+    {
+      "decision": "Use ASP.NET Core and Aspire for SoFa and follow the Lighthouse .NET backend profile.",
+      "owner": "Juan García Carmona",
+      "date": "2026-10-31",
+      "evidence": "Owner explicitly selected .NET and Aspire for SoFa in the current conversation; ADR-0009 records the decision in PR #84 pending merge.",
+      "scope": "Does not approve the session policy, implementation or merge."
     }
   ]
 }

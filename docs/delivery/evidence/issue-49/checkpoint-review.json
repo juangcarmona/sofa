@@ -1,0 +1,69 @@
+{
+  "head": "1fa688c3aff51df306c7cfaa74e0398569b548a6",
+  "verdict": "accept",
+  "findings": [],
+  "dimensions": [
+    {
+      "dimension": "Acceptance criteria",
+      "status": "partially-met",
+      "evidence": "Source and deterministic/provider-harness coverage is substantial at this checkpoint. Actual development GitHub App consent and designated-repository permission/revocation evidence, physical-phone reachability/MFA/source/logout evidence, and final current-head hosted CI remain explicitly unmet. This is not a Done determination."
+    },
+    {
+      "dimension": "Implementation completeness",
+      "status": "met-at-checkpoint",
+      "evidence": "Reviewed owner admission, OIDC middleware callbacks, bounded server-side sessions, and GitHub user-source boundary in implementation. The proposal's production provisioning/recovery and command-writing behavior remain explicitly out of scope."
+    },
+    {
+      "dimension": "Tests",
+      "status": "met-at-checkpoint-with-evidence-limits",
+      "evidence": "Provided checkpoint evidence reports 90 .NET tests, 52 owner/source tests, and an actual pinned Keycloak provider run with synthetic accounts. Those harness results do not establish actual GitHub user consent or physical-device behavior."
+    },
+    {
+      "dimension": "Quality checks",
+      "status": "reported-passing;-hosted-current-head-unmet",
+      "evidence": "Input reports npm run verify and npm run verify:identity:host passing. Final current-head hosted CI is pending; exact isolated SDK-image parity is also not included. No repository commands were run for this read-only audit."
+    },
+    {
+      "dimension": "Security",
+      "status": "no-code-defect-found-at-checkpoint",
+      "evidence": "Reviewed exact issuer/subject/acr/auth_time admission, code+PKCE OIDC setup and framework validation, server-held bounded sessions, CSRF, provider revalidation, GitHub account and repository authorization, fixed API destinations, no CLI/bot fallback, and credential-safe output handling."
+    },
+    {
+      "dimension": "Architecture / design conformance",
+      "status": "met-at-checkpoint",
+      "evidence": "The implementation follows the proposed ASP.NET/Aspire boundary, isolated development provider composition, process-local sessions, and distinct owner-versus-GitHub actor model; no production identity setup is claimed."
+    },
+    {
+      "dimension": "Documentation",
+      "status": "met-at-checkpoint-with-pending-evidence",
+      "evidence": "Proposal, capability specs, and architecture cross-cutting documentation describe implemented boundaries and known limits. They explicitly retain the pending source-consent, phone, and hosted-CI evidence."
+    },
+    {
+      "dimension": "Product / spec consistency",
+      "status": "met-at-checkpoint",
+      "evidence": "The change is grounded in cited ProductShape intent and scopes itself to development owner access and source observation; no product-scope or production-readiness expansion was identified."
+    },
+    {
+      "dimension": "Evidence",
+      "status": "partially-met",
+      "evidence": "Checkpoint receipts and deterministic test counts are provided, but final current-head hosted CI, actual GitHub App consent/repository/revocation evidence, and physical-phone source-device evidence are explicitly pending and unmet."
+    },
+    {
+      "dimension": "Human review",
+      "status": "unmet-for-done",
+      "evidence": "This is an independent intermediate code/security audit only. It is not the named developer's full DoD review or a merge/Done decision."
+    },
+    {
+      "dimension": "Known limitations",
+      "status": "met",
+      "evidence": "The input and proposal explicitly state pending GitHub consent, physical-phone evidence, current-head hosted CI, SDK-image parity, process-local development state, and separate production work."
+    }
+  ],
+  "kind": "checkpoint",
+  "issue": 49,
+  "requestedModel": "openai/gpt-6-luna",
+  "requestedEffort": "high",
+  "reviewedAt": "2026-11-07T15:06:42.657Z",
+  "sourceReadOnly": true,
+  "requestPath": "/tmp/sofa-review-49-checkpoint-1fa688c3af-83b4583b/context.json"
+}

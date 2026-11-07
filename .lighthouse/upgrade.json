@@ -38,11 +38,11 @@
   "lastAppliedMigration": "upgrade-0.12.53",
   "files": {
     "LIGHTHOUSE.md": {
-      "hash": "66def5f4ed8a09f9eb83791756e08f4c6e604153c98a29c7ff3e65470ac7d144",
+      "hash": "fdd840040cab50664c631d21051d8b943e8c17ee1565b069c7fa59a21f74180f",
       "scope": "harness"
     },
     "scripts/lighthouse-guard.mjs": {
-      "hash": "08b66ddaaecab2fd5704b41f30a0bf4a5767dcb92cde30e74820b6e302cbc445",
+      "hash": "4c66ed60473fb667142d9a3dd21053dedd99f7cb95d47559027d9efaec90c78b",
       "scope": "harness"
     },
     ".husky/commit-msg": {
@@ -59,6 +59,38 @@
     },
     ".agents/skills/lighthouse-init/SKILL.md": {
       "hash": "48e1692c905934d9ddceb180ee8cfafda193683d3f21debb54d8287ada068ddc",
+      "scope": "harness"
+    },
+    "docs/profiles/dotnet/README.md": {
+      "hash": "e9a63355d079aaabf23946d804c557da3dc8fca5c325fa2edbe3e964b37c74ea",
+      "scope": "harness"
+    },
+    "docs/profiles/dotnet/adoption.md": {
+      "hash": "712222b6cfcd0fba940c82c41cb25101e3635e1809794c6fa79805bb34a0eaac",
+      "scope": "harness"
+    },
+    "docs/profiles/dotnet/architecture.md": {
+      "hash": "0f33479da972187e4c7a04b8b676fa98964598ab50b0bab5113d9e5dfebe9e93",
+      "scope": "harness"
+    },
+    "docs/profiles/dotnet/guardrails.md": {
+      "hash": "8a18be44ddb3033d0323887552c91ed122593eea717a4d6dc749a052320bc276",
+      "scope": "harness"
+    },
+    "docs/profiles/dotnet/practices.md": {
+      "hash": "d1e0ea33c99a1f38403533df1160375259d534d13a028722928651e13c6279cb",
+      "scope": "harness"
+    },
+    "docs/profiles/dotnet/testing-and-development.md": {
+      "hash": "3c9769003b71e2620394cbf0329ea775632581091fe8a974c945c50ef825852f",
+      "scope": "harness"
+    },
+    "docs/profiles/dotnet/use-cases.md": {
+      "hash": "58b1490a3276f5827e71a3ac267fbfb6c38d57695e4260995adeae8dce68f957",
+      "scope": "harness"
+    },
+    ".agents/skills/lighthouse-dotnet/SKILL.md": {
+      "hash": "806a042c281f8898fd6405ff353180cc2da27cdba813c187c36afe37fb49705a",
       "scope": "harness"
     },
     ".lighthouse/sdlc.json": {

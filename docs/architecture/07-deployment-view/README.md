@@ -4,25 +4,23 @@ arc42-section: "07"
 description: Infrastructure and environment mapping for the system.
 ---
 
-# 07. Deployment separation
+# 07. Development and execution separation
 
-The read-only SoFa process and the repository runner are independently operated. GitHub publication credentials remain in trusted publication jobs. Runner configuration and deployment details belong to operational configuration.
+The supported application entrypoint builds and directly launches the pinned Release AppHost. It composes a workspace process and, only for Development mode, a dedicated Keycloak container. Both browser-visible application and issuer addresses are explicit HTTPS configuration. Secrets, imported synthetic accounts and TLS keys are local private setup files outside the checkout.
 
-The web defaults to loopback and may bind a specific trusted-LAN address. Its fixed repository list and GitHub CLI authentication are operator configuration; HTTP clients cannot select arbitrary repositories, run commands or mutate GitHub. No SoFa database or application service participates in workflow execution.
+| Building block | Development mapping | External / production direction |
+| --- | --- | --- |
+| Workspace | One .NET process composed by Aspire | Same selected external-issuer profile; final production packaging remains release work |
+| Identity provider | Isolated pinned Keycloak image, private test realm and credentials | No provider provisioned by AppHost |
+| Application state | Bounded process-memory sessions, connection state and observations | Protected durable custody/recovery remains unresolved release work |
+| Repository delivery | Independently operated workflows and executor | Independent of either workspace or development provider |
 
 <!-- pdac:cite id="CON-FACTORY-RUNTIME" digest="sha256:3e183bdd765a663d966e19e3c645ee91e36c8e30b14dacc9f4724c670fd21a2d" -->
 
-See [ADR-0006](../09-architecture-decisions/0006-observe-repository-owned-workflows.md) for the accepted boundary and superseded design.
+[Composition source](../../../src/SoFa.AppHost/WorkspaceComposition.cs) is the infrastructure truth. AppHost provisions no supervisor, execution database or anonymous Node listener. Aspire's project-rebuilder helper is development tooling, not a factory worker. The application dashboard is disabled for this entrypoint.
 
-## Proposed environments
+## Operational boundary
 
-| Building block | Development | Production direction |
-| --- | --- | --- |
-| SoFa web and application store | Existing Aspire solution | Final service packaging is delivery work |
-| Keycloak | Dedicated container inside Aspire, test realm/accounts and stable development endpoints | Shared service configured externally |
-| Source credentials | Explicit test repository authorization, separate callbacks and secrets | Owner-authorized GitHub connection in protected SoFa storage |
-| Agent execution | Independent runner/runtime | Workflow-operated; not a SoFa process |
+The [development identity runbook](../../runbooks/development-identity.md) owns setup, exact callbacks, trusted browser/device certificates and rollback. The [launcher](../../../scripts/start-workspace.mjs) bypasses the CLI run hook so an older Debug output or certificate-setup wizard cannot replace the reviewed Release entrypoint. Existing framework runtime certificates are distinct from the isolated application's CA.
 
-The source AppHost currently builds an empty application; adding the development Keycloak resource is future implementation. Pin an integration compatible with the installed Aspire version and seed only non-secret test configuration. Development must work without production identity connectivity. Browser clients need reachable HTTPS endpoints for both the application and its selected issuer.
-
-Infrastructure owns production sizing, TLS/DNS, protected storage, backup and restoration in its own operational documentation. These are release-readiness tasks, not prerequisites to writing the product or developing against local Keycloak. [ADR-0007](../09-architecture-decisions/0007-shared-identity-custody-and-recovery.md) retains the proposed custody and environment separation.
+The external profile is configuration/composition coverage, not evidence of production deployment or provider connectivity. Production TLS/DNS, protected storage, backups and recovery belong to infrastructure under [ADR-0007](../09-architecture-decisions/0007-shared-identity-custody-and-recovery.md) and release-readiness work.

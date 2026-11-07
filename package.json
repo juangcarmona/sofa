@@ -1,7 +1,7 @@
 {
   "name": "sofa",
   "version": "0.0.0",
-  "description": "SoFa — my software factory.",
+  "description": "SoFa \u2014 my software factory.",
   "scripts": {
     "prepare": "husky",
     "test": "node --test",
@@ -12,15 +12,19 @@
     "product:doctor": "prodshape doctor",
     "product:integrity": "prodshape integration update --check",
     "architecture:check": "arcshape validate --links",
-    "verify": "npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run spec:validate && npm run product:citations && npm run architecture:check && npm run test:runtime && npm run test:browser",
+    "verify": "npm run lint:docs && npm run test && npm run security:check && npm run product:validate && npm run product:integrity && npm run product:doctor && npm run spec:validate && npm run product:citations && npm run architecture:check && npm run verify:dotnet && npm run test:browser",
     "test:runtime": "node scripts/verify-runtime.mjs",
     "observe": "node src/observation/github.mjs",
-    "start": "node src/web/server.mjs",
+    "start": "node scripts/start-workspace.mjs",
     "test:browser": "playwright test",
     "verify:container": "node scripts/verify-container.mjs",
     "test:runtime:host": "node scripts/verify-runtime.mjs --host",
     "spec:validate": "openspec validate --all --strict --no-interactive",
-    "product:citations": "prodshape citations verify --provider openspec"
+    "product:citations": "prodshape citations verify --provider openspec",
+    "verify:dotnet": "node scripts/verify-runtime.mjs --profile",
+    "identity:setup": "node scripts/setup-development-identity.mjs",
+    "verify:identity:host": "node scripts/verify-identity-host.mjs",
+    "prepare:aspire": "node scripts/prepare-aspire.mjs"
   },
   "repository": {
     "type": "git",
@@ -43,6 +47,7 @@
     "@commitlint/config-conventional": "21.2.4",
     "@fission-ai/openspec": "1.15.0",
     "@juangcarmona/lighthouse": "0.12.53",
+    "@microsoft/aspire-cli": "13.6.1",
     "@playwright/test": "1.64.1",
     "@prodshape/cli": "0.23.0",
     "fflate": "0.8.3",
@@ -51,5 +56,10 @@
   },
   "dependencies": {
     "@juangcarmona/lighthouse-ui": "0.2.0"
+  },
+  "overrides": {
+    "markdownlint@0.42.0": {
+      "re2js": "2.8.7"
+    }
   }
 }

@@ -1,0 +1,53 @@
+{
+  "scope": "Partial web session and GitHub user-authorization implementation; issue 49 remains incomplete",
+  "verifiedAt": "2026-11-07T13:13:08.291397+00:00",
+  "checks": [
+    {
+      "command": "DOTNET_PROCESSOR_COUNT=2 MSBUILDDISABLENODEREUSE=1 CI=true npm run verify",
+      "exitCode": 0,
+      "nodeTests": 36,
+      "dotnetTests": 82,
+      "dotnetOwnerAndSourceTests": 44,
+      "legacyBrowserTests": 12,
+      "warningsAsErrors": true
+    }
+  ],
+  "implemented": [
+    "ASP.NET cookie/OIDC boundary with exact HTTPS origin, code/S256, fresh owner MFA admission and five-minute nonce/correlation limits",
+    "real middleware tests with signed synthetic issuer responses; invalid identity, signature, nonce, callback replay and browser mismatch denied",
+    "five-minute coalesced online provider refresh; cryptographic identity revalidation; unavailable provider blocks due requests without extending deadlines",
+    "local CSRF logout works during provider outage; late provider responses cannot restore a logged-out session",
+    "framework-issued opaque cookies rotate at fresh login and account transitions; original idle/absolute limits and latest provider tokens survive rotation",
+    "separate GitHub App user authorization: CSRF, S256, session-bound single-use state, numeric user identity, explicit different-account confirmation",
+    "server-held expiring GitHub user credentials, coalesced refresh and recognized revocation; no operator or installation fallback",
+    "configured-repository authorization intersects current user and app grants; bounded pagination traverses second installation and repository pages; incomplete authority fails closed",
+    "source link/disconnect HTTP test confirms no issue, label or workflow mutations"
+  ],
+  "regressions": [
+    {
+      "case": "malformed numeric provider evidence",
+      "before": "InvalidOperationException for string expires_in",
+      "after": "unavailable authority; no renewed validation"
+    },
+    {
+      "case": "provider outage at local logout",
+      "before": "due provider gate blocked local credential removal",
+      "after": "CSRF-protected local removal remains available"
+    },
+    {
+      "case": "provider refresh races account-reference rotation",
+      "before": "prepared ticket restored an older refresh token",
+      "after": "latest server tokens transfer atomically without deadline renewal"
+    }
+  ],
+  "notImplementedOrNotProven": [
+    "authenticated observation adapter, cache isolation and operational asset composition",
+    "development Aspire/Keycloak resource composition and trusted HTTPS setup",
+    "actual Keycloak password/TOTP flow, refresh, revocation and logout evidence",
+    "actual separately registered GitHub App user/repository evidence",
+    "account UI browser/accessibility evidence and actual physical-phone verification",
+    "CQRS use cases and standalone profile rejection rehearsal",
+    "production identity, protected persistence and release readiness"
+  ],
+  "classification": "Deterministic middleware/transport tests use synthetic cryptographic and HTTP provider responses. Existing browser checks cover the legacy observer only. This is not provider interoperability, physical-device acceptance, Done approval or merge authorization evidence."
+}
