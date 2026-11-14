@@ -7,6 +7,7 @@ const paths = {
   factory: 'M3 7h7l2 2h9v11H3ZM3 7V4h7l2 3',
   attention: 'M12 3 2 21h20ZM12 9v5m0 3v1',
   issues: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM12 7v6m0 3v1',
+  ideas: 'M9 18h6m-5 3h4M8 14a6 6 0 1 1 8 0l-1 2H9Z',
   runtime: 'M3 3h18v7H3Zm0 11h18v7H3ZM6 6h1m-1 11h1',
   health: 'M3 12h4l3-8 4 16 3-8h4',
   account: 'M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM4 21v-3a8 8 0 0 1 16 0v3',
@@ -97,7 +98,7 @@ function enhance() {
     let actions = header.querySelector('.header-actions');
     if (!actions) { actions = document.createElement('div'); actions.className = 'header-actions'; header.append(actions); }
     if (!header.querySelector('.header-identity')) { header.insertBefore(identityLink('header-identity'), actions); renderIdentity(); }
-    const refresh = document.querySelector('#refresh, #factory-refresh, #issue-refresh');
+    const refresh = document.querySelector('#refresh, #factory-refresh, #issue-refresh, #idea-refresh');
     if (refresh && !refresh.dataset.headerRefresh) {
       refresh.dataset.headerRefresh = 'true'; refresh.setAttribute('aria-label', refresh.textContent); refresh.title = refresh.textContent;
       refresh.classList.add('header-refresh'); refresh.replaceChildren(icon('refresh')); actions.prepend(refresh);

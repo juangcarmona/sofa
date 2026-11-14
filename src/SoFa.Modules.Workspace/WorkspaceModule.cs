@@ -33,6 +33,7 @@ public static class WorkspaceModule
     services.AddSingleton<GetIssueControlsHandler>();
     services.AddSingleton<SourceControlAccess>();
     services.AddSingleton<IssueControlCommands>();
+    services.AddSingleton<IdeaCommands>();
     services.AddSingleton(provider =>
     {
       var options = provider.GetRequiredService<WorkspaceOptions>();
@@ -289,6 +290,40 @@ public static class WorkspaceModule
     });
     app.MapGet("/api/controls/csrf", (HttpContext context, IAntiforgery antiforgery) =>
         Results.Json(new { token = antiforgery.GetAndStoreTokens(context).RequestToken }));
+    app.MapGet("/workspace/ideas", async (HttpContext context, OwnerSessions sessions) =>
+    {
+      sessions.TouchUserActivity(sessions.Get(context.User)!.Id);
+      return Results.Content(await File.ReadAllTextAsync(Path.Combine(AppContext.BaseDirectory, "workspace-assets", "ideas.html"), context.RequestAborted).ConfigureAwait(false), "text/html");
+    });
+    app.MapGet("/api/ideas", (IdeaCommands ideas) => Results.Json(ideas.List()));
+    app.MapPost("/api/ideas", async (HttpContext context, IAntiforgery antiforgery, OwnerSessions sessions, IdeaCommands ideas) =>
+    {
+      if (!await Csrf(context, antiforgery).ConfigureAwait(false)) return Results.StatusCode(400);
+      if (context.Request.ContentLength is > 32768 || !context.Request.HasJsonContentType()) return Results.StatusCode(400);
+      using var input = new MemoryStream();
+      var bytes = new byte[4096]; int read;
+      while ((read = await context.Request.Body.ReadAsync(bytes, context.RequestAborted).ConfigureAwait(false)) > 0)
+      {
+        if (input.Length + read > 32768) return Results.StatusCode(400);
+        input.Write(bytes, 0, read);
+      }
+      IdeaCommand? command;
+      try
+      {
+        using var value = System.Text.Json.JsonDocument.Parse(input.ToArray());
+        if (value.RootElement.ValueKind != System.Text.Json.JsonValueKind.Object
+            || value.RootElement.EnumerateObject().Select(property => property.Name).Distinct(StringComparer.Ordinal).Count() != value.RootElement.EnumerateObject().Count()
+            || value.RootElement.EnumerateObject().Any(property => property.Name is not ("operation" or "id" or "revision" or "repository" or "title" or "outcome" or "scope" or "number"))) return Results.StatusCode(400);
+        command = System.Text.Json.JsonSerializer.Deserialize<IdeaCommand>(input.ToArray(), System.Text.Json.JsonSerializerOptions.Web);
+      }
+      catch (System.Text.Json.JsonException) { return Results.StatusCode(400); }
+      if (command is null) return Results.StatusCode(400);
+      var record = sessions.Get(context.User)!;
+      sessions.TouchUserActivity(record.Id);
+      var result = await ideas.Handle(record, command, context.RequestAborted).ConfigureAwait(false);
+      return Results.Json(result, statusCode: result.Availability switch
+      { "invalid" => 400, "denied" => 403, "conflict" or "disconnected" => 409, "unavailable" => 503, _ => 200 });
+    });
     app.MapPost("/api/issues/{owner}/{repository}/{number:int}/controls", async (string owner, string repository, int number,
         HttpContext context, IAntiforgery antiforgery, OwnerSessions sessions, IssueControlCommands commands) =>
     {
@@ -371,6 +406,7 @@ public static class WorkspaceModule
             (Path: "/attention.js", File: "attention.js", Type: "text/javascript"),
             (Path: "/attention-controls.js", File: "attention-controls.js", Type: "text/javascript"),
             (Path: "/factory.css", File: "factory.css", Type: "text/css"),
+            (Path: "/ideas.js", File: "ideas.js", Type: "text/javascript"), (Path: "/ideas.css", File: "ideas.css", Type: "text/css"),
             (Path: "/runtime.js", File: "runtime.js", Type: "text/javascript"), (Path: "/runtime.css", File: "runtime.css", Type: "text/css"),
             (Path: "/health.js", File: "health.js", Type: "text/javascript"), (Path: "/health.css", File: "health.css", Type: "text/css"),
             (Path: "/issue.js", File: "issue.js", Type: "text/javascript"),

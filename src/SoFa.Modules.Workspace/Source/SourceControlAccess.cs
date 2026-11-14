@@ -12,6 +12,9 @@ internal sealed record ControlSourceLease(GitHubConnection Connection, ControlAu
 internal sealed class SourceControlAccess(WorkspaceOptions settings, OwnerSessions sessions, GitHubAuthorization authorization,
     RepositoryAccess access, GitHubTransport transport)
 {
+  internal Task<ControlSourceResult> OpenRepository(OwnerSession session, string repository, CancellationToken cancellationToken) =>
+      Open(new(session, repository, 1), cancellationToken);
+
   internal async Task<ControlSourceResult> Open(GetIssueControls query, CancellationToken cancellationToken)
   {
     var record = query.Session;

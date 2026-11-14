@@ -18,6 +18,7 @@ const expectedImports = new Map(Object.entries({
   'health.js': ['workspace-ui.js'],
   'issue-actions.js': ['workspace-ui.js'],
   'issue.js': ['issue-actions.js', 'markdown.js', 'workspace-ui.js'],
+  'ideas.js': ['workspace-ui.js'],
   'markdown.js': [],
   'read-projection-cache.js': [],
   'runtime.js': ['workspace-ui.js'],

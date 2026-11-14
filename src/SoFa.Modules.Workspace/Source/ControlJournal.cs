@@ -17,7 +17,7 @@ internal sealed record JournalResult(string State, string? Id = null, JsonElemen
 }
 
 // Claims are irreversible transmission tombstones. A restored/prepared row is reconciliation-only.
-internal sealed class ControlJournal : IDisposable
+internal sealed partial class ControlJournal : IDisposable
 {
   private PrivateJournalDirectory? storage, keys;
   private SafeFileHandle? database;

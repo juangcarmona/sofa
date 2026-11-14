@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" data-lh-theme="system">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lighthouse Control Center · Ideas</title><link rel="stylesheet" href="/tokens.css"><link rel="stylesheet" href="/app.css"><link rel="stylesheet" href="/ideas.css"><script type="module" src="/ideas.js"></script></head>
+<body class="lh-root">
+<a class="skip" href="#ideas-main">Skip to ideas</a>
+<aside class="site-sidebar" aria-label="Workspace"><a class="brand" href="/workspace/operations" aria-label="Lighthouse Control Center"><img class="brand-mark" src="/lighthouse.svg" alt=""><span class="brand-copy"><strong>Lighthouse</strong> <small>Control Center</small></span></a><nav class="workspace-nav" aria-label="Workspace navigation"><a href="/workspace/operations">Overview</a><a href="/workspace/repositories">Repositories</a><a href="/workspace/attention">Inbox</a><a href="/workspace/issues">Issues</a><a href="/workspace/ideas" aria-current="page">Ideas</a><a href="/workspace/runtime">Runtime</a><a href="/workspace">Account</a></nav></aside>
+<div class="page-column"><header class="topbar"><div class="header-context"><span class="header-kicker">WORKSPACE</span><span class="header-divider">/</span><h1>Ideas</h1></div></header>
+<main id="ideas-main" tabindex="-1">
+<p id="idea-status" role="status" aria-live="polite">Loading retained drafts…</p>
+<section aria-labelledby="drafts-heading"><h2 id="drafts-heading">Retained ideas</h2><div id="idea-list"></div><button id="idea-new" type="button">New idea</button> <button id="idea-refresh" type="button">Refresh drafts</button></section>
+<form id="idea-editor" aria-label="Idea draft">
+<h2>Explore an idea</h2><p>Saving stays in this workspace. No agent or repository workflow starts.</p>
+<label>Title<input name="title" required maxlength="200"></label>
+<label for="idea-repository">Repository</label><select id="idea-repository" name="repository" required></select>
+<label>Intended outcome<textarea name="outcome" required maxlength="4000" rows="4"></textarea></label>
+<label>Scope<textarea name="scope" required maxlength="4000" rows="4"></textarea></label>
+<div class="idea-actions"><button type="submit">Save draft</button><button id="idea-review" type="button" disabled>Review creation</button><button id="idea-abandon" type="button" disabled>Abandon draft</button></div>
+<label>Existing issue number<input name="number" type="number" min="1" step="1"></label><button id="idea-link" type="button" disabled>Link existing issue</button>
+</form>
+<section id="idea-review-panel" aria-labelledby="review-heading" hidden><h2 id="review-heading">Review proposed issue</h2><p id="idea-actor"></p><h3>Potentially related issues</h3><ul id="idea-related"></ul><h3>Exact issue body</h3><pre id="idea-preview"></pre><label><input id="idea-checked" type="checkbox">I inspected the related issues; none is equivalent. Create this issue with the reviewed title and body.</label><button id="idea-create" type="button" disabled>Confirm creation</button></section>
+<section id="idea-result" aria-label="Source result" tabindex="-1" hidden></section>
+<button id="idea-reconcile" type="button" hidden>Reconcile uncertain creation</button>
+</main></div></body></html>
