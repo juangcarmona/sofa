@@ -14,3 +14,5 @@ The accepted product baseline covers cross-repository observation, verification 
 The [Lighthouse Control Center evolution roadmap](roadmap/lighthouse-control-center.md) is the delivery entrypoint: it reconciles current source and active PRs with the proposed product/provider extension, ordered increments and rename gates. The [historical delivery roadmap](roadmap/software-factory.md) preserves superseded runtime history. The [first pilot](roadmap/first-pilot.md) uses `presentations`; architecture details remain in the twelve ArcShape sections rather than in parallel roadmap designs.
 
 The [intervention inbox runbook](runbooks/intervention-inbox.md) explains the read-only wait projection and its source-confirmation limits.
+
+The [repository configuration guide](repository-configuration.md) describes the bounded, read-only configuration inspection and the values it leaves unknown.

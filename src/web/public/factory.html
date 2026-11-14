@@ -16,6 +16,18 @@
 <label class="view-field"><span class="visually-hidden">View</span><select id="factory-view"><option value="list">List</option><option value="board">Board</option></select></label>
 </form>
 <section id="issue-collection" aria-labelledby="work-heading"><h2 id="work-heading" class="visually-hidden">Issues</h2><p id="factory-count"></p><div id="factory-results"></div></section>
+<section id="configuration-inspection" aria-labelledby="configuration-heading" hidden>
+<h2 id="configuration-heading">Repository configuration</h2>
+<p id="configuration-scope" class="notice">Configuration facts come from the connected GitHub account and one immutable repository commit. Latest, installed and policy-required versions are not collected.</p>
+<button id="configuration-refresh" type="button">Inspect configuration</button>
+<p id="configuration-status" role="status" aria-live="polite">Not inspected.</p>
+<label for="configuration-repository">Compare with another configured repository</label>
+<select id="configuration-repository"><option value="">Choose a repository</option></select>
+<button id="configuration-load-comparison" type="button">Inspect selected repository</button>
+<label for="configuration-baseline">Compare with an observed fact from either inspected repository</label>
+<select id="configuration-baseline"><option value="">No comparison selected</option></select>
+<div id="configuration-facts"></div>
+</section>
 <details id="factory-more-filters"><summary>Evidence filters and coverage</summary><div class="factory-filter-grid">
 <label>Reported stage<select id="factory-stage"><option value="">Any / unread</option><option value="unknown">Unknown / unread</option></select></label>
 <label>Linked run status<select id="factory-execution"><option value="">Any / unread</option><option value="unknown">Unknown / unread</option></select></label>

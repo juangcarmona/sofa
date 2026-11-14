@@ -24,7 +24,7 @@ if (!attentionView) {
   if (repositoryPath) {
     document.body.dataset.repositoryScoped = 'true';
     const parent = node('a', 'Repositories'); parent.href = '/workspace/repositories';
-    document.querySelector('.header-context').replaceChildren(parent, document.createTextNode(' / ' + repositoryPath[2]));
+    document.querySelector('.header-context').replaceChildren(parent, document.createTextNode(' / ' + repositoryPath.slice(1).map(decodeURIComponent).join('/')));
   }
   for (const link of document.querySelectorAll('.workspace-nav a')) {
     link.removeAttribute('aria-current');
@@ -35,6 +35,10 @@ if (!attentionView) {
 let attentionHistory = new Map();
 const repositories = new Map();
 const evidence = new Map();
+const configurationProjections = new Map();
+let configurationBaseline = '';
+let configurationLoading = false;
+let configurationNotice = '';
 let dataScope, disclosureScope, busy = false, epoch = 0, lookupNumber = null;
 const disclosures = new Map();
 const identity = (repository, issue) => repository.toLowerCase() + ':' + issue.id;
@@ -71,12 +75,134 @@ function projectHref(repository) {
 function setBusy(value) { busy = value; byId('factory-refresh').disabled = value; for (const button of document.querySelectorAll('#factory-projects button, #factory-results button')) button.disabled = value; }
 function clearSource(message, ownerExpired = false) {
   updateWorkspaceAccount({ state: ownerExpired ? 'expired' : 'unavailable' });
-  epoch++; clearProjectionCache(); repositories.clear(); evidence.clear(); attentionHistory.clear(); disclosures.clear(); dataScope = undefined; render();
+  epoch++; clearProjectionCache(); repositories.clear(); evidence.clear(); attentionHistory.clear(); disclosures.clear(); configurationProjections.clear(); configurationBaseline = ''; configurationNotice = ''; dataScope = undefined; renderConfiguration(); render();
   byId('factory-count').textContent = 'No authorized collection is available.';
   const account = node('a', 'Open account'); account.href = '/workspace';
   byId('factory-results').replaceChildren(node('p', 'Verify your account to read fleet work.'), account);
   status(message);
 }
+function renderConfiguration() {
+  const panel = byId('configuration-inspection');
+  if (!panel) return;
+  panel.hidden = !repositoryPath;
+  if (!repositoryPath) return;
+  const currentRepository = repositoryPath.slice(1).map(decodeURIComponent).join('/');
+  const currentKey = currentRepository.toLowerCase();
+  const current = configurationProjections.get(currentKey);
+  const list = byId('configuration-facts'), picker = byId('configuration-baseline'), compareRepository = byId('configuration-repository');
+  const restoreFocus = list.contains(document.activeElement);
+  const focusKey = document.activeElement?.dataset.configurationFocus;
+  const configured = [...repositories.keys()].filter(name => name.toLowerCase() !== currentKey).sort((a, b) => a.localeCompare(b));
+  const repositoryOptions = [node('option', 'Choose a repository')]; repositoryOptions[0].value = '';
+  for (const name of configured) { const option = node('option', name); option.value = name; repositoryOptions.push(option); }
+  const selectedRepository = compareRepository.value;
+  compareRepository.replaceChildren(...repositoryOptions);
+  compareRepository.value = configured.find(name => name === selectedRepository) ?? '';
+  byId('configuration-load-comparison').disabled = !compareRepository.value;
+  byId('configuration-refresh').disabled = false;
+  byId('configuration-refresh').setAttribute('aria-busy', String(configurationLoading));
+  list.replaceChildren();
+  const now = Date.now();
+  const projections = [...configurationProjections.values()].map(projection => {
+    const observedAt = Date.parse(projection.observedAt);
+    return { ...projection, stale: projection.freshness !== 'fresh' || !Number.isFinite(observedAt) || now - observedAt > 15000 };
+  });
+  const facts = projections.flatMap(projection => projection.facts.map(fact => ({ ...fact, repository: projection.repository, stale: projection.stale })));
+  if (!facts.some(fact => `${fact.repository.toLowerCase()}\n${fact.id}` === configurationBaseline)) configurationBaseline = '';
+  const comparisonGroups = new Map();
+  for (const fact of facts) {
+    const group = [fact.repository.toLowerCase(), fact.component, fact.factKind, fact.contractIdentity].join('\n');
+    const values = comparisonGroups.get(group) ?? new Set(); values.add(fact.rawValue); comparisonGroups.set(group, values);
+  }
+  const options = [node('option', 'No comparison selected')]; options[0].value = '';
+  for (const fact of facts) {
+    const option = node('option', `${fact.repository} · ${fact.component} · ${fact.factKind} · ${fact.rawValue}${fact.stale ? ' · stale' : ''}`); option.value = `${fact.repository.toLowerCase()}\n${fact.id}`; option.disabled = fact.stale; options.push(option);
+  }
+  picker.replaceChildren(...options);
+  picker.value = facts.some(fact => `${fact.repository.toLowerCase()}\n${fact.id}` === configurationBaseline) ? configurationBaseline : '';
+  const values = new Map(facts.map(fact => [`${fact.repository.toLowerCase()}\n${fact.id}`, fact]));
+  for (const fact of facts) {
+    const article = node('article', undefined, 'factory-issue');
+    const factKey = `${fact.repository.toLowerCase()}:${fact.id}`;
+    article.append(node('h3', `${fact.repository} · ${fact.component} · ${fact.factKind}`),
+      node('p', `Observed value: ${fact.rawValue}${fact.stale ? ' · stale; do not use as a current comparison' : ''}`),
+      node('p', `Source: ${fact.sourcePath} · ${fact.revision} · ${time(fact.observedAt)}`),
+      node('p', `Contract: ${fact.contractIdentity} · interpretation: ${fact.interpretation}`));
+    const baseline = values.get(configurationBaseline);
+    if (baseline) {
+      let verdict = 'Unassessed: selected expectation is not comparable to this fact.';
+      if (fact.stale || baseline.stale) verdict = 'Unassessed: one or both observations are stale. Inspect both repositories again before comparing.';
+      else if (baseline.id === fact.id) verdict = 'Selected baseline: this fact is the named expectation.';
+      else if (baseline.component === fact.component && baseline.factKind === fact.factKind && baseline.contractIdentity === fact.contractIdentity) {
+        const left = fact.rawValue.match(/^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/);
+        const right = baseline.rawValue.match(/^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/);
+        if (left && right && ['declared-package', 'lock-resolved-package', 'manifest-pin'].includes(fact.factKind)) {
+          const a = left.slice(1).map(BigInt), b = right.slice(1).map(BigInt);
+          const order = a.findIndex((part, index) => part !== b[index]);
+          const cmp = order < 0 ? 0 : a[order] < b[order] ? -1 : 1;
+          verdict = `Compared with selected declaration ${baseline.rawValue}: ${cmp === 0 ? 'same' : cmp < 0 ? 'lower' : 'higher'} numeric version. This does not establish compatibility or a policy requirement.`;
+        } else if (fact.rawValue === baseline.rawValue) verdict = fact.factKind === 'manifest-pin' && /^[a-f0-9]{40}$/.test(fact.rawValue)
+          ? 'Same source identity in the selected scope.' : 'Same observed value; version ordering and compatibility are unassessed.';
+        else verdict = `Different value from selected expectation ${baseline.rawValue}; no version ordering is inferred.`;
+      }
+      article.append(node('p', verdict));
+    }
+    const group = [fact.repository.toLowerCase(), fact.component, fact.factKind, fact.contractIdentity].join('\n');
+    if ((comparisonGroups.get(group)?.size ?? 0) > 1)
+      article.append(node('p', 'Conflicting declarations are present in this repository. All values remain visible; no winner is selected.', 'notice'));
+    if (typeof fact.sourceUrl === 'string' && /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/blob\/[a-f0-9]{40}\//.test(fact.sourceUrl)) {
+      const link = node('a', 'Open exact source revision'); link.href = fact.sourceUrl; link.rel = 'noreferrer noopener'; link.dataset.configurationFocus = factKey; article.append(link);
+    }
+    if (typeof fact.relatedWorkUrl === 'string' && /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/issues\/[1-9][0-9]{0,9}$/.test(fact.relatedWorkUrl)) {
+      const link = node('a', 'Open source-linked maintenance issue'); link.href = fact.relatedWorkUrl; link.rel = 'noreferrer noopener'; link.dataset.configurationFocus = factKey; article.append(link);
+    }
+    list.append(article);
+  }
+  if (current) {
+    const expired = projections.find(projection => projection.repository.toLowerCase() === currentKey)?.stale ?? true;
+    const freshness = expired ? 'stale' : current.freshness;
+    const statusText = `${current.availability} · ${current.coverage} coverage · ${freshness} · commit ${current.observedRevision ?? 'unknown'} · ${time(current.observedAt)}`;
+    byId('configuration-status').textContent = statusText + (current.reasons?.length ? ` · ${current.reasons.join(' ')}` : '')
+      + (configurationNotice ? ` · ${configurationNotice}` : '');
+    list.prepend(node('p', 'Latest available: unknown · Installed: unknown · Required by policy: unknown. Package declarations and lockfile resolutions do not establish these values.', 'notice'));
+    if (expired) list.prepend(node('p', 'This observation is more than 15 seconds old. Inspect again to verify the current branch and source facts.', 'notice'));
+    list.prepend(node('p', 'No released exception-validity contract is supported. A source declaration cannot establish validity or suppress a difference.', 'notice'));
+    for (const source of current.sources ?? []) {
+      const row = node('p', `${source.path}: ${source.availability} · ${source.interpretation} · ${source.diagnostics?.join(' ') || 'No interpretation diagnostics.'}`);
+      if (typeof source.sourceUrl === 'string' && /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/blob\/[a-f0-9]{40}\//.test(source.sourceUrl)) {
+        const link = node('a', 'Open raw source file'); link.href = source.sourceUrl; link.rel = 'noreferrer noopener'; row.append(' · ', link);
+      }
+      list.append(row);
+    }
+  }
+  if (restoreFocus) requestAnimationFrame(() => {
+    const target = focusKey && [...list.querySelectorAll('[data-configuration-focus]')].find(element => element.dataset.configurationFocus === focusKey);
+    (target || byId('configuration-refresh')).focus();
+  });
+}
+
+function rememberConfiguration(repository, projection) {
+  const key = repository.toLowerCase();
+  const bytes = new TextEncoder().encode(JSON.stringify(projection)).byteLength;
+  if (bytes > 2 * 1024 * 1024) throw Error('Configuration projection exceeded the 2 MiB response bound');
+  configurationProjections.delete(key);
+  while (configurationProjections.size >= 2
+      || [...configurationProjections.values()].reduce((sum, item) => sum + item.bytes, 0) + bytes > 4 * 1024 * 1024) {
+    const evict = [...configurationProjections.keys()].find(candidate => candidate !== currentRepositoryKey());
+    if (!evict) break;
+    configurationProjections.delete(evict);
+    if (configurationBaseline.startsWith(evict + '\n')) configurationBaseline = '';
+  }
+  if (configurationProjections.size < 2
+      && [...configurationProjections.values()].reduce((sum, item) => sum + item.bytes, 0) + bytes <= 4 * 1024 * 1024)
+    configurationProjections.set(key, { ...projection, bytes });
+  else throw Error('The two-repository configuration comparison memory bound was reached');
+  window.setTimeout(() => {
+    const retained = configurationProjections.get(key);
+    if (retained?.observedAt === projection.observedAt) renderConfiguration();
+  }, 15001);
+}
+function currentRepositoryKey() { return repositoryPath?.slice(1).map(decodeURIComponent).join('/').toLowerCase() ?? ''; }
 function removeRepositoryDetails(repository) {
   repositories.delete(repository);
   for (const key of disclosures.keys()) if (key.startsWith(repository.toLowerCase() + ':')) disclosures.delete(key);
@@ -290,7 +416,10 @@ async function refresh() {
     const configured = new Set(account.repositories.map(row => row.repository));
     const readable = new Set(account.repositories.filter(row => row.availability === 'available' && row.issuesRead === true).map(row => row.repository));
     for (const repository of repositories.keys()) if (!configured.has(repository)) removeRepositoryDetails(repository);
-    if (dataScope && dataScope !== account.dataScope) { clearProjectionCache(); repositories.clear(); evidence.clear(); attentionHistory.clear(); disclosures.clear(); }
+    if (dataScope && dataScope !== account.dataScope) { clearProjectionCache(); repositories.clear(); evidence.clear(); attentionHistory.clear(); disclosures.clear(); configurationProjections.clear(); configurationBaseline = ''; configurationNotice = ''; }
+    for (const key of configurationProjections.keys())
+      if (![...configured].some(name => name.toLowerCase() === key)) configurationProjections.delete(key);
+    if (!configurationProjections.has(repositoryPath?.slice(1).map(decodeURIComponent).join('/').toLowerCase() ?? '')) configurationBaseline = '';
     const restore = !dataScope && repositories.size === 0;
     dataScope = account.dataScope;
     if (restore && history.state?.factoryDisclosureScope === dataScope && Array.isArray(history.state.factoryDisclosures)) {
@@ -347,6 +476,37 @@ async function readEvidence(repository, issue) {
   } catch { if (requestEpoch === epoch) { evidence.set(key, { availability: 'unavailable', reports: [], reason: 'Associated evidence is unavailable; stage and workflow state remain unknown.' }); render(); status('Source evidence unavailable; readable issue collection is retained.'); } }
   finally { setBusy(false); }
 }
+async function inspectConfiguration(selectedRepository = null) {
+  if (!repositoryPath || configurationLoading) return;
+  configurationLoading = true;
+  const repository = selectedRepository ?? repositoryPath.slice(1).map(decodeURIComponent).join('/');
+  const requestEpoch = epoch;
+  byId('configuration-refresh').setAttribute('aria-busy', 'true');
+  byId('configuration-status').textContent = 'Checking current repository authority…';
+  try {
+    const path = repository.split('/').map(encodeURIComponent).join('/');
+    const response = await fetch(`/api/repositories/${path}/configuration`, { signal: AbortSignal.timeout(35000) });
+    if ([401, 409].includes(response.status)) { clearSource('The source connection changed during configuration inspection.', response.status === 401); return; }
+    if (response.status === 403) { configurationProjections.delete(repository.toLowerCase()); configurationBaseline = ''; configurationNotice = `${repository}: current contents-read authority is denied.`; renderConfiguration(); return; }
+    const projection = await response.json();
+    if (requestEpoch !== epoch) return;
+    if (projection.repository?.toLowerCase() !== repository.toLowerCase() || projection.dataScope !== dataScope
+        || !Array.isArray(projection.sources) || !Array.isArray(projection.facts)) throw Error('Configuration source identity changed');
+    rememberConfiguration(repository, projection);
+    configurationNotice = repository.toLowerCase() === currentRepositoryKey() ? '' : `${repository}: ${projection.availability} · ${projection.coverage} coverage.`;
+    if (!configurationProjections.has(configurationBaseline.split('\n')[0])) configurationBaseline = '';
+    renderConfiguration();
+  } catch {
+    if (requestEpoch === epoch) {
+      configurationProjections.delete(repository.toLowerCase()); configurationBaseline = '';
+      if (repository.toLowerCase() === currentRepositoryKey()) {
+        configurationNotice = '';
+        byId('configuration-status').textContent = 'Configuration could not be read. Missing source files and latest, installed or policy-required values remain unknown.';
+      } else configurationNotice = `${repository}: configuration could not be read.`;
+      renderConfiguration();
+    }
+  } finally { configurationLoading = false; byId('configuration-refresh').removeAttribute('aria-busy'); }
+}
 for (const [key, value] of new URL(location.href).searchParams) {
   if (repositoryPath && key === 'repository') continue;
   const control = byId('factory-' + key); if (!control) continue;
@@ -359,9 +519,13 @@ byId('factory-search').addEventListener('input', () => { remember(); render(); }
 for (const key of ['state', 'stage', 'execution', 'wait', 'view']) byId('factory-' + key).addEventListener('change', () => { remember(); render(); });
 byId('factory-repository').addEventListener('change', () => { remember(); refresh(); });
 byId('factory-refresh').addEventListener('click', refresh);
+byId('configuration-refresh')?.addEventListener('click', () => inspectConfiguration());
+byId('configuration-load-comparison')?.addEventListener('click', () => { if (byId('configuration-repository').value) inspectConfiguration(byId('configuration-repository').value); });
+byId('configuration-baseline')?.addEventListener('change', event => { configurationBaseline = event.target.value; renderConfiguration(); });
 window.addEventListener('pageshow', event => { if (event.persisted) refresh(); });
 window.addEventListener('pagehide', () => {
   for (const details of document.querySelectorAll('[data-disclosure-key]')) disclosures.set(details.dataset.disclosureKey, details.open);
   history.replaceState({ ...history.state, factoryScroll: window.scrollY, factoryDisclosureScope: dataScope, factoryDisclosures: [...disclosures] }, '');
 });
 refresh();
+renderConfiguration();

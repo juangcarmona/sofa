@@ -37,6 +37,13 @@ body[data-collection="repositories"] #factory-project-details>summary { display:
 body[data-collection="repositories"] .factory-project>.project-actions { display:none; }
 @media(max-width:700px) { .factory-board { grid-template-columns:1fr; } #factory-filters .search-field { flex-basis:100%; } #factory-filters .repository-field { flex:1; } }
 body[data-repository-scoped="true"] .repository-field { display:none; }
+#configuration-inspection { display:grid; gap:.5rem; min-width:0; }
+#configuration-inspection[hidden] { display:none; }
+#configuration-inspection>label { font-size:.8rem; font-weight:600; }
+#configuration-inspection select { display:block; box-sizing:border-box; width:min(100%,34rem); margin-top:.25rem; }
+#configuration-inspection button { width:fit-content; max-width:100%; }
+#configuration-facts { min-width:0; }
+#configuration-facts a+a::before { content:' · '; color:var(--lh-text-muted); }
 @media(min-width:701px) {
   .factory-list>.factory-issue { display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:.75rem; }
   .factory-list>.factory-issue>h3 { padding-right:0; }
